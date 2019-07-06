@@ -13,6 +13,7 @@
             android:id="@+id/lb_home_table"
             app:tabSelectedTextColor="#A73870"
             app:layout_constraintRight_toLeftOf="@+id/search"
+            app:layout_constraintLeft_toLeftOf="parent"
             android:background="@color/white"
 
     >

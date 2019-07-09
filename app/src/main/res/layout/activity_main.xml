@@ -36,7 +36,7 @@
     />
 
     <include
-        layout="@layout/item_main_cardview"
+        layout="@layout/item_footer_textview"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:id="@+id/main_select"

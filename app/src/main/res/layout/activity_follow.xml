@@ -16,19 +16,22 @@
             android:background="@color/white"
 
     />
-    <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@+id/lb_follow_table"
-            app:layout_constraintBottom_toTopOf="@+id/main_select"/>
+   <android.support.v4.view.ViewPager
+           android:layout_width="match_parent"
+           android:layout_height="0dp"
+           app:layout_constraintTop_toBottomOf="@+id/lb_follow_table"
+           app:layout_constraintBottom_toTopOf="@+id/main_select"
+   />
+
 
     <include
-            layout="@layout/item_main_cardview"
+            layout="@layout/item_footer_textview"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:id="@+id/main_select"
             app:layout_constraintBottom_toBottomOf="parent"
     />
+
 
 
 </android.support.constraint.ConstraintLayout>

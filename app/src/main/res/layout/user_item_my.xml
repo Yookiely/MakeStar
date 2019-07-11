@@ -19,6 +19,7 @@
             android:layout_height="1dp"
             app:layout_constraintBottom_toBottomOf="parent"
             android:background="#E4007F"
+            android:id="@+id/user_text"
 
     />
 

@@ -10,7 +10,8 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/auth" />
-            <option value="$PROJECT_DIR$/common" />
+            <option value="$PROJECT_DIR$/commons" />
+            <option value="$PROJECT_DIR$/homepage" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <View
+            android:id="@+id/v_bottom_background"
+            android:layout_width="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="60dp"
+            android:background="#000000" tools:layout_editor_absoluteX="16dp">
+
+    </View>
+
+    <View
+            android:id="@+id/iv_bottom_camera"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_width="40dp"
+            android:layout_height="60dp"/>
+
+    <TextView
+            android:id="@+id/tv_bottom_homepage"
+            app:layout_constraintTop_toTopOf="@id/v_bottom_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_width="wrap_content"
+            app:layout_constraintRight_toLeftOf="@id/tv_bottom_attention"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:textSize="27sp"
+            android:text="首页"/>
+
+    <TextView
+            android:id="@+id/tv_bottom_attention"
+            app:layout_constraintTop_toTopOf="@id/v_bottom_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/tv_bottom_homepage"
+            app:layout_constraintRight_toLeftOf="@id/iv_bottom_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:textSize="27sp"
+            android:text="关注"/>
+
+    <TextView
+            android:id="@+id/tv_bottom_find"
+            app:layout_constraintTop_toTopOf="@id/v_bottom_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/iv_bottom_camera"
+            app:layout_constraintRight_toLeftOf="@id/tv_bottom_individual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:textSize="27sp"
+            android:text="发现"/>
+
+    <TextView
+            android:id="@+id/tv_bottom_individual"
+            app:layout_constraintTop_toTopOf="@id/v_bottom_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/tv_bottom_find"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:textSize="27sp"
+            android:text="我的"/>
+
+</android.support.constraint.ConstraintLayout>

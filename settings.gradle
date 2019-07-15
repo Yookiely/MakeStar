@@ -1,1 +1,1 @@
-include ':app', ':common', ':auth'
+include ':app', ':commons', ':auth', ':homepage'

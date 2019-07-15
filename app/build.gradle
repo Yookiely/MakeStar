@@ -29,7 +29,7 @@ dependencies {
     implementation 'com.youth.banner:banner:1.4.10'
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     implementation 'cn.edu.twt.retrox:recyclerviewdsl:1.1.0'
-    [':auth',':commons'].each {
+    [':auth',':commons',':homepage'].each {
         implementation project(it)
     }
     [*supportLibraries, 'constraint-layout', 'multidex', *archLibraries, 'kotlin-stdlib', 'butterknife', 'anko'].each {

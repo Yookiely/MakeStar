@@ -39,6 +39,8 @@ buildscript {
 
                 'butterknife'         : "com.jakewharton:butterknife:${versions.butterknife}",
                 'butterknife-compiler': "com.jakewharton:butterknife-compiler:${versions.butterknife}",
+
+                'dynamicpagerindicator': 'com.kcrason:dynamicpagerindicator:1.0.6',
         ]
 
         supportLibraries = [

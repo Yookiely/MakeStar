@@ -1,0 +1,62 @@
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:background="#90FFFFFF"
+        android:clickable="true"
+        android:gravity="bottom|center_horizontal"
+        android:orientation="vertical"
+        android:focusable="true">
+
+
+    <RelativeLayout
+            android:id="@+id/ll_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingBottom="12dp">
+
+        <ImageView
+                android:id="@+id/more_window_external"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:clickable="true"
+                android:drawableTop="@drawable/tabbar_compose_more"
+                android:gravity="center_horizontal"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:id="@+id/ll_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_below="@+id/ll_1"
+            android:paddingBottom="12dp">
+
+        <ImageView
+                android:id="@+id/more_window_auto"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:clickable="true"
+                android:drawableTop="@drawable/tabbar_compose_review"
+                android:gravity="center_horizontal"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@+id/ll_2"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="0dp">
+
+        <ImageView
+                android:id="@+id/center_music_window_close"
+                android:layout_width="80dp"
+                android:layout_height="100dp"
+                android:background="@drawable/ms_main_camera"/>
+    </RelativeLayout>
+
+
+</RelativeLayout>

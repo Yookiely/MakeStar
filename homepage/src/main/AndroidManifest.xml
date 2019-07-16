@@ -1,2 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.wingedvampires.homepage"/>
+          package="com.wingedvampires.homepage">
+
+    <application>
+        <activity android:name=".view.HomePageActivity">
+        </activity>
+    </application>
+
+</manifest>

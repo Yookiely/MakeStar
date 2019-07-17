@@ -27,7 +27,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
     implementation 'com.youth.banner:banner:1.4.10'
-    implementation 'de.hdodenhof:circleimageview:3.0.0'
     implementation 'cn.edu.twt.retrox:recyclerviewdsl:1.1.0'
     [':auth',':commons',':homepage',':userpage'].each {
         implementation project(it)

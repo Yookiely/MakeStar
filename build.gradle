@@ -41,6 +41,8 @@ buildscript {
                 'butterknife-compiler': "com.jakewharton:butterknife-compiler:${versions.butterknife}",
 
                 'dynamicpagerindicator': 'com.kcrason:dynamicpagerindicator:1.0.6',
+
+                'circleimageview'     : 'de.hdodenhof:circleimageview:3.0.0'
         ]
 
         supportLibraries = [

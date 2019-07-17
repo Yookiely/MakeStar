@@ -6,7 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.Window
 import cn.edu.twt.retrox.recyclerviewdsl.withItems
-import com.example.yangzihang.makestar.View.setUserText
+import com.example.userpage.view.setUserText
 
 class FollowActivity : AppCompatActivity() {
 

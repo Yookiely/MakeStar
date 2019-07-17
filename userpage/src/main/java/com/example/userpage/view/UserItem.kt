@@ -1,4 +1,4 @@
-package com.example.yangzihang.makestar.View
+package com.example.userpage.view
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import cn.edu.twt.retrox.recyclerviewdsl.Item
 import cn.edu.twt.retrox.recyclerviewdsl.ItemController
-import com.example.yangzihang.makestar.R
+import com.example.userpage.R
 import org.jetbrains.anko.layoutInflater
 
 class UserItem(val titles : String) : Item{
@@ -15,7 +15,7 @@ class UserItem(val titles : String) : Item{
     private companion object Controller : ItemController{
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: Item) {
             holder as UserItemViewHolder
-            item  as com.example.userpage.view.UserItem
+            item  as UserItem
             holder.title.text = item.titles
         }
 
@@ -34,10 +34,10 @@ class UserItem(val titles : String) : Item{
 
 
     override val controller: ItemController
-    get() = UserItem
+        get() = UserItem
 
 
 }
 
 
-fun MutableList<Item>.setUserText(titles: String) = add(com.example.userpage.view.UserItem(titles))
+fun MutableList<Item>.setUserText(titles: String) = add(UserItem(titles))

@@ -6,11 +6,76 @@
         android:layout_height="wrap_content">
 
     <ImageView
+            android:id="@+id/iv_homepage_video"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:src="@drawable/ms_search"
+            tools:src="@drawable/ms_main_camera"/>
+
+    <TextView
+            android:id="@+id/tv_homepage_item_label"
+            app:layout_constraintTop_toTopOf="@id/iv_homepage_video"
+            app:layout_constraintRight_toRightOf="@id/iv_homepage_video"
+            android:layout_width="wrap_content"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:drawableTop="@drawable/ms_round_rectangle"
+            android:layout_height="wrap_content"
+            tools:text="颜值"
     />
 
+    <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_homepage_person"
+            app:layout_constraintLeft_toLeftOf="@id/iv_homepage_video"
+            android:layout_width="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_height="50dp"
+            app:civ_border_width="2dp"
+            android:layout_centerInParent="true"
+            app:civ_border_color="#DD1939"
+            tools:src="@drawable/ms_main_camera"
+            app:layout_constraintTop_toBottomOf="@id/iv_homepage_video"
+            app:layout_constraintBottom_toBottomOf="@id/iv_homepage_video"/>
+
+    <TextView
+            android:id="@+id/tv_homepage_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="#000000"
+            android:textSize="25sp"
+            app:layout_constraintLeft_toRightOf="@id/iv_homepage_person"
+            app:layout_constraintTop_toBottomOf="@id/iv_homepage_video"
+            tools:text="漂亮小仙女"/>
+
+    <TextView
+            android:id="@+id/tv_homepage_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toLeftOf="@id/tv_homepage_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_homepage_title"
+            tools:text="今天也是拍摄ing"/>
+
+    <ImageView
+            android:id="@+id/iv_homepage_fire"
+            android:layout_width="20dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintRight_toRightOf="@id/iv_homepage_video"
+            android:background="@drawable/ms_fire"
+            app:layout_constraintTop_toBottomOf="@id/iv_homepage_video"/>
+
+    <TextView
+            android:id="@+id/tv_homepage_hotperson"
+            app:layout_constraintTop_toBottomOf="@id/iv_homepage_fire"
+            app:layout_constraintLeft_toLeftOf="@id/iv_homepage_fire"
+            app:layout_constraintRight_toRightOf="@id/iv_homepage_fire"
+            android:textColor="#DD0D0D"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="1.34W"/>
 
 </android.support.constraint.ConstraintLayout>

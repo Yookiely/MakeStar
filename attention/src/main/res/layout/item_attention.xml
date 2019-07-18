@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/cv_attention_person"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:civ_border_width="2dp"
+            android:layout_centerInParent="true"
+            app:civ_border_color="#DD1939"
+            tools:src="@drawable/ms_main_camera"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="10dp"/>
+
+    <TextView
+            android:id="@+id/tv_attention_name"
+            app:layout_constraintTop_toTopOf="@id/cv_attention_person"
+            app:layout_constraintLeft_toRightOf="@id/cv_attention_person"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            tools:text="世界第一丧女孩"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_attention_time"
+            app:layout_constraintBottom_toBottomOf="@id/cv_attention_person"
+            app:layout_constraintLeft_toRightOf="@id/cv_attention_person"
+            tools:text="2019 - 4 - 9"/>
+
+    <ImageView
+            android:id="@+id/iv_attention_complain"
+            app:layout_constraintLeft_toRightOf="@id/tv_attention_time"
+            app:layout_constraintTop_toTopOf="@id/tv_attention_time"
+            app:layout_constraintBottom_toBottomOf="@id/tv_attention_time"
+            android:layout_width="10dp"
+            android:layout_height="10dp"/>
+
+    <TextView
+            android:id="@+id/tv_attention_complain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/tv_attention_time"
+            app:layout_constraintBottom_toBottomOf="@id/tv_attention_time"
+            app:layout_constraintLeft_toRightOf="@id/iv_attention_complain"
+            android:text="投诉"/>
+
+    <TextView
+            android:id="@+id/tv_attention_rank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/cv_attention_person"
+            app:layout_constraintBottom_toBottomOf="@id/cv_attention_person"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textColor="#EB1414"
+            android:textSize="20sp"
+            android:layout_marginEnd="20dp"
+            tools:text="NO.123"/>
+    <ImageView
+            android:layout_marginTop="10dp"
+            android:id="@+id/iv_attention_video"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cv_attention_person"
+            android:background="@drawable/ic_launcher_background"/>
+
+
+    <ImageView
+            android:id="@+id/iv_attention_start"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/ms_stop"
+            app:layout_constraintLeft_toLeftOf="@id/iv_attention_video"
+            app:layout_constraintBottom_toBottomOf="@id/iv_attention_video"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="10dp"/>
+
+    <TextView
+            android:id="@+id/tv_attention_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/iv_attention_start"
+            app:layout_constraintBottom_toBottomOf="@id/iv_attention_start"
+            app:layout_constraintLeft_toRightOf="@id/iv_attention_start"
+            tools:text="4:00"
+            android:layout_marginStart="10dp"
+            android:textColor="#ffffff"/>
+
+    <ImageView
+            android:id="@+id/iv_attention_comment"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:layout_constraintTop_toBottomOf="@id/iv_attention_video"
+            app:layout_constraintRight_toRightOf="@id/iv_attention_video"
+            android:layout_marginEnd="5dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/ms_gray_message"/>
+
+    <TextView
+            android:id="@+id/tv_attention_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/iv_attention_comment"
+            app:layout_constraintLeft_toLeftOf="@id/iv_attention_comment"
+            app:layout_constraintRight_toRightOf="@id/iv_attention_comment"
+            tools:text="278"/>
+
+    <ImageView
+            android:id="@+id/iv_attention_store"
+            app:layout_constraintTop_toTopOf="@id/iv_attention_comment"
+            app:layout_constraintBottom_toBottomOf="@id/iv_attention_comment"
+            app:layout_constraintRight_toLeftOf="@id/iv_attention_comment"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/ms_star"
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
+
+    <TextView
+            android:id="@+id/tv_attention_store"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/iv_attention_store"
+            app:layout_constraintLeft_toLeftOf="@id/iv_attention_store"
+            app:layout_constraintRight_toRightOf="@id/iv_attention_store"
+            tools:text="2345"/>
+
+    <ImageView
+            android:id="@+id/iv_attention_share"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:layout_constraintTop_toTopOf="@id/iv_attention_comment"
+            app:layout_constraintBottom_toBottomOf="@id/iv_attention_comment"
+            app:layout_constraintRight_toLeftOf="@id/iv_attention_store"
+            android:background="@drawable/ms_gray_share"
+            android:layout_marginEnd="30dp"/>
+
+    <TextView
+            android:id="@+id/tv_attention_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/iv_attention_share"
+            app:layout_constraintLeft_toLeftOf="@id/iv_attention_share"
+            app:layout_constraintRight_toRightOf="@id/iv_attention_share"
+            tools:text="506"/>
+
+    <ImageView
+            android:id="@+id/iv_attention_number"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:layout_constraintTop_toTopOf="@id/iv_attention_comment"
+            app:layout_constraintBottom_toBottomOf="@id/iv_attention_comment"
+            app:layout_constraintRight_toLeftOf="@id/iv_attention_share"
+            android:layout_marginEnd="30dp"/>
+    <TextView
+            android:id="@+id/tv_attention_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/iv_attention_number"
+            app:layout_constraintRight_toRightOf="@id/iv_attention_number"
+            app:layout_constraintTop_toBottomOf="@id/iv_attention_number"
+            tools:text="347.8kw"/>
+
+    <TextView
+            android:id="@+id/tv_attention_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tv_attention_comment"
+            app:layout_constraintLeft_toLeftOf="@id/iv_attention_video"
+            android:layout_gravity="left"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            tools:text="如日本满街的樱的如日本满街的樱的如日本满街的樱的如日本满街的樱的如日本满街的樱的如日本满街的樱的如日本满街的樱的如日本满街的樱的如日本满街的樱的如日本满街的樱的如日本满街的樱的如日本满街的樱的"/>
+
+    <TextView
+            android:id="@+id/tv_attention_label"
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:layout_marginTop="4dp"
+            android:textSize="14dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_attention_title"
+            tools:text="#音乐 #颜值 #日系小姐姐 #樱花开的季节 #春天"/>
+</android.support.constraint.ConstraintLayout>

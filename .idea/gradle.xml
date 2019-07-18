@@ -11,6 +11,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/auth" />
             <option value="$PROJECT_DIR$/commons" />
+            <option value="$PROJECT_DIR$/discover" />
             <option value="$PROJECT_DIR$/homepage" />
             <option value="$PROJECT_DIR$/userpage" />
           </set>

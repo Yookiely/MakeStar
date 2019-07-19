@@ -3,11 +3,13 @@ package com.example.common
 import com.example.common.experimental.network.CommonBody
 import kotlinx.coroutines.experimental.Deferred
 import retrofit2.http.GET
-import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface AuthService{
-   @GET("/api/{user}/{register}")
-   fun getToken(@Path("user") user : String,@Path("register") register : String) : Deferred<CommonBody<AuthData>>
+   @GET("/api/user/register")
+   fun register(@Query("user") user : String, @Query("register") register : String) : Deferred<CommonBody<NewUser>>
+    @GET("/api/user/login")
+    fun getToken(@Query("user") user : String, @Query("register") register : String) : Deferred<CommonBody<AuthData>>
 }
 
 
@@ -28,4 +30,9 @@ data class AuthData(
     val year_hot_value: String,
     val spotted: Int,
     val city: String
+)
+
+
+data class NewUser(
+    val token: String
 )

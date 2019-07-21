@@ -13,7 +13,7 @@
             android:layout_height="50dp"
             app:civ_border_width="2dp"
             android:layout_centerInParent="true"
-            app:civ_border_color="#DD1939"
+            app:civ_border_color="#cccccc"
             tools:src="@drawable/ms_main_camera"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="18dp"

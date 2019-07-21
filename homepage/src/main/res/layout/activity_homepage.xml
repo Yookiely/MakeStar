@@ -47,12 +47,12 @@
             android:id="@+id/vp_homepage_main"
             android:layout_width="match_parent"
             android:layout_height="661dp"
-            app:layout_constraintBottom_toTopOf="@id/bottom"
+            app:layout_constraintBottom_toTopOf="@id/bm_homepage_main"
             app:layout_constraintTop_toBottomOf="@id/tb_main"/>
 
 
     <include
-            android:id="@+id/bottom"
+            android:id="@+id/bm_homepage_main"
             layout="@layout/commons_bottom_column"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

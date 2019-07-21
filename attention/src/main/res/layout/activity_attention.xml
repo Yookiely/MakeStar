@@ -10,9 +10,19 @@
     <android.support.v7.widget.Toolbar
             android:id="@+id/tb_attention_main"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/color_shape"
+            android:layout_height="60dp"
+            android:background="@drawable/ms_main_theme"
             app:layout_constraintTop_toTopOf="parent">
+        <TextView
+                android:id="@+id/tv_attention_live_label"
+                android:layout_width="34dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="14dp"
+                android:background="@drawable/ms_round_rectangle"
+                android:text="live"
+                android:textSize="12sp"/>
 
         <com.kcrason.dynamicpagerindicatorlibrary.DynamicPagerIndicator
                 android:id="@+id/dynamic_pager_indicator2"
@@ -23,10 +33,15 @@
                 app:indicatorLineStartColor="@color/colorAccent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginEnd="60dp"
+                android:layout_marginStart="14dp"
                 app:pagerIndicatorMode="scrollable"
                 android:layout_gravity="bottom"
-                android:layout_marginBottom="10dp"
-                app:pagerIndicatorScrollToCenterMode="linkage"/>
+                android:layout_marginBottom="6dp"
+                app:pagerIndicatorScrollToCenterMode="linkage"
+                app:tabNormalTextColor="@color/white"
+                app:tabSelectedTextColor="@color/white"
+                app:tabSelectedTextSize="20dp"
+                app:tabNormalTextSize="18dp"/>
 
     </android.support.v7.widget.Toolbar>
 
@@ -41,16 +56,18 @@
 
     <include
             android:id="@+id/bm_attention_main"
-            layout="@layout/main_bottom"
+            layout="@layout/commons_bottom_column"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
     <ImageView
             android:id="@+id/iv_attention_camera"
-            android:layout_width="80dp"
-            android:layout_height="100dp"
-            android:background="@drawable/ms_main_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="50dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ms_main_camera"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"/>

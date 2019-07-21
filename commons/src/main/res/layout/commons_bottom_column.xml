@@ -69,4 +69,47 @@
             android:textSize="16sp"
             android:text="我的"/>
 
+    <ImageView
+            android:id="@+id/iv_bottom_homepage_point"
+            app:layout_constraintBottom_toBottomOf="@id/tv_bottom_homepage"
+            app:layout_constraintLeft_toLeftOf="@id/tv_bottom_homepage"
+            android:layout_marginBottom="12dp"
+            android:layout_marginStart="25dp"
+            android:visibility="invisible"
+            android:background="@drawable/ms_red_point"
+            android:layout_width="10dp"
+            android:layout_height="10dp"/>
+
+    <ImageView
+            android:id="@+id/iv_bottom_attention_point"
+            app:layout_constraintBottom_toBottomOf="@id/tv_bottom_attention"
+            app:layout_constraintLeft_toLeftOf="@id/tv_bottom_attention"
+            android:layout_marginBottom="12dp"
+            android:layout_marginStart="25dp"
+            android:visibility="invisible"
+            android:background="@drawable/ms_red_point"
+            android:layout_width="10dp"
+            android:layout_height="10dp"/>
+
+    <ImageView
+            android:id="@+id/iv_bottom_find_point"
+            app:layout_constraintBottom_toBottomOf="@id/tv_bottom_find"
+            app:layout_constraintLeft_toLeftOf="@id/tv_bottom_find"
+            android:visibility="invisible"
+            android:layout_marginBottom="12dp"
+            android:layout_marginStart="25dp"
+            android:background="@drawable/ms_red_point"
+            android:layout_width="10dp"
+            android:layout_height="10dp"/>
+
+    <ImageView
+            android:id="@+id/iv_bottom_individual_point"
+            app:layout_constraintBottom_toBottomOf="@id/tv_bottom_individual"
+            app:layout_constraintLeft_toLeftOf="@id/tv_bottom_individual"
+            android:visibility="invisible"
+            android:layout_marginBottom="12dp"
+            android:layout_marginStart="25dp"
+            android:background="@drawable/ms_red_point"
+            android:layout_width="10dp"
+            android:layout_height="10dp"/>
 </android.support.constraint.ConstraintLayout>

@@ -26,7 +26,6 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
-    implementation 'com.youth.banner:banner:1.4.10'
     implementation 'cn.edu.twt.retrox:recyclerviewdsl:1.1.0'
     [':auth',':commons',':homepage',':userpage',':discover'].each {
         implementation project(it)

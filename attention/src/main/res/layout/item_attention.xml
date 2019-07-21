@@ -7,7 +7,7 @@
         android:layout_height="wrap_content">
 
     <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/cv_attention_person"
+            android:id="@+id/cv_attention_pic_near"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -20,11 +20,13 @@
 
     <TextView
             android:id="@+id/tv_attention_name"
-            app:layout_constraintTop_toTopOf="@id/cv_attention_person"
-            app:layout_constraintLeft_toRightOf="@id/cv_attention_person"
+            app:layout_constraintTop_toTopOf="@id/cv_attention_pic_near"
+            app:layout_constraintLeft_toRightOf="@id/cv_attention_pic_near"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#000000"
+            android:ellipsize="end"
+            android:singleLine="true"
             android:textSize="16sp"
             tools:text="世界第一丧女孩"/>
 
@@ -32,8 +34,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tv_attention_time"
-            app:layout_constraintBottom_toBottomOf="@id/cv_attention_person"
-            app:layout_constraintLeft_toRightOf="@id/cv_attention_person"
+            app:layout_constraintBottom_toBottomOf="@id/cv_attention_pic_near"
+            app:layout_constraintLeft_toRightOf="@id/cv_attention_pic_near"
             tools:text="2019 - 4 - 9"/>
 
     <ImageView
@@ -42,12 +44,15 @@
             app:layout_constraintTop_toTopOf="@id/tv_attention_time"
             app:layout_constraintBottom_toBottomOf="@id/tv_attention_time"
             android:layout_width="10dp"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/ms_red_complain"
             android:layout_height="10dp"/>
 
     <TextView
             android:id="@+id/tv_attention_complain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
             app:layout_constraintTop_toTopOf="@id/tv_attention_time"
             app:layout_constraintBottom_toBottomOf="@id/tv_attention_time"
             app:layout_constraintLeft_toRightOf="@id/iv_attention_complain"
@@ -57,8 +62,8 @@
             android:id="@+id/tv_attention_rank"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/cv_attention_person"
-            app:layout_constraintBottom_toBottomOf="@id/cv_attention_person"
+            app:layout_constraintTop_toTopOf="@id/cv_attention_pic_near"
+            app:layout_constraintBottom_toBottomOf="@id/cv_attention_pic_near"
             app:layout_constraintRight_toRightOf="parent"
             android:textColor="#EB1414"
             android:textSize="20sp"
@@ -71,7 +76,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cv_attention_person"
+            app:layout_constraintTop_toBottomOf="@id/cv_attention_pic_near"
             android:background="@drawable/ic_launcher_background"/>
 
 
@@ -157,6 +162,7 @@
             android:id="@+id/iv_attention_number"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:background="@drawable/ms_living"
             app:layout_constraintTop_toTopOf="@id/iv_attention_comment"
             app:layout_constraintBottom_toBottomOf="@id/iv_attention_comment"
             app:layout_constraintRight_toLeftOf="@id/iv_attention_share"

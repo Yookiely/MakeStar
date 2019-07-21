@@ -7,4 +7,51 @@
         android:layout_height="match_parent"
         tools:context=".AttentionActivity">
 
+    <android.support.v7.widget.Toolbar
+            android:id="@+id/tb_attention_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/color_shape"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <com.kcrason.dynamicpagerindicatorlibrary.DynamicPagerIndicator
+                android:id="@+id/dynamic_pager_indicator2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:indicatorLineEndColor="@color/colorPrimary"
+                app:indicatorLineScrollMode="dynamic"
+                app:indicatorLineStartColor="@color/colorAccent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginEnd="60dp"
+                app:pagerIndicatorMode="scrollable"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="10dp"
+                app:pagerIndicatorScrollToCenterMode="linkage"/>
+
+    </android.support.v7.widget.Toolbar>
+
+
+    <android.support.v4.view.ViewPager
+            android:id="@+id/vp_attention_main"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/bm_attention_main"
+            app:layout_constraintTop_toBottomOf="@id/tb_attention_main"/>
+
+
+    <include
+            android:id="@+id/bm_attention_main"
+            layout="@layout/main_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <ImageView
+            android:id="@+id/iv_attention_camera"
+            android:layout_width="80dp"
+            android:layout_height="100dp"
+            android:background="@drawable/ms_main_camera"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
 </android.support.constraint.ConstraintLayout>

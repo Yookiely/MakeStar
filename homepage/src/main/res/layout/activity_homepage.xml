@@ -10,53 +10,61 @@
     <android.support.v7.widget.Toolbar
             android:id="@+id/tb_main"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/color_shape"
+            android:layout_height="60dp"
+            android:background="@drawable/ms_main_theme"
             app:layout_constraintTop_toTopOf="parent">
 
         <com.kcrason.dynamicpagerindicatorlibrary.DynamicPagerIndicator
                 android:id="@+id/dynamic_pager_indicator2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:indicatorLineEndColor="@color/colorPrimary"
+                app:indicatorLineEndColor="@color/white"
                 app:indicatorLineScrollMode="dynamic"
-                app:indicatorLineStartColor="@color/colorAccent"
+                app:indicatorLineStartColor="@color/white"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginEnd="60dp"
+                android:layout_marginStart="20dp"
                 app:pagerIndicatorMode="scrollable"
                 android:layout_gravity="bottom"
-                android:layout_marginBottom="10dp"
-                app:pagerIndicatorScrollToCenterMode="linkage"/>
+                android:layout_marginBottom="6dp"
+                app:pagerIndicatorScrollToCenterMode="linkage"
+                app:tabNormalTextColor="@color/white"
+                app:tabSelectedTextColor="@color/white"
+                app:tabSelectedTextSize="20dp"
+                app:tabNormalTextSize="18dp"/>
 
         <ImageView
-                android:background="@drawable/ms_search"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="5dp"
-                android:layout_gravity="end"/>
+                android:src="@drawable/ms_search"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="6dp"
+                android:layout_gravity="end|bottom"/>
     </android.support.v7.widget.Toolbar>
 
 
     <android.support.v4.view.ViewPager
-            android:id="@+id/view_pager2"
+            android:id="@+id/vp_homepage_main"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="661dp"
             app:layout_constraintBottom_toTopOf="@id/bottom"
             app:layout_constraintTop_toBottomOf="@id/tb_main"/>
 
 
     <include
             android:id="@+id/bottom"
-            layout="@layout/main_bottom"
+            layout="@layout/commons_bottom_column"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
     <ImageView
-            android:id="@+id/show"
-            android:layout_width="80dp"
-            android:layout_height="100dp"
-            android:background="@drawable/ms_main_camera"
+            android:id="@+id/iv_homepage_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="50dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ms_main_camera"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"/>

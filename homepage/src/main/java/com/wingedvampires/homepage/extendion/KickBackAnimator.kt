@@ -18,8 +18,8 @@ class KickBackAnimator : TypeEvaluator<Float> {
         return calculate(t, b, c, d)!!
     }
 
-    fun calculate(t: Float, b: Float, c: Float, d: Float): Float? {
-        val t = t / d - 1
+    private fun calculate(f: Float, b: Float, c: Float, d: Float): Float? {
+        val t = f / d - 1
         return c * ((t) * t * ((s + 1) * t + s) + 1) + b
     }
 }

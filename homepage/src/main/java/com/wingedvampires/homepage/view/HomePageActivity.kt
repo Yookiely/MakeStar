@@ -21,10 +21,10 @@ class HomePageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_homepage)
 
-        image = findViewById(R.id.show)
+        image = findViewById(R.id.iv_homepage_camera)
         image.setOnClickListener { v -> showMoreWindow(v) }
 
-        homepageViewPager = findViewById(R.id.view_pager2)
+        homepageViewPager = findViewById(R.id.vp_homepage_main)
         dynamicPagerIndicator = findViewById(R.id.dynamic_pager_indicator2)
         setViewPagerContent()
     }
@@ -44,7 +44,7 @@ class HomePageActivity : AppCompatActivity() {
             mMoreWindow!!.init()
         }
 
-        mMoreWindow!!.showMoreWindow(view, 80)
+        mMoreWindow!!.showMoreWindow(view)
     }
 
 }

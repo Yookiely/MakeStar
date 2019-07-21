@@ -80,7 +80,7 @@ class MoreWindow(internal var mContext: Activity) : PopupWindow(), View.OnClickL
         return overlay
     }
 
-    private fun showAnimation1(view: View, fromY: Int, toY: Int): Animation {
+    private fun showAnimation1(fromY: Int, toY: Int): Animation {
         val set = AnimationSet(true)
         val go = TranslateAnimation(0f, 0f, fromY.toFloat(), toY.toFloat())
         go.duration = 300
@@ -107,7 +107,7 @@ class MoreWindow(internal var mContext: Activity) : PopupWindow(), View.OnClickL
     }
 
 
-    fun showMoreWindow(anchor: View, bottomMargin: Int) {
+    fun showMoreWindow(anchor: View) {
         layout = LayoutInflater.from(mContext).inflate(R.layout.center_music_more_window, null) as RelativeLayout
         contentView = layout
 
@@ -117,7 +117,7 @@ class MoreWindow(internal var mContext: Activity) : PopupWindow(), View.OnClickL
         //		params.addRule(RelativeLayout.BELOW, R.id.ll_2);
         //		params.addRule(RelativeLayout.RIGHT_OF, R.id.ll_1);
         //		View view = LayoutInflater.from(mContext).inflate(R.layout.activity_main, null);
-        //		ImageView standrad  = view.findViewById(R.id.show);
+        //		ImageView standrad  = view.findViewById(R.id.iv_homepage_camera);
         //		params.height = standrad.getHeight();
         //		params.width = standrad.getWidth();
         //		params.topMargin = 200;

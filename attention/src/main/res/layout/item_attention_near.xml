@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/cv_attention_pic_near"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:civ_border_width="2dp"
+            android:layout_centerInParent="true"
+            app:civ_border_color="#DD1939"
+            tools:src="@drawable/ms_main_camera"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="10dp"/>
+
+    <TextView
+            android:id="@+id/tv_attention_rank_near"
+            app:layout_constraintTop_toBottomOf="@id/cv_attention_pic_near"
+            app:layout_constraintLeft_toLeftOf="@id/cv_attention_pic_near"
+            app:layout_constraintRight_toRightOf="@id/cv_attention_pic_near"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            tools:text="NO.123"/>
+
+    <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="@id/cv_attention_pic_near"
+            app:layout_constraintBottom_toBottomOf="@id/cv_attention_pic_near"
+            app:layout_constraintLeft_toRightOf="@id/cv_attention_pic_near"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="24dp">
+
+        <TextView
+                android:id="@+id/tv_attention_name_near"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                tools:text="世界第一丧女孩"/>
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+            <TextView
+                    android:id="@+id/tv_attention_status_near"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    tools:text="[在线]"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_attention_message_near"
+                    android:layout_marginStart="7dp"
+                    android:textSize="13sp"
+                    android:textColor="#999999"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    tools:text="这里是在日本的桑酱！我们"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#000000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_attention_rank_near"
+            android:layout_marginTop="8dp"/>
+
+</android.support.constraint.ConstraintLayout>

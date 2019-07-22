@@ -3,6 +3,8 @@
           package="com.wingedvampires.homepage">
 
     <application>
+        <activity android:name=".view.GlobalSearchActivity">
+        </activity>
         <activity android:name=".view.HomePageActivity">
         </activity>
     </application>

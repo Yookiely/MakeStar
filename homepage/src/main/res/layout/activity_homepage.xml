@@ -21,7 +21,6 @@
                 app:indicatorLineEndColor="@color/white"
                 app:indicatorLineScrollMode="dynamic"
                 app:indicatorLineStartColor="@color/white"
-                app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginEnd="60dp"
                 android:layout_marginStart="20dp"
                 app:pagerIndicatorMode="scrollable"

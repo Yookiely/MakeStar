@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <TextView
+            android:id="@+id/tv_attention_new_friends"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="18dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginStart="30dp"
+            android:textColor="#333333"
+            android:textSize="16sp"
+            android:text="新粉丝"/>
+
+    <LinearLayout
+            app:layout_constraintLeft_toRightOf="@id/tv_attention_new_friends"
+            app:layout_constraintTop_toTopOf="@id/tv_attention_new_friends"
+            app:layout_constraintBottom_toBottomOf="@id/tv_attention_new_friends"
+            android:layout_marginStart="24dp"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/cv_attention_new_friend1"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:civ_border_width="1dp"
+                app:civ_border_color="#cccccc"
+                tools:src="@drawable/ms_main_camera"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/cv_attention_newfriend2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:civ_border_width="1dp"
+                android:layout_marginStart="12dp"
+                app:civ_border_color="#cccccc"
+                tools:src="@drawable/ms_main_camera"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/cv_attention_new_friend3"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:civ_border_width="1dp"
+                android:layout_marginStart="12dp"
+                app:civ_border_color="#cccccc"
+                tools:src="@drawable/ms_main_camera"/>
+
+        <FrameLayout
+                android:id="@+id/fl_attention_new_friend4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/cv_attention_newfriend4"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:civ_border_width="1dp"
+                    app:civ_border_color="#cccccc"
+                    tools:src="@drawable/ms_main_camera"/>
+            <TextView
+                    android:id="@+id/tv_attention_new_friends_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10sp"
+                    tools:text="+123"
+                    android:textColor="#ffffff"
+                    android:textSize="10sp"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd=""/>
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <ImageView
+            android:id="@+id/iv_attention_more_friends"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginEnd="30dp"
+            android:maxWidth="17dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ms_more_friends"/>
+
+</android.support.constraint.ConstraintLayout>

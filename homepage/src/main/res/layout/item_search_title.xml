@@ -15,7 +15,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginStart="18dp"
             android:textSize="12sp"
-            android:textColor="999999"
+            android:textColor="#999999"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="10dp"
             tools:text="大家都在搜"/>
@@ -29,7 +29,7 @@
             android:text="删除"
             android:visibility="invisible"
             android:textSize="12sp"
-            android:textColor="999999"
+            android:textColor="#999999"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

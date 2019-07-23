@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            app:layout_constraintRight_toLeftOf="@+id/more_arrow"
+            app:layout_constraintTop_toTopOf="parent"
+            android:paddingRight="6dp"
+            android:text="查看更多"
+            android:textSize="16sp"
+            android:textColor="#9f9f9f"
+            android:id="@+id/more_text"
+    />
+    <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:id="@+id/more_arrow"
+            android:src="@drawable/arrow"
+            android:layout_marginRight="12dp"
+    />
+
+</android.support.constraint.ConstraintLayout>

@@ -7,4 +7,55 @@
         android:layout_height="match_parent"
         tools:context=".DiscoverActivity">
 
+
+    <android.support.v7.widget.Toolbar
+            android:id="@+id/tb_main"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/ms_main_theme"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <com.kcrason.dynamicpagerindicatorlibrary.DynamicPagerIndicator
+                android:id="@+id/dynamic_pager_indicator2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:indicatorLineEndColor="@color/white"
+                app:indicatorLineScrollMode="dynamic"
+                app:indicatorLineStartColor="@color/white"
+                app:pagerIndicatorMode="scrollable"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="6dp"
+                app:pagerIndicatorScrollToCenterMode="linkage"
+                app:tabNormalTextColor="@color/white"
+                app:tabSelectedTextColor="@color/white"
+                app:tabSelectedTextSize="20dp"
+                app:tabNormalTextSize="18dp"/>
+
+    </android.support.v7.widget.Toolbar>
+
+
+    <android.support.v4.view.ViewPager
+            android:id="@+id/vp_homepage_main"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/bm_homepage_main"
+            app:layout_constraintTop_toBottomOf="@id/tb_main"/>
+
+    <include
+            android:id="@+id/bm_homepage_main"
+            layout="@layout/commons_bottom_column"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <ImageView
+            android:id="@+id/iv_homepage_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="50dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ms_main_camera"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
 </android.support.constraint.ConstraintLayout>

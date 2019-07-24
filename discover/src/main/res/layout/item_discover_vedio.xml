@@ -139,6 +139,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginBottom="14dp"
             android:textColor="#ed1641"
+            android:id="@+id/rank_button"
 
     />
 

@@ -15,8 +15,8 @@ class TopRankItem : Item {
 
     private companion object Controller : ItemController {
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: Item) {
-            holder as VedioItem
-            item as RankItem
+            holder as TopRankItemViewHolder
+            item as TopRankItem
             holder.itemView.setOnClickListener {}
 
         }

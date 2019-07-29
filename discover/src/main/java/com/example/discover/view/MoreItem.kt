@@ -13,7 +13,8 @@ import org.jetbrains.anko.layoutInflater
 class MoreItem : Item {
     private companion object Controller : ItemController {
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: Item) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            holder as MoreItemViewHolder
+            item as MoreItem
         }
 
         override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {

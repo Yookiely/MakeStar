@@ -5,12 +5,104 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".LoginActivity">
+        tools:context=".LoginActivity"
+        android:background="@drawable/background"
+>
     <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Denglu"
-            android:textSize="40dp"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:text="V-STAR"
+            android:textSize="30sp"
+            android:textColor="#ffffff"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="112dp"
+            android:id="@+id/star"
+
     />
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="#ffffff"
+            android:text="账号"
+            app:layout_constraintTop_toBottomOf="@+id/star"
+            android:layout_marginTop="78dp"
+            android:id="@+id/account"
+            app:layout_constraintLeft_toLeftOf="@+id/account_input"
+            android:layout_marginLeft="15dp"
+    />
+
+    <EditText
+            android:layout_width="240dp"
+            android:layout_height="40dp"
+            android:background="@drawable/circle_input"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/account"
+            android:id="@+id/account_input"
+            android:layout_marginTop="10dp"
+    />
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="#ffffff"
+            android:text="密码"
+            android:id="@+id/password"
+            app:layout_constraintTop_toBottomOf="@+id/account_input"
+            app:layout_constraintLeft_toLeftOf="@+id/account"
+            android:layout_marginTop="10dp"
+    />
+
+    <EditText
+            android:layout_width="240dp"
+            android:layout_height="40dp"
+            android:background="@drawable/circle_input"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/password"
+            android:id="@+id/password_input"
+            android:layout_marginTop="10dp"
+    />
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="#ffffff"
+            android:text="忘记密码?"
+            app:layout_constraintTop_toBottomOf="@id/password_input"
+            app:layout_constraintLeft_toLeftOf="@id/password"
+            android:layout_marginTop="10dp"
+            android:id="@+id/forget_password"
+    />
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="#ffffff"
+            android:text="手机登陆> >"
+            app:layout_constraintTop_toTopOf="@+id/forget_password"
+            app:layout_constraintLeft_toRightOf="@id/forget_password"
+            android:layout_marginLeft="96dp"
+            android:id="@+id/login_by_phone"
+    />
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="#ffffff"
+            android:text="注册新用户"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/forget_password"
+            android:layout_marginTop="50dp"
+
+    />
+
 
 </android.support.constraint.ConstraintLayout>

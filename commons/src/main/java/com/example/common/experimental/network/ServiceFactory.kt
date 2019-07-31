@@ -21,7 +21,7 @@ object ServiceFactory {
 
     val client = OkHttpClient.Builder()
 //        .addInterceptor(UserAgentInterceptor.forTrusted)
-//        .addInterceptor(SignatureInterceptor.forTrusted)
+        .addInterceptor(SignatureInterceptor.forTrusted)
 //        .addInterceptor(AuthorizationInterceptor.forTrusted)
 //        .authenticator(RealAuthenticator)
         .retryOnConnectionFailure(false)

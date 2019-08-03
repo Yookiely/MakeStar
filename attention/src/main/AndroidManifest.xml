@@ -3,7 +3,7 @@
           package="com.wingedvampires.attention">
 
     <application>
-        <activity android:name=".AttentionActivity">
+        <activity android:name=".view.AttentionActivity">
         </activity>
     </application>
 

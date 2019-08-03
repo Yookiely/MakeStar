@@ -33,16 +33,17 @@ buildscript {
                 'room'                : 'android.arch.persistence.room:runtime:1.0.0',
                 'room-compiler'       : 'android.arch.persistence.room:compiler:1.0.0',
 
-                'kotlin-stdlib'       : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}",
-                'kotlinx-coroutines'  : 'org.jetbrains.kotlinx:kotlinx-coroutines-android:0.22.5',
-                'anko'                : "org.jetbrains.anko:anko:${versions.anko}",
+                'kotlin-stdlib'        : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}",
+                'kotlinx-coroutines'   : 'org.jetbrains.kotlinx:kotlinx-coroutines-android:0.22.5',
+                'anko'                 : "org.jetbrains.anko:anko:${versions.anko}",
 
-                'butterknife'         : "com.jakewharton:butterknife:${versions.butterknife}",
-                'butterknife-compiler': "com.jakewharton:butterknife-compiler:${versions.butterknife}",
+                'butterknife'          : "com.jakewharton:butterknife:${versions.butterknife}",
+                'butterknife-compiler' : "com.jakewharton:butterknife-compiler:${versions.butterknife}",
 
                 'dynamicpagerindicator': 'com.kcrason:dynamicpagerindicator:1.0.6',
 
-                'circleimageview'     : 'de.hdodenhof:circleimageview:3.0.0'
+                'circleimageview'      : 'de.hdodenhof:circleimageview:3.0.0',
+                'recyclerviewdsl'      : 'cn.edu.twt.retrox:recyclerviewdsl:1.1.0'
         ]
 
         supportLibraries = [

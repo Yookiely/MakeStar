@@ -12,7 +12,7 @@ import com.wingedvampires.homepage.model.Work
 import de.hdodenhof.circleimageview.CircleImageView
 import org.jetbrains.anko.layoutInflater
 
-class HomePageItem(val work: Work) : Item {
+class HomePageItem(val work: Work, val block: () -> Unit) : Item {
     override val controller: ItemController
         get() = Controller
 
@@ -29,8 +29,12 @@ class HomePageItem(val work: Work) : Item {
 
             val work = item.work
 
-            item.apply {
+            holder.apply {
 
+            }
+
+            holder.itemView.setOnClickListener {
+                item.block()
             }
         }
 
@@ -45,3 +49,5 @@ class HomePageItem(val work: Work) : Item {
         val hot: ImageView = itemView.findViewById(R.id.iv_homepage_fire)
     }
 }
+
+fun MutableList<Item>.homePageItem(work: Work, block: () -> Unit = {}) = add(HomePageItem(work, block))

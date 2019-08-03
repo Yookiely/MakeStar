@@ -11,7 +11,7 @@ import com.wingedvampires.attention.model.ConcernPerson
 import de.hdodenhof.circleimageview.CircleImageView
 import org.jetbrains.anko.layoutInflater
 
-class RecommendItem(val concernPerson: ConcernPerson) : Item {
+class RecommendItem(val concernPerson: ConcernPerson, val block: () -> Unit) : Item {
     override val controller: ItemController
         get() = Controller
 
@@ -29,7 +29,9 @@ class RecommendItem(val concernPerson: ConcernPerson) : Item {
             val concernPerson = item.concernPerson
 
             holder.apply {
-
+                add.setOnClickListener {
+                    item.block()
+                }
             }
         }
 
@@ -45,5 +47,7 @@ class RecommendItem(val concernPerson: ConcernPerson) : Item {
         val label2: TextView = itemView.findViewById(R.id.tv_attention_recommend_label2)
         val label3: TextView = itemView.findViewById(R.id.tv_attention_recommend_label3)
     }
-
 }
+
+fun MutableList<Item>.recommendItem(concernPerson: ConcernPerson, block: () -> Unit = {}) =
+    add(RecommendItem(concernPerson, block))

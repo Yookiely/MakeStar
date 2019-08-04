@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp">
+
+    <TextView
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_width="wrap_content"
+            android:textSize="10sp"
+            android:textColor="#999999"
+            android:background="@drawable/ms_history_background"
+            android:layout_height="20dp"
+            android:gravity="center"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
+            tools:text="怎样往死里托ddl"/>
+</android.support.constraint.ConstraintLayout>

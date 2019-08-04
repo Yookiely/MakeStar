@@ -13,34 +13,36 @@
             android:layout_height="60dp"
             android:background="@drawable/ms_main_theme"
             app:layout_constraintTop_toTopOf="parent">
+    </android.support.v7.widget.Toolbar>
 
-
-        <TextView
-                android:id="@+id/tv_search_cancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|bottom"
-                android:layout_marginBottom="12dp"
-                android:layout_marginEnd="16dp"
-                android:textSize="16sp"
-                android:textColor="#ffffff"
-                android:text="取消"/>
+    <LinearLayout
+            android:id="@+id/ll_homepage_search"
+            app:layout_constraintTop_toBottomOf="@id/tb_search_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff">
 
         <EditText
+                android:id="@+id/et_homepage_search"
                 android:layout_width="match_parent"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:layout_height="wrap_content"
+                android:hint="用户名称"
                 android:background="@drawable/ms_search_background"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="10dp"
-                android:layout_marginEnd="10dp"
-                android:textColorHint="#eeeeee"
-                android:layout_marginStart="70dp"/>
-    </android.support.v7.widget.Toolbar>
+                android:textColorHint="#cccccc"
+        />
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_search_main"
-            app:layout_constraintTop_toBottomOf="@id/tb_search_main"
+            app:layout_constraintTop_toBottomOf="@id/ll_homepage_search"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"/>
 
 </android.support.constraint.ConstraintLayout>

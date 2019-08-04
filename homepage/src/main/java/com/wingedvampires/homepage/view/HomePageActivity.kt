@@ -5,9 +5,14 @@ import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
+import com.example.discover.DiscoverActivity
+import com.example.userpage.MyUserActivity
 import com.kcrason.dynamicpagerindicatorlibrary.DynamicPagerIndicator
+import com.wingedvampires.attention.view.AttentionActivity
 import com.wingedvampires.homepage.R
 import com.wingedvampires.homepage.extendion.MoreWindow
+import org.jetbrains.anko.startActivity
 
 class HomePageActivity : AppCompatActivity() {
 
@@ -23,17 +28,31 @@ class HomePageActivity : AppCompatActivity() {
 
         image = findViewById(R.id.iv_homepage_camera)
         image.setOnClickListener { v -> showMoreWindow(v) }
+        val homepage = findViewById<TextView>(R.id.tv_bottom_homepage)
+        val attention = findViewById<TextView>(R.id.tv_bottom_attention)
+        val discover = findViewById<TextView>(R.id.tv_bottom_find)
+        val userpage = findViewById<TextView>(R.id.tv_bottom_individual)
 
+        attention.setOnClickListener { v -> v.context.startActivity<AttentionActivity>() }
+        discover.setOnClickListener { v -> v.context.startActivity<DiscoverActivity>() }
+        userpage.setOnClickListener { v -> v.context.startActivity<MyUserActivity>() }
         homepageViewPager = findViewById(R.id.vp_homepage_main)
         dynamicPagerIndicator = findViewById(R.id.dynamic_pager_indicator2)
         setViewPagerContent()
     }
 
+    //音乐、舞蹈、搞笑、颜值、小剧场和其他
     private fun setViewPagerContent() {
         dynamicFragmentPagerAdapter = DynamicFragmentPagerAdapter(supportFragmentManager)
-//        for (i in 0..29) {
-//            dynamicFragmentPagerAdapter.add(i.toString(), PagerFragment.create(i))
-//        }
+        dynamicFragmentPagerAdapter.apply {
+            add("推荐", HomePageFragment.newInstance(HomePageType.RECOMMEND))
+            add("音乐", HomePageFragment.newInstance(HomePageType.MUSIC))
+            add("舞蹈", HomePageFragment.newInstance(HomePageType.DANCE))
+            add("搞笑", HomePageFragment.newInstance(HomePageType.AMUSE))
+            add("颜值", HomePageFragment.newInstance(HomePageType.FACE))
+            add("小剧场", HomePageFragment.newInstance(HomePageType.THEATER))
+            add("其他", HomePageFragment.newInstance(HomePageType.ELSE))
+        }
         homepageViewPager.adapter = dynamicFragmentPagerAdapter
         dynamicPagerIndicator.setViewPager(homepageViewPager)
     }

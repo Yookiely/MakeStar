@@ -26,7 +26,8 @@ data class WorksWithType(
     val per_page: String,
     val prev_page_url: String,
     val to: Int,
-    val total: Int
+    val total: Int,
+    val tag: String
 )
 
 data class Work(

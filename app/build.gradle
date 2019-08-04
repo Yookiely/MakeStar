@@ -27,7 +27,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
     implementation 'cn.edu.twt.retrox:recyclerviewdsl:1.1.0'
-    [':auth',':commons',':homepage',':userpage',':discover'].each {
+    [':auth',':commons',':homepage',':userpage',':discover',':attention'].each {
         implementation project(it)
     }
     [*supportLibraries, 'constraint-layout', 'multidex', *archLibraries, 'kotlin-stdlib', 'butterknife', 'anko'].each {

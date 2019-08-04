@@ -1,4 +1,4 @@
-package com.wingedvampires.homepage.extendion
+package com.example.common.experimental.extensions.morowindow
 
 import android.animation.TypeEvaluator
 

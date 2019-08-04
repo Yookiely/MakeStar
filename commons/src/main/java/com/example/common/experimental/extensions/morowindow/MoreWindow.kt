@@ -1,4 +1,4 @@
-package com.wingedvampires.homepage.extendion
+package com.example.common.experimental.extensions.morowindow
 
 import android.animation.Animator
 import android.animation.ObjectAnimator
@@ -20,7 +20,7 @@ import android.view.animation.TranslateAnimation
 import android.widget.ImageView
 import android.widget.PopupWindow
 import android.widget.RelativeLayout
-import com.wingedvampires.homepage.R
+import com.example.common.R
 
 class MoreWindow(internal var mContext: Activity) : PopupWindow(), View.OnClickListener {
 

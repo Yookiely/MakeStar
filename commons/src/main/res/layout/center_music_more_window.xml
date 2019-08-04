@@ -53,9 +53,11 @@
 
         <ImageView
                 android:id="@+id/center_music_window_close"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
-                android:background="@drawable/ms_main_camera"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="50dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/ms_main_camera"/>
     </RelativeLayout>
 
 

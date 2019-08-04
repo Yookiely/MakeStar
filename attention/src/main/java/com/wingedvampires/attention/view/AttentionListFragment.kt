@@ -1,4 +1,4 @@
-package com.wingedvampires.homepage.view
+package com.wingedvampires.attention.view
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -9,34 +9,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import cn.edu.twt.retrox.recyclerviewdsl.withItems
-import com.wingedvampires.homepage.R
-import com.wingedvampires.homepage.model.HomePageUtils
+import com.wingedvampires.attention.R
 
-
-class HomePageFragment : Fragment() {
-    private var pageType: Int = 0
+class AttentionListFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private val layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
     private val itemManager by lazy { recyclerView.withItems(listOf()) }
     private var isLoading = true
     private var page = 1
 
-    companion object {
-        fun newInstance(type: Int): HomePageFragment {
-            val args = Bundle()
-            args.putInt(HomePageUtils.INDEX_KEY, type)
-            val fragment = HomePageFragment()
-            fragment.arguments = args
-
-            return fragment
-        }
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_homepage, container, false)
-        val bundle = arguments
-        pageType = bundle!!.getInt(HomePageUtils.INDEX_KEY)
-        recyclerView = view.findViewById(R.id.rv_homepage_main)
+        val view = inflater.inflate(R.layout.fragment_attention_list, container, false)
+
+        recyclerView = view.findViewById(R.id.rv_attention_list)
         recyclerView.layoutManager = layoutManager
 
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {

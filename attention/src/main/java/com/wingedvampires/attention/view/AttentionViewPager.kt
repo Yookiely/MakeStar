@@ -1,11 +1,11 @@
-package com.wingedvampires.homepage.view
+package com.wingedvampires.attention.view
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.PagerAdapter
 
-class DynamicFragmentPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+class AttentionViewPager(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     private val titles = mutableListOf<String>()
     private var fragments = mutableListOf<Fragment>()

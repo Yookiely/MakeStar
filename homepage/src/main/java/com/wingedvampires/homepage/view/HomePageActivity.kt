@@ -6,12 +6,12 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import com.example.common.experimental.extensions.morowindow.MoreWindow
 import com.example.discover.DiscoverActivity
 import com.example.userpage.MyUserActivity
 import com.kcrason.dynamicpagerindicatorlibrary.DynamicPagerIndicator
 import com.wingedvampires.attention.view.AttentionActivity
 import com.wingedvampires.homepage.R
-import com.wingedvampires.homepage.extendion.MoreWindow
 import org.jetbrains.anko.startActivity
 
 class HomePageActivity : AppCompatActivity() {
@@ -45,13 +45,7 @@ class HomePageActivity : AppCompatActivity() {
     private fun setViewPagerContent() {
         dynamicFragmentPagerAdapter = DynamicFragmentPagerAdapter(supportFragmentManager)
         dynamicFragmentPagerAdapter.apply {
-            add("推荐", HomePageFragment.newInstance(HomePageType.RECOMMEND))
-            add("音乐", HomePageFragment.newInstance(HomePageType.MUSIC))
-            add("舞蹈", HomePageFragment.newInstance(HomePageType.DANCE))
-            add("搞笑", HomePageFragment.newInstance(HomePageType.AMUSE))
-            add("颜值", HomePageFragment.newInstance(HomePageType.FACE))
-            add("小剧场", HomePageFragment.newInstance(HomePageType.THEATER))
-            add("其他", HomePageFragment.newInstance(HomePageType.ELSE))
+
         }
         homepageViewPager.adapter = dynamicFragmentPagerAdapter
         dynamicPagerIndicator.setViewPager(homepageViewPager)

@@ -49,7 +49,6 @@ dependencies {
     api 'com.squareup.retrofit2:retrofit:2.4.0'
     api 'com.squareup.retrofit2:converter-gson:2.4.0'
     api 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
-
     api 'com.squareup.okhttp3:okhttp:3.11.0'
     api 'com.squareup.okhttp3:logging-interceptor:3.11.0'
 
@@ -66,5 +65,6 @@ dependencies {
 
     api 'com.tapadoo.android:alerter:2.0.2'
     api 'pub.devrel:easypermissions:0.1.9'
+//    api 'com.github.GrenderG:Toasty:1.4.2'
 
 }

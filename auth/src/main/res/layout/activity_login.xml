@@ -101,7 +101,17 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/forget_password"
             android:layout_marginTop="50dp"
+            android:id="@+id/logup"
 
+    />
+
+    <Button
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toLeftOf="@id/logup"
+            app:layout_constraintTop_toBottomOf="@+id/logup"
+            app:layout_constraintRight_toRightOf="@+id/logup"
+            android:id="@+id/login_button"
     />
 
 

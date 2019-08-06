@@ -1,6 +1,7 @@
 package com.example.common
 
 import com.example.common.experimental.network.CommonBody
+import com.example.common.experimental.network.ServiceFactory
 import kotlinx.coroutines.experimental.Deferred
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -10,6 +11,9 @@ interface AuthService{
    fun register(@Query("user") user : String, @Query("register") register : String) : Deferred<CommonBody<NewUser>>
     @GET("/api/user/login")
     fun getToken(@Query("user") user : String, @Query("register") register : String) : Deferred<CommonBody<AuthData>>
+
+
+    companion object : AuthService by ServiceFactory()
 }
 
 

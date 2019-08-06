@@ -7,12 +7,8 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.common.experimental.extensions.morowindow.MoreWindow
-import com.example.discover.DiscoverActivity
-import com.example.userpage.MyUserActivity
 import com.kcrason.dynamicpagerindicatorlibrary.DynamicPagerIndicator
-import com.wingedvampires.attention.view.AttentionActivity
 import com.wingedvampires.homepage.R
-import org.jetbrains.anko.startActivity
 
 class HomePageActivity : AppCompatActivity() {
 
@@ -33,9 +29,6 @@ class HomePageActivity : AppCompatActivity() {
         val discover = findViewById<TextView>(R.id.tv_bottom_find)
         val userpage = findViewById<TextView>(R.id.tv_bottom_individual)
 
-        attention.setOnClickListener { v -> v.context.startActivity<AttentionActivity>() }
-        discover.setOnClickListener { v -> v.context.startActivity<DiscoverActivity>() }
-        userpage.setOnClickListener { v -> v.context.startActivity<MyUserActivity>() }
         homepageViewPager = findViewById(R.id.vp_homepage_main)
         dynamicPagerIndicator = findViewById(R.id.dynamic_pager_indicator2)
         setViewPagerContent()

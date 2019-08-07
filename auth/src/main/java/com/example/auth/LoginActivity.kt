@@ -1,6 +1,7 @@
 package com.example.auth
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -8,9 +9,12 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.example.auth.api.authSelfLiveData
 import com.example.auth.api.login
 import com.example.common.experimental.cache.CacheIndicator
 import com.example.common.experimental.cache.RefreshState
+import com.example.common.experimental.startActivity
+import com.wingedvampires.homepage.view.HomePageActivity
 import org.jetbrains.anko.coroutines.experimental.asReference
 
 class LoginActivity : AppCompatActivity() {
@@ -39,24 +43,27 @@ class LoginActivity : AppCompatActivity() {
                     this.isEnabled = false
                     login(usernameText.text.toString(), passwordText.text.toString()){
                         when (it) {
-//                            is RefreshState.Success ->
-//                                authSelfLiveData.refresh(CacheIndicator.REMOTE) {
-//                                    when (it) {
-//                                        is RefreshState.Success -> {
-//                                            Toast.makeText(this@LoginActivity, "登录成功", Toast.LENGTH_LONG).show()
-////                                            startActivity(name = "welcome")
-//                                            finish()
-//                                        }
-//                                        is RefreshState.Failure -> {
-//                                            Toast.makeText(this@LoginActivity, "发生错误 ${it.throwable.message}！${it.javaClass.name}", Toast.LENGTH_LONG).show()
-//                                            this.isEnabled = true
-//                                        }
-//                                    }
-//                                }
-//                            is RefreshState.Failure -> {
-//                                Toast.makeText(this@LoginActivity, "发生错误 ${it.throwable.message}！${it.javaClass.name}", Toast.LENGTH_LONG).show()
-//                                this.isEnabled = true
-//                            }
+                            is RefreshState.Success ->
+                                authSelfLiveData.refresh(CacheIndicator.REMOTE) {
+                                    when (it) {
+                                        is RefreshState.Success -> {
+                                            Toast.makeText(this@LoginActivity, "登录成功", Toast.LENGTH_LONG).show()
+//                                            startActivity(name = "welcome")
+                                            var intent = Intent()
+                                            intent.setClass(this@LoginActivity,HomePageActivity::class.java)
+                                            startActivity(intent)
+                                            finish()
+                                        }
+                                        is RefreshState.Failure -> {
+                                            Toast.makeText(this@LoginActivity, "发生错误 ${it.throwable.message}！${it.javaClass.name}", Toast.LENGTH_LONG).show()
+                                            this.isEnabled = true
+                                        }
+                                    }
+                                }
+                            is RefreshState.Failure -> {
+                                Toast.makeText(this@LoginActivity, "发生错误 ${it.throwable.message}！${it.javaClass.name}", Toast.LENGTH_LONG).show()
+                                this.isEnabled = true
+                            }
                         }
                     }
                 }

@@ -11,6 +11,7 @@ import android.widget.EditText
 import android.widget.Toast
 import com.example.auth.api.authSelfLiveData
 import com.example.auth.api.login
+import com.example.common.Transfer
 import com.example.common.experimental.cache.CacheIndicator
 import com.example.common.experimental.cache.RefreshState
 import com.example.common.experimental.startActivity
@@ -48,10 +49,7 @@ class LoginActivity : AppCompatActivity() {
                                     when (it) {
                                         is RefreshState.Success -> {
                                             Toast.makeText(this@LoginActivity, "登录成功", Toast.LENGTH_LONG).show()
-//                                            startActivity(name = "welcome")
-                                            var intent = Intent()
-                                            intent.setClass(this@LoginActivity,HomePageActivity::class.java)
-                                            startActivity(intent)
+                                            Transfer.startActivity(this@LoginActivity, "HomePageActivity", Intent())
                                             finish()
                                         }
                                         is RefreshState.Failure -> {

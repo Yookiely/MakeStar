@@ -31,6 +31,12 @@ object CommonPreferences {
 
     var signature by hawk("signature","")
 
+    var spotted by hawk("spotted","")
+
+    var city by hawk("city","")
+
+
+
     fun clear() {
         Hawk.deleteAll()
         CommonContext.defaultSharedPreferences.edit().clear().apply()

@@ -34,7 +34,7 @@ data class AuthData(
     val week_hot_value: String,
     val month_hot_value: String,
     val year_hot_value: String,
-    val spotted: Int,
+    val spotted: String,
     val city: String
 )
 

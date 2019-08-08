@@ -37,7 +37,7 @@ sealed class RefreshState<M> {
 }
 
 /**
- * 封装微北洋中标准的错误情况
+ * 封装标准的错误情况
  */
 typealias HttpExceptionHandler = (errCode: Int, httpErrCode: Int, message: String, throwable: Throwable) -> Unit
 

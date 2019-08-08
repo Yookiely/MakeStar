@@ -10,9 +10,6 @@ import retrofit2.Callback
 import retrofit2.HttpException
 import retrofit2.Response
 
-/**
- * Created by rickygao on 2018/3/23.
- */
 interface Cache<V : Any> {
     fun get(): Deferred<V?>
     fun set(value: V): Deferred<Unit>

@@ -25,6 +25,9 @@ val authSelfLiveData = RefreshableLiveData.use(authSelfLocalCache, authSelfRemot
         CommonPreferences.week_hot_value = this.week_hot_value
         CommonPreferences.month_hot_value = this.month_hot_value
         CommonPreferences.year_hot_value = this.year_hot_value
+        CommonPreferences.spotted = this.spotted
+        CommonPreferences.city = this.city
+
 
 
 

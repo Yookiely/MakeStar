@@ -6,9 +6,6 @@ import android.os.Build
 import android.view.View
 import android.view.WindowManager
 
-/**
- * Created by rickygao on 2017/11/14.
- */
 @SuppressLint("PrivateApi")
 fun Activity.enableLightStatusBarMode(enable: Boolean): String {
 

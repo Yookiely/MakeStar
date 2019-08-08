@@ -40,4 +40,4 @@ class UserItem(val titles : String) : Item{
 }
 
 
-fun MutableList<Item>.setUserText(titles: String) = add(com.example.userpage.view.UserItem(titles))
+fun MutableList<Item>.setUserText(titles: String) = add(UserItem(titles))

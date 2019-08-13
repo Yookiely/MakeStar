@@ -68,10 +68,6 @@ class LoginActivity : AppCompatActivity() {
             }
 
         }
-        if (usernameText.text.toString()!=""&&passwordText.text.toString()!=""){
-            username = usernameText.text.toString()
-            passwords = passwordText.text.toString()
-        }
 
 
 

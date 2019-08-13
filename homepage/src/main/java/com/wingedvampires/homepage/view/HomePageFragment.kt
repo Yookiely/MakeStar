@@ -16,6 +16,7 @@ import cn.edu.twt.retrox.recyclerviewdsl.ItemManager
 import com.bumptech.glide.Glide
 import com.example.common.experimental.extensions.QuietCoroutineExceptionHandler
 import com.example.common.experimental.extensions.awaitAndHandle
+import com.example.common.experimental.preference.CommonPreferences
 import com.wingedvampires.homepage.R
 import com.wingedvampires.homepage.extension.MyBanner
 import com.wingedvampires.homepage.model.HomePageService
@@ -83,6 +84,7 @@ class HomePageFragment : Fragment() {
                 layoutManager.findLastCompletelyVisibleItemPositions(array)
 
                 if (!isLoading && (totalCount <= array[1] + 2)) {
+                    isLoading = true
                     loadMore()
                 }
             }
@@ -140,9 +142,9 @@ class HomePageFragment : Fragment() {
             itemManager.refreshAll {
                 clear()
                 works.forEach { work ->
-                    HomePageUtils.setAndGetUserHistory(work.work_ID)
+                    CommonPreferences.setAndGetUserHistory(work.work_ID)
                     homePageItem(work) {
-                        HomePageUtils.setAndGetUserHabit(work.work_type_ID)
+                        CommonPreferences.setAndGetUserHabit(work.work_type_ID)
                     }
 
                 }
@@ -159,9 +161,9 @@ class HomePageFragment : Fragment() {
 
             itemManager.autoRefresh {
                 works.forEach { work ->
-                    HomePageUtils.setAndGetUserHistory(work.work_ID)
+                    CommonPreferences.setAndGetUserHistory(work.work_ID)
                     homePageItem(work) {
-                        HomePageUtils.setAndGetUserHabit(work.work_type_ID)
+                        CommonPreferences.setAndGetUserHabit(work.work_type_ID)
                     }
 
                 }
@@ -181,9 +183,9 @@ class HomePageFragment : Fragment() {
             itemManager.refreshAll {
                 clear() // 删除之前的item
                 worksWithType.data.forEach { work ->
-                    HomePageUtils.setAndGetUserHistory(work.work_ID)
+                    CommonPreferences.setAndGetUserHistory(work.work_ID)
                     homePageItem(work) {
-                        HomePageUtils.setAndGetUserHabit(work.work_type_ID)
+                        CommonPreferences.setAndGetUserHabit(work.work_type_ID)
                     }
 
                 }
@@ -208,9 +210,9 @@ class HomePageFragment : Fragment() {
 
             itemManager.autoRefresh {
                 worksWithType.data.forEach { work ->
-                    HomePageUtils.setAndGetUserHistory(work.work_ID)
+                    CommonPreferences.setAndGetUserHistory(work.work_ID)
                     homePageItem(work) {
-                        HomePageUtils.setAndGetUserHabit(work.work_type_ID)
+                        CommonPreferences.setAndGetUserHabit(work.work_type_ID)
                     }
 
                 }

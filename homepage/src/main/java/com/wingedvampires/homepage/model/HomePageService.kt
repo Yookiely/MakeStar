@@ -13,7 +13,8 @@ interface HomePageService {
     @GET("/api/banner/getRecentBannerByType")
     fun getRecentBannerByType(
         @Query("limit") limit: Int = 4,
-        @Query("bannerType") bannerType: Int = 1
+        @Query("bannerType") bannerType: Int = 1,
+        @Query("user_ID") userId: String = CommonPreferences.userid
     ): Deferred<CommonBody<List<Banner>>>
 
     @GET("/api/work/getWorkTypes")
@@ -21,10 +22,11 @@ interface HomePageService {
 
     @GET("/api/work/getRecommendWork")
     fun getRecommendWork(
-        @Query("history") history: String = HomePageUtils.setAndGetUserHistory(),
-        @Query("habit") habit: String = HomePageUtils.setAndGetUserHabit(),
+        @Query("history") history: String = CommonPreferences.setAndGetUserHistory(),
+        @Query("habit") habit: String = CommonPreferences.setAndGetUserHabit(),
         @Query("limit") limit: Int = 10,
-        @Query("mode") mode: Int = 1
+        @Query("mode") mode: Int = 1,
+        @Query("user_ID") userId: String = CommonPreferences.userid
     ): Deferred<CommonBody<List<Work>>>
 
     @POST("/api/star/loginStar")
@@ -37,7 +39,8 @@ interface HomePageService {
     fun getWorkByTypeID(
         @Query("page") page: Int,
         @Query("work_type_ID") workTypeId: Int,
-        @Query("limit") limit: Int = 10
+        @Query("limit") limit: Int = 10,
+        @Query("user_ID") userId: String = CommonPreferences.userid
     ): Deferred<CommonBody<WorksWithType>>
 
     @GET("/api/work/getWorkByUserID")

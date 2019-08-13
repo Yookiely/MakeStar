@@ -46,8 +46,8 @@ class HomePageItem(val work: Work, val block: (View) -> Unit) : Item {
             val work = item.work
 
             holder.apply {
-                Glide.with(this.itemView).load(work.avatar).placeholder(R.drawable.ms_no_pic).into(avatar)
-                Glide.with(this.itemView).load(work.cover_url).placeholder(R.drawable.ms_no_pic).into(cover)
+                Glide.with(this.itemView).load(work.avatar).error(R.drawable.ms_no_pic).into(avatar)
+                Glide.with(this.itemView).load(work.cover_url).error(R.drawable.ms_no_pic).into(cover)
                 title.text = work.work_name
                 message.text = work.Introduction
                 hotPerson.text = HomePageUtils.format(work.hot_value)

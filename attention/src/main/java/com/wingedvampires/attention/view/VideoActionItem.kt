@@ -7,14 +7,23 @@ import android.widget.ImageView
 import android.widget.TextView
 import cn.edu.twt.retrox.recyclerviewdsl.Item
 import cn.edu.twt.retrox.recyclerviewdsl.ItemController
+import com.bumptech.glide.Glide
 import com.wingedvampires.attention.R
+import com.wingedvampires.attention.model.VideoAction
 import de.hdodenhof.circleimageview.CircleImageView
 import org.jetbrains.anko.layoutInflater
 
-class VideoAttentionItem() : Item {
+class VideoActionItem(val videoAction: VideoAction, val block: (View) -> Unit) : Item {
     override val controller: ItemController
         get() = Controller
 
+    override fun areContentsTheSame(newItem: Item): Boolean {
+        return videoAction.work_ID == (newItem as? VideoActionItem)?.videoAction?.work_ID
+    }
+
+    override fun areItemsTheSame(newItem: Item): Boolean {
+        return videoAction.work_ID == (newItem as? VideoActionItem)?.videoAction?.work_ID
+    }
 
     companion object Controller : ItemController {
         override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
@@ -24,11 +33,13 @@ class VideoAttentionItem() : Item {
         }
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: Item) {
-            item as VideoAttentionItem
+            item as VideoActionItem
             holder as ViewHolder
 
-            holder.apply {
+            val videoAction = item.videoAction
 
+            holder.apply {
+                Glide.with(this.itemView).load(videoAction.avatar).error(R.drawable.ms_no_pic).into(avatar)
             }
         }
 
@@ -55,3 +66,6 @@ class VideoAttentionItem() : Item {
         val commentNum: ImageView = itemView.findViewById(R.id.tv_attention_comment)
     }
 }
+
+fun MutableList<Item>.videoActionItem(videoAction: VideoAction, block: (View) -> Unit = { _ -> }) =
+    add(VideoActionItem(videoAction, block))

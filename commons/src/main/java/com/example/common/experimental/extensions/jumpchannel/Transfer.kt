@@ -1,4 +1,4 @@
-package com.example.common
+package com.example.common.experimental.extensions.jumpchannel
 
 import android.app.Activity
 import android.content.Intent

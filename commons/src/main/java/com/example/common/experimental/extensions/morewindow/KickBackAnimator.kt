@@ -1,4 +1,4 @@
-package com.example.common.experimental.extensions.morowindow
+package com.example.common.experimental.extensions.morewindow
 
 import android.animation.TypeEvaluator
 

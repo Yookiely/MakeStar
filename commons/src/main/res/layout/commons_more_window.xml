@@ -3,7 +3,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
-        android:background="#90FFFFFF"
+        android:background="#99000000"
         android:clickable="true"
         android:gravity="bottom|center_horizontal"
         android:orientation="vertical"
@@ -17,13 +17,15 @@
             android:gravity="center_horizontal"
             android:paddingBottom="12dp">
 
-        <ImageView
+        <TextView
                 android:id="@+id/more_window_external"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:clickable="true"
-                android:drawableTop="@drawable/tabbar_compose_more"
-                android:gravity="center_horizontal"/>
+                android:layout_width="100dp"
+                android:gravity="center"
+                android:layout_height="40dp"
+                android:text="开直播"
+                android:textColor="#ffffff"
+                android:textSize="20sp"
+                android:background="@drawable/ms_button_top"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -32,15 +34,18 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:layout_below="@+id/ll_1"
-            android:paddingBottom="12dp">
+            android:paddingBottom="21dp">
 
-        <ImageView
+        <TextView
                 android:id="@+id/more_window_auto"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:clickable="true"
-                android:drawableTop="@drawable/tabbar_compose_review"
-                android:gravity="center_horizontal"/>
+                android:layout_width="100dp"
+                android:gravity="center"
+                android:layout_height="40dp"
+                android:text="拍作品"
+                android:textColor="#ffffff"
+                android:textSize="20sp"
+                android:background="@drawable/ms_button_bottom"/>
+
     </RelativeLayout>
 
     <RelativeLayout

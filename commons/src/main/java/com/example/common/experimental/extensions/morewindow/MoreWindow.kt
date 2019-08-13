@@ -1,4 +1,4 @@
-package com.example.common.experimental.extensions.morowindow
+package com.example.common.experimental.extensions.morewindow
 
 import android.animation.Animator
 import android.animation.ObjectAnimator
@@ -108,7 +108,7 @@ class MoreWindow(internal var mContext: Activity) : PopupWindow(), View.OnClickL
 
 
     fun showMoreWindow(anchor: View) {
-        layout = LayoutInflater.from(mContext).inflate(R.layout.center_music_more_window, null) as RelativeLayout
+        layout = LayoutInflater.from(mContext).inflate(R.layout.commons_more_window, null) as RelativeLayout
         contentView = layout
 
         val close = layout.findViewById(R.id.center_music_window_close) as ImageView

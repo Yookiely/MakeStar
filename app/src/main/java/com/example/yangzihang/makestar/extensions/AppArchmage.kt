@@ -1,7 +1,7 @@
 package com.example.yangzihang.makestar.extensions
 
 import com.example.auth.LoginActivity
-import com.example.common.Injector
+import com.example.common.experimental.extensions.jumpchannel.Injector
 import com.example.discover.DiscoverActivity
 import com.example.userpage.MyUserActivity
 import com.wingedvampires.attention.view.AttentionActivity

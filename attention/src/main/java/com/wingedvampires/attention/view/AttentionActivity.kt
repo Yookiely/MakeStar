@@ -1,12 +1,14 @@
 package com.wingedvampires.attention.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import com.example.common.experimental.extensions.morowindow.MoreWindow
+import com.example.common.experimental.extensions.jumpchannel.Transfer
+import com.example.common.experimental.extensions.morewindow.MoreWindow
 import com.kcrason.dynamicpagerindicatorlibrary.DynamicPagerIndicator
 import com.wingedvampires.attention.R
 
@@ -26,7 +28,10 @@ class AttentionActivity : AppCompatActivity() {
         val attention = findViewById<TextView>(R.id.tv_bottom_attention)
         val discover = findViewById<TextView>(R.id.tv_bottom_find)
         val userpage = findViewById<TextView>(R.id.tv_bottom_individual)
-
+        homepage.setOnClickListener { Transfer.startActivity(this, "HomePageActivity", Intent()) }
+//        attention.setOnClickListener { Transfer.startActivity(this, "AttentionActivity", Intent()) }
+        discover.setOnClickListener { Transfer.startActivity(this, "DiscoverActivity", Intent()) }
+        userpage.setOnClickListener { Transfer.startActivity(this, "MyUserActivity", Intent()) }
 
         homepageViewPager = findViewById(R.id.vp_attention_main)
         dynamicPagerIndicator = findViewById(R.id.dynamic_pager_indicator2)

@@ -2,20 +2,17 @@ package com.example.auth
 
 import android.content.Context
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import android.support.v7.app.AppCompatActivity
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.example.auth.api.authSelfLiveData
 import com.example.auth.api.login
-import com.example.common.Transfer
 import com.example.common.experimental.cache.CacheIndicator
 import com.example.common.experimental.cache.RefreshState
-import com.example.common.experimental.startActivity
-import com.wingedvampires.homepage.view.HomePageActivity
+import com.example.common.experimental.extensions.jumpchannel.Transfer
 import org.jetbrains.anko.coroutines.experimental.asReference
 
 class LoginActivity : AppCompatActivity() {

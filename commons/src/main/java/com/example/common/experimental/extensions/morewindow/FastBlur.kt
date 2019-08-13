@@ -1,4 +1,4 @@
-package com.example.common.experimental.extensions.morowindow
+package com.example.common.experimental.extensions.morewindow
 
 import android.graphics.Bitmap
 
@@ -8,11 +8,10 @@ object FastBlur {
         sentBitmap: Bitmap, radius: Int,
         canReuseInBitmap: Boolean
     ): Bitmap? {
-        val bitmap: Bitmap
-        if (canReuseInBitmap) {
-            bitmap = sentBitmap
+        val bitmap: Bitmap = if (canReuseInBitmap) {
+            sentBitmap
         } else {
-            bitmap = sentBitmap.copy(sentBitmap.config, true)
+            sentBitmap.copy(sentBitmap.config, true)
         }
 
         if (radius < 1) {

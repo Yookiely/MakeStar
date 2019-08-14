@@ -2,16 +2,19 @@ package com.wingedvampires.homepage.model
 
 import com.example.common.experimental.network.CommonBody
 import com.example.common.experimental.network.ServiceFactory
+import com.example.common.experimental.preference.CommonPreferences
 import kotlinx.coroutines.experimental.Deferred
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface HomePageService {
 
     @GET("/api/banner/getRecentBannerByType")
     fun getRecentBannerByType(
-        @Query("limit") limit: Int = 10,
-        @Query("bannerType") bannerType: Int = 1
+        @Query("limit") limit: Int = 4,
+        @Query("bannerType") bannerType: Int = 1,
+        @Query("user_ID") userId: String = CommonPreferences.userid
     ): Deferred<CommonBody<List<Banner>>>
 
     @GET("/api/work/getWorkTypes")
@@ -19,24 +22,32 @@ interface HomePageService {
 
     @GET("/api/work/getRecommendWork")
     fun getRecommendWork(
-        @Query("history") history: String = HomePageUtils.setAndGetUserHistory(),
-        @Query("habit") habit: String = HomePageUtils.setAndGetUserHabit(),
+        @Query("history") history: String = CommonPreferences.setAndGetUserHistory(),
+        @Query("habit") habit: String = CommonPreferences.setAndGetUserHabit(),
         @Query("limit") limit: Int = 10,
-        @Query("mode") mode: Int = 1
+        @Query("mode") mode: Int = 1,
+        @Query("user_ID") userId: String = CommonPreferences.userid
     ): Deferred<CommonBody<List<Work>>>
+
+    @POST("/api/star/loginStar")
+    fun star(
+        @Query("work_ID") workId: String,
+        @Query("user_ID") userId: String = CommonPreferences.userid
+    ): Deferred<CommonBody<NewStar>>
 
     @GET("/api/work/getWorkByTypeID")
     fun getWorkByTypeID(
-        @Query("limit") limit: Int = 10,
         @Query("page") page: Int,
-        @Query("work_type_ID") workTypeId: Int
+        @Query("work_type_ID") workTypeId: Int,
+        @Query("limit") limit: Int = 10,
+        @Query("user_ID") userId: String = CommonPreferences.userid
     ): Deferred<CommonBody<WorksWithType>>
 
     @GET("/api/work/getWorkByUserID")
     fun getWorkByUserID(
-        @Query("limit") limit: Int = 10,
         @Query("page") page: Int,
-        @Query("user_ID") userId: Int
+        @Query("user_ID") userId: String,
+        @Query("limit") limit: Int = 10
     ): Deferred<CommonBody<WorksWithType>>
 
 
@@ -55,22 +66,21 @@ data class WorksWithType(
     val per_page: String,
     val prev_page_url: String,
     val to: Int,
-    val total: Int,
-    val tag: String
+    val total: Int
 )
 
 data class Work(
     val Introduction: String,
     val avatar: String,
     val cover_url: String,
-    val hot_value: Int,
+    val hot_value: String,
     val tags: String,
     val time: String,
-    val user_ID: Int,
+    val user_ID: String,
     val username: String,
     val video_ID: String,
     val video_link: Any,
-    val work_ID: Int,
+    val work_ID: String,
     val work_name: String,
     val work_type_ID: Int
 )
@@ -86,4 +96,8 @@ data class Banner(
 data class WorkType(
     val work_type_ID: Int,
     val work_type_name: String
+)
+
+data class NewStar(
+    val numberOfStar: String
 )

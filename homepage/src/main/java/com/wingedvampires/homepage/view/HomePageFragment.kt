@@ -1,5 +1,6 @@
 package com.wingedvampires.homepage.view
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -8,18 +9,33 @@ import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import cn.edu.twt.retrox.recyclerviewdsl.withItems
+import android.widget.ImageView
+import android.widget.Toast
+import cn.edu.twt.retrox.recyclerviewdsl.ItemAdapter
+import cn.edu.twt.retrox.recyclerviewdsl.ItemManager
+import com.bumptech.glide.Glide
+import com.example.common.experimental.extensions.QuietCoroutineExceptionHandler
+import com.example.common.experimental.extensions.awaitAndHandle
+import com.example.common.experimental.preference.CommonPreferences
 import com.wingedvampires.homepage.R
+import com.wingedvampires.homepage.extension.MyBanner
+import com.wingedvampires.homepage.model.HomePageService
 import com.wingedvampires.homepage.model.HomePageUtils
+import com.youth.banner.BannerConfig
+import com.youth.banner.loader.ImageLoader
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.launch
 
 
 class HomePageFragment : Fragment() {
-    private var pageType: Int = 0
+    private var workType = 0
     private lateinit var recyclerView: RecyclerView
+    private lateinit var banner: MyBanner
     private val layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
-    private val itemManager by lazy { recyclerView.withItems(listOf()) }
+    private var itemManager: ItemManager = ItemManager()  //by lazy { recyclerView.withItems(listOf()) }
     private var isLoading = true
     private var page = 1
+    private var lastPage = Int.MAX_VALUE
 
     companion object {
         fun newInstance(type: Int): HomePageFragment {
@@ -32,13 +48,34 @@ class HomePageFragment : Fragment() {
         }
     }
 
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_homepage, container, false)
         val bundle = arguments
-        pageType = bundle!!.getInt(HomePageUtils.INDEX_KEY)
-        recyclerView = view.findViewById(R.id.rv_homepage_main)
-        recyclerView.layoutManager = layoutManager
+        workType = bundle!!.getInt(HomePageUtils.INDEX_KEY)
 
+        /** 根据不同的界面选择不同的方法
+         * workType = 0 是推荐界面
+         */
+        val refreshAndLoad = if (workType == HomePageUtils.WORK_TYPE_ID_OF_RECOMMEND) {
+            { loadRecommend() }
+        } else {
+            { loadByType() }
+        }
+        val loadMore = if (workType == HomePageUtils.WORK_TYPE_ID_OF_RECOMMEND) {
+            { loadMoreRecommend() }
+        } else {
+            { loadMoreByType() }
+        }
+
+        banner = view.findViewById(R.id.br_homepage_main)
+        recyclerView = view.findViewById(R.id.rv_homepage_main)
+        recyclerView.apply {
+            layoutManager = layoutManager
+            adapter = ItemAdapter(itemManager)
+        }
+        setBanner()
+        refreshAndLoad()
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -47,8 +84,8 @@ class HomePageFragment : Fragment() {
                 layoutManager.findLastCompletelyVisibleItemPositions(array)
 
                 if (!isLoading && (totalCount <= array[1] + 2)) {
-                    page++
-
+                    isLoading = true
+                    loadMore()
                 }
             }
         })
@@ -56,4 +93,134 @@ class HomePageFragment : Fragment() {
 
         return view
     }
+
+    override fun onStart() {
+        super.onStart()
+        banner.startAutoPlay()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        banner.stopAutoPlay()
+    }
+
+    private fun setBanner() {
+        launch(UI + QuietCoroutineExceptionHandler) {
+            val bannerData = HomePageService.getRecentBannerByType().awaitAndHandle {
+                it.printStackTrace()
+                Toast.makeText(this@HomePageFragment.context, "加载banner失败", Toast.LENGTH_SHORT).show()
+            }?.data ?: return@launch
+
+            val bannerCovers = bannerData.map { banner -> banner.banner_url }
+            banner.apply {
+                //设置图片加载器
+                setImageLoader(object : ImageLoader() {
+                    override fun displayImage(context: Context?, path: Any?, imageView: ImageView?) {
+                        Glide.with(context!!).load(path).error(R.drawable.ms_no_pic).into(imageView!!)
+                    }
+                })
+                //设置banner样式
+                setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE);
+                //设置图片集合
+                setImages(bannerCovers)
+                //设置自动轮播，默认为true
+                isAutoPlay(true)
+                //设置指示器位置（当banner模式中有指示器时）
+                setIndicatorGravity(BannerConfig.CENTER)
+                start()
+            }
+        }
+    }
+
+    private fun loadRecommend() {
+        launch(UI + QuietCoroutineExceptionHandler) {
+            val works = HomePageService.getRecommendWork().awaitAndHandle {
+                it.printStackTrace()
+                Toast.makeText(this@HomePageFragment.context, "加载失败", Toast.LENGTH_SHORT).show()
+            }?.data ?: return@launch
+
+            itemManager.refreshAll {
+                clear()
+                works.forEach { work ->
+                    CommonPreferences.setAndGetUserHistory(work.work_ID)
+                    homePageItem(work) {
+                        CommonPreferences.setAndGetUserHabit(work.work_type_ID)
+                    }
+
+                }
+            }
+        }
+    }
+
+    private fun loadMoreRecommend() {
+        launch(UI + QuietCoroutineExceptionHandler) {
+            val works = HomePageService.getRecommendWork().awaitAndHandle {
+                it.printStackTrace()
+                Toast.makeText(this@HomePageFragment.context, "加载失败", Toast.LENGTH_SHORT).show()
+            }?.data ?: return@launch
+
+            itemManager.autoRefresh {
+                works.forEach { work ->
+                    CommonPreferences.setAndGetUserHistory(work.work_ID)
+                    homePageItem(work) {
+                        CommonPreferences.setAndGetUserHabit(work.work_type_ID)
+                    }
+
+                }
+            }
+        }
+    }
+
+    //音乐、舞蹈、搞笑、颜值、小剧场和其他...
+    private fun loadByType() {
+        launch(UI + QuietCoroutineExceptionHandler) {
+            page = 1
+            val worksWithType = HomePageService.getWorkByTypeID(page, workType).awaitAndHandle {
+                it.printStackTrace()
+                Toast.makeText(this@HomePageFragment.context, "加载失败", Toast.LENGTH_SHORT).show()
+            }?.data ?: return@launch
+
+            itemManager.refreshAll {
+                clear() // 删除之前的item
+                worksWithType.data.forEach { work ->
+                    CommonPreferences.setAndGetUserHistory(work.work_ID)
+                    homePageItem(work) {
+                        CommonPreferences.setAndGetUserHabit(work.work_type_ID)
+                    }
+
+                }
+            }
+
+            page = worksWithType.to
+            lastPage = worksWithType.last_page
+        }
+    }
+
+    private fun loadMoreByType() {
+        launch(UI + QuietCoroutineExceptionHandler) {
+            if (page >= lastPage) {
+                Toast.makeText(this@HomePageFragment.context, "加载到底了", Toast.LENGTH_SHORT).show()
+                return@launch
+            }
+
+            val worksWithType = HomePageService.getWorkByTypeID(page, workType).awaitAndHandle {
+                it.printStackTrace()
+                Toast.makeText(this@HomePageFragment.context, "加载失败", Toast.LENGTH_SHORT).show()
+            }?.data ?: return@launch
+
+            itemManager.autoRefresh {
+                worksWithType.data.forEach { work ->
+                    CommonPreferences.setAndGetUserHistory(work.work_ID)
+                    homePageItem(work) {
+                        CommonPreferences.setAndGetUserHabit(work.work_type_ID)
+                    }
+
+                }
+            }
+
+            page = worksWithType.to
+            lastPage = worksWithType.last_page
+        }
+    }
 }
+

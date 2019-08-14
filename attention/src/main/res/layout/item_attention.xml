@@ -98,7 +98,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cv_attention_pic"
-            android:src="@drawable/ic_launcher_background"/>
+            tools:src="@drawable/ms_no_pic"/>
 
 
     <ImageView

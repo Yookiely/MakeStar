@@ -50,12 +50,12 @@ class MyUserActivity : AppCompatActivity() {
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.withItems {
-            setUserText("历史排名")
-            setUserText("我的消息")
-            setUserText("我的收藏")
-            setUserText("我的作品")
-            setUserText("我的订单")
-            setUserText("商务合作")
+            setUserText("历史排名",this@MyUserActivity,1)
+            setUserText("我的消息",this@MyUserActivity,1)
+            setUserText("我的收藏",this@MyUserActivity,2)
+            setUserText("我的作品",this@MyUserActivity,3)
+            setUserText("我的订单",this@MyUserActivity,4)
+            setUserText("商务合作",this@MyUserActivity,5)
         }
     }
 }

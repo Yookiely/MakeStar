@@ -1,5 +1,8 @@
 package com.example.userpage.view
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +12,7 @@ import cn.edu.twt.retrox.recyclerviewdsl.ItemController
 import com.example.userpage.R
 import org.jetbrains.anko.layoutInflater
 
-class UserItem(val titles : String) : Item{
+class UserItem(val titles : String , val context : Context , val activity: Activity) : Item{
 
 
     private companion object Controller : ItemController{
@@ -17,6 +20,8 @@ class UserItem(val titles : String) : Item{
             holder as UserItemViewHolder
             item  as UserItem
             holder.title.text = item.titles
+            val intent = Intent(item.context,item.activity::class.java)
+            item.context.startActivity(intent)
         }
 
         override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
@@ -40,4 +45,4 @@ class UserItem(val titles : String) : Item{
 }
 
 
-fun MutableList<Item>.setUserText(titles: String) = add(UserItem(titles))
+fun MutableList<Item>.setUserText(titles: String, context: Context , activity: Activity) = add(UserItem(titles ,context,activity))

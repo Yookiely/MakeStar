@@ -9,6 +9,7 @@ import cn.edu.twt.retrox.recyclerviewdsl.Item
 import cn.edu.twt.retrox.recyclerviewdsl.ItemController
 import com.bumptech.glide.Glide
 import com.wingedvampires.attention.R
+import com.wingedvampires.attention.model.AttentionUtils
 import com.wingedvampires.attention.model.VideoAction
 import de.hdodenhof.circleimageview.CircleImageView
 import org.jetbrains.anko.layoutInflater
@@ -40,6 +41,11 @@ class VideoActionItem(val videoAction: VideoAction, val block: (View) -> Unit) :
 
             holder.apply {
                 Glide.with(this.itemView).load(videoAction.avatar).error(R.drawable.ms_no_pic).into(avatar)
+                Glide.with(this.itemView).load(videoAction.cover_url).error(R.drawable.ms_no_pic).into(cover)
+                name.text = videoAction.username
+                time.text = videoAction.time.split(" ")[0]
+                title.text = videoAction.work_name
+                duration.text = AttentionUtils.formatTime(videoAction.Duration)
             }
         }
 

@@ -16,11 +16,25 @@ interface AttentionService {
         @Query("user_ID") userId: String = CommonPreferences.userid
     ): Deferred<CommonBody<List<VideoAction>>>
 
+    @GET("/api/user/getRecommendUser")
+    fun getRecommendUser(
+        @Query("page") page: Int,
+        @Query("uer_ID") userId: String = CommonPreferences.userid,
+        @Query("limit") limit: Int = 10
+    ): Deferred<CommonBody<List<RecommendUser>>>
+
+    @GET("/api/user/getFuns")
+    fun getFans(
+        @Query("page") page: Int,
+        @Query("uer_ID") userId: String = CommonPreferences.userid,
+        @Query("limit") limit: Int = 10
+    ): Deferred<CommonBody<List<Fan>>>
+
     @GET("/api/user/spotList")
     fun getSpotList(
-        @Query("limit") limit: Int = 10,
         @Query("page") page: Int,
-        @Query("uer_ID") userId: String
+        @Query("uer_ID") userId: String = CommonPreferences.userid,
+        @Query("limit") limit: Int = 10
     ): Deferred<CommonBody<List<ConcernPerson>>>
 
     @GET("/api/follow/add")
@@ -50,6 +64,19 @@ data class VideoAction(
     val work_ID: String,
     val work_name: String,
     val Duration: Float
+)
+
+data class RecommendUser(
+    val avatar: String,
+    val fans_num: Int,
+    val user_ID: Int,
+    val username: String
+)
+
+data class Fan(
+    val avatar: String,
+    val user_ID: Int,
+    val username: String
 )
 
 data class ConcernPerson(

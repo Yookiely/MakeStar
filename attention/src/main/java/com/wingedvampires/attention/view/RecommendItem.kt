@@ -7,14 +7,21 @@ import android.widget.TextView
 import cn.edu.twt.retrox.recyclerviewdsl.Item
 import cn.edu.twt.retrox.recyclerviewdsl.ItemController
 import com.wingedvampires.attention.R
-import com.wingedvampires.attention.model.ConcernPerson
+import com.wingedvampires.attention.model.RecommendUser
 import de.hdodenhof.circleimageview.CircleImageView
 import org.jetbrains.anko.layoutInflater
 
-class RecommendItem(val concernPerson: ConcernPerson, val block: () -> Unit) : Item {
+class RecommendItem(val recommendUser: RecommendUser, val block: (View) -> Unit) : Item {
     override val controller: ItemController
         get() = Controller
 
+    override fun areContentsTheSame(newItem: Item): Boolean {
+        return recommendUser.user_ID == (newItem as? RecommendItem)?.recommendUser?.user_ID
+    }
+
+    override fun areItemsTheSame(newItem: Item): Boolean {
+        return recommendUser.user_ID == (newItem as? RecommendItem)?.recommendUser?.user_ID
+    }
 
     companion object Controller : ItemController {
         override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
@@ -26,12 +33,15 @@ class RecommendItem(val concernPerson: ConcernPerson, val block: () -> Unit) : I
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: Item) {
             item as RecommendItem
             holder as ViewHolder
-            val concernPerson = item.concernPerson
+            val recommendUser = item.recommendUser
 
             holder.apply {
                 add.setOnClickListener {
-                    item.block()
+
                 }
+            }
+            holder.itemView.setOnClickListener {
+                item.block(it)
             }
         }
 
@@ -49,5 +59,5 @@ class RecommendItem(val concernPerson: ConcernPerson, val block: () -> Unit) : I
     }
 }
 
-fun MutableList<Item>.recommendItem(concernPerson: ConcernPerson, block: () -> Unit = {}) =
-    add(RecommendItem(concernPerson, block))
+fun MutableList<Item>.recommendItem(recommendUser: RecommendUser, block: (View) -> Unit = { _ -> }) =
+    add(RecommendItem(recommendUser, block))

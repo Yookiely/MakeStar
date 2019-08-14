@@ -35,6 +35,8 @@ class AttentionFocusFragment : Fragment() {
             adapter = ItemAdapter(itemManager)
         }
 
+        loadVideoActions()
+
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -44,6 +46,8 @@ class AttentionFocusFragment : Fragment() {
                 if (!isLoading && (lastVisibleItem + 1 == totalCount)) {
                     isLoading = true
                     page++
+
+                    loadMoreVideoActions()
 
                 }
             }
@@ -55,12 +59,33 @@ class AttentionFocusFragment : Fragment() {
 
     private fun loadVideoActions() {
         launch(UI + QuietCoroutineExceptionHandler) {
+            page = 1
             val videoActions = AttentionService.getFollowUserVideoAction(page).awaitAndHandle {
                 it.printStackTrace()
                 Toast.makeText(this@AttentionFocusFragment.context, "加载关注失败", Toast.LENGTH_SHORT).show()
             }?.data ?: return@launch
 
             itemManager.refreshAll {
+                clear()
+                videoActions.forEach { videoAction ->
+                    videoActionItem(videoAction) {
+                        CommonPreferences.setAndGetUserHistory(videoAction.work_ID)
+                    }
+                }
+            }
+
+        }
+    }
+
+    private fun loadMoreVideoActions() {
+        launch(UI + QuietCoroutineExceptionHandler) {
+            val videoActions = AttentionService.getFollowUserVideoAction(page).awaitAndHandle {
+                it.printStackTrace()
+                Toast.makeText(this@AttentionFocusFragment.context, "加载关注失败", Toast.LENGTH_SHORT).show()
+            }?.data ?: return@launch
+
+            itemManager.autoRefresh {
+                clear()
                 videoActions.forEach { videoAction ->
                     videoActionItem(videoAction) {
                         CommonPreferences.setAndGetUserHistory(videoAction.work_ID)

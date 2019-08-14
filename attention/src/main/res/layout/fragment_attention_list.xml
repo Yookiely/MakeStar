@@ -33,8 +33,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:paddingStart="30dp"
-            android:paddingEnd="30dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:background="#ffffff">
@@ -47,8 +45,7 @@
                 app:layout_constraintRight_toLeftOf="@id/tv_attention_focus_list"
                 style="@style/FocusListText"
                 android:text="推荐"
-                android:textSize="16sp"
-                app:layout_constraintHorizontal_chainStyle="spread_inside"/>
+                app:layout_constraintHorizontal_chainStyle="spread"/>
 
         <TextView
                 android:id="@+id/tv_attention_focus_list"
@@ -69,23 +66,10 @@
                 app:layout_constraintTop_toTopOf="@id/tv_attention_recommend_list"
                 app:layout_constraintBottom_toBottomOf="@id/tv_attention_recommend_list"
                 app:layout_constraintLeft_toRightOf="@id/tv_attention_focus_list"
-                app:layout_constraintRight_toLeftOf="@id/tv_attention_near_list"
+                app:layout_constraintRight_toRightOf="parent"
                 style="@style/FocusListText"
                 android:textSize="16sp"
                 android:text="粉丝"/>
-
-        <TextView
-                android:id="@+id/tv_attention_near_list"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="@id/tv_attention_recommend_list"
-                app:layout_constraintBottom_toBottomOf="@id/tv_attention_recommend_list"
-                app:layout_constraintLeft_toRightOf="@id/tv_attention_fans_list"
-                app:layout_constraintRight_toRightOf="parent"
-                android:layout_marginEnd="30dp"
-                android:textSize="16sp"
-                style="@style/FocusListText"
-                android:text="附近的人"/>
 
     </android.support.constraint.ConstraintLayout>
 

@@ -69,7 +69,7 @@ class AttentionFocusFragment : Fragment() {
                 clear()
                 videoActions.forEach { videoAction ->
                     videoActionItem(videoAction) {
-                        CommonPreferences.setAndGetUserHistory(videoAction.work_ID)
+                        CommonPreferences.setAndGetUserHistory(videoAction.work_ID.toString())
                     }
                 }
             }
@@ -88,7 +88,7 @@ class AttentionFocusFragment : Fragment() {
                 clear()
                 videoActions.forEach { videoAction ->
                     videoActionItem(videoAction) {
-                        CommonPreferences.setAndGetUserHistory(videoAction.work_ID)
+                        CommonPreferences.setAndGetUserHistory(videoAction.work_ID.toString())
                     }
                 }
             }

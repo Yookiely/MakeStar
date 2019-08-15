@@ -1,5 +1,6 @@
 package com.example.discover.view
 
+import android.opengl.Visibility
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
@@ -8,15 +9,51 @@ import android.widget.ImageView
 import android.widget.TextView
 import cn.edu.twt.retrox.recyclerviewdsl.Item
 import cn.edu.twt.retrox.recyclerviewdsl.ItemController
+import com.bumptech.glide.Glide
 import com.example.discover.R
+import com.example.discover.network.workData
 import org.jetbrains.anko.layoutInflater
 
-class VedioItem : Item{
+class VideoItem(val work : workData,val rank : Int) : Item{
 
     private companion object Controller : ItemController {
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: Item) {
             holder as VedioItemViewHolder
-            item as VedioItem
+            item as VideoItem
+            holder.apply {
+                title.text = item.work.work_name
+                nickname.text = item.work.username
+                heat.text = item.work.week_hot_value
+//                time.text = item.work.
+                rank.text = item.rank.toString()
+                Glide.with(itemView)
+                    .load(item.work.cover_url)
+                    .load(cover)
+                add.visibility = View.GONE
+                //check tag
+                when(item.work.tag.size){
+                    0 -> {
+                        tag1.visibility = View.GONE
+                        tag2.visibility = View.GONE
+                        tag3.visibility = View.GONE
+                    }
+                    1 -> {
+                        tag1.text = item.work.tag[0]
+                        tag2.visibility = View.GONE
+                        tag3.visibility = View.GONE
+                    }
+                    2 -> {
+                        tag1.text = item.work.tag[0]
+                        tag2.text = item.work.tag[1]
+                        tag3.visibility = View.GONE
+                    }
+                    else -> {
+                        tag1.text = item.work.tag[0]
+                        tag2.text = item.work.tag[1]
+                    }
+                }
+            }
+
             holder.itemView.setOnClickListener{}
 
         }
@@ -42,5 +79,5 @@ class VedioItem : Item{
     }
 
     override val controller: ItemController
-        get() = VedioItem
+        get() = VideoItem
 }

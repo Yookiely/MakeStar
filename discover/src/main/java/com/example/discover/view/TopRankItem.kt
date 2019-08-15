@@ -8,16 +8,51 @@ import android.widget.ImageView
 import android.widget.TextView
 import cn.edu.twt.retrox.recyclerviewdsl.Item
 import cn.edu.twt.retrox.recyclerviewdsl.ItemController
+import com.bumptech.glide.Glide
 import com.example.discover.R
+import com.example.discover.network.userData
 import org.jetbrains.anko.layoutInflater
 
-class TopRankItem : Item {
+class TopRankItem(val userList: List<userData>) : Item {
 
     private companion object Controller : ItemController {
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: Item) {
             holder as TopRankItemViewHolder
             item as TopRankItem
-            holder.itemView.setOnClickListener {}
+            holder.apply {
+                firstNickname.text = item.userList[0].username
+                secondNickname.text = item.userList[1].username
+                thirdNickname.text = item.userList[2].username
+                firstheat.text = item.userList[0].week_hot_value.toString()
+                secondheat.text = item.userList[1].week_hot_value.toString()
+                thirdheat.text = item.userList[2].week_hot_value.toString()
+                Glide.with(itemView)
+                    .load(item.userList[0].avatar)
+                    .into(firstImg)
+
+                Glide.with(itemView)
+                    .load(item.userList[1].avatar)
+                    .into(secondImg)
+
+                Glide.with(itemView)
+                    .load(item.userList[2].avatar)
+                    .into(thirdImg)
+
+                firstImg.setOnClickListener {
+
+                }
+
+                secondImg.setOnClickListener {
+
+                }
+
+                thirdImg.setOnClickListener {
+
+                }
+
+            }
+
+
 
         }
 

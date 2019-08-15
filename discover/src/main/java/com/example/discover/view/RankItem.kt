@@ -1,5 +1,6 @@
 package com.example.discover.view
 
+import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,7 @@ import cn.edu.twt.retrox.recyclerviewdsl.ItemController
 import com.example.discover.R
 import org.jetbrains.anko.layoutInflater
 
-class RankItem(val rankNum : String,val rankTrend : Boolean,val ImgUrl : String, val nickName: String ,val heat : String) : Item{
+class RankItem(val rankNum : String,val rankTrend : Boolean,val ImgUrl : String, val nickName: String ,val heat : String,val context : Context) : Item{
     private companion object Controller : ItemController {
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: Item) {
             holder as RankItemViewHolder

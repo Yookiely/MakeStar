@@ -22,15 +22,21 @@ class MyUserActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_my_user)
-        var portrait = findViewById<ImageView>(R.id.portrait)
+        val portrait = findViewById<ImageView>(R.id.portrait)
         var rank = findViewById<TextView>(R.id.rank)
-        var nickname = findViewById<TextView>(R.id.nickname)
-        var message = findViewById<TextView>(R.id.message)
-        var userId = findViewById<TextView>(R.id.user_id)
-        var mystyle = findViewById<TextView>(R.id.style)
-        var fansNum = findViewById<TextView>(R.id.people_num)
-        var popNum = findViewById<TextView>(R.id.pop_num)
-        var focusNum = findViewById<TextView>(R.id.focus_num)
+        val nickname = findViewById<TextView>(R.id.nickname)
+        val message = findViewById<TextView>(R.id.message)
+        val userId = findViewById<TextView>(R.id.user_id)
+        val mystyle = findViewById<TextView>(R.id.style)
+        val fansNum = findViewById<TextView>(R.id.people_num)
+        val popNum = findViewById<TextView>(R.id.pop_num)
+        val focusNum = findViewById<TextView>(R.id.focus_num)
+        val enter = findViewById<TextView>(R.id.enter_oneself)
+
+        enter.setOnClickListener {
+
+        }
+
         recyclerView = findViewById(R.id.user_rec)
 
         authSelfLiveData.bindNonNull(this) {

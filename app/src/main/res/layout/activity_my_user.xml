@@ -12,15 +12,7 @@
             android:id="@+id/backgoround"
             android:background="#66ccff"
     />
-    <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/myCard"
-            android:layout_marginLeft="40dp"
-            android:layout_marginBottom="140dp"
-            android:id="@+id/portrait"
-    />
+
     <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="180dp"
@@ -67,7 +59,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     android:layout_marginTop="42dp"
-                    android:layout_marginLeft="40dp"
+                    android:layout_marginLeft="20dp"
                     android:textSize="18sp"
                     android:id="@+id/nickname"
                     android:textColor="#f7f7f7"
@@ -111,14 +103,40 @@
                     android:id="@+id/pencil"
             />
 
+
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    android:layout_marginLeft="60dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginBottom="45dp"
+                    android:text="动态"
+                    android:textSize="10sp"
+                    android:textColor="#f7f7f7"
+                    android:id="@+id/trend"
+            />
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:textColor="#f7f7f7"
+                    android:layout_marginBottom="45dp"
+                    android:textSize="16sp"
+                    app:layout_constraintLeft_toRightOf="@+id/trend"
+                    android:layout_marginLeft="4dp"
+                    android:id="@+id/trend_num"
+            />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/trend"
+                    android:layout_marginLeft="70dp"
+                    android:layout_marginBottom="45dp"
                     android:text="粉丝"
+                    android:textSize="10sp"
                     android:textColor="#f7f7f7"
                     android:id="@+id/people"
             />
@@ -127,8 +145,10 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:textColor="#f7f7f7"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="45dp"
+                    android:textSize="16sp"
                     app:layout_constraintLeft_toRightOf="@+id/people"
+                    android:layout_marginLeft="4dp"
                     android:id="@+id/people_num"
             />
             <TextView
@@ -136,10 +156,11 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:textColor="#f7f7f7"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="45dp"
                     app:layout_constraintLeft_toRightOf="@+id/people"
-                    android:layout_marginLeft="80dp"
+                    android:layout_marginLeft="70dp"
                     android:text="人气"
+                    android:textSize="10sp"
                     android:id="@+id/pop"
             />
             <TextView
@@ -147,7 +168,9 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:textColor="#f7f7f7"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="45dp"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="4dp"
                     app:layout_constraintLeft_toRightOf="@+id/pop"
                     android:id="@+id/pop_num"
             />
@@ -156,10 +179,11 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:textColor="#f7f7f7"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="45dp"
                     app:layout_constraintLeft_toRightOf="@+id/pop"
-                    android:layout_marginLeft="80dp"
+                    android:layout_marginLeft="70dp"
                     android:text="关注"
+                    android:textSize="10sp"
                     android:id="@+id/focus"
             />
             <TextView
@@ -167,15 +191,41 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:textColor="#f7f7f7"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="45dp"
+                    android:layout_marginLeft="4dp"
+                    android:textSize="16sp"
                     app:layout_constraintLeft_toRightOf="@+id/focus"
                     android:id="@+id/focus_num"
+            />
+
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:textSize="16sp"
+                    android:textColor="#ffffff"
+                    android:text="进入个人主页>>"
+                    android:layout_marginBottom="16sp"
+                    android:layout_marginRight="16dp"
+                    android:id="@+id/enter_oneself"
             />
         </android.support.constraint.ConstraintLayout>
 
 
 
     </android.support.v7.widget.CardView>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/myCard"
+            android:layout_marginLeft="40dp"
+            android:layout_marginBottom="140dp"
+            android:id="@+id/portrait"
+    />
 
     <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"

@@ -28,7 +28,8 @@ data class workData(
     val username: String,
     val week_hot_value: String,
     val cover_url: String,
-    val video_ID: String
+    val video_ID: String,
+    val tag : List<String>
 )
 
 

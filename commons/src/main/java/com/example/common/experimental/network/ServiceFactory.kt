@@ -13,7 +13,7 @@ object ServiceFactory {
     internal const val TRUSTED_HOST = "api.buildstar.top:8888"
     internal const val BASE_URL = "https://$TRUSTED_HOST/api/"
 
-    internal const val APP_KEY = "9GTdynvrCm1EKKFfVmTC"
+    internal const val APP_KEY = "af4dg52ed%3@"
     internal const val APP_SECRET = "1aVhfAYBFUfqrdlcT621d9d6OzahMI"
 
     private val loggingInterceptor = HttpLoggingInterceptor()

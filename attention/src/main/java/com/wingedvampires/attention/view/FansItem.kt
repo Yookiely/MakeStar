@@ -39,7 +39,6 @@ class FansItem(val fan: Fan, val block: (View) -> Unit) : Item {
         val name: TextView = itemView.findViewById(R.id.tv_attention_name_near)
         val message: TextView = itemView.findViewById(R.id.tv_attention_message_near)
         val rank: TextView = itemView.findViewById(R.id.tv_attention_rank_near)
-        val online: TextView = itemView.findViewById(R.id.tv_attention_status_near)
     }
 }
 

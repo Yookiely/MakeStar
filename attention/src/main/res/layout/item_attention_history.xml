@@ -8,7 +8,7 @@
         android:layout_marginBottom="1dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/cv_attention_pic_near"
+            android:id="@+id/cv_attention_pic_history"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -17,20 +17,11 @@
             app:civ_border_color="#cccccc"
             tools:src="@drawable/ms_main_camera"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginStart="18dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"/>
 
-    <TextView
-            android:id="@+id/tv_attention_rank_near"
-            app:layout_constraintTop_toBottomOf="@id/cv_attention_pic_near"
-            app:layout_constraintLeft_toLeftOf="@id/cv_attention_pic_near"
-            app:layout_constraintRight_toRightOf="@id/cv_attention_pic_near"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            tools:text="NO.123"/>
 
     <LinearLayout
             android:layout_width="0dp"
@@ -38,13 +29,13 @@
             android:orientation="vertical"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/cv_attention_pic_near"
+            app:layout_constraintLeft_toRightOf="@id/cv_attention_pic_history"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginEnd="32dp"
             android:layout_marginStart="24dp">
 
         <TextView
-                android:id="@+id/tv_attention_name_near"
+                android:id="@+id/tv_attention_name_history"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#333333"
@@ -53,24 +44,6 @@
                 android:singleLine="true"
                 tools:text="世界第一丧女孩"/>
 
-        <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal">
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_attention_message_near"
-                    android:layout_marginStart="7dp"
-                    android:textSize="13sp"
-                    android:textColor="#999999"
-                    android:ellipsize="end"
-                    android:maxEms="18"
-                    android:singleLine="true"
-                    tools:text="这里是在日本的桑酱！我们这里是在日本的桑酱！我们这里是在日本的桑酱！我们"/>
-        </LinearLayout>
 
     </LinearLayout>
 

@@ -70,10 +70,13 @@ data class WorksWithType(
 )
 
 data class Work(
+    val Duration: Float,
     val Introduction: String,
     val avatar: String,
+    val collection_num: Int,
+    val comment_num: Int,
     val cover_url: String,
-    val hot_value: String,
+    val hot_value: Int,
     val tags: String,
     val time: String,
     val user_ID: String,
@@ -84,7 +87,6 @@ data class Work(
     val work_name: String,
     val work_type_ID: Int
 )
-
 data class Banner(
     val banner_ID: Int,
     val banner_img_ID: String,

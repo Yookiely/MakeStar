@@ -11,10 +11,17 @@ import com.wingedvampires.attention.model.ConcernPerson
 import de.hdodenhof.circleimageview.CircleImageView
 import org.jetbrains.anko.layoutInflater
 
-class FocusItem(val concernPerson: ConcernPerson, val block: () -> Unit) : Item {
+class FocusItem(val concernPerson: ConcernPerson, val block: (View) -> Unit) : Item {
     override val controller: ItemController
         get() = Controller
 
+    override fun areContentsTheSame(newItem: Item): Boolean {
+        return concernPerson.user_ID == (newItem as? FocusItem)?.concernPerson?.user_ID
+    }
+
+    override fun areItemsTheSame(newItem: Item): Boolean {
+        return concernPerson.user_ID == (newItem as? FocusItem)?.concernPerson?.user_ID
+    }
 
     companion object Controller : ItemController {
         override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
@@ -48,3 +55,6 @@ class FocusItem(val concernPerson: ConcernPerson, val block: () -> Unit) : Item 
         val time: TextView = itemView.findViewById(R.id.tv_attention_time_focus)
     }
 }
+
+fun MutableList<Item>.focusItem(concernPerson: ConcernPerson, block: (View) -> Unit = { _ -> }) =
+    add(FocusItem(concernPerson, block))

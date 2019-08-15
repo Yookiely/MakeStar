@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import cn.edu.twt.retrox.recyclerviewdsl.ItemAdapter
@@ -24,6 +25,7 @@ class AttentionListFragment : Fragment() {
     private var itemManager: ItemManager = ItemManager() //by lazy { recyclerView.withItems(listOf()) }
     private var isLoading = true
     private var page = 1
+    private var showSearch = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_attention_list, container, false)
@@ -38,8 +40,17 @@ class AttentionListFragment : Fragment() {
         val fansText = view.findViewById<TextView>(R.id.tv_attention_fans_list)
         var refreshList: () -> Unit = { loadRecommend() }
         var loadMoreList: () -> Unit = {}
+        val searchEdit = view.findViewById<EditText>(R.id.et_attention_search)
 
         refreshList()
+
+        searchEdit.setOnFocusChangeListener { view, hasFocus ->
+            if (hasFocus) {
+
+            } else {
+
+            }
+        }
 
         recommendText.setOnClickListener {
             loadRecommend()
@@ -47,7 +58,17 @@ class AttentionListFragment : Fragment() {
             loadMoreList = { loadMoreRecommend() }
         }
 
+        fansText.setOnClickListener {
+            loadFans()
+            refreshList = { loadFans() }
+            loadMoreList = { loadMoreFans() }
+        }
 
+        focusText.setOnClickListener {
+            loadFocus()
+            refreshList = { loadFocus() }
+            loadMoreList = { loadMoreFocus() }
+        }
 
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
@@ -106,6 +127,75 @@ class AttentionListFragment : Fragment() {
     }
 
     private fun loadFans() {
+        launch(UI + QuietCoroutineExceptionHandler) {
+            page = 1
+            val fans = AttentionService.getFans(page).awaitAndHandle {
+                it.printStackTrace()
+                Toast.makeText(this@AttentionListFragment.context, "粉丝加载失败", Toast.LENGTH_SHORT).show()
+            }?.data ?: return@launch
 
+            itemManager.refreshAll {
+                clear()
+                fans.forEach { fan ->
+                    fansItem(fan) {
+
+                    }
+                }
+            }
+        }
     }
+
+    private fun loadMoreFans() {
+        launch(UI + QuietCoroutineExceptionHandler) {
+            val fans = AttentionService.getFans(page).awaitAndHandle {
+                it.printStackTrace()
+                Toast.makeText(this@AttentionListFragment.context, "粉丝加载失败", Toast.LENGTH_SHORT).show()
+            }?.data ?: return@launch
+
+            itemManager.refreshAll {
+                fans.forEach { fan ->
+                    fansItem(fan) {
+
+                    }
+                }
+            }
+        }
+    }
+
+    private fun loadFocus() {
+        launch(UI + QuietCoroutineExceptionHandler) {
+            page = 1
+            val concernPersons = AttentionService.getSpotList(page).awaitAndHandle {
+                it.printStackTrace()
+                Toast.makeText(this@AttentionListFragment.context, "推荐加载失败", Toast.LENGTH_SHORT).show()
+            }?.data ?: return@launch
+
+            itemManager.refreshAll {
+                clear()
+                concernPersons.forEach { concernPerson ->
+                    focusItem(concernPerson) {
+
+                    }
+                }
+            }
+        }
+    }
+
+    private fun loadMoreFocus() {
+        launch(UI + QuietCoroutineExceptionHandler) {
+            val concernPersons = AttentionService.getSpotList(page).awaitAndHandle {
+                it.printStackTrace()
+                Toast.makeText(this@AttentionListFragment.context, "推荐加载失败", Toast.LENGTH_SHORT).show()
+            }?.data ?: return@launch
+
+            itemManager.refreshAll {
+                concernPersons.forEach { concernPerson ->
+                    focusItem(concernPerson) {
+
+                    }
+                }
+            }
+        }
+    }
+
 }

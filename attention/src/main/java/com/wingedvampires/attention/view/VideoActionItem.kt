@@ -38,7 +38,7 @@ class VideoActionItem(val videoAction: VideoAction, val block: (View) -> Unit) :
             holder as ViewHolder
 
             val videoAction = item.videoAction
-
+            var lableText: String = ""
             holder.apply {
                 Glide.with(this.itemView).load(videoAction.avatar).error(R.drawable.ms_no_pic).into(avatar)
                 Glide.with(this.itemView).load(videoAction.cover_url).error(R.drawable.ms_no_pic).into(cover)
@@ -46,6 +46,16 @@ class VideoActionItem(val videoAction: VideoAction, val block: (View) -> Unit) :
                 time.text = videoAction.time.split(" ")[0]
                 title.text = videoAction.work_name
                 duration.text = AttentionUtils.formatTime(videoAction.Duration)
+                rank.text = videoAction.month_rank.toString()
+                commentNum.text = AttentionUtils.format(videoAction.comment_num)
+                storeNum.text = AttentionUtils.format(videoAction.collection_num)
+                shareNum.text = AttentionUtils.format(videoAction.share_num)
+                number.text = AttentionUtils.format(videoAction.hot_value)
+                videoAction.tags.split(",").forEach {
+                    lableText += "#$it      "
+                }
+
+                label.text = lableText
             }
         }
 
@@ -65,11 +75,11 @@ class VideoActionItem(val videoAction: VideoAction, val block: (View) -> Unit) :
         val label: TextView = itemView.findViewById(R.id.tv_attention_label)
         val number: TextView = itemView.findViewById(R.id.tv_attention_number)
         val shareImg: ImageView = itemView.findViewById(R.id.iv_attention_share)
-        val shareNum: ImageView = itemView.findViewById(R.id.tv_attention_share)
+        val shareNum: TextView = itemView.findViewById(R.id.tv_attention_share)
         val storeImg: ImageView = itemView.findViewById(R.id.iv_attention_store)
-        val storeNum: ImageView = itemView.findViewById(R.id.tv_attention_store)
+        val storeNum: TextView = itemView.findViewById(R.id.tv_attention_store)
         val commentImg: ImageView = itemView.findViewById(R.id.iv_attention_comment)
-        val commentNum: ImageView = itemView.findViewById(R.id.tv_attention_comment)
+        val commentNum: TextView = itemView.findViewById(R.id.tv_attention_comment)
     }
 }
 

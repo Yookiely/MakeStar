@@ -35,6 +35,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
     implementation 'cn.edu.twt.retrox:recyclerviewdsl:1.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     [':auth', ':commons', ':homepage', ':userpage', ':discover', ':attention', ':upload'].each {
         implementation project(it)
     }

@@ -20,6 +20,8 @@
         </activity>
         <activity android:name=".MyUserActivity">
         </activity>
+        <activity android:name=".RankhistoryActivity">
+        </activity>
     </application>
 
 </manifest>

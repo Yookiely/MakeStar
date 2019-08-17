@@ -12,7 +12,7 @@ import com.wingedvampires.attention.model.DataOfUser
 import de.hdodenhof.circleimageview.CircleImageView
 import org.jetbrains.anko.layoutInflater
 
-class HistoryItem(val dataOfUser: DataOfUser, val block: () -> Unit) : Item {
+class HistoryItem(val dataOfUser: DataOfUser, val block: (View) -> Unit) : Item {
     override val controller: ItemController
         get() = RecommendItem
 
@@ -41,6 +41,10 @@ class HistoryItem(val dataOfUser: DataOfUser, val block: () -> Unit) : Item {
                 name.text = dataOfUser.username
                 Glide.with(this.itemView).load(dataOfUser.avatar).error(R.drawable.ms_no_pic).into(avatar)
             }
+
+            holder.itemView.setOnClickListener {
+                item.block(it)
+            }
         }
 
 
@@ -51,3 +55,6 @@ class HistoryItem(val dataOfUser: DataOfUser, val block: () -> Unit) : Item {
         val name: TextView = itemView.findViewById(R.id.tv_attention_name_history)
     }
 }
+
+fun MutableList<Item>.historyItem(dataOfUser: DataOfUser, block: (View) -> Unit = { }) =
+    add(HistoryItem(dataOfUser, block))

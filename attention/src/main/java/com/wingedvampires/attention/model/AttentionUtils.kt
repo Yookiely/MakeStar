@@ -1,10 +1,11 @@
 package com.wingedvampires.attention.model
 
+import com.example.common.experimental.preference.hawk
 import java.text.SimpleDateFormat
 import java.util.*
 
 object AttentionUtils {
-    val INDEX_KEY = "key"
+    var searchHistory by hawk("ATTENTION_SEARCH_HISTORY", mutableListOf<DataOfUser>())
 
     fun formatTime(time: Float): String {
         val timeOfMS = time * 1000
@@ -13,7 +14,6 @@ object AttentionUtils {
     }
 
     fun format(num: String?): String? {
-
         val length = num?.length ?: return null
 
         return when {
@@ -21,5 +21,14 @@ object AttentionUtils {
             length < 8 -> "${num.substring(0, length - 4)}.${num.substring(length - 4, length - 2)}w"
             else -> "${num.substring(0, length - 7)}.${num.substring(length - 7, length - 5)}kw"
         }
+    }
+
+    fun setSearchHistory(dataOfUser: DataOfUser) {
+        val temp = mutableListOf<DataOfUser>().also { it.addAll(AttentionUtils.searchHistory) }
+        if (temp.contains(dataOfUser)) {
+            temp.remove(dataOfUser)
+        }
+        temp.add(0, dataOfUser)
+        searchHistory = mutableListOf<DataOfUser>().also { it.addAll(temp) }
     }
 }

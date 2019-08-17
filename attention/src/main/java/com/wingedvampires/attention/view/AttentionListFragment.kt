@@ -1,13 +1,18 @@
 package com.wingedvampires.attention.view
 
+import android.os.Build
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import cn.edu.twt.retrox.recyclerviewdsl.ItemAdapter
@@ -16,6 +21,7 @@ import com.example.common.experimental.extensions.QuietCoroutineExceptionHandler
 import com.example.common.experimental.extensions.awaitAndHandle
 import com.wingedvampires.attention.R
 import com.wingedvampires.attention.model.AttentionService
+import com.wingedvampires.attention.model.AttentionUtils
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 
@@ -25,49 +31,105 @@ class AttentionListFragment : Fragment() {
     private var itemManager: ItemManager = ItemManager() //by lazy { recyclerView.withItems(listOf()) }
     private var isLoading = true
     private var page = 1
-    private var showSearch = false
+    private var lastPage = Int.MAX_VALUE
+    private var liveLabel: TextView? = null
+    private var backLabel: ImageView? = null
+    private lateinit var searchToolbar: ConstraintLayout
+    private lateinit var tabs: ConstraintLayout
+    var refreshList: () -> Unit = { loadRecommend() }
+    var loadMoreList: () -> Unit = {}
+    private lateinit var searchEdit: EditText
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_attention_list, container, false)
 
+        val clearSearchImg: ImageView = view.findViewById(R.id.iv_attention_clear_history)
+        val clearSearchText: TextView = view.findViewById(R.id.tv_attention_clear_history)
+        val recommendText = view.findViewById<TextView>(R.id.tv_attention_recommend_list)
+        val focusText = view.findViewById<TextView>(R.id.tv_attention_focus_list)
+        val fansText = view.findViewById<TextView>(R.id.tv_attention_fans_list)
+        searchEdit = view.findViewById(R.id.et_attention_search)
+        searchToolbar = view.findViewById(R.id.cl_attention_search_toolbar)
+        tabs = view.findViewById<ConstraintLayout>(R.id.cl_attention_title_list)
         recyclerView = view.findViewById(R.id.rv_attention_list)
         recyclerView.apply {
             layoutManager = layoutManager
             adapter = ItemAdapter(itemManager)
         }
-        val recommendText = view.findViewById<TextView>(R.id.tv_attention_recommend_list)
-        val focusText = view.findViewById<TextView>(R.id.tv_attention_focus_list)
-        val fansText = view.findViewById<TextView>(R.id.tv_attention_fans_list)
-        var refreshList: () -> Unit = { loadRecommend() }
-        var loadMoreList: () -> Unit = {}
-        val searchEdit = view.findViewById<EditText>(R.id.et_attention_search)
 
         refreshList()
 
-        searchEdit.setOnFocusChangeListener { view, hasFocus ->
+        searchEdit.setOnFocusChangeListener { _, hasFocus ->
+            tabs.visibility = View.GONE
+
+            backLabel?.visibility = View.VISIBLE
+            liveLabel?.visibility = View.GONE
+
             if (hasFocus) {
-
+                if (searchEdit.text.isBlank()) {
+                    showHistory()
+                }
             } else {
-
+                if (searchEdit.text.isNotBlank()) {
+                    loadSearch()
+                }
             }
         }
 
+        searchEdit.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
+
+            override fun afterTextChanged(s: Editable?) {
+                if (s.toString().isBlank()) {
+                    showHistory()
+                }
+            }
+
+        })
+
+        // 清除历史
+        clearSearchImg.setOnClickListener {
+            AttentionUtils.searchHistory = mutableListOf()
+        }
+        clearSearchText.setOnClickListener {
+            AttentionUtils.searchHistory = mutableListOf()
+        }
+
+        backLabel?.setOnClickListener {
+            refreshView()
+        }
+
         recommendText.setOnClickListener {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                recommendText.setTextAppearance(R.style.SelectedFocusListText)
+                fansText.setTextAppearance(R.style.FocusListText)
+                focusText.setTextAppearance(R.style.FocusListText)
+            }
             loadRecommend()
             refreshList = { loadRecommend() }
-            loadMoreList = { loadMoreRecommend() }
         }
 
         fansText.setOnClickListener {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                fansText.setTextAppearance(R.style.SelectedFocusListText)
+                recommendText.setTextAppearance(R.style.FocusListText)
+                focusText.setTextAppearance(R.style.FocusListText)
+            }
             loadFans()
             refreshList = { loadFans() }
-            loadMoreList = { loadMoreFans() }
         }
 
         focusText.setOnClickListener {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                focusText.setTextAppearance(R.style.SelectedFocusListText)
+                recommendText.setTextAppearance(R.style.FocusListText)
+                fansText.setTextAppearance(R.style.FocusListText)
+            }
             loadFocus()
             refreshList = { loadFocus() }
-            loadMoreList = { loadMoreFocus() }
         }
 
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -110,6 +172,8 @@ class AttentionListFragment : Fragment() {
     }
 
     private fun loadMoreRecommend() {
+        loadMoreList = { loadMoreRecommend() }
+
         launch(UI + QuietCoroutineExceptionHandler) {
             val recommendUsers = AttentionService.getRecommendUser(page).awaitAndHandle {
                 it.printStackTrace()
@@ -146,6 +210,8 @@ class AttentionListFragment : Fragment() {
     }
 
     private fun loadMoreFans() {
+        loadMoreList = { loadMoreFans() }
+
         launch(UI + QuietCoroutineExceptionHandler) {
             val fans = AttentionService.getFans(page).awaitAndHandle {
                 it.printStackTrace()
@@ -182,6 +248,8 @@ class AttentionListFragment : Fragment() {
     }
 
     private fun loadMoreFocus() {
+        loadMoreList = { loadMoreFocus() }
+
         launch(UI + QuietCoroutineExceptionHandler) {
             val concernPersons = AttentionService.getSpotList(page).awaitAndHandle {
                 it.printStackTrace()
@@ -197,5 +265,82 @@ class AttentionListFragment : Fragment() {
             }
         }
     }
+
+    private fun loadSearch() {
+        launch(UI + QuietCoroutineExceptionHandler) {
+            page = 1
+            searchToolbar.visibility = View.GONE
+
+            val result = AttentionService.search(page, searchEdit.text.toString()).awaitAndHandle {
+                it.printStackTrace()
+                Toast.makeText(this@AttentionListFragment.context, "搜索失败", Toast.LENGTH_SHORT).show()
+            }?.data ?: return@launch
+
+            lastPage = result.user.lastPage
+            val usersOfResult = result.user.data
+            itemManager.refreshAll {
+                clear()
+                usersOfResult.forEach { dataOfUser ->
+                    historyItem(dataOfUser) {
+                        AttentionUtils.setSearchHistory(dataOfUser)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun loadMoreSearch() {
+        loadMoreList = { loadMoreSearch() }
+
+        launch(UI + QuietCoroutineExceptionHandler) {
+            if (page > lastPage) {
+                Toast.makeText(this@AttentionListFragment.context, "没有更多了", Toast.LENGTH_SHORT).show()
+                return@launch
+            }
+            val result = AttentionService.search(page, searchEdit.text.toString()).awaitAndHandle {
+                it.printStackTrace()
+                Toast.makeText(this@AttentionListFragment.context, "搜索失败", Toast.LENGTH_SHORT).show()
+            }?.data ?: return@launch
+
+            lastPage = result.user.lastPage
+            val usersOfResult = result.user.data
+            itemManager.autoRefresh {
+                usersOfResult.forEach { dataOfUser ->
+                    historyItem(dataOfUser) {
+
+                    }
+                }
+            }
+
+        }
+    }
+
+    private fun showHistory() {
+        searchToolbar.visibility = View.VISIBLE
+        itemManager.refreshAll {
+            clear()
+            AttentionUtils.searchHistory.forEach { dataOfUser ->
+                historyItem(dataOfUser) {
+                    AttentionUtils.setSearchHistory(dataOfUser)
+                }
+            }
+        }
+    }
+
+    fun setView(live: TextView, back: ImageView) {
+        liveLabel = live
+        backLabel = back
+    }
+
+    fun refreshView() {
+        refreshList()
+        searchEdit.clearFocus()
+        searchEdit.setText("")
+        tabs.visibility = View.VISIBLE
+        searchToolbar.visibility = View.GONE
+        liveLabel?.visibility = View.VISIBLE
+        backLabel?.visibility = View.GONE
+    }
+
 
 }

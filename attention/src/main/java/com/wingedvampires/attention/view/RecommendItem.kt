@@ -32,6 +32,7 @@ class RecommendItem(val recommendUser: RecommendUser, val block: (View) -> Unit)
     }
 
     companion object Controller : ItemController {
+        var havaAdd = false
         override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
             val view = parent.context.layoutInflater.inflate(R.layout.item_attention_recommend, parent, false)
 
@@ -52,14 +53,36 @@ class RecommendItem(val recommendUser: RecommendUser, val block: (View) -> Unit)
                 rank.text = "No.${recommendUser.month_rank}"
 
                 add.setOnClickListener {
-                    launch(UI + QuietCoroutineExceptionHandler) {
-                        val text = AttentionService.addFollow(recommendUser.user_ID).awaitAndHandle {
-                            it.printStackTrace()
-                            Toast.makeText(holder.itemView.context, "操作失败", Toast.LENGTH_SHORT).show()
-                        }?.message ?: return@launch
+                    if (havaAdd) {
+                        launch(UI + QuietCoroutineExceptionHandler) {
+                            val addCommonBody = AttentionService.deleteFollow(recommendUser.user_ID).awaitAndHandle {
+                                it.printStackTrace()
+                                Toast.makeText(holder.itemView.context, "操作失败", Toast.LENGTH_SHORT).show()
+                            } ?: return@launch
 
-                        Toast.makeText(holder.itemView.context, "添加成功", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(holder.itemView.context, addCommonBody.message, Toast.LENGTH_SHORT).show()
+
+                            if (addCommonBody.error_code == -1) {
+                                add.text = "+关注"
+                                havaAdd = false
+                            }
+                        }
+                    } else {
+                        launch(UI + QuietCoroutineExceptionHandler) {
+                            val addCommonBody = AttentionService.addFollow(recommendUser.user_ID).awaitAndHandle {
+                                it.printStackTrace()
+                                Toast.makeText(holder.itemView.context, "操作失败", Toast.LENGTH_SHORT).show()
+                            } ?: return@launch
+
+                            Toast.makeText(holder.itemView.context, addCommonBody.message, Toast.LENGTH_SHORT).show()
+
+                            if (addCommonBody.error_code == -1) {
+                                add.text = "取消关注"
+                                havaAdd = true
+                            }
+                        }
                     }
+
                 }
 
                 tags.forEachWithIndex { index, tag ->

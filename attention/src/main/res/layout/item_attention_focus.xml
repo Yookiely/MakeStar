@@ -62,18 +62,11 @@
                 android:layout_marginTop="8dp"
                 android:orientation="horizontal">
 
-            <TextView
-                    android:id="@+id/tv_attention_time_focus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    tools:text="[19-01-13]"/>
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/tv_attention_message_focus"
-                    android:layout_marginStart="7dp"
                     android:textSize="13sp"
                     android:textColor="#999999"
                     android:ellipsize="end"
@@ -101,6 +94,7 @@
                 android:textColor="#e55224"
                 android:textSize="10sp"
                 android:gravity="center"
+                android:visibility="gone"
                 android:paddingEnd="2dp"
                 tools:text="#颜值"/>
 
@@ -114,6 +108,7 @@
                 android:textSize="10sp"
                 android:layout_marginStart="12dp"
                 android:gravity="center"
+                android:visibility="gone"
                 android:paddingEnd="2dp"
                 tools:text="搞笑博主"/>
 
@@ -125,6 +120,7 @@
                 android:paddingStart="2dp"
                 android:textColor="#e55224"
                 android:textSize="10sp"
+                android:visibility="gone"
                 android:layout_marginStart="12dp"
                 android:gravity="center"
                 android:paddingEnd="2dp"
@@ -138,6 +134,7 @@
                 android:paddingStart="2dp"
                 android:textColor="#e11fed"
                 android:textSize="10sp"
+                android:visibility="gone"
                 android:layout_marginStart="12dp"
                 android:gravity="center"
                 android:paddingEnd="2dp"
@@ -151,6 +148,7 @@
                 android:paddingStart="2dp"
                 android:textColor="#e55224"
                 android:textSize="10sp"
+                android:visibility="gone"
                 android:layout_marginStart="12dp"
                 android:gravity="center"
                 android:paddingEnd="2dp"

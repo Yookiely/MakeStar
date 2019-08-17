@@ -47,15 +47,15 @@ interface AttentionService {
 
     @GET("/api/follow/add")
     fun addFollow(
-        @Query("user_ID") userId: Int,
-        @Query("username") userName: String
+        @Query("to_user_ID") toUserId: String,
+        @Query("from_user_ID") fromUserId: String = CommonPreferences.userid
     ): Deferred<CommonBody<String>>
 
 
     @GET("/api/follow/delete")
     fun deleteFollow(
-        @Query("user_ID") userId: Int,
-        @Query("username") userName: String
+        @Query("to_user_ID") toUserId: String,
+        @Query("from_user_ID") fromUserId: String = CommonPreferences.userid
     ): Deferred<CommonBody<String>>
 
     companion object : AttentionService by ServiceFactory()
@@ -84,7 +84,7 @@ data class VideoAction(
 data class RecommendUser(
     val avatar: String,
     val fans_num: Int,
-    val user_ID: Int,
+    val user_ID: String,
     val username: String,
     val signature: String?,
     val tags: String,
@@ -94,7 +94,9 @@ data class RecommendUser(
 data class Fan(
     val avatar: String,
     val user_ID: Int,
-    val username: String
+    val username: String,
+    val month_rank: Int,
+    val signature: String?
 )
 
 data class ConcernPerson(
@@ -106,10 +108,12 @@ data class ConcernPerson(
     val follow_num: String,
     val month_hot_value: Int,
     val sex: String,
+    val month_rank: Int,
     val signature: String?,
     val username: String,
     val week_hot_value: Int,
-    val year_hot_value: Int
+    val year_hot_value: Int,
+    val tags: String
 )
 
 data class SearchData(
@@ -129,7 +133,8 @@ data class DataOfUser(
     val city: String,
     val sex: String,
     val signature: String?,
-    val username: String
+    val username: String,
+    val user_ID: String
 )
 
 data class SearchWork(
@@ -141,10 +146,11 @@ data class SearchWork(
 data class DataOfWork(
     val hot_value: String,
     val introduction: String,
-    val tag: List<String>,
+    val tags: String,
     val time: String,
     val username: String,
     val video_link: String,
     val work_name: String,
-    val work_type: Int
+    val work_type: Int,
+    val work_ID: String
 )

@@ -4,11 +4,19 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import cn.edu.twt.retrox.recyclerviewdsl.Item
 import cn.edu.twt.retrox.recyclerviewdsl.ItemController
+import com.bumptech.glide.Glide
+import com.example.common.experimental.extensions.QuietCoroutineExceptionHandler
+import com.example.common.experimental.extensions.awaitAndHandle
 import com.wingedvampires.attention.R
+import com.wingedvampires.attention.model.AttentionService
 import com.wingedvampires.attention.model.RecommendUser
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.launch
+import org.jetbrains.anko.collections.forEachWithIndex
 import org.jetbrains.anko.layoutInflater
 
 class RecommendItem(val recommendUser: RecommendUser, val block: (View) -> Unit) : Item {
@@ -34,10 +42,41 @@ class RecommendItem(val recommendUser: RecommendUser, val block: (View) -> Unit)
             item as RecommendItem
             holder as ViewHolder
             val recommendUser = item.recommendUser
+            val tags = recommendUser.tags.split(",")
 
             holder.apply {
-                add.setOnClickListener {
 
+                Glide.with(this.itemView).load(recommendUser.avatar).error(R.drawable.ms_no_pic).into(avatar)
+                name.text = recommendUser.username
+                message.text = (recommendUser.signature ?: "")
+                rank.text = "No.${recommendUser.month_rank}"
+
+                add.setOnClickListener {
+                    launch(UI + QuietCoroutineExceptionHandler) {
+                        val text = AttentionService.addFollow(recommendUser.user_ID).awaitAndHandle {
+                            it.printStackTrace()
+                            Toast.makeText(holder.itemView.context, "操作失败", Toast.LENGTH_SHORT).show()
+                        }?.message ?: return@launch
+
+                        Toast.makeText(holder.itemView.context, "添加成功", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                tags.forEachWithIndex { index, tag ->
+                    when (index) {
+                        1 -> label1.apply {
+                            text = tag
+                            visibility = View.VISIBLE
+                        }
+                        2 -> label2.apply {
+                            text = tag
+                            visibility = View.VISIBLE
+                        }
+                        3 -> label3.apply {
+                            text = tag
+                            visibility = View.VISIBLE
+                        }
+                    }
                 }
             }
             holder.itemView.setOnClickListener {

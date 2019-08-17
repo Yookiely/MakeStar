@@ -6,9 +6,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import cn.edu.twt.retrox.recyclerviewdsl.Item
 import cn.edu.twt.retrox.recyclerviewdsl.ItemController
+import com.bumptech.glide.Glide
 import com.wingedvampires.attention.R
 import com.wingedvampires.attention.model.ConcernPerson
 import de.hdodenhof.circleimageview.CircleImageView
+import org.jetbrains.anko.collections.forEachWithIndex
 import org.jetbrains.anko.layoutInflater
 
 class FocusItem(val concernPerson: ConcernPerson, val block: (View) -> Unit) : Item {
@@ -35,8 +37,45 @@ class FocusItem(val concernPerson: ConcernPerson, val block: (View) -> Unit) : I
             holder as ViewHolder
             val concernPerson = item.concernPerson
 
-            holder.apply {
+            val tags = concernPerson.tags.split(",")
+            tags.forEachWithIndex { index, tag ->
+                when (index) {
+                    1 -> {
 
+                    }
+                }
+            }
+
+            holder.apply {
+                Glide.with(this.itemView).load(concernPerson.avatar).error(R.drawable.ms_no_pic).into(avatar)
+                name.text = concernPerson.username
+                rank.text = "No.${concernPerson.month_rank}"
+                message.text = (concernPerson.signature ?: "")
+                // 设置标签
+                tags.forEachWithIndex { index, tag ->
+                    when (index) {
+                        1 -> label1.apply {
+                            text = tag
+                            visibility = View.VISIBLE
+                        }
+                        2 -> label2.apply {
+                            text = tag
+                            visibility = View.VISIBLE
+                        }
+                        3 -> label3.apply {
+                            text = tag
+                            visibility = View.VISIBLE
+                        }
+                        4 -> label4.apply {
+                            text = tag
+                            visibility = View.VISIBLE
+                        }
+                        5 -> label5.apply {
+                            text = tag
+                            visibility = View.VISIBLE
+                        }
+                    }
+                }
             }
         }
 
@@ -52,7 +91,6 @@ class FocusItem(val concernPerson: ConcernPerson, val block: (View) -> Unit) : I
         val label3: TextView = itemView.findViewById(R.id.tv_attention_focus_label3)
         val label4: TextView = itemView.findViewById(R.id.tv_attention_focus_label4)
         val label5: TextView = itemView.findViewById(R.id.tv_attention_focus_label5)
-        val time: TextView = itemView.findViewById(R.id.tv_attention_time_focus)
     }
 }
 

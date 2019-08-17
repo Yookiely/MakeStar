@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import cn.edu.twt.retrox.recyclerviewdsl.Item
 import cn.edu.twt.retrox.recyclerviewdsl.ItemController
+import com.bumptech.glide.Glide
 import com.wingedvampires.attention.R
 import com.wingedvampires.attention.model.Fan
 import de.hdodenhof.circleimageview.CircleImageView
@@ -15,6 +16,13 @@ class FansItem(val fan: Fan, val block: (View) -> Unit) : Item {
     override val controller: ItemController
         get() = Controller
 
+    override fun areContentsTheSame(newItem: Item): Boolean {
+        return fan.user_ID == (newItem as? FansItem)?.fan?.user_ID
+    }
+
+    override fun areItemsTheSame(newItem: Item): Boolean {
+        return fan.user_ID == (newItem as? FansItem)?.fan?.user_ID
+    }
 
     companion object Controller : ItemController {
         override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
@@ -29,6 +37,14 @@ class FansItem(val fan: Fan, val block: (View) -> Unit) : Item {
             val fan = item.fan
 
             holder.apply {
+                Glide.with(this.itemView).load(fan.avatar).error(R.drawable.ms_no_pic).into(avatar)
+                name.text = fan.username
+                message.text = (fan.signature ?: "")
+                rank.text = "NO.${fan.month_rank}"
+            }
+
+            holder.itemView.setOnClickListener {
+                item.block(it)
             }
         }
 

@@ -16,6 +16,14 @@ class HistoryItem(val dataOfUser: DataOfUser, val block: () -> Unit) : Item {
     override val controller: ItemController
         get() = RecommendItem
 
+    override fun areContentsTheSame(newItem: Item): Boolean {
+        return dataOfUser.user_ID == (newItem as? HistoryItem)?.dataOfUser?.user_ID
+    }
+
+    override fun areItemsTheSame(newItem: Item): Boolean {
+        return dataOfUser.user_ID == (newItem as? HistoryItem)?.dataOfUser?.user_ID
+    }
+
     companion object Controller : ItemController {
         override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
             val view = parent.context.layoutInflater.inflate(R.layout.item_attention_history, parent, false)
@@ -31,7 +39,7 @@ class HistoryItem(val dataOfUser: DataOfUser, val block: () -> Unit) : Item {
 
             holder.apply {
                 name.text = dataOfUser.username
-                Glide.with(this.itemView)
+                Glide.with(this.itemView).load(dataOfUser.avatar).error(R.drawable.ms_no_pic).into(avatar)
             }
         }
 

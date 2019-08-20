@@ -22,6 +22,8 @@
         </activity>
         <activity android:name=".RankhistoryActivity">
         </activity>
+        <activity android:name=".MessageActivity">
+        </activity>
     </application>
 
 </manifest>

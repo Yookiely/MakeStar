@@ -14,6 +14,6 @@ class MainActivity : AppCompatActivity() {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_main)
         AppArchmage.init()
-        startActivity<LoginActivity>()
+        startActivity<MessageActivity>()
     }
 }

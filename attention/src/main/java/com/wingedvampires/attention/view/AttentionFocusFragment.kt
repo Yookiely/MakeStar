@@ -15,6 +15,7 @@ import com.example.common.experimental.extensions.awaitAndHandle
 import com.example.common.experimental.preference.CommonPreferences
 import com.wingedvampires.attention.R
 import com.wingedvampires.attention.model.AttentionService
+import com.wingedvampires.attention.view.items.videoActionItem
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 

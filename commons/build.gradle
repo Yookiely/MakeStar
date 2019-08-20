@@ -29,8 +29,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.youth.banner:banner:1.4.10'
-    implementation 'cn.edu.twt.retrox:recyclerviewdsl:1.1.0'
-    [*supportLibraries, 'constraint-layout', 'multidex', *archLibraries, 'kotlinx-coroutines','kotlin-stdlib', 'butterknife', 'anko'].each {
+    [*supportLibraries, 'constraint-layout', 'multidex', *archLibraries, 'kotlinx-coroutines','kotlin-stdlib', 'butterknife', 'anko', 'recyclerviewdsl'].each {
         implementation dependenciesMap[it]
     }
     testImplementation 'junit:junit:4.12'
@@ -68,4 +67,10 @@ dependencies {
     api 'pub.devrel:easypermissions:0.1.9'
 //    api 'com.github.GrenderG:Toasty:1.4.2'
 
+}
+
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
 }

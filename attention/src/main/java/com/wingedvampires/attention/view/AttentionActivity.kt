@@ -29,7 +29,7 @@ class AttentionActivity : AppCompatActivity() {
         liveLabel = findViewById(R.id.tv_attention_live_label)
         backLabel = findViewById(R.id.iv_attention_back)
         val homepage = findViewById<TextView>(R.id.tv_bottom_homepage)
-        val attention = findViewById<TextView>(R.id.tv_bottom_attention)
+//        val attention = findViewById<TextView>(R.id.tv_bottom_attention)
         val discover = findViewById<TextView>(R.id.tv_bottom_find)
         val userpage = findViewById<TextView>(R.id.tv_bottom_individual)
         homepage.setOnClickListener { Transfer.startActivity(this, "HomePageActivity", Intent()) }

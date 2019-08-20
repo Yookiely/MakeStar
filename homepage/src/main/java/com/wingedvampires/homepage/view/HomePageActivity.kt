@@ -33,7 +33,7 @@ class HomePageActivity : AppCompatActivity() {
 
         image = findViewById(R.id.iv_homepage_camera)
         image.setOnClickListener { v -> showMoreWindow(v) }
-        val homepage = findViewById<TextView>(R.id.tv_bottom_homepage)
+//        val homepage = findViewById<TextView>(R.id.tv_bottom_homepage)
         val attention = findViewById<TextView>(R.id.tv_bottom_attention)
         val discover = findViewById<TextView>(R.id.tv_bottom_find)
         val userpage = findViewById<TextView>(R.id.tv_bottom_individual)

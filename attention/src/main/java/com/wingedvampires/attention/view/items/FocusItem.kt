@@ -1,4 +1,4 @@
-package com.wingedvampires.attention.view
+package com.wingedvampires.attention.view.items
 
 import android.support.v7.widget.RecyclerView
 import android.view.View

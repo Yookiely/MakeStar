@@ -1,4 +1,4 @@
-package com.wingedvampires.attention.view
+package com.wingedvampires.attention.view.items
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -38,7 +38,7 @@ class VideoActionItem(val videoAction: VideoAction, val block: (View) -> Unit) :
             holder as ViewHolder
 
             val videoAction = item.videoAction
-            var lableText: String = ""
+            var labelText: String = ""
             holder.apply {
                 Glide.with(this.itemView).load(videoAction.avatar).error(R.drawable.ms_no_pic).into(avatar)
                 Glide.with(this.itemView).load(videoAction.cover_url).error(R.drawable.ms_no_pic).into(cover)
@@ -52,10 +52,22 @@ class VideoActionItem(val videoAction: VideoAction, val block: (View) -> Unit) :
                 shareNum.text = AttentionUtils.format(videoAction.share_num)
                 number.text = AttentionUtils.format(videoAction.hot_value)
                 videoAction.tags.split(",").forEach {
-                    lableText += "#$it      "
+                    labelText += "#$it      "
                 }
 
-                label.text = lableText
+                label.text = labelText
+
+                storeImg.setOnClickListener {
+
+                }
+
+
+
+                start.setOnClickListener {
+                    item.block(it)
+                }
+
+
             }
         }
 

@@ -58,6 +58,18 @@ interface AttentionService {
         @Query("from_user_ID") fromUserId: String = CommonPreferences.userid
     ): Deferred<CommonBody<String>>
 
+    @GET("/work/addCollection")
+    fun addCollection(
+        @Query("work_ID") workId: String,
+        @Query("uer_ID") userId: String = CommonPreferences.userid
+    ): Deferred<CommonBody<String?>>
+
+    @GET("/work/deleteCollection")
+    fun deleteCollection(
+        @Query("work_ID") workId: String,
+        @Query("uer_ID") userId: String = CommonPreferences.userid
+    ): Deferred<CommonBody<String?>>
+
     companion object : AttentionService by ServiceFactory()
 }
 

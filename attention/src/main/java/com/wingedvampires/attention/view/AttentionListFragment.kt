@@ -22,6 +22,10 @@ import com.example.common.experimental.extensions.awaitAndHandle
 import com.wingedvampires.attention.R
 import com.wingedvampires.attention.model.AttentionService
 import com.wingedvampires.attention.model.AttentionUtils
+import com.wingedvampires.attention.view.items.fansItem
+import com.wingedvampires.attention.view.items.focusItem
+import com.wingedvampires.attention.view.items.historyItem
+import com.wingedvampires.attention.view.items.recommendItem
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 

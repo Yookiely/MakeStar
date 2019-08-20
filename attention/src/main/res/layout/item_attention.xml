@@ -131,7 +131,7 @@
             app:layout_constraintRight_toRightOf="@id/iv_attention_video"
             android:layout_marginEnd="6dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/ms_gray_message"/>
+            android:src="@drawable/ms_gray_message"/>
 
     <TextView
             android:id="@+id/tv_attention_comment"
@@ -149,7 +149,7 @@
             app:layout_constraintBottom_toBottomOf="@id/iv_attention_comment"
             app:layout_constraintRight_toLeftOf="@id/iv_attention_comment"
             android:layout_marginEnd="24dp"
-            android:background="@drawable/ms_star"
+            android:src="@drawable/ms_star"
             android:layout_width="30dp"
             android:layout_height="30dp"/>
 
@@ -170,7 +170,7 @@
             app:layout_constraintTop_toTopOf="@id/iv_attention_comment"
             app:layout_constraintBottom_toBottomOf="@id/iv_attention_comment"
             app:layout_constraintRight_toLeftOf="@id/iv_attention_store"
-            android:background="@drawable/ms_gray_share"
+            android:src="@drawable/ms_gray_share"
             android:layout_marginEnd="24dp"/>
 
     <TextView
@@ -187,7 +187,7 @@
             android:id="@+id/iv_attention_number"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:background="@drawable/ms_living"
+            android:src="@drawable/ms_living"
             app:layout_constraintTop_toTopOf="@id/iv_attention_comment"
             app:layout_constraintBottom_toBottomOf="@id/iv_attention_comment"
             app:layout_constraintRight_toLeftOf="@id/iv_attention_share"

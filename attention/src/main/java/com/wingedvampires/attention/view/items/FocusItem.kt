@@ -1,5 +1,6 @@
 package com.wingedvampires.attention.view.items
 
+import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 import org.jetbrains.anko.collections.forEachWithIndex
 import org.jetbrains.anko.layoutInflater
 
-class FocusItem(val concernPerson: ConcernPerson, val block: (View) -> Unit) : Item {
+class FocusItem(val concernPerson: ConcernPerson, val context: Context, val block: (View) -> Unit) : Item {
     override val controller: ItemController
         get() = Controller
 
@@ -94,5 +95,5 @@ class FocusItem(val concernPerson: ConcernPerson, val block: (View) -> Unit) : I
     }
 }
 
-fun MutableList<Item>.focusItem(concernPerson: ConcernPerson, block: (View) -> Unit = { _ -> }) =
-    add(FocusItem(concernPerson, block))
+fun MutableList<Item>.focusItem(concernPerson: ConcernPerson, context: Context, block: (View) -> Unit = { _ -> }) =
+    add(FocusItem(concernPerson, context, block))

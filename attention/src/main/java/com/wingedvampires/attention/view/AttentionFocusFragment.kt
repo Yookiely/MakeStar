@@ -69,7 +69,7 @@ class AttentionFocusFragment : Fragment() {
             itemManager.refreshAll {
                 clear()
                 videoActions.forEach { videoAction ->
-                    videoActionItem(videoAction) {
+                    videoActionItem(videoAction, this@AttentionFocusFragment.context!!) {
                         CommonPreferences.setAndGetUserHistory(videoAction.work_ID.toString())
                     }
                 }
@@ -88,7 +88,7 @@ class AttentionFocusFragment : Fragment() {
             itemManager.autoRefresh {
                 clear()
                 videoActions.forEach { videoAction ->
-                    videoActionItem(videoAction) {
+                    videoActionItem(videoAction, this@AttentionFocusFragment.context!!) {
                         CommonPreferences.setAndGetUserHistory(videoAction.work_ID.toString())
                     }
                 }

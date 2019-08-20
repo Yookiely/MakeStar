@@ -1,20 +1,27 @@
 package com.wingedvampires.attention.view.items
 
+import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import cn.edu.twt.retrox.recyclerviewdsl.Item
 import cn.edu.twt.retrox.recyclerviewdsl.ItemController
 import com.bumptech.glide.Glide
+import com.example.common.experimental.extensions.QuietCoroutineExceptionHandler
+import com.example.common.experimental.extensions.awaitAndHandle
 import com.wingedvampires.attention.R
+import com.wingedvampires.attention.model.AttentionService
 import com.wingedvampires.attention.model.AttentionUtils
 import com.wingedvampires.attention.model.VideoAction
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.launch
 import org.jetbrains.anko.layoutInflater
 
-class VideoActionItem(val videoAction: VideoAction, val block: (View) -> Unit) : Item {
+class VideoActionItem(val videoAction: VideoAction, val context: Context, val block: (View) -> Unit) : Item {
     override val controller: ItemController
         get() = Controller
 
@@ -27,6 +34,8 @@ class VideoActionItem(val videoAction: VideoAction, val block: (View) -> Unit) :
     }
 
     companion object Controller : ItemController {
+        var isCollection = false
+
         override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
             val view = parent.context.layoutInflater.inflate(R.layout.item_attention, parent, false)
 
@@ -58,7 +67,34 @@ class VideoActionItem(val videoAction: VideoAction, val block: (View) -> Unit) :
                 label.text = labelText
 
                 storeImg.setOnClickListener {
+                    launch(UI + QuietCoroutineExceptionHandler) {
+                        if (!isCollection) {
+                            val resultCommonBody = AttentionService.addCollection(videoAction.work_ID).awaitAndHandle {
+                                it.printStackTrace()
+                                Toast.makeText(item.context, "收藏失败：${it.message}", Toast.LENGTH_SHORT).show()
+                            } ?: return@launch
 
+                            Toast.makeText(item.context, resultCommonBody.message, Toast.LENGTH_SHORT).show()
+
+                            if (resultCommonBody.error_code == -1) {
+                                shareImg.setImageResource(R.drawable.ms_red_star)
+                                isCollection = true
+                            }
+                        } else {
+                            val resultCommonBody =
+                                AttentionService.deleteCollection(videoAction.work_ID).awaitAndHandle {
+                                    it.printStackTrace()
+                                    Toast.makeText(item.context, "收藏失败：${it.message}", Toast.LENGTH_SHORT).show()
+                                } ?: return@launch
+
+                            Toast.makeText(item.context, resultCommonBody.message, Toast.LENGTH_SHORT).show()
+
+                            if (resultCommonBody.error_code == -1) {
+                                shareImg.setImageResource(R.drawable.ms_star)
+                                isCollection = false
+                            }
+                        }
+                    }
                 }
 
 
@@ -95,5 +131,5 @@ class VideoActionItem(val videoAction: VideoAction, val block: (View) -> Unit) :
     }
 }
 
-fun MutableList<Item>.videoActionItem(videoAction: VideoAction, block: (View) -> Unit = { _ -> }) =
-    add(VideoActionItem(videoAction, block))
+fun MutableList<Item>.videoActionItem(videoAction: VideoAction, context: Context, block: (View) -> Unit = { _ -> }) =
+    add(VideoActionItem(videoAction, context, block))

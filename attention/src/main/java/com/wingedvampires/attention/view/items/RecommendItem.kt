@@ -1,5 +1,6 @@
 package com.wingedvampires.attention.view.items
 
+import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +20,7 @@ import kotlinx.coroutines.experimental.launch
 import org.jetbrains.anko.collections.forEachWithIndex
 import org.jetbrains.anko.layoutInflater
 
-class RecommendItem(val recommendUser: RecommendUser, val block: (View) -> Unit) : Item {
+class RecommendItem(val recommendUser: RecommendUser, val context: Context, val block: (View) -> Unit) : Item {
     override val controller: ItemController
         get() = Controller
 
@@ -57,10 +58,10 @@ class RecommendItem(val recommendUser: RecommendUser, val block: (View) -> Unit)
                         launch(UI + QuietCoroutineExceptionHandler) {
                             val addCommonBody = AttentionService.deleteFollow(recommendUser.user_ID).awaitAndHandle {
                                 it.printStackTrace()
-                                Toast.makeText(holder.itemView.context, "操作失败", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(item.context, "操作失败", Toast.LENGTH_SHORT).show()
                             } ?: return@launch
 
-                            Toast.makeText(holder.itemView.context, addCommonBody.message, Toast.LENGTH_SHORT).show()
+                            Toast.makeText(item.context, addCommonBody.message, Toast.LENGTH_SHORT).show()
 
                             if (addCommonBody.error_code == -1) {
                                 add.text = "+关注"
@@ -71,10 +72,10 @@ class RecommendItem(val recommendUser: RecommendUser, val block: (View) -> Unit)
                         launch(UI + QuietCoroutineExceptionHandler) {
                             val addCommonBody = AttentionService.addFollow(recommendUser.user_ID).awaitAndHandle {
                                 it.printStackTrace()
-                                Toast.makeText(holder.itemView.context, "操作失败", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(item.context, "操作失败", Toast.LENGTH_SHORT).show()
                             } ?: return@launch
 
-                            Toast.makeText(holder.itemView.context, addCommonBody.message, Toast.LENGTH_SHORT).show()
+                            Toast.makeText(item.context, addCommonBody.message, Toast.LENGTH_SHORT).show()
 
                             if (addCommonBody.error_code == -1) {
                                 add.text = "取消关注"
@@ -121,5 +122,5 @@ class RecommendItem(val recommendUser: RecommendUser, val block: (View) -> Unit)
     }
 }
 
-fun MutableList<Item>.recommendItem(recommendUser: RecommendUser, block: (View) -> Unit = { _ -> }) =
-    add(RecommendItem(recommendUser, block))
+fun MutableList<Item>.recommendItem(recommendUser: RecommendUser, context: Context, block: (View) -> Unit = { _ -> }) =
+    add(RecommendItem(recommendUser, context, block))

@@ -1,5 +1,6 @@
 package com.wingedvampires.attention.view.items
 
+import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,7 @@ import com.wingedvampires.attention.model.DataOfUser
 import de.hdodenhof.circleimageview.CircleImageView
 import org.jetbrains.anko.layoutInflater
 
-class HistoryItem(val dataOfUser: DataOfUser, val block: (View) -> Unit) : Item {
+class HistoryItem(val dataOfUser: DataOfUser, val context: Context, val block: (View) -> Unit) : Item {
     override val controller: ItemController
         get() = RecommendItem
 
@@ -56,5 +57,5 @@ class HistoryItem(val dataOfUser: DataOfUser, val block: (View) -> Unit) : Item 
     }
 }
 
-fun MutableList<Item>.historyItem(dataOfUser: DataOfUser, block: (View) -> Unit = { }) =
-    add(HistoryItem(dataOfUser, block))
+fun MutableList<Item>.historyItem(dataOfUser: DataOfUser, context: Context, block: (View) -> Unit = { }) =
+    add(HistoryItem(dataOfUser, context, block))

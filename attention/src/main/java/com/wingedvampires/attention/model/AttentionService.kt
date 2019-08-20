@@ -64,7 +64,7 @@ interface AttentionService {
         @Query("uer_ID") userId: String = CommonPreferences.userid
     ): Deferred<CommonBody<String?>>
 
-    @GET("/work/deleteCollection")
+    @GET("/work/deleteCollectionByWork")
     fun deleteCollection(
         @Query("work_ID") workId: String,
         @Query("uer_ID") userId: String = CommonPreferences.userid
@@ -86,10 +86,10 @@ data class VideoAction(
     val signature: String?,
     val tags: String,
     val time: String,
-    val user_ID: Int,
+    val user_ID: String,
     val username: String,
     val video_ID: String,
-    val work_ID: Int,
+    val work_ID: String,
     val work_name: String
 )
 
@@ -105,7 +105,7 @@ data class RecommendUser(
 
 data class Fan(
     val avatar: String,
-    val user_ID: Int,
+    val user_ID: String,
     val username: String,
     val month_rank: Int,
     val signature: String?

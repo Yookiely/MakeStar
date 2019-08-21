@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/cv_comment_pic"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:civ_border_width="1dp"
+            android:layout_centerInParent="true"
+            app:civ_border_color="#cccccc"
+            tools:src="@drawable/ms_main_camera"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="12dp"/>
+
+    <android.support.constraint.ConstraintLayout
+            app:layout_constraintTop_toTopOf="@id/cv_comment_pic"
+            app:layout_constraintBottom_toBottomOf="@id/cv_comment_pic"
+            app:layout_constraintLeft_toRightOf="@id/cv_comment_pic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp">
+
+        <TextView
+                android:id="@+id/tv_comment_name"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#333333"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textSize="16sp"
+                tools:text="世界第一丧女孩"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_comment_time"
+                android:layout_marginTop="4dp"
+                android:textSize="12sp"
+                android:textColor="#cccccc"
+                app:layout_constraintTop_toBottomOf="@id/tv_comment_name"
+                app:layout_constraintLeft_toLeftOf="@id/tv_comment_name"
+                tools:text="2019 - 4 - 9"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <TextView
+            android:id="@+id/tv_comment_complain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/cv_comment_pic"
+            app:layout_constraintBottom_toBottomOf="@id/cv_comment_pic"
+            app:layout_constraintRight_toRightOf="@id/iv_comment_video"
+            android:textColor="#cccccc"
+            android:textSize="12sp"
+            app:layout_goneMarginEnd="14dp"
+            android:layout_marginEnd="6dp"
+            tools:text="投诉"/>
+
+    <ImageView
+            android:id="@+id/iv_comment_complain"
+            app:layout_constraintTop_toTopOf="@id/tv_comment_complain"
+            app:layout_constraintBottom_toBottomOf="@id/tv_comment_complain"
+            app:layout_constraintRight_toLeftOf="@id/tv_comment_complain"
+            android:layout_width="12dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/ms_red_complain"
+            android:layout_height="12dp"/>
+
+    <ImageView
+            android:layout_marginTop="10dp"
+            android:id="@+id/iv_comment_video"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginStart="14dp"
+            android:layout_marginEnd="14dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cv_comment_pic"
+            tools:src="@drawable/ms_no_pic"
+    />
+
+    <ImageView
+            android:id="@+id/iv_comment_start"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@drawable/ms_stop"
+            app:layout_constraintLeft_toLeftOf="@id/iv_comment_video"
+            app:layout_constraintBottom_toBottomOf="@id/iv_comment_video"
+            android:layout_marginBottom="12dp"
+            android:layout_marginStart="18dp"/>
+
+    <TextView
+            android:id="@+id/tv_comment_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/iv_comment_start"
+            app:layout_constraintBottom_toBottomOf="@id/iv_comment_start"
+            app:layout_constraintLeft_toRightOf="@id/iv_comment_start"
+            tools:text="4:00"
+            android:textSize="16sp"
+            android:layout_marginStart="6dp"
+            android:textColor="#ffffff"/>
+
+    <ImageView
+            android:id="@+id/iv_comment_comment"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:layout_constraintTop_toTopOf="@id/tv_comment_comment"
+            app:layout_constraintBottom_toBottomOf="@id/tv_comment_comment"
+            app:layout_constraintRight_toLeftOf="@id/tv_comment_comment"
+            android:layout_marginEnd="6dp"
+            android:src="@drawable/ms_gray_message"/>
+
+    <TextView
+            android:id="@+id/tv_comment_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_comment_title"
+            app:layout_constraintRight_toRightOf="@id/tv_comment_title"
+            tools:text="278"/>
+
+    <ImageView
+            android:id="@+id/iv_comment_store"
+            app:layout_constraintTop_toTopOf="@id/tv_comment_comment"
+            app:layout_constraintBottom_toBottomOf="@id/tv_comment_comment"
+            app:layout_constraintRight_toLeftOf="@+id/tv_comment_store"
+            android:layout_marginEnd="6dp"
+            android:src="@drawable/ms_star"
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
+
+    <TextView
+            android:id="@+id/tv_comment_store"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="26dp"
+            app:layout_constraintTop_toTopOf="@id/iv_comment_comment"
+            app:layout_constraintBottom_toBottomOf="@id/iv_comment_comment"
+            app:layout_constraintRight_toLeftOf="@id/iv_comment_comment"
+            tools:text="2345"/>
+
+    <ImageView
+            android:id="@+id/iv_comment_share"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:layout_constraintTop_toTopOf="@id/tv_comment_comment"
+            app:layout_constraintBottom_toBottomOf="@id/tv_comment_comment"
+            app:layout_constraintRight_toLeftOf="@id/tv_comment_share"
+            android:src="@drawable/ms_gray_share"
+            android:layout_marginEnd="6dp"/>
+
+    <TextView
+            android:id="@+id/tv_comment_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="26dp"
+            app:layout_constraintTop_toTopOf="@id/iv_comment_comment"
+            app:layout_constraintBottom_toBottomOf="@id/iv_comment_comment"
+            app:layout_constraintRight_toLeftOf="@id/iv_comment_store"
+            tools:text="506"/>
+
+    <TextView
+            android:id="@+id/tv_comment_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/iv_comment_video"
+            app:layout_constraintLeft_toLeftOf="@id/iv_comment_video"
+            app:layout_constraintRight_toRightOf="@id/iv_comment_video"
+            android:layout_gravity="left"
+            android:lineSpacingExtra="10sp"
+            android:layout_marginTop="14dp"
+            android:textColor="#333333"
+            android:textSize="16sp"
+            tools:text="如日本满街的樱的如日本满街的樱的如日本满街的樱的如日本满街的樱的如日本满街的樱的如日本满街的樱的如日本满街的樱的如日本满街的樱的如日本满街的樱的如日本满街的樱的如日本满街的樱的如日本满街的樱的"/>
+
+</android.support.constraint.ConstraintLayout>

@@ -15,6 +15,7 @@ import com.example.common.experimental.extensions.awaitAndHandle
 import com.example.common.experimental.preference.CommonPreferences
 import com.wingedvampires.attention.R
 import com.wingedvampires.attention.model.AttentionService
+import com.wingedvampires.attention.view.items.videoActionItem
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 
@@ -68,7 +69,7 @@ class AttentionFocusFragment : Fragment() {
             itemManager.refreshAll {
                 clear()
                 videoActions.forEach { videoAction ->
-                    videoActionItem(videoAction) {
+                    videoActionItem(videoAction, this@AttentionFocusFragment.context!!) {
                         CommonPreferences.setAndGetUserHistory(videoAction.work_ID.toString())
                     }
                 }
@@ -87,7 +88,7 @@ class AttentionFocusFragment : Fragment() {
             itemManager.autoRefresh {
                 clear()
                 videoActions.forEach { videoAction ->
-                    videoActionItem(videoAction) {
+                    videoActionItem(videoAction, this@AttentionFocusFragment.context!!) {
                         CommonPreferences.setAndGetUserHistory(videoAction.work_ID.toString())
                     }
                 }

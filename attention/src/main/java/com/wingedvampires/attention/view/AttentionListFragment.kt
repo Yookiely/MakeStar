@@ -11,6 +11,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -22,6 +23,10 @@ import com.example.common.experimental.extensions.awaitAndHandle
 import com.wingedvampires.attention.R
 import com.wingedvampires.attention.model.AttentionService
 import com.wingedvampires.attention.model.AttentionUtils
+import com.wingedvampires.attention.view.items.fansItem
+import com.wingedvampires.attention.view.items.focusItem
+import com.wingedvampires.attention.view.items.historyItem
+import com.wingedvampires.attention.view.items.recommendItem
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 
@@ -70,11 +75,15 @@ class AttentionListFragment : Fragment() {
                 if (searchEdit.text.isBlank()) {
                     showHistory()
                 }
-            } else {
-                if (searchEdit.text.isNotBlank()) {
-                    loadSearch()
-                }
             }
+        }
+
+        searchEdit.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH && searchEdit.text.isNotBlank()) {
+                loadSearch()
+            }
+
+            true
         }
 
         searchEdit.addTextChangedListener(object : TextWatcher {
@@ -163,7 +172,7 @@ class AttentionListFragment : Fragment() {
             itemManager.refreshAll {
                 clear()
                 recommendUsers.forEach { recommendUser ->
-                    recommendItem(recommendUser) {
+                    recommendItem(recommendUser, this@AttentionListFragment.context!!) {
 
                     }
                 }
@@ -182,7 +191,7 @@ class AttentionListFragment : Fragment() {
 
             itemManager.autoRefresh {
                 recommendUsers.forEach { recommendUser ->
-                    recommendItem(recommendUser) {
+                    recommendItem(recommendUser, this@AttentionListFragment.context!!) {
 
                     }
                 }
@@ -201,7 +210,7 @@ class AttentionListFragment : Fragment() {
             itemManager.refreshAll {
                 clear()
                 fans.forEach { fan ->
-                    fansItem(fan) {
+                    fansItem(fan, this@AttentionListFragment.context!!) {
 
                     }
                 }
@@ -220,7 +229,7 @@ class AttentionListFragment : Fragment() {
 
             itemManager.refreshAll {
                 fans.forEach { fan ->
-                    fansItem(fan) {
+                    fansItem(fan, this@AttentionListFragment.context!!) {
 
                     }
                 }
@@ -239,7 +248,7 @@ class AttentionListFragment : Fragment() {
             itemManager.refreshAll {
                 clear()
                 concernPersons.forEach { concernPerson ->
-                    focusItem(concernPerson) {
+                    focusItem(concernPerson, this@AttentionListFragment.context!!) {
 
                     }
                 }
@@ -258,7 +267,7 @@ class AttentionListFragment : Fragment() {
 
             itemManager.refreshAll {
                 concernPersons.forEach { concernPerson ->
-                    focusItem(concernPerson) {
+                    focusItem(concernPerson, this@AttentionListFragment.context!!) {
 
                     }
                 }
@@ -281,7 +290,7 @@ class AttentionListFragment : Fragment() {
             itemManager.refreshAll {
                 clear()
                 usersOfResult.forEach { dataOfUser ->
-                    historyItem(dataOfUser) {
+                    historyItem(dataOfUser, this@AttentionListFragment.context!!) {
                         AttentionUtils.setSearchHistory(dataOfUser)
                     }
                 }
@@ -306,7 +315,7 @@ class AttentionListFragment : Fragment() {
             val usersOfResult = result.user.data
             itemManager.autoRefresh {
                 usersOfResult.forEach { dataOfUser ->
-                    historyItem(dataOfUser) {
+                    historyItem(dataOfUser, this@AttentionListFragment.context!!) {
 
                     }
                 }
@@ -320,7 +329,7 @@ class AttentionListFragment : Fragment() {
         itemManager.refreshAll {
             clear()
             AttentionUtils.searchHistory.forEach { dataOfUser ->
-                historyItem(dataOfUser) {
+                historyItem(dataOfUser, this@AttentionListFragment.context!!) {
                     AttentionUtils.setSearchHistory(dataOfUser)
                 }
             }

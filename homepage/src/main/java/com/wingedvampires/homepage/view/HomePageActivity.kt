@@ -4,7 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import android.view.View
+import android.view.Window
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -29,11 +31,13 @@ class HomePageActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_homepage)
-
+        val toolbar = findViewById<Toolbar>(R.id.tb_main)
+        setSupportActionBar(toolbar)
         image = findViewById(R.id.iv_homepage_camera)
         image.setOnClickListener { v -> showMoreWindow(v) }
-        val homepage = findViewById<TextView>(R.id.tv_bottom_homepage)
+//        val homepage = findViewById<TextView>(R.id.tv_bottom_homepage)
         val attention = findViewById<TextView>(R.id.tv_bottom_attention)
         val discover = findViewById<TextView>(R.id.tv_bottom_find)
         val userpage = findViewById<TextView>(R.id.tv_bottom_individual)

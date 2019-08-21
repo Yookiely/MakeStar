@@ -24,7 +24,7 @@ object AttentionUtils {
     }
 
     fun setSearchHistory(dataOfUser: DataOfUser) {
-        val temp = mutableListOf<DataOfUser>().also { it.addAll(AttentionUtils.searchHistory) }
+        val temp = mutableListOf<DataOfUser>().also { it.addAll(searchHistory) }
         if (temp.contains(dataOfUser)) {
             temp.remove(dataOfUser)
         }

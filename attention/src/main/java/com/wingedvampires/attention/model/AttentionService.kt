@@ -58,6 +58,18 @@ interface AttentionService {
         @Query("from_user_ID") fromUserId: String = CommonPreferences.userid
     ): Deferred<CommonBody<String>>
 
+    @GET("/work/addCollection")
+    fun addCollection(
+        @Query("work_ID") workId: String,
+        @Query("uer_ID") userId: String = CommonPreferences.userid
+    ): Deferred<CommonBody<String?>>
+
+    @GET("/work/deleteCollectionByWork")
+    fun deleteCollection(
+        @Query("work_ID") workId: String,
+        @Query("uer_ID") userId: String = CommonPreferences.userid
+    ): Deferred<CommonBody<String?>>
+
     companion object : AttentionService by ServiceFactory()
 }
 
@@ -74,11 +86,12 @@ data class VideoAction(
     val signature: String?,
     val tags: String,
     val time: String,
-    val user_ID: Int,
+    val user_ID: String,
     val username: String,
     val video_ID: String,
-    val work_ID: Int,
-    val work_name: String
+    val work_ID: String,
+    val work_name: String,
+    val is_collected: Boolean
 )
 
 data class RecommendUser(
@@ -93,7 +106,7 @@ data class RecommendUser(
 
 data class Fan(
     val avatar: String,
-    val user_ID: Int,
+    val user_ID: String,
     val username: String,
     val month_rank: Int,
     val signature: String?

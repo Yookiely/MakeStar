@@ -4,7 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import android.view.View
+import android.view.Window
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.common.experimental.extensions.jumpchannel.Transfer
@@ -23,13 +25,17 @@ class AttentionActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_attention)
+        val toolbar = findViewById<Toolbar>(R.id.tb_attention_main)
+        setSupportActionBar(toolbar)
+
         image = findViewById(R.id.iv_attention_camera)
         image.setOnClickListener { v -> showMoreWindow(v) }
         liveLabel = findViewById(R.id.tv_attention_live_label)
         backLabel = findViewById(R.id.iv_attention_back)
         val homepage = findViewById<TextView>(R.id.tv_bottom_homepage)
-        val attention = findViewById<TextView>(R.id.tv_bottom_attention)
+//        val attention = findViewById<TextView>(R.id.tv_bottom_attention)
         val discover = findViewById<TextView>(R.id.tv_bottom_find)
         val userpage = findViewById<TextView>(R.id.tv_bottom_individual)
         homepage.setOnClickListener { Transfer.startActivity(this, "HomePageActivity", Intent()) }

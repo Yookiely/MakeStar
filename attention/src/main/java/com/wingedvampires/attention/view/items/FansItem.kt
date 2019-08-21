@@ -1,5 +1,6 @@
-package com.wingedvampires.attention.view
+package com.wingedvampires.attention.view.items
 
+import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,7 @@ import com.wingedvampires.attention.model.Fan
 import de.hdodenhof.circleimageview.CircleImageView
 import org.jetbrains.anko.layoutInflater
 
-class FansItem(val fan: Fan, val block: (View) -> Unit) : Item {
+class FansItem(val fan: Fan, val context: Context, val block: (View) -> Unit) : Item {
     override val controller: ItemController
         get() = Controller
 
@@ -58,5 +59,5 @@ class FansItem(val fan: Fan, val block: (View) -> Unit) : Item {
     }
 }
 
-fun MutableList<Item>.fansItem(fan: Fan, block: (View) -> Unit = {}) =
-    add(FansItem(fan, block))
+fun MutableList<Item>.fansItem(fan: Fan, context: Context, block: (View) -> Unit = {}) =
+    add(FansItem(fan, context, block))

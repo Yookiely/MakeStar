@@ -46,6 +46,7 @@ class MessageActivity : AppCompatActivity() {
         badage.badgeNumber = num
         badage.setBadgeTextSize(12f,true)
         badage.badgeGravity = Gravity.END or Gravity.TOP
+        badage.setOnDragStateChangedListener { _, _, _ -> }
 
     }
 }

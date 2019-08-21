@@ -11,6 +11,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -74,11 +75,15 @@ class AttentionListFragment : Fragment() {
                 if (searchEdit.text.isBlank()) {
                     showHistory()
                 }
-            } else {
-                if (searchEdit.text.isNotBlank()) {
-                    loadSearch()
-                }
             }
+        }
+
+        searchEdit.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH && searchEdit.text.isNotBlank()) {
+                loadSearch()
+            }
+
+            true
         }
 
         searchEdit.addTextChangedListener(object : TextWatcher {

@@ -22,6 +22,7 @@
                 android:layout_height="wrap_content"
                 android:hint="用户名称"
                 android:maxLines="1"
+                android:imeOptions="actionSearch"
                 android:background="@drawable/ms_search_background"
                 android:textColorHint="#cccccc"
         />

@@ -39,13 +39,6 @@ class FocusItem(val concernPerson: ConcernPerson, val context: Context, val bloc
             val concernPerson = item.concernPerson
 
             val tags = concernPerson.tags.split(",")
-            tags.forEachWithIndex { index, tag ->
-                when (index) {
-                    1 -> {
-
-                    }
-                }
-            }
 
             holder.apply {
                 Glide.with(this.itemView).load(concernPerson.avatar).error(R.drawable.ms_no_pic).into(avatar)

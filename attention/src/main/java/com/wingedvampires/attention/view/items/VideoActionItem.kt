@@ -34,10 +34,10 @@ class VideoActionItem(val videoAction: VideoAction, val context: Context, val bl
     }
 
     companion object Controller : ItemController {
-        var isCollection = false
+        var isCollected = false
 
         override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
-            val view = parent.context.layoutInflater.inflate(R.layout.item_attention, parent, false)
+            val view = parent.context.layoutInflater.inflate(R.layout.item_attention_videoaction, parent, false)
 
             return ViewHolder(view)
         }
@@ -47,7 +47,12 @@ class VideoActionItem(val videoAction: VideoAction, val context: Context, val bl
             holder as ViewHolder
 
             val videoAction = item.videoAction
-            var labelText: String = ""
+            var labelText = ""
+            videoAction.tags.split(",").forEach {
+                labelText += "#$it      "
+            }
+            isCollected = videoAction.is_collected
+
             holder.apply {
                 Glide.with(this.itemView).load(videoAction.avatar).error(R.drawable.ms_no_pic).into(avatar)
                 Glide.with(this.itemView).load(videoAction.cover_url).error(R.drawable.ms_no_pic).into(cover)
@@ -60,15 +65,18 @@ class VideoActionItem(val videoAction: VideoAction, val context: Context, val bl
                 storeNum.text = AttentionUtils.format(videoAction.collection_num)
                 shareNum.text = AttentionUtils.format(videoAction.share_num)
                 number.text = AttentionUtils.format(videoAction.hot_value)
-                videoAction.tags.split(",").forEach {
-                    labelText += "#$it      "
-                }
 
                 label.text = labelText
+                shareImg.apply {
+                    if (isCollected)
+                        setImageResource(R.drawable.ms_red_star)
+                    else
+                        setImageResource(R.drawable.ms_star)
+                }
 
                 storeImg.setOnClickListener {
                     launch(UI + QuietCoroutineExceptionHandler) {
-                        if (!isCollection) {
+                        if (!isCollected) {
                             val resultCommonBody = AttentionService.addCollection(videoAction.work_ID).awaitAndHandle {
                                 it.printStackTrace()
                                 Toast.makeText(item.context, "收藏失败：${it.message}", Toast.LENGTH_SHORT).show()
@@ -78,7 +86,7 @@ class VideoActionItem(val videoAction: VideoAction, val context: Context, val bl
 
                             if (resultCommonBody.error_code == -1) {
                                 shareImg.setImageResource(R.drawable.ms_red_star)
-                                isCollection = true
+                                isCollected = true
                             }
                         } else {
                             val resultCommonBody =
@@ -91,45 +99,43 @@ class VideoActionItem(val videoAction: VideoAction, val context: Context, val bl
 
                             if (resultCommonBody.error_code == -1) {
                                 shareImg.setImageResource(R.drawable.ms_star)
-                                isCollection = false
+                                isCollected = false
                             }
                         }
                     }
                 }
 
-
-
                 start.setOnClickListener {
                     item.block(it)
                 }
-
-
             }
+
         }
-
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val avatar: CircleImageView = itemView.findViewById(R.id.cv_attention_pic)
-        val name: TextView = itemView.findViewById(R.id.tv_attention_name)
-        val title: TextView = itemView.findViewById(R.id.tv_attention_title)
-        val rank: TextView = itemView.findViewById(R.id.tv_attention_rank)
-        val time: TextView = itemView.findViewById(R.id.tv_attention_time)
-        val complain: TextView = itemView.findViewById(R.id.tv_attention_complain)
-        val complainMark: ImageView = itemView.findViewById(R.id.iv_attention_complain)
-        val cover: ImageView = itemView.findViewById(R.id.iv_attention_video)
-        val start: ImageView = itemView.findViewById(R.id.iv_attention_start)
-        val duration: TextView = itemView.findViewById(R.id.tv_attention_duration)
-        val label: TextView = itemView.findViewById(R.id.tv_attention_label)
-        val number: TextView = itemView.findViewById(R.id.tv_attention_number)
-        val shareImg: ImageView = itemView.findViewById(R.id.iv_attention_share)
-        val shareNum: TextView = itemView.findViewById(R.id.tv_attention_share)
-        val storeImg: ImageView = itemView.findViewById(R.id.iv_attention_store)
-        val storeNum: TextView = itemView.findViewById(R.id.tv_attention_store)
-        val commentImg: ImageView = itemView.findViewById(R.id.iv_attention_comment)
-        val commentNum: TextView = itemView.findViewById(R.id.tv_attention_comment)
-    }
 }
+
+class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    val avatar: CircleImageView = itemView.findViewById(R.id.cv_attention_pic)
+    val name: TextView = itemView.findViewById(R.id.tv_attention_name)
+    val title: TextView = itemView.findViewById(R.id.tv_attention_title)
+    val rank: TextView = itemView.findViewById(R.id.tv_attention_rank)
+    val time: TextView = itemView.findViewById(R.id.tv_attention_time)
+    val complain: TextView = itemView.findViewById(R.id.tv_attention_complain)
+    val complainMark: ImageView = itemView.findViewById(R.id.iv_attention_complain)
+    val cover: ImageView = itemView.findViewById(R.id.iv_attention_video)
+    val start: ImageView = itemView.findViewById(R.id.iv_attention_start)
+    val duration: TextView = itemView.findViewById(R.id.tv_attention_duration)
+    val label: TextView = itemView.findViewById(R.id.tv_attention_label)
+    val number: TextView = itemView.findViewById(R.id.tv_attention_number)
+    val shareImg: ImageView = itemView.findViewById(R.id.iv_attention_share)
+    val shareNum: TextView = itemView.findViewById(R.id.tv_attention_share)
+    val storeImg: ImageView = itemView.findViewById(R.id.iv_attention_store)
+    val storeNum: TextView = itemView.findViewById(R.id.tv_attention_store)
+    val commentImg: ImageView = itemView.findViewById(R.id.iv_attention_comment)
+    val commentNum: TextView = itemView.findViewById(R.id.tv_attention_comment)
+}
+
 
 fun MutableList<Item>.videoActionItem(videoAction: VideoAction, context: Context, block: (View) -> Unit = { _ -> }) =
     add(VideoActionItem(videoAction, context, block))

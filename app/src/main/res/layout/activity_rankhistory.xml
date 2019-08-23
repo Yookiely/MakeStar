@@ -47,6 +47,105 @@
             android:id="@+id/bottom_user_rankhistory"
     >
 
+        <android.support.v4.widget.CircleImageView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginLeft="20dp"
+                android:id="@+id/img_user_rankhistory"
+        />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#333333"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/img_user_rankhistory"
+                android:layout_marginLeft="12dp"
+                android:text="No.4"
+        />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="114dp"
+                android:textColor="#e3284b"
+                android:textSize="16sp"
+                android:text="当月助力："
+
+        />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="40dp"
+                android:layout_marginRight="114dp"
+                android:textColor="#e3284b"
+                android:textSize="16sp"
+                android:text="总助力值："
+
+        />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="50dp"
+                android:textColor="#e3284b"
+                android:textSize="16sp"
+                android:text="w"
+                android:id="@+id/number_ten_thousand"
+
+        />
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="40dp"
+                android:layout_marginRight="50dp"
+                android:textColor="#e3284b"
+                android:textSize="16sp"
+                android:text="w"
+
+        />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@+id/number_ten_thousand"
+                app:layout_constraintRight_toLeftOf="@+id/number_ten_thousand"
+                android:layout_marginRight="8dp"
+                android:textColor="#e3284b"
+                android:textSize="16sp"
+                android:id="@+id/number_month"
+        />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/number_ten_thousand"
+                android:layout_marginTop="40dp"
+                android:layout_marginRight="8dp"
+                android:textColor="#e3284b"
+                android:textSize="16sp"
+                android:id="@+id/number_all"
+        />
+
+
+
     </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>

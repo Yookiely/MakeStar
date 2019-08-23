@@ -39,7 +39,7 @@ dependencies {
     [':auth', ':commons', ':homepage', ':userpage', ':discover', ':attention', ':upload'].each {
         implementation project(it)
     }
-    [*supportLibraries, 'constraint-layout', 'multidex', *archLibraries, 'kotlin-stdlib', 'butterknife', 'anko'].each {
+    [*supportLibraries, 'constraint-layout', 'multidex', *archLibraries, 'kotlin-stdlib', 'butterknife', 'anko','circleimageview'].each {
         implementation dependenciesMap[it]
     }
     implementation 'q.rorbin:badgeview:1.1.3'

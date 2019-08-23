@@ -24,6 +24,8 @@
         </activity>
         <activity android:name=".MessageActivity">
         </activity>
+        <activity android:name=".FansActivity">
+        </activity>
     </application>
 
 </manifest>

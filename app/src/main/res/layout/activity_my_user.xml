@@ -225,6 +225,7 @@
             android:layout_marginLeft="40dp"
             android:layout_marginBottom="140dp"
             android:id="@+id/portrait"
+            android:elevation="10dp"
     />
 
     <android.support.v7.widget.RecyclerView

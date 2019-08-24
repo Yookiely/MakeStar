@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.wingedvampires.attention">
+        package="com.wingedvampires.attention">
 
     <application>
-        <activity android:name=".view.CommentsActivity">
-        </activity>
-        <activity android:name=".view.AttentionActivity">
-        </activity>
+        <activity android:name=".view.SecondCommentActivity"></activity>
+        <activity android:name=".view.CommentsActivity"></activity>
+        <activity android:name=".view.AttentionActivity"></activity>
     </application>
 
 </manifest>

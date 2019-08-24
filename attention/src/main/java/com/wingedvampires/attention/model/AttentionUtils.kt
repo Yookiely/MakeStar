@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 object AttentionUtils {
+    const val COMMENT_INDEX = "commentIndex"
+    const val SECOND_COMMENT_INDEX = "secondCommentIndex"
     var searchHistory by hawk("ATTENTION_SEARCH_HISTORY", mutableListOf<DataOfUser>())
 
     fun formatTime(time: Float): String {
@@ -18,7 +20,10 @@ object AttentionUtils {
 
         return when {
             length < 5 -> num
-            length < 8 -> "${num.substring(0, length - 4)}.${num.substring(length - 4, length - 2)}w"
+            length < 8 -> "${num.substring(0, length - 4)}.${num.substring(
+                length - 4,
+                length - 2
+            )}w"
             else -> "${num.substring(0, length - 7)}.${num.substring(length - 7, length - 5)}kw"
         }
     }

@@ -5,6 +5,7 @@ import com.example.common.experimental.network.ServiceFactory
 import com.example.common.experimental.preference.CommonPreferences
 import kotlinx.coroutines.experimental.Deferred
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface AttentionService {
@@ -19,21 +20,21 @@ interface AttentionService {
     @GET("/api/user/getRecommendUser")
     fun getRecommendUser(
         @Query("page") page: Int,
-        @Query("uer_ID") userId: String = CommonPreferences.userid,
+        @Query("user_ID") userId: String = CommonPreferences.userid,
         @Query("limit") limit: Int = 10
     ): Deferred<CommonBody<List<RecommendUser>>>
 
     @GET("/api/user/getFuns")
     fun getFans(
         @Query("page") page: Int,
-        @Query("uer_ID") userId: String = CommonPreferences.userid,
+        @Query("user_ID") userId: String = CommonPreferences.userid,
         @Query("limit") limit: Int = 10
     ): Deferred<CommonBody<List<Fan>>>
 
     @GET("/api/user/spotList")
     fun getSpotList(
         @Query("page") page: Int,
-        @Query("uer_ID") userId: String = CommonPreferences.userid,
+        @Query("user_ID") userId: String = CommonPreferences.userid,
         @Query("limit") limit: Int = 10
     ): Deferred<CommonBody<List<ConcernPerson>>>
 
@@ -41,18 +42,18 @@ interface AttentionService {
     fun search(
         @Query("page") page: Int,
         @Query("content") content: String,
-        @Query("uer_ID") userId: String = CommonPreferences.userid,
+        @Query("user_ID") userId: String = CommonPreferences.userid,
         @Query("limit") limit: Int = 10
     ): Deferred<CommonBody<SearchData>>
 
-    @GET("/api/follow/add")
+    @POST("/api/follow/add")
     fun addFollow(
         @Query("to_user_ID") toUserId: String,
         @Query("from_user_ID") fromUserId: String = CommonPreferences.userid
     ): Deferred<CommonBody<String>>
 
 
-    @GET("/api/follow/delete")
+    @POST("/api/follow/delete")
     fun deleteFollow(
         @Query("to_user_ID") toUserId: String,
         @Query("from_user_ID") fromUserId: String = CommonPreferences.userid
@@ -61,14 +62,76 @@ interface AttentionService {
     @GET("/work/addCollection")
     fun addCollection(
         @Query("work_ID") workId: String,
-        @Query("uer_ID") userId: String = CommonPreferences.userid
+        @Query("user_ID") userId: String = CommonPreferences.userid
     ): Deferred<CommonBody<String?>>
 
     @GET("/work/deleteCollectionByWork")
     fun deleteCollection(
         @Query("work_ID") workId: String,
-        @Query("uer_ID") userId: String = CommonPreferences.userid
+        @Query("user_ID") userId: String = CommonPreferences.userid
     ): Deferred<CommonBody<String?>>
+
+    @POST("/api/comment/index")
+    fun getTotalComments(
+        @Query("work_ID") workId: String,
+        @Query("page") page: Int,
+        @Query("limit") limit: Int = 10,
+        @Query("user_ID") userId: String = CommonPreferences.userid
+    ): Deferred<CommonBody<TotalComments<Comment>>>
+
+    @POST("/api/comment/create")
+    fun createComment(
+        @Query("work_ID") workId: String,
+        @Query("content") content: String,
+        @Query("user_ID") userId: String = CommonPreferences.userid
+    ): Deferred<CommonBody<String>>
+
+    @POST("/api/comment/delete")
+    fun deleteComment(
+        @Query("comment_ID") commentId: String,
+        @Query("user_ID") userId: String = CommonPreferences.userid
+    ): Deferred<CommonBody<String>>
+
+    @POST("/api/comment/update")
+    fun updateComment(
+        @Query("content") content: String,
+        @Query("comment_ID") commentId: String,
+        @Query("user_ID") userId: String = CommonPreferences.userid
+    ): Deferred<CommonBody<String>>
+
+    @POST("/api/comment/getCC")
+    fun getScecondComments(
+        @Query("comment_ID") commentId: String,
+        @Query("page") page: Int,
+        @Query("limit") limit: Int = 10,
+        @Query("user_ID") userId: String = CommonPreferences.userid
+    ): Deferred<CommonBody<TotalComments<SecondComment>>>
+
+    @POST("/api/comment/createCC")
+    fun createSecondComment(
+        @Query("comment_ID") commentId: String,
+        @Query("content") content: String,
+        @Query("user_ID") userId: String = CommonPreferences.userid
+    ): Deferred<CommonBody<String>>
+
+    @POST("/api/comment/deleteCC")
+    fun deleteSecondComment(
+        @Query("ccID") ccID: String,
+        @Query("user_ID") userId: String = CommonPreferences.userid
+    ): Deferred<CommonBody<String>>
+
+    @POST("/api/comment/updateCC")
+    fun updateSecondComment(
+        @Query("content") content: String,
+        @Query("ccID") ccID: String,
+        @Query("user_ID") userId: String = CommonPreferences.userid
+    ): Deferred<CommonBody<String>>
+
+    @GET("/api/work/getWorkByID")
+    fun getWorkByID(
+        @Query("work_ID") workId: String,
+        @Query("user_ID") userId: String = CommonPreferences.userid
+    ): Deferred<CommonBody<List<WorkById>>>
 
     companion object : AttentionService by ServiceFactory()
 }
@@ -166,4 +229,50 @@ data class DataOfWork(
     val work_name: String,
     val work_type: Int,
     val work_ID: String
+)
+
+data class TotalComments<T>(
+    val data: List<T>,
+    val currentPage: Int,
+    val lastPage: Int
+)
+
+data class Comment(
+    val avatar: String?,
+    val comment_ID: String,
+    val content: String,
+    val time: String,
+    val user_ID: String,
+    val comment_comment: Int,
+    val username: String
+)
+
+data class SecondComment(
+    val avatar: String?,
+    val ccID: String,
+    val content: String,
+    val time: String,
+    val username: String,
+    val user_ID: String
+)
+
+data class WorkById(
+    val Duration: String,
+    val Introduction: String,
+    val avatar: String,
+    val collection_num: String,
+    val comment_num: String,
+    val cover_url: String,
+    val hot_value: String,
+    val is_collected: Boolean,
+    val share_num: String,
+    val tags: String,
+    val time: String,
+    val user_ID: String,
+    val username: String,
+    val video_ID: String,
+    val video_link: String,
+    val work_ID: String,
+    val work_name: String,
+    val work_type_ID: Int
 )

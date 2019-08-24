@@ -29,7 +29,6 @@ class AttentionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_attention)
         val toolbar = findViewById<Toolbar>(R.id.tb_attention_main)
         setSupportActionBar(toolbar)
-
         image = findViewById(R.id.iv_attention_camera)
         image.setOnClickListener { v -> showMoreWindow(v) }
         liveLabel = findViewById(R.id.tv_attention_live_label)
@@ -63,7 +62,11 @@ class AttentionActivity : AppCompatActivity() {
         dynamicPagerIndicator.setViewPager(homepageViewPager)
 
         homepageViewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) = Unit
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) = Unit
 
             override fun onPageScrollStateChanged(state: Int) = Unit
 

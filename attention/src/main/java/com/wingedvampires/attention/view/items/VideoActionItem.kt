@@ -16,12 +16,18 @@ import com.wingedvampires.attention.R
 import com.wingedvampires.attention.model.AttentionService
 import com.wingedvampires.attention.model.AttentionUtils
 import com.wingedvampires.attention.model.VideoAction
+import com.wingedvampires.attention.view.CommentsActivity
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 import org.jetbrains.anko.layoutInflater
+import org.jetbrains.anko.startActivity
 
-class VideoActionItem(val videoAction: VideoAction, val context: Context, val block: (View) -> Unit) : Item {
+class VideoActionItem(
+    val videoAction: VideoAction,
+    val context: Context,
+    val block: (View) -> Unit
+) : Item {
     override val controller: ItemController
         get() = Controller
 
@@ -37,7 +43,11 @@ class VideoActionItem(val videoAction: VideoAction, val context: Context, val bl
         var isCollected = false
 
         override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
-            val view = parent.context.layoutInflater.inflate(R.layout.item_attention_videoaction, parent, false)
+            val view = parent.context.layoutInflater.inflate(
+                R.layout.item_attention_videoaction,
+                parent,
+                false
+            )
 
             return ViewHolder(view)
         }
@@ -54,8 +64,10 @@ class VideoActionItem(val videoAction: VideoAction, val context: Context, val bl
             isCollected = videoAction.is_collected
 
             holder.apply {
-                Glide.with(this.itemView).load(videoAction.avatar).error(R.drawable.ms_no_pic).into(avatar)
-                Glide.with(this.itemView).load(videoAction.cover_url).error(R.drawable.ms_no_pic).into(cover)
+                Glide.with(this.itemView).load(videoAction.avatar).error(R.drawable.ms_no_pic)
+                    .into(avatar)
+                Glide.with(this.itemView).load(videoAction.cover_url).error(R.drawable.ms_no_pic)
+                    .into(cover)
                 name.text = videoAction.username
                 time.text = videoAction.time.split(" ")[0]
                 title.text = videoAction.work_name
@@ -77,12 +89,21 @@ class VideoActionItem(val videoAction: VideoAction, val context: Context, val bl
                 storeImg.setOnClickListener {
                     launch(UI + QuietCoroutineExceptionHandler) {
                         if (!isCollected) {
-                            val resultCommonBody = AttentionService.addCollection(videoAction.work_ID).awaitAndHandle {
-                                it.printStackTrace()
-                                Toast.makeText(item.context, "收藏失败：${it.message}", Toast.LENGTH_SHORT).show()
-                            } ?: return@launch
+                            val resultCommonBody =
+                                AttentionService.addCollection(videoAction.work_ID).awaitAndHandle {
+                                    it.printStackTrace()
+                                    Toast.makeText(
+                                        item.context,
+                                        "收藏失败：${it.message}",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                } ?: return@launch
 
-                            Toast.makeText(item.context, resultCommonBody.message, Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                item.context,
+                                resultCommonBody.message,
+                                Toast.LENGTH_SHORT
+                            ).show()
 
                             if (resultCommonBody.error_code == -1) {
                                 shareImg.setImageResource(R.drawable.ms_red_star)
@@ -92,10 +113,18 @@ class VideoActionItem(val videoAction: VideoAction, val context: Context, val bl
                             val resultCommonBody =
                                 AttentionService.deleteCollection(videoAction.work_ID).awaitAndHandle {
                                     it.printStackTrace()
-                                    Toast.makeText(item.context, "收藏失败：${it.message}", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(
+                                        item.context,
+                                        "收藏失败：${it.message}",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                 } ?: return@launch
 
-                            Toast.makeText(item.context, resultCommonBody.message, Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                item.context,
+                                resultCommonBody.message,
+                                Toast.LENGTH_SHORT
+                            ).show()
 
                             if (resultCommonBody.error_code == -1) {
                                 shareImg.setImageResource(R.drawable.ms_star)
@@ -107,6 +136,10 @@ class VideoActionItem(val videoAction: VideoAction, val context: Context, val bl
 
                 start.setOnClickListener {
                     item.block(it)
+                }
+
+                commentImg.setOnClickListener {
+                    it.context.startActivity<CommentsActivity>(AttentionUtils.COMMENT_INDEX to videoAction.work_ID)
                 }
             }
 
@@ -137,5 +170,9 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 }
 
 
-fun MutableList<Item>.videoActionItem(videoAction: VideoAction, context: Context, block: (View) -> Unit = { _ -> }) =
+fun MutableList<Item>.videoActionItem(
+    videoAction: VideoAction,
+    context: Context,
+    block: (View) -> Unit = { _ -> }
+) =
     add(VideoActionItem(videoAction, context, block))

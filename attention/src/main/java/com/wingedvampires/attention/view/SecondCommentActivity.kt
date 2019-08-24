@@ -15,29 +15,27 @@ import com.wingedvampires.attention.R
 import com.wingedvampires.attention.model.AttentionService
 import com.wingedvampires.attention.model.AttentionUtils
 import com.wingedvampires.attention.view.items.commentItem
-import com.wingedvampires.attention.view.items.videoActionCommentItem
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 import org.jetbrains.anko.collections.forEachWithIndex
 
-class CommentsActivity : AppCompatActivity() {
+class SecondCommentActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private val layoutManager = LinearLayoutManager(this)
-    private var itemManager: ItemManager =
-        ItemManager() //by lazy { recyclerView.withItems(listOf()) }
+    private var itemManager: ItemManager = ItemManager()
     private var isLoading = true
     private var page: Int = 1
     private var lastPage = Int.MAX_VALUE
-    lateinit var workId: String
+    lateinit var commentId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
-        setContentView(R.layout.activity_comments)
+        setContentView(R.layout.activity_second_comment)
         val bundle: Bundle = intent.extras
-        workId = bundle.getString(AttentionUtils.COMMENT_INDEX)!!
-        val toolbar = findViewById<Toolbar>(R.id.tb_comment_main)
+        commentId = bundle.getString(AttentionUtils.SECOND_COMMENT_INDEX)!!
+        val toolbar = findViewById<Toolbar>(R.id.tb_secondcomment_main)
         toolbar.apply {
             title = " "
             setSupportActionBar(this)
@@ -45,13 +43,12 @@ class CommentsActivity : AppCompatActivity() {
             setNavigationOnClickListener { onBackPressed() }
         }
 
-        recyclerView = findViewById(R.id.rv_comment_main)
+        recyclerView = findViewById(R.id.rv_secondcomment_main)
         recyclerView.apply {
             layoutManager = layoutManager
             adapter = ItemAdapter(itemManager)
         }
-
-        loadMainComment()
+        loadSecondComment()
 
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
@@ -63,30 +60,31 @@ class CommentsActivity : AppCompatActivity() {
                     isLoading = true
                     page++
 
-                    loadMoreMainComment()
+                    loadMoreSecondComment()
                 }
             }
         })
         isLoading = false
-
     }
 
-    private fun loadMainComment() {
+    private fun loadSecondComment() {
         launch(UI + QuietCoroutineExceptionHandler) {
             page = 0
-            val work = AttentionService.getWorkByID(workId).awaitAndHandle {
+
+            val comments = AttentionService.getScecondComments(commentId, page).awaitAndHandle {
                 it.printStackTrace()
-                Toast.makeText(this@CommentsActivity, "数据加载失败", Toast.LENGTH_SHORT).show()
-            }?.data?.get(0) ?: return@launch
-            val comments = AttentionService.getTotalComments(workId, page).awaitAndHandle {
-                it.printStackTrace()
-                Toast.makeText(this@CommentsActivity, "评论加载失败", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@SecondCommentActivity, "评论加载失败", Toast.LENGTH_SHORT).show()
             }?.data ?: return@launch
 
             itemManager.refreshAll {
-                videoActionCommentItem(work, this@CommentsActivity)
                 comments.data.forEachWithIndex { index, comment ->
-                    commentItem(this@CommentsActivity, index != comments.data.size, comment) {
+                    commentItem(
+                        this@SecondCommentActivity,
+                        index != comments.data.size,
+                        null,
+                        comment,
+                        false
+                    ) {
                         this.remove(it)
                     }
                 }
@@ -96,24 +94,26 @@ class CommentsActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadMoreMainComment() {
+    private fun loadMoreSecondComment() {
         launch(UI + QuietCoroutineExceptionHandler) {
             if (page > lastPage) {
-                Toast.makeText(this@CommentsActivity, "已经到底了", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@SecondCommentActivity, "已经到底了", Toast.LENGTH_SHORT).show()
                 return@launch
             }
 
-            val comments = AttentionService.getTotalComments(workId, page).awaitAndHandle {
+            val comments = AttentionService.getScecondComments(commentId, page).awaitAndHandle {
                 it.printStackTrace()
-                Toast.makeText(this@CommentsActivity, "评论加载失败", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@SecondCommentActivity, "评论加载失败", Toast.LENGTH_SHORT).show()
             }?.data ?: return@launch
 
-            itemManager.autoRefresh {
+            itemManager.refreshAll {
                 comments.data.forEachWithIndex { index, comment ->
                     commentItem(
-                        this@CommentsActivity,
+                        this@SecondCommentActivity,
                         index != comments.data.size,
-                        comment
+                        null,
+                        comment,
+                        false
                     ) {
                         this.remove(it)
                     }

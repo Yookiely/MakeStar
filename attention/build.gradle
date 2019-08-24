@@ -27,6 +27,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     [*supportLibraries, 'constraint-layout', 'multidex', *archLibraries, 'kotlin-stdlib', 'butterknife', 'anko', 'dynamicpagerindicator', 'circleimageview', 'recyclerviewdsl'].each {
         implementation dependenciesMap[it]
     }

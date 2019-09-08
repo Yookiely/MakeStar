@@ -20,16 +20,16 @@ object ServiceFactory {
         .apply { level = HttpLoggingInterceptor.Level.BODY }
 
     val client = OkHttpClient.Builder()
-//        .addInterceptor(UserAgentInterceptor.forTrusted)
+        .addInterceptor(UserAgentInterceptor.forTrusted)
         .addInterceptor(SignatureInterceptor.forTrusted)
-//        .addInterceptor(AuthorizationInterceptor.forTrusted)
+        .addInterceptor(AuthorizationInterceptor.forTrusted)
 //        .authenticator(RealAuthenticator)
         .retryOnConnectionFailure(false)
         .connectTimeout(20, TimeUnit.SECONDS)
         .readTimeout(20, TimeUnit.SECONDS)
         .writeTimeout(20, TimeUnit.SECONDS)
         .addNetworkInterceptor(loggingInterceptor)
-//        .addNetworkInterceptor(CodeCorrectionInterceptor.forTrusted)
+        .addNetworkInterceptor(CodeCorrectionInterceptor.forTrusted)
         .build()
 
     val retrofit = Retrofit.Builder()

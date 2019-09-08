@@ -28,17 +28,7 @@ val authSelfLiveData = RefreshableLiveData.use(authSelfLocalCache, authSelfRemot
         CommonPreferences.spotted = this.spotted
         CommonPreferences.city = this.city
 
-
-
-
     }
-//    CommonPreferences.username = it.data.username
-//    CommonPreferences.studentid = it.studentid
-//    CommonPreferences.isBindLibrary = it.accounts.lib
-//    CommonPreferences.isBindTju = it.accounts.tju
-//    CommonPreferences.dropOut = it.dropout
-//    CommonPreferences.realName = it.realname
-//    CrashReport.setUserId(it.twtuname)
 }
 fun login(username: String, password: String, callback: suspend (RefreshState<Unit>) -> Unit = {}) {
     launch(UI) {

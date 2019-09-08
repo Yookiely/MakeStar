@@ -9,10 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import cn.edu.twt.retrox.recyclerviewdsl.Item
 import cn.edu.twt.retrox.recyclerviewdsl.ItemController
-import com.example.yangzihang.makestar.MainActivity
-import com.example.yangzihang.makestar.MessageActivity
-import com.example.yangzihang.makestar.R
-import com.example.yangzihang.makestar.RankhistoryActivity
+import com.example.yangzihang.makestar.*
 import org.jetbrains.anko.layoutInflater
 
 class UserItem(val titles: String, val context: Context, val activity: Int) : Item {
@@ -37,9 +34,7 @@ class UserItem(val titles: String, val context: Context, val activity: Int) : It
 
         }
 
-        private class UserItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            val title = itemView.findViewById<TextView>(R.id.user_text)
-        }
+
 
     }
 
@@ -48,6 +43,7 @@ class UserItem(val titles: String, val context: Context, val activity: Int) : It
         when(activity){
             1 -> intent = Intent(context,RankhistoryActivity::class.java)
             2 -> intent = Intent(context,MessageActivity::class.java)
+            4 -> intent = Intent(context,FansActivity::class.java)
         }
 
 
@@ -56,6 +52,9 @@ class UserItem(val titles: String, val context: Context, val activity: Int) : It
     override val controller: ItemController
         get() = UserItem
 
+    private class UserItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val title = itemView.findViewById<TextView>(R.id.user_text)
+    }
 
 }
 

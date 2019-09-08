@@ -7,6 +7,8 @@ import android.support.v4.view.ViewPager
 import android.view.Gravity
 import android.view.View
 import android.widget.TextView
+import com.example.yangzihang.makestar.View.DiscussFragment
+import com.example.yangzihang.makestar.View.LikeFragment
 import com.example.yangzihang.makestar.View.MessageFragment
 import com.example.yangzihang.makestar.View.MessagePagerAdapter
 import q.rorbin.badgeview.QBadgeView
@@ -24,8 +26,8 @@ class MessageActivity : AppCompatActivity() {
         val mPagerAdapter = MessagePagerAdapter(supportFragmentManager)
         mPagerAdapter.apply {
             add(MessageFragment(),"消息")
-            add(MessageFragment(),"2")
-            add(MessageFragment(),"3")
+            add(LikeFragment(),"2")
+            add(DiscussFragment(),"3")
         }
         viewPager.adapter = mPagerAdapter
         mTabLayout.setupWithViewPager(viewPager)

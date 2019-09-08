@@ -1,6 +1,7 @@
 package com.example.yangzihang.makestar
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -34,7 +35,7 @@ class MyUserActivity : AppCompatActivity() {
         val enter = findViewById<TextView>(R.id.enter_oneself)
 
         enter.setOnClickListener {
-
+            startActivity(Intent(this,MyselfActivity::class.java))
         }
 
         recyclerView = findViewById(R.id.user_rec)
@@ -57,11 +58,11 @@ class MyUserActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.withItems {
             setUserText("历史排名",this@MyUserActivity,1)
-            setUserText("我的消息",this@MyUserActivity,1)
-            setUserText("我的收藏",this@MyUserActivity,2)
-            setUserText("我的作品",this@MyUserActivity,3)
-            setUserText("我的订单",this@MyUserActivity,4)
-            setUserText("商务合作",this@MyUserActivity,5)
+            setUserText("我的消息",this@MyUserActivity,2)
+            setUserText("我的收藏",this@MyUserActivity,3)
+            setUserText("粉丝圈",this@MyUserActivity,4)
+            setUserText("我的订单",this@MyUserActivity,5)
+            setUserText("商务合作",this@MyUserActivity,6)
         }
     }
 }

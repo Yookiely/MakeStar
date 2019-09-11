@@ -81,3 +81,5 @@ class TopRankItem(val userList: List<userData>) : Item {
         get() = TopRankItem
 
 }
+
+fun MutableList<Item>.addTopRankItem(userList: List<userData>) = add(TopRankItem(userList))

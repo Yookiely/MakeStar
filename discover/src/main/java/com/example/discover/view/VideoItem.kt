@@ -11,6 +11,7 @@ import cn.edu.twt.retrox.recyclerviewdsl.Item
 import cn.edu.twt.retrox.recyclerviewdsl.ItemController
 import com.bumptech.glide.Glide
 import com.example.discover.R
+import com.example.discover.network.userData
 import com.example.discover.network.workData
 import org.jetbrains.anko.layoutInflater
 
@@ -81,3 +82,5 @@ class VideoItem(val work : workData,val rank : Int) : Item{
     override val controller: ItemController
         get() = VideoItem
 }
+
+fun MutableList<Item>.addVideoItem(work: workData,rank: Int) = add(VideoItem(work, rank))

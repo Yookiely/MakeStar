@@ -17,6 +17,9 @@ interface RankService {
     @GET("/api/aliyun/getVideoAuth")
     fun getProof(@Query("videoID") video_ID: String) : Deferred<CommonBody<proofData>>
 
+    @GET("/api/activity/getRecentActivitys")
+    fun getActivity(@Query("page")page : Int,@Query("limit") limit : String) : Deferred<CommonBody<activityData>>
+
 
     companion object : RankService by ServiceFactory()
 
@@ -54,4 +57,34 @@ data class VideoMeta(
     val VideoId: String,
     val Duration: Double,
     val Title: String
+)
+
+data class activityData(
+    val data: List<Data>,
+    val current_page: Int,
+    val first_page_url: String,
+    val from: Int,
+    val last_page: Int,
+    val last_page_url: String,
+    val next_page_url: String,
+    val path: String,
+    val per_page: String,
+    val prev_page_url: String,
+    val to: Int,
+    val total: Int
+)
+
+data class Data(
+    val activity_ID: Int,
+    val activity_name: String,
+    val address: String,
+    val cover_url: String,
+    val finish_time: String,
+    val introduction: String,
+    val progress: String,
+    val start_time: String,
+    val the_star_ID: Int,
+    val the_star_avatar: String,
+    val the_star_username: String,
+    val update_time: String
 )

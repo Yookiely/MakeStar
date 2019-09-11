@@ -33,6 +33,7 @@
     <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:id="@+id/activity_rec"
             app:layout_constraintTop_toBottomOf="@+id/clayout"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginTop="2dp"

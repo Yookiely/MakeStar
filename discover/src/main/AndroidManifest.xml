@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.example.discover">
+        package="com.example.discover">
 
     <application>
-        <activity android:name=".DiscoverActivity">
-        </activity>
+        <activity android:name=".MoreActivity"></activity>
+        <activity android:name=".DiscoverActivity"></activity>
     </application>
 
 </manifest>

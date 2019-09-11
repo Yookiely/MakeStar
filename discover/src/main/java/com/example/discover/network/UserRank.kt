@@ -32,4 +32,15 @@ object UserRank {
             }
         }
     }
+
+    fun getActivity(page: Int, limit: Int, activityCallBack: (activityData) -> Unit) {
+        launch(UI + QuietCoroutineExceptionHandler) {
+            val callback = RankService.getActivity(page, limit.toString()).await()
+            if (callback.error_code == -1) {
+                activityCallBack(callback.data!!)
+
+            }
+        }
+
+    }
 }

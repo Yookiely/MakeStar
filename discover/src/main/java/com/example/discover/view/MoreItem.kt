@@ -5,21 +5,21 @@ import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import cn.edu.twt.retrox.recyclerviewdsl.Item
 import cn.edu.twt.retrox.recyclerviewdsl.ItemController
-import com.example.discover.DiscoverActivity
+import com.example.discover.MoreActivity
 import com.example.discover.R
 import org.jetbrains.anko.layoutInflater
 
-class MoreItem(val context: Context) : Item {
+class MoreItem(val context: Context,val num: Int) : Item {
     private companion object Controller : ItemController {
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: Item) {
             holder as MoreItemViewHolder
             item as MoreItem
             holder.moreText.setOnClickListener {
-                val intent = Intent(item.context,DiscoverActivity::class.java)
+                val intent = Intent(item.context, MoreActivity::class.java)
+                intent.putExtra("flag",item.num)
                 item.context.startActivity(intent)
             }
         }
@@ -38,3 +38,5 @@ class MoreItem(val context: Context) : Item {
     override val controller: ItemController
         get() = MoreItem
 }
+
+fun MutableList<Item>.addMoreItem(context: Context,num: Int) = add(MoreItem(context,num))

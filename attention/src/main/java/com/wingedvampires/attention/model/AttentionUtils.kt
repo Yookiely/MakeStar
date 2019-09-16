@@ -1,6 +1,6 @@
 package com.wingedvampires.attention.model
 
-import com.example.common.experimental.preference.hawk
+import com.yookie.common.experimental.preference.hawk
 import java.text.SimpleDateFormat
 import java.util.*
 

@@ -9,8 +9,8 @@ import android.widget.Toast
 import cn.edu.twt.retrox.recyclerviewdsl.Item
 import cn.edu.twt.retrox.recyclerviewdsl.ItemController
 import com.bumptech.glide.Glide
-import com.example.common.experimental.extensions.QuietCoroutineExceptionHandler
-import com.example.common.experimental.extensions.awaitAndHandle
+import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
+import com.yookie.common.experimental.extensions.awaitAndHandle
 import com.wingedvampires.attention.R
 import com.wingedvampires.attention.model.AttentionService
 import com.wingedvampires.attention.model.RecommendUser

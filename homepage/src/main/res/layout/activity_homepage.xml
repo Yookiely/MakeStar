@@ -20,7 +20,7 @@
         <com.kcrason.dynamicpagerindicatorlibrary.DynamicPagerIndicator
                 android:id="@+id/dynamic_pager_indicator2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 app:indicatorLineEndColor="@color/white"
                 app:indicatorLineScrollMode="dynamic"
                 app:indicatorLineStartColor="@color/white"
@@ -28,7 +28,7 @@
                 android:layout_marginStart="20dp"
                 app:pagerIndicatorMode="scrollable"
                 android:layout_gravity="bottom"
-                android:layout_marginBottom="6dp"
+                android:layout_marginBottom="30dp"
                 app:pagerIndicatorScrollToCenterMode="linkage"
                 app:tabNormalTextColor="@color/white"
                 app:tabSelectedTextColor="@color/white"
@@ -40,7 +40,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginEnd="20dp"
-                android:layout_marginBottom="6dp"
+                android:layout_marginBottom="20dp"
                 android:layout_gravity="end|bottom"/>
     </android.support.v7.widget.Toolbar>
 

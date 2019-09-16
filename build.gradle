@@ -1,7 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
-buildscript { 
-    ext.kotlin_version = '1.2.71' // 这里有warning，之前和底下的版本冲突
+buildscript {
 
     ext {
         versions = [
@@ -72,7 +71,7 @@ buildscript {
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
-    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version" }
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}" }
 }
 
 allprojects {

@@ -1,8 +1,8 @@
 package com.wingedvampires.homepage.model
 
-import com.example.common.experimental.network.CommonBody
-import com.example.common.experimental.network.ServiceFactory
-import com.example.common.experimental.preference.CommonPreferences
+import com.yookie.common.experimental.network.CommonBody
+import com.yookie.common.experimental.network.ServiceFactory
+import com.yookie.common.experimental.preference.CommonPreferences
 import kotlinx.coroutines.experimental.Deferred
 import retrofit2.http.GET
 import retrofit2.http.POST

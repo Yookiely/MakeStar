@@ -10,9 +10,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import cn.edu.twt.retrox.recyclerviewdsl.ItemAdapter
 import cn.edu.twt.retrox.recyclerviewdsl.ItemManager
-import com.example.common.experimental.extensions.QuietCoroutineExceptionHandler
-import com.example.common.experimental.extensions.awaitAndHandle
-import com.example.common.experimental.preference.CommonPreferences
+import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
+import com.yookie.common.experimental.extensions.awaitAndHandle
+import com.yookie.common.experimental.preference.CommonPreferences
 import com.wingedvampires.attention.R
 import com.wingedvampires.attention.model.AttentionService
 import com.wingedvampires.attention.view.items.videoActionItem

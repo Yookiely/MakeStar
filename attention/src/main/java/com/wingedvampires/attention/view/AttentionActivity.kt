@@ -9,8 +9,8 @@ import android.view.View
 import android.view.Window
 import android.widget.ImageView
 import android.widget.TextView
-import com.example.common.experimental.extensions.jumpchannel.Transfer
-import com.example.common.experimental.extensions.morewindow.MoreWindow
+import com.yookie.common.experimental.extensions.jumpchannel.Transfer
+import com.yookie.common.experimental.extensions.morewindow.MoreWindow
 import com.kcrason.dynamicpagerindicatorlibrary.DynamicPagerIndicator
 import com.wingedvampires.attention.R
 

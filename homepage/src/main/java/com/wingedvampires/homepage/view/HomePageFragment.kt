@@ -14,9 +14,9 @@ import android.widget.Toast
 import cn.edu.twt.retrox.recyclerviewdsl.ItemAdapter
 import cn.edu.twt.retrox.recyclerviewdsl.ItemManager
 import com.bumptech.glide.Glide
-import com.example.common.experimental.extensions.QuietCoroutineExceptionHandler
-import com.example.common.experimental.extensions.awaitAndHandle
-import com.example.common.experimental.preference.CommonPreferences
+import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
+import com.yookie.common.experimental.extensions.awaitAndHandle
+import com.yookie.common.experimental.preference.CommonPreferences
 import com.wingedvampires.homepage.R
 import com.wingedvampires.homepage.extension.MyBanner
 import com.wingedvampires.homepage.model.HomePageService

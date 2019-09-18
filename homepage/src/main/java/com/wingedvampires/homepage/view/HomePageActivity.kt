@@ -45,7 +45,6 @@ class HomePageActivity : AppCompatActivity() {
         attention.setOnClickListener { Transfer.startActivity(this, "AttentionActivity", Intent()) }
         discover.setOnClickListener { Transfer.startActivity(this, "DiscoverActivity", Intent()) }
         userpage.setOnClickListener { Transfer.startActivity(this, "MyUserActivity", Intent()) }
-
         homepageViewPager = findViewById(R.id.vp_homepage_main)
         dynamicPagerIndicator = findViewById(R.id.dynamic_pager_indicator2)
         setViewPagerContent()

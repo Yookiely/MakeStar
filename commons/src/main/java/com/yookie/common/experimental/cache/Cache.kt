@@ -22,8 +22,8 @@ interface ReadOnlyCache<V : Any> : Cache<V> {
             throw IllegalStateException("ReadOnlyCache cannot be set a value.")
 }
 
-fun <V : Any> Cache.Companion.from(generator: (key :String) -> Deferred<V>,key: String): Cache<V> = object : ReadOnlyCache<V> {
-    override fun get(): Deferred<V?> = generator(key)
+fun <V : Any> Cache.Companion.from(generator: () -> Deferred<V>): Cache<V> = object : ReadOnlyCache<V> {
+    override fun get(): Deferred<V?> = generator()
 }
 
 fun <V : Any> Cache.Companion.retrofit(generator: () -> Call<V>): Cache<V> = object : ReadOnlyCache<V> {

@@ -26,7 +26,7 @@ class RankItem(val num : String,val userData: userData,val context : Context,val
                     .load(item.userData.avatar)
                     .into(userRankImg)
                 userRankNickname.text = item.userData.username
-                userRankHeat.text = item.userData.week_hot_value.toString()
+                userRankHeat.text = item.userData.month_hot_value.toString()
 
             }
 

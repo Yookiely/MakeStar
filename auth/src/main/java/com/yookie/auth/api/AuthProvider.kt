@@ -11,7 +11,7 @@ import kotlinx.coroutines.experimental.launch
 
 
 val authSelfLocalCache = Cache.hawk<CommonBody<AuthData>>("AUTH_SELF")
-val authSelfRemoteCache = Cache.from(AuthService.Companion::authSelf,CommonPreferences.userid)
+val authSelfRemoteCache = Cache.from(AuthService.Companion::authSelf)
 val authSelfLiveData = RefreshableLiveData.use(authSelfLocalCache, authSelfRemoteCache) {
     it.data?.apply {
         CommonPreferences.username = this.username

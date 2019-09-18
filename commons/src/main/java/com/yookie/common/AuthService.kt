@@ -16,7 +16,7 @@ interface AuthService {
 
 
     @GET("user/myself")
-    fun authSelf(@Query("user_ID")user_ID: String): Deferred<CommonBody<AuthData>>
+    fun authSelf(): Deferred<CommonBody<AuthData>>
 
 
     companion object : AuthService by ServiceFactory()

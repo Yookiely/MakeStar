@@ -43,8 +43,7 @@ class LoginActivity : AppCompatActivity() {
                     login(usernameText.text.toString(), passwordText.text.toString()){
                         when (it) {
                             is RefreshState.Success ->{
-                                authSelfLiveData.refresh(REMOTE) {
-                                }
+                                authSelfLiveData.refresh(REMOTE)
                                 Toast.makeText(this@LoginActivity, "登录成功", Toast.LENGTH_LONG).show()
                                 Transfer.startActivity(this@LoginActivity, "HomePageActivity", Intent())
                             }

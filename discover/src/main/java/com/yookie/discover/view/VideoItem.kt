@@ -22,7 +22,7 @@ class VideoItem(val work : workData,val rank : Int) : Item{
             holder.apply {
                 title.text = item.work.work_name
                 nickname.text = item.work.username
-                heat.text = item.work.week_hot_value
+                heat.text = item.work.month_hot_value
 //                time.text = item.work.
                 rank.text = item.rank.toString()
                 Glide.with(itemView)
@@ -30,27 +30,27 @@ class VideoItem(val work : workData,val rank : Int) : Item{
                     .load(cover)
                 add.visibility = View.GONE
                 //check tag
-                when(item.work.tag.size){
-                    0 -> {
-                        tag1.visibility = View.GONE
-                        tag2.visibility = View.GONE
-                        tag3.visibility = View.GONE
-                    }
-                    1 -> {
-                        tag1.text = item.work.tag[0]
-                        tag2.visibility = View.GONE
-                        tag3.visibility = View.GONE
-                    }
-                    2 -> {
-                        tag1.text = item.work.tag[0]
-                        tag2.text = item.work.tag[1]
-                        tag3.visibility = View.GONE
-                    }
-                    else -> {
-                        tag1.text = item.work.tag[0]
-                        tag2.text = item.work.tag[1]
-                    }
-                }
+//                when(item.work.tag.size){
+//                    0 -> {
+//                        tag1.visibility = View.GONE
+//                        tag2.visibility = View.GONE
+//                        tag3.visibility = View.GONE
+//                    }
+//                    1 -> {
+//                        tag1.text = item.work.tag[0]
+//                        tag2.visibility = View.GONE
+//                        tag3.visibility = View.GONE
+//                    }
+//                    2 -> {
+//                        tag1.text = item.work.tag[0]
+//                        tag2.text = item.work.tag[1]
+//                        tag3.visibility = View.GONE
+//                    }
+//                    else -> {
+//                        tag1.text = item.work.tag[0]
+//                        tag2.text = item.work.tag[1]
+//                    }
+//                }
             }
 
             holder.itemView.setOnClickListener{}

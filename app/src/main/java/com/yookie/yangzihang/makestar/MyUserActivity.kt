@@ -11,7 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import cn.edu.twt.retrox.recyclerviewdsl.withItems
 import com.bumptech.glide.Glide
-//import com.yookie.auth.api.authSelfLiveData
+import com.yookie.auth.api.authSelfLiveData
 import com.yookie.common.experimental.cache.CacheIndicator
 import com.yookie.common.experimental.extensions.bindNonNull
 import com.yookie.common.experimental.extensions.jumpchannel.Transfer
@@ -49,31 +49,39 @@ class MyUserActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.user_rec)
 
-//        authSelfLiveData.bindNonNull(this) {
-////            Glide.with(this)
-////                .load(it.data?.avatar)
-////                .into(portrait)
-//            it.data?.apply {
-//                fansNum.text = this.fans_num.toString()
-//                mystyle.text = this.signature
-//                nickname.text = this.username
-//                userId.text = this.user_ID
-//                popNum.text = this.year_hot_value.toString()
-////                focusNum.text = this.spotted
-//                message.text = "♀" + " | " + this.age + " | " + this.city
-//            }
+        authSelfLiveData.bindNonNull(this) {
+            Glide.with(this)
+                .load(it.data?.avatar)
+                .into(portrait)
+            it.data?.apply {
+                fansNum.text = this.fans_num.toString()
+                mystyle.text = this.signature
+                nickname.text = this.username
+                userId.text = this.user_ID
+                popNum.text = this.year_hot_value.toString()
+                focusNum.text = this.follow_num.toString()
+                if (this.sex=="男"){
+                    message.text = "♂" + " | " + this.age + " | " + this.city
+                }else{
+                    message.text = "♀" + " | " + this.age + " | " + this.city
+                }
+            }
+        }
+        authSelfLiveData.refresh(CacheIndicator.REMOTE)
+//        Glide.with(this)
+//            .load(CommonPreferences.avatars)
+//            .into(portrait)
+//        fansNum.text = CommonPreferences.fans_num
+//        mystyle.text = CommonPreferences.signature
+//        nickname.text = CommonPreferences.username
+//        popNum.text = CommonPreferences.year_hot_value
+//        rank.text = CommonPreferences.rank.toString()
+//        focusNum.text = CommonPreferences.focus_num.toString()
+//        if (CommonPreferences.sex=="男"){
+//            message.text = "♂" + " | " + CommonPreferences.age + " | " + CommonPreferences.city
+//        }else{
+//            message.text = "♀" + " | " + CommonPreferences.age + " | " + CommonPreferences.city
 //        }
-//        authSelfLiveData.refresh(CacheIndicator.REMOTE)
-        Glide.with(this)
-            .load(CommonPreferences.avatars)
-            .into(portrait)
-        fansNum.text = CommonPreferences.fans_num
-        mystyle.text = CommonPreferences.signature
-        nickname.text = CommonPreferences.username
-        popNum.text = CommonPreferences.year_hot_value
-        rank.text = CommonPreferences.rank.toString()
-        focusNum.text = CommonPreferences.focus_num.toString()
-        message.text = "♀" + " | " + CommonPreferences.age + " | " + CommonPreferences.city
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.withItems {

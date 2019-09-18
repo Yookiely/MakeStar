@@ -25,8 +25,8 @@
             android:id="@+id/rank_trend"
     />
     <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             app:layout_constraintLeft_toRightOf="@+id/rank_trend"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -38,6 +38,9 @@
             app:layout_constraintLeft_toRightOf="@+id/user_rank_img"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="14dp"
+            android:textSize="16sp"
+            android:textColor="#333333"
             android:id="@+id/user_rank_nickname"
     />
 
@@ -49,6 +52,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:id="@+id/user_rank_heat"
+            android:textColor="#ed1641"
+            android:textSize="12sp"
     />
     
     <ImageView

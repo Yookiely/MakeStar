@@ -1,11 +1,17 @@
 package com.yookie.common.experimental.network
 
 import okhttp3.*
+import org.apache.commons.codec.binary.Hex
+import org.apache.commons.codec.digest.DigestUtils
 import java.util.*
 
 internal typealias ParamsMap = Map<String, String>
 
-
+/**
+ * Generate a time stamp and you can use it in the [block].
+ *
+ * @sample ParamsMap.timeStampAndSignature
+ */
 internal inline fun <T> usingTimeStamp(crossinline block: (String) -> T) =
     Calendar.getInstance().timeInMillis.toString().let(block)
 
@@ -19,13 +25,7 @@ internal inline val ParamsMap.timeStampAndSignature: Pair<String, String>
             prefix = ServiceFactory.APP_KEY,
             postfix = ServiceFactory.APP_SECRET
         ) { (name, value) -> name + value }.let {
-            t to kotlin.text.String(
-                org.apache.commons.codec.binary.Hex.encodeHex(
-                    org.apache.commons.codec.digest.DigestUtils.sha1(
-                        it
-                    )
-                )
-            ).toUpperCase()
+            t to String(Hex.encodeHex(DigestUtils.sha1(it))).toUpperCase()
         }
     }
 
@@ -38,6 +38,12 @@ internal inline val FormBody.fieldMap: ParamsMap
     get() = (0 until size()).associate {
         name(it) to value(it)
     }
+
+/**
+ * Hack FormBody to enable newBuilder just like many other immutable classes.
+ *
+ * @sample RequestBody.signed
+ */
 internal inline val FormBody.newBuilder
     get() = (0 until size()).associateTo(mutableMapOf()) {
         encodedName(it) to encodedValue(it)

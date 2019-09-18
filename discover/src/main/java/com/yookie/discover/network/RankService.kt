@@ -7,17 +7,17 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface RankService {
-    @GET("/api/userRank/getMonthRank")
+    @GET("userRank/getMonthRank")
     fun getMonthUserRank(@Query("num") num : Int) : Deferred<CommonBody<List<userData>>>
 
 
-    @GET("/api/workRank/getMonthRank")
+    @GET("workRank/getMonthRank")
     fun getMonthWorkRank(@Query("num") num : Int) : Deferred<CommonBody<List<workData>>>
 
-    @GET("/api/aliyun/getVideoAuth")
+    @GET("aliyun/getVideoAuth")
     fun getProof(@Query("videoID") video_ID: String) : Deferred<CommonBody<proofData>>
 
-    @GET("/api/activity/getRecentActivitys")
+    @GET("activity/getRecentActivitys")
     fun getActivity(@Query("page")page : Int,@Query("limit") limit : String) : Deferred<CommonBody<activityData>>
 
 
@@ -29,7 +29,7 @@ data class workData(
     val work_ID: Int,
     val work_name: String,
     val username: String,
-    val week_hot_value: String,
+    val month_hot_value: String,
     val cover_url: String,
     val video_ID: String,
     val tag : List<String>
@@ -38,10 +38,10 @@ data class workData(
 
 
 data class userData(
-    val user_ID: Int,
-    val username: String,
     val avatar: String,
-    val week_hot_value: Int
+    val month_hot_value: Int,
+    val user_ID: Int,
+    val username: String
 )
 
 

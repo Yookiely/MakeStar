@@ -22,9 +22,9 @@ class TopRankItem(val userList: List<userData>) : Item {
                 firstNickname.text = item.userList[0].username
                 secondNickname.text = item.userList[1].username
                 thirdNickname.text = item.userList[2].username
-                firstheat.text = item.userList[0].week_hot_value.toString()
-                secondheat.text = item.userList[1].week_hot_value.toString()
-                thirdheat.text = item.userList[2].week_hot_value.toString()
+                firstheat.text = item.userList[0].month_hot_value.toString()
+                secondheat.text = item.userList[1].month_hot_value.toString()
+                thirdheat.text = item.userList[2].month_hot_value.toString()
                 Glide.with(itemView)
                     .load(item.userList[0].avatar)
                     .into(firstImg)

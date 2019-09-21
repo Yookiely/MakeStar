@@ -44,7 +44,7 @@ typealias HttpExceptionHandler = (errCode: Int, httpErrCode: Int, message: Strin
 fun HttpException.handleError(block: HttpExceptionHandler) {
     try {
         val exception = this
-        val jsonObject = JSONObject(exception.response().errorBody()?.string())
+        val jsonObject = JSONObject(exception.response()!!.errorBody()?.string())
         val err_code = jsonObject.getInt("error_code") ?: -1
         val message = jsonObject.getString("message") ?: ""
         block.invoke(err_code, exception.code(), message, exception)

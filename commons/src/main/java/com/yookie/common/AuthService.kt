@@ -23,24 +23,9 @@ interface AuthService {
 }
 
 
-//data class AuthData(
-//    val user_ID: String,
-//    val username: String,
-//    val avatar: String,
-//    val sex: String,
-//    val age: Int,
-//    val signature: String,
-//    val fans_num: String,
-//    val token: String,
-//    val week_hot_value: String,
-//    val month_hot_value: String,
-//    val year_hot_value: String,
-//    val spotted: String,
-//    val city: String
-//)
 
 data class AuthData(
-    val age: String,
+    val age: Int,
     val avatar: String,
     val city: String,
     val fans_num: Int,
@@ -51,7 +36,7 @@ data class AuthData(
     val signature: String,
     val tags: String,
     val token: String,
-    val user_ID: String,
+    val user_ID: Int,
     val username: String,
     val week_hot_value: Int,
     val year_hot_value: Int

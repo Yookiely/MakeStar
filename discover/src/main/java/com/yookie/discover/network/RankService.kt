@@ -25,17 +25,18 @@ interface RankService {
 
 }
 
+
 data class workData(
-    val work_ID: Int,
-    val work_name: String,
-    val username: String,
-    val month_hot_value: String,
+    val avatar: String,
     val cover_url: String,
+    val month_hot_value: Int,
+    val time: String,
+    val username: String,
     val video_ID: String,
-    val tag : List<String>
+    val video_link: Any,
+    val work_ID: Int,
+    val work_name: String
 )
-
-
 
 data class userData(
     val avatar: String,
@@ -60,7 +61,7 @@ data class VideoMeta(
 )
 
 data class activityData(
-    val data: List<Data>,
+    val data: List<acData>,
     val current_page: Int,
     val first_page_url: String,
     val from: Int,
@@ -74,7 +75,7 @@ data class activityData(
     val total: Int
 )
 
-data class Data(
+data class acData(
     val activity_ID: Int,
     val activity_name: String,
     val address: String,

@@ -15,9 +15,9 @@ val authSelfRemoteCache = Cache.from(AuthService.Companion::authSelf)
 val authSelfLiveData = RefreshableLiveData.use(authSelfLocalCache, authSelfRemoteCache) {
     it.data?.apply {
         CommonPreferences.username = this.username
-        CommonPreferences.userid = this.user_ID
+        CommonPreferences.userid = this.user_ID.toString()
         CommonPreferences.sex = this.sex
-        CommonPreferences.age = this.age.toInt()
+        CommonPreferences.age = this.age.toString()
         CommonPreferences.fans_num = this.fans_num.toString()
         CommonPreferences.signature = this.signature
         CommonPreferences.avatars = this.avatar
@@ -25,8 +25,8 @@ val authSelfLiveData = RefreshableLiveData.use(authSelfLocalCache, authSelfRemot
         CommonPreferences.month_hot_value = this.month_hot_value.toString()
         CommonPreferences.year_hot_value = this.year_hot_value.toString()
         CommonPreferences.city = this.city
-        CommonPreferences.rank = this.month_rank
-        CommonPreferences.focus_num = this.follow_num
+        CommonPreferences.rank = this.month_rank.toString()
+        CommonPreferences.focus_num = this.follow_num.toString()
 
     }
 }
@@ -39,9 +39,9 @@ fun login(username: String, password: String, callback: suspend (RefreshState<Un
             CommonPreferences.password = password
             CommonPreferences.isLogin = true
             CommonPreferences.username = it.username
-            CommonPreferences.userid = it.user_ID
+            CommonPreferences.userid = it.user_ID.toString()
             CommonPreferences.sex = it.sex
-            CommonPreferences.age = it.age.toInt()
+            CommonPreferences.age = it.age.toString()
             CommonPreferences.fans_num = it.fans_num.toString()
             CommonPreferences.signature = it.signature
             CommonPreferences.avatars = it.avatar
@@ -49,8 +49,8 @@ fun login(username: String, password: String, callback: suspend (RefreshState<Un
             CommonPreferences.month_hot_value = it.month_hot_value.toString()
             CommonPreferences.year_hot_value = it.year_hot_value.toString()
             CommonPreferences.city = it.city
-            CommonPreferences.rank = it.month_rank
-            CommonPreferences.focus_num = it.follow_num
+            CommonPreferences.rank = it.month_rank.toString()
+            CommonPreferences.focus_num = it.follow_num.toString()
             callback(RefreshState.Success(Unit))
         }
     }

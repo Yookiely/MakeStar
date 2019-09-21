@@ -22,12 +22,13 @@ class VideoItem(val work : workData,val rank : Int) : Item{
             holder.apply {
                 title.text = item.work.work_name
                 nickname.text = item.work.username
-                heat.text = item.work.month_hot_value
+                heat.text = item.work.month_hot_value.toString()
 //                time.text = item.work.
-                rank.text = item.rank.toString()
+                rank.text = "No." + item.rank.toString()
                 Glide.with(itemView)
                     .load(item.work.cover_url)
-                    .load(cover)
+                    .into(cover)
+                time.text = item.work.time
                 add.visibility = View.GONE
                 //check tag
 //                when(item.work.tag.size){

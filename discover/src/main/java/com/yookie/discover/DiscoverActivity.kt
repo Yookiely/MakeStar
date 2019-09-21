@@ -7,6 +7,7 @@ import android.view.Window
 import android.widget.TextView
 import com.kcrason.dynamicpagerindicatorlibrary.DynamicPagerIndicator
 import com.yookie.common.experimental.extensions.jumpchannel.Transfer
+import com.yookie.discover.view.ActivityFragment
 import com.yookie.discover.view.DynamicFragmentPagerAdapter
 import com.yookie.discover.view.RankFragment
 import kotlinx.android.synthetic.main.activity_discover.*
@@ -25,6 +26,7 @@ class DiscoverActivity : AppCompatActivity() {
         userpage.setOnClickListener { Transfer.startActivity(this, "MyUserActivity", Intent()) }
         val dynamicFragmentPagerAdapter = DynamicFragmentPagerAdapter(supportFragmentManager)
         dynamicFragmentPagerAdapter.add("排行",RankFragment())
+        dynamicFragmentPagerAdapter.add("活动",ActivityFragment())
         vp_homepage_main.adapter = dynamicFragmentPagerAdapter
         dynamic_pager_indicator2.setViewPager(vp_homepage_main)
 

@@ -57,9 +57,10 @@ class MyUserActivity : AppCompatActivity() {
                 fansNum.text = this.fans_num.toString()
                 mystyle.text = this.signature
                 nickname.text = this.username
-                userId.text = this.user_ID
+                userId.text = this.user_ID.toString()
                 popNum.text = this.year_hot_value.toString()
                 focusNum.text = this.follow_num.toString()
+                rank.text = this.month_rank.toString()
                 if (this.sex=="男"){
                     message.text = "♂" + " | " + this.age + " | " + this.city
                 }else{

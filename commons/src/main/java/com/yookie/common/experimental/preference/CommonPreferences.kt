@@ -17,11 +17,11 @@ object CommonPreferences {
 
     var sex by hawk("user_gender", "")
 
-    var age by hawk("user_age", 0)
+    var age by hawk("user_age", "")
 
     var avatars by hawk("img_url", "")
 
-    var focus_num by hawk("focus_num",0)
+    var focus_num by hawk("focus_num","")
 
     var fans_num by hawk("fans_num", "")
 
@@ -30,13 +30,9 @@ object CommonPreferences {
     var month_hot_value by hawk("month_hot_value", "")
 
     var year_hot_value by hawk("year_hot_value", "")
-
     var signature by hawk("signature", "")
-
-    var spotted by hawk("spotted", "")
-
     var city by hawk("city", "")
-    var rank by hawk("rank",1)
+    var rank by hawk("rank","")
 
     var userHabit by hawk("USER_HABIT", mutableListOf<Int>()) // 用户的喜好类型ID
 

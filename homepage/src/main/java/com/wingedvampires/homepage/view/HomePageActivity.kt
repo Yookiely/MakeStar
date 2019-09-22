@@ -11,14 +11,15 @@ import android.view.Window
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
-import com.yookie.common.experimental.extensions.awaitAndHandle
-import com.yookie.common.experimental.extensions.jumpchannel.Transfer
-import com.yookie.common.experimental.extensions.morewindow.MoreWindow
 import com.kcrason.dynamicpagerindicatorlibrary.DynamicPagerIndicator
 import com.wingedvampires.homepage.R
 import com.wingedvampires.homepage.model.HomePageService
 import com.wingedvampires.homepage.model.HomePageUtils
+import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
+import com.yookie.common.experimental.extensions.awaitAndHandle
+import com.yookie.common.experimental.extensions.jumpchannel.Transfer
+import com.yookie.common.experimental.extensions.morewindow.MoreWindow
+import com.yookie.common.experimental.preference.CommonPreferences
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 
@@ -57,8 +58,12 @@ class HomePageActivity : AppCompatActivity() {
             val workTypes = HomePageService.getWorkTypes().awaitAndHandle {
                 it.printStackTrace()
                 Toast.makeText(this@HomePageActivity, "加载失败", Toast.LENGTH_SHORT).show()
-                Log.d("shibaile","shibiale")
+                Log.d("shibaile", "shibiale")
             }?.data ?: return@launch
+
+            //初始化用户爱好
+            CommonPreferences.initHabit(workTypes.size)
+
             workTypes.forEach { workType ->
                 HomePageUtils.typeList[workType.work_type_ID] = workType.work_type_name
             }
@@ -84,7 +89,7 @@ class HomePageActivity : AppCompatActivity() {
     }
 
     private fun showMoreWindow(view: View) {
-        if (mMoreWindow != null) {
+        if (mMoreWindow == null) {
             mMoreWindow = MoreWindow(this)
             mMoreWindow!!.init()
         }

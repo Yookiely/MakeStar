@@ -1,5 +1,6 @@
 package com.wingedvampires.attention.view
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.view.ViewPager
@@ -7,12 +8,13 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.View
 import android.view.Window
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
-import com.yookie.common.experimental.extensions.jumpchannel.Transfer
-import com.yookie.common.experimental.extensions.morewindow.MoreWindow
 import com.kcrason.dynamicpagerindicatorlibrary.DynamicPagerIndicator
 import com.wingedvampires.attention.R
+import com.yookie.common.experimental.extensions.jumpchannel.Transfer
+import com.yookie.common.experimental.extensions.morewindow.MoreWindow
 
 class AttentionActivity : AppCompatActivity() {
     private lateinit var image: ImageView
@@ -45,16 +47,17 @@ class AttentionActivity : AppCompatActivity() {
         homepageViewPager = findViewById(R.id.vp_attention_main)
         dynamicPagerIndicator = findViewById(R.id.dynamic_pager_indicator2)
         setViewPagerContent()
+        hideSoftInputMethod()
     }
 
-    //音乐、舞蹈、搞笑、颜值、小剧场和其他
+
     private fun setViewPagerContent() {
         attentionViewPager = AttentionViewPager(supportFragmentManager)
         val attentionListFragment = AttentionListFragment()
         attentionListFragment.setView(liveLabel, backLabel)
+        attentionListFragment.activity = this
 
         attentionViewPager.apply {
-
             add("关注", AttentionFocusFragment())
             add("列表", attentionListFragment)
         }
@@ -86,5 +89,13 @@ class AttentionActivity : AppCompatActivity() {
         }
 
         mMoreWindow!!.showMoreWindow(view)
+    }
+
+    fun hideSoftInputMethod() {
+        val inputMethodManager =
+            getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        inputMethodManager?.apply {
+            hideSoftInputFromWindow(window.decorView.windowToken, 0)
+        }
     }
 }

@@ -14,13 +14,13 @@ import android.widget.Toast
 import cn.edu.twt.retrox.recyclerviewdsl.ItemAdapter
 import cn.edu.twt.retrox.recyclerviewdsl.ItemManager
 import com.bumptech.glide.Glide
-import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
-import com.yookie.common.experimental.extensions.awaitAndHandle
-import com.yookie.common.experimental.preference.CommonPreferences
 import com.wingedvampires.homepage.R
 import com.wingedvampires.homepage.extension.MyBanner
 import com.wingedvampires.homepage.model.HomePageService
 import com.wingedvampires.homepage.model.HomePageUtils
+import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
+import com.yookie.common.experimental.extensions.awaitAndHandle
+import com.yookie.common.experimental.preference.CommonPreferences
 import com.youth.banner.BannerConfig
 import com.youth.banner.loader.ImageLoader
 import kotlinx.coroutines.experimental.android.UI
@@ -31,7 +31,6 @@ class HomePageFragment : Fragment() {
     private var workType = 0
     private lateinit var recyclerView: RecyclerView
     private lateinit var banner: MyBanner
-    private val layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
     private var itemManager: ItemManager = ItemManager()  //by lazy { recyclerView.withItems(listOf()) }
     private var isLoading = true
     private var page = 1
@@ -51,6 +50,7 @@ class HomePageFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_homepage, container, false)
+        val sLayoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
         val bundle = arguments
         workType = bundle!!.getInt(HomePageUtils.INDEX_KEY)
 
@@ -71,17 +71,18 @@ class HomePageFragment : Fragment() {
         banner = view.findViewById(R.id.br_homepage_main)
         recyclerView = view.findViewById(R.id.rv_homepage_main)
         recyclerView.apply {
-            layoutManager = layoutManager
             adapter = ItemAdapter(itemManager)
         }
+
+        recyclerView.layoutManager = sLayoutManager
         setBanner()
         refreshAndLoad()
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                val totalCount = layoutManager.itemCount
+                val totalCount = sLayoutManager.itemCount
                 val array = IntArray(2)
-                layoutManager.findLastCompletelyVisibleItemPositions(array)
+                sLayoutManager.findLastCompletelyVisibleItemPositions(array)
 
                 if (!isLoading && (totalCount <= array[1] + 2)) {
                     isLoading = true
@@ -120,7 +121,7 @@ class HomePageFragment : Fragment() {
                     }
                 })
                 //设置banner样式
-                setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE);
+                setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
                 //设置图片集合
                 setImages(bannerCovers)
                 //设置自动轮播，默认为true

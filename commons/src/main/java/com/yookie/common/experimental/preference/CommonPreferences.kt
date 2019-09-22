@@ -1,7 +1,7 @@
 package com.yookie.common.experimental.preference
 
-import com.yookie.common.experimental.CommonContext
 import com.orhanobut.hawk.Hawk
+import com.yookie.common.experimental.CommonContext
 
 object CommonPreferences {
 
@@ -21,7 +21,7 @@ object CommonPreferences {
 
     var avatars by hawk("img_url", "")
 
-    var focus_num by hawk("focus_num","")
+    var focus_num by hawk("focus_num", "")
 
     var fans_num by hawk("fans_num", "")
 
@@ -32,14 +32,24 @@ object CommonPreferences {
     var year_hot_value by hawk("year_hot_value", "")
     var signature by hawk("signature", "")
     var city by hawk("city", "")
-    var rank by hawk("rank","")
+    var rank by hawk("rank", "")
 
     var userHabit by hawk("USER_HABIT", mutableListOf<Int>()) // 用户的喜好类型ID
 
     var userHistory by hawk("USER_HISTORY", mutableListOf<String>()) // 用户看过的ID
 
+    fun initHabit(index: Int) {
+        if (userHabit.size != index) {
+            userHabit.clear()
+            for (i in 0..index) {
+                userHabit.add(0)
+            }
+        }
+    }
+
     //获得和存储用户喜好
     fun setAndGetUserHabit(habitID: Int? = null): String {
+
         if (habitID != null) {
             val temp = mutableListOf<Int>().also { it.addAll(userHabit) }
             temp[habitID - 1]++

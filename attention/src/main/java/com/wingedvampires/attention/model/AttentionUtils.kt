@@ -10,9 +10,11 @@ object AttentionUtils {
     var searchHistory by hawk("ATTENTION_SEARCH_HISTORY", mutableListOf<DataOfUser>())
 
     fun formatTime(time: Float): String {
-        val timeOfMS = time * 1000
+        val timeOfMS = time //* 1000
         val date = Date(timeOfMS.toLong())
-        return SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(date)
+        val dateFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+        dateFormat.timeZone = TimeZone.getTimeZone("GMT+0")
+        return dateFormat.format(date)
     }
 
     fun format(num: String?): String? {

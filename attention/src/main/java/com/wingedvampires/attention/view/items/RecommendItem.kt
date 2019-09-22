@@ -8,12 +8,11 @@ import android.widget.TextView
 import android.widget.Toast
 import cn.edu.twt.retrox.recyclerviewdsl.Item
 import cn.edu.twt.retrox.recyclerviewdsl.ItemController
-import com.bumptech.glide.Glide
-import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
-import com.yookie.common.experimental.extensions.awaitAndHandle
 import com.wingedvampires.attention.R
 import com.wingedvampires.attention.model.AttentionService
 import com.wingedvampires.attention.model.RecommendUser
+import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
+import com.yookie.common.experimental.extensions.awaitAndHandle
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
@@ -44,11 +43,11 @@ class RecommendItem(val recommendUser: RecommendUser, val context: Context, val 
             item as RecommendItem
             holder as ViewHolder
             val recommendUser = item.recommendUser
-            val tags = recommendUser.tags.split(",")
+            val tags = recommendUser.tags?.split(",")
 
             holder.apply {
 
-                Glide.with(this.itemView).load(recommendUser.avatar).error(R.drawable.ms_no_pic).into(avatar)
+                //                Glide.with(this.itemView).load(recommendUser.avatar).error(R.drawable.ms_no_pic).into(avatar)
                 name.text = recommendUser.username
                 message.text = (recommendUser.signature ?: "")
                 rank.text = "No.${recommendUser.month_rank}"
@@ -86,7 +85,7 @@ class RecommendItem(val recommendUser: RecommendUser, val context: Context, val 
 
                 }
 
-                tags.forEachWithIndex { index, tag ->
+                tags?.forEachWithIndex { index, tag ->
                     when (index) {
                         1 -> label1.apply {
                             text = tag

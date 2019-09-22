@@ -12,7 +12,7 @@ class MyBanner @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
     override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
         when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
-                return true
+                parent.requestDisallowInterceptTouchEvent(true)
             }
             MotionEvent.ACTION_MOVE -> {
                 parent.requestDisallowInterceptTouchEvent(true)

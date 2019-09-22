@@ -163,7 +163,7 @@ data class RecommendUser(
     val user_ID: String,
     val username: String,
     val signature: String?,
-    val tags: String,
+    val tags: String?,
     val month_rank: Int
 )
 

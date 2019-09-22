@@ -10,18 +10,17 @@ import android.view.ViewGroup
 import android.widget.Toast
 import cn.edu.twt.retrox.recyclerviewdsl.ItemAdapter
 import cn.edu.twt.retrox.recyclerviewdsl.ItemManager
-import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
-import com.yookie.common.experimental.extensions.awaitAndHandle
-import com.yookie.common.experimental.preference.CommonPreferences
 import com.wingedvampires.attention.R
 import com.wingedvampires.attention.model.AttentionService
 import com.wingedvampires.attention.view.items.videoActionItem
+import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
+import com.yookie.common.experimental.extensions.awaitAndHandle
+import com.yookie.common.experimental.preference.CommonPreferences
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 
 class AttentionFocusFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
-    private val layoutManager = LinearLayoutManager(this.context)
     private var itemManager: ItemManager = ItemManager() //by lazy { recyclerView.withItems(listOf()) }
     private var isLoading = true
     private var page: Int = 1
@@ -29,10 +28,11 @@ class AttentionFocusFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_attention_focus, container, false)
+        val mLayoutManager = LinearLayoutManager(this.context)
 
         recyclerView = view.findViewById(R.id.rv_attention_focus)
         recyclerView.apply {
-            layoutManager = layoutManager
+            layoutManager = mLayoutManager
             adapter = ItemAdapter(itemManager)
         }
 
@@ -41,8 +41,8 @@ class AttentionFocusFragment : Fragment() {
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                val totalCount = layoutManager.itemCount
-                val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
+                val totalCount = mLayoutManager.itemCount
+                val lastVisibleItem = mLayoutManager.findLastVisibleItemPosition()
 
                 if (!isLoading && (lastVisibleItem + 1 == totalCount)) {
                     isLoading = true
@@ -70,7 +70,7 @@ class AttentionFocusFragment : Fragment() {
                 clear()
                 videoActions.forEach { videoAction ->
                     videoActionItem(videoAction, this@AttentionFocusFragment.context!!) {
-                        CommonPreferences.setAndGetUserHistory(videoAction.work_ID.toString())
+                        CommonPreferences.setAndGetUserHistory(videoAction.work_ID)
                     }
                 }
             }
@@ -86,10 +86,9 @@ class AttentionFocusFragment : Fragment() {
             }?.data ?: return@launch
 
             itemManager.autoRefresh {
-                clear()
                 videoActions.forEach { videoAction ->
                     videoActionItem(videoAction, this@AttentionFocusFragment.context!!) {
-                        CommonPreferences.setAndGetUserHistory(videoAction.work_ID.toString())
+                        CommonPreferences.setAndGetUserHistory(videoAction.work_ID)
                     }
                 }
             }

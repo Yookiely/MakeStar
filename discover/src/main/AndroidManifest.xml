@@ -3,8 +3,12 @@
         package="com.yookie.discover">
 
     <application>
-        <activity android:name="com.yookie.discover.MoreActivity"></activity>
-        <activity android:name="com.yookie.discover.DiscoverActivity"></activity>
+        <activity
+                android:name="com.yookie.discover.MoreActivity"
+                android:windowSoftInputMode="stateVisible|adjustPan"></activity>
+        <activity
+                android:name="com.yookie.discover.DiscoverActivity"
+                android:windowSoftInputMode="stateVisible|adjustPan"></activity>
     </application>
 
 </manifest>

@@ -18,8 +18,6 @@ import android.widget.TextView
 import android.widget.Toast
 import cn.edu.twt.retrox.recyclerviewdsl.ItemAdapter
 import cn.edu.twt.retrox.recyclerviewdsl.ItemManager
-import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
-import com.yookie.common.experimental.extensions.awaitAndHandle
 import com.wingedvampires.attention.R
 import com.wingedvampires.attention.model.AttentionService
 import com.wingedvampires.attention.model.AttentionUtils
@@ -27,15 +25,17 @@ import com.wingedvampires.attention.view.items.fansItem
 import com.wingedvampires.attention.view.items.focusItem
 import com.wingedvampires.attention.view.items.historyItem
 import com.wingedvampires.attention.view.items.recommendItem
+import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
+import com.yookie.common.experimental.extensions.awaitAndHandle
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 
-class AttentionListFragment : Fragment() {
+class AttentionListFragment() : Fragment() {
     private lateinit var recyclerView: RecyclerView
-    private val layoutManager = LinearLayoutManager(this.context)
     private var itemManager: ItemManager = ItemManager() //by lazy { recyclerView.withItems(listOf()) }
     private var isLoading = true
     private var page = 1
+    var activity: AttentionActivity? = null
     private var lastPage = Int.MAX_VALUE
     private var liveLabel: TextView? = null
     private var backLabel: ImageView? = null
@@ -48,7 +48,7 @@ class AttentionListFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_attention_list, container, false)
-
+        val mLayoutManager = LinearLayoutManager(this.context)
         val clearSearchImg: ImageView = view.findViewById(R.id.iv_attention_clear_history)
         val clearSearchText: TextView = view.findViewById(R.id.tv_attention_clear_history)
         val recommendText = view.findViewById<TextView>(R.id.tv_attention_recommend_list)
@@ -59,7 +59,7 @@ class AttentionListFragment : Fragment() {
         tabs = view.findViewById<ConstraintLayout>(R.id.cl_attention_title_list)
         recyclerView = view.findViewById(R.id.rv_attention_list)
         recyclerView.apply {
-            layoutManager = layoutManager
+            layoutManager = mLayoutManager
             adapter = ItemAdapter(itemManager)
         }
 
@@ -81,6 +81,9 @@ class AttentionListFragment : Fragment() {
         searchEdit.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH && searchEdit.text.isNotBlank()) {
                 loadSearch()
+                searchEdit.isFocusable = false
+                searchEdit.isFocusableInTouchMode = true
+                activity?.hideSoftInputMethod()
             }
 
             true
@@ -144,8 +147,8 @@ class AttentionListFragment : Fragment() {
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                val totalCount = layoutManager.itemCount
-                val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
+                val totalCount = mLayoutManager.itemCount
+                val lastVisibleItem = mLayoutManager.findLastVisibleItemPosition()
 
                 if (!isLoading && (lastVisibleItem + 1 == totalCount)) {
                     isLoading = true
@@ -157,6 +160,8 @@ class AttentionListFragment : Fragment() {
         })
 
         isLoading = false
+
+        activity?.hideSoftInputMethod()
 
         return view
     }
@@ -344,7 +349,8 @@ class AttentionListFragment : Fragment() {
     fun refreshView() {
         refreshList()
         searchEdit.clearFocus()
-        searchEdit.setText("")
+        searchEdit.text.clear()
+        activity?.hideSoftInputMethod()
         tabs.visibility = View.VISIBLE
         searchToolbar.visibility = View.GONE
         liveLabel?.visibility = View.VISIBLE

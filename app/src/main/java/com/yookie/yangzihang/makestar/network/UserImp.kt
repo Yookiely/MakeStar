@@ -6,9 +6,9 @@ import kotlinx.coroutines.experimental.launch
 
 
 object UserImp {
-    fun getHistoryRank(userHistoryCallback: (List<rank>) -> Unit) {
+    fun getHistoryRank(userid: String,userHistoryCallback: (List<rank>) -> Unit) {
         launch(UI + QuietCoroutineExceptionHandler) {
-            val callback = UserService.getHistoryRank().await()
+            val callback = UserService.getHistoryRank(userid).await()
             if (callback.error_code == -1) {
                 userHistoryCallback(callback.data!!)
 
@@ -48,4 +48,14 @@ object UserImp {
 
         }
     }
-}
+
+    fun getCollection(limit: Int,page: Int,userid: String,collectionCallback : (List<collectionData>) -> Unit){
+        launch(UI + QuietCoroutineExceptionHandler) {
+            val callback = UserService.getCollection(limit,page,userid).await()
+            if (callback.error_code == -1) {
+                collectionCallback(callback.data!!.data)
+            }
+
+        }
+
+    }}

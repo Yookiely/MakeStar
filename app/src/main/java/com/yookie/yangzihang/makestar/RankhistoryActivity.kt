@@ -8,7 +8,8 @@ import com.yookie.discover.view.DynamicFragmentPagerAdapter
 import com.yookie.discover.view.RankFragment
 import com.yookie.yangzihang.makestar.View.AccumulationFragment
 import com.yookie.yangzihang.makestar.View.RankHistoryFragment
-import kotlinx.android.synthetic.main.activity_discover.*
+import kotlinx.android.synthetic.main.activity_rankhistory.*
+
 
 class RankhistoryActivity : AppCompatActivity() {
 
@@ -19,7 +20,7 @@ class RankhistoryActivity : AppCompatActivity() {
         val dynamicFragmentPagerAdapter = DynamicFragmentPagerAdapter(supportFragmentManager)
         dynamicFragmentPagerAdapter.add("历史排名", RankHistoryFragment())
         dynamicFragmentPagerAdapter.add("人气积累", AccumulationFragment())
-        vp_homepage_main.adapter = dynamicFragmentPagerAdapter
-        dynamic_pager_indicator2.setViewPager(vp_homepage_main)
+        vp_user_rankhistory.adapter = dynamicFragmentPagerAdapter
+        dynamic_pager_indicator2_rankhistory.setViewPager(vp_user_rankhistory)
     }
 }

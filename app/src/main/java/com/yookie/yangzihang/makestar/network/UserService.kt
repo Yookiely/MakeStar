@@ -8,11 +8,9 @@ import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface UserService{
-    @GET("user/collection")
-    fun getcollection() :  Deferred<CommonBody<collections>>
 
     @GET("user/getHistoryRank")
-    fun getHistoryRank() : Deferred<CommonBody<List<rank>>>
+    fun getHistoryRank(@Query("user_ID") userid: String) : Deferred<CommonBody<List<rank>>>
 
     @POST("message/getMessageByUserID")
     fun getMessage(@Query("user_ID") userid : String ,@Query("model") model : String,@Query("limit") limit : String,@Query("page")page : Int) : Deferred<CommonBody<message>>
@@ -23,32 +21,13 @@ interface UserService{
     @POST("message/setMessageRead")
     fun setMessageRead(@Query("message_ID")message_ID: String) : Deferred<result>
 
+    @GET("user/collection")
+    fun getCollection(@Query("limit") limit : Int ,@Query("page") page: Int,@Query("user_ID")userid: String) : Deferred<CommonBody<collection>>
+
     companion object : UserService by ServiceFactory()
 }
 
 
-data class collections(
-    val `0`: X0,
-    val currentPage: Int,
-    val lastPage: Int
-)
-
-data class X0(
-    val collection_ID: Int,
-    val collection_num: Int,
-    val comment_num: Int,
-    val cover_ID: String,
-    val cover_url: String,
-    val hot_value: Int,
-    val introduction: Any,
-    val share_num: Int,
-    val tag: String,
-    val time: String,
-    val video_ID: String,
-    val video_link: String,
-    val work_name: String,
-    val work_type: String
-)
 data class rank(
     val month: String,
     val rank: String,
@@ -82,6 +61,29 @@ data class messageData(
 data class result(
     val error_code: Int,
     val message: String
+)
+
+data class collection(
+    val data: List<collectionData>,
+    val currentPage: Int,
+    val lastPage: Int
+)
+
+data class collectionData(
+    val collection_ID: Int,
+    val collection_num: Int,
+    val comment_num: Int,
+    val cover_ID: String,
+    val cover_url: String,
+    val hot_value: Int,
+    val introduction: String,
+    val share_num: Int,
+    val tag: String,
+    val time: String,
+    val video_ID: String,
+    val video_link: String,
+    val work_name: String,
+    val work_type: String
 )
 
 

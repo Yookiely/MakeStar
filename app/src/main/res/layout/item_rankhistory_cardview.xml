@@ -49,6 +49,7 @@
                     android:textSize="20sp"
                     android:textColor="#e3284b"
                     android:text="No.121"
+                    android:id="@+id/rank_rank"
             />
 
             <TextView

@@ -21,12 +21,17 @@ import kotlinx.coroutines.experimental.launch
 
 class AttentionFocusFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
-    private var itemManager: ItemManager = ItemManager() //by lazy { recyclerView.withItems(listOf()) }
+    private var itemManager: ItemManager =
+        ItemManager() //by lazy { recyclerView.withItems(listOf()) }
     private var isLoading = true
     private var page: Int = 1
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.fragment_attention_focus, container, false)
         val mLayoutManager = LinearLayoutManager(this.context)
 
@@ -53,7 +58,7 @@ class AttentionFocusFragment : Fragment() {
                 }
             }
         })
-        isLoading = false
+
 
         return view
     }
@@ -63,7 +68,8 @@ class AttentionFocusFragment : Fragment() {
             page = 1
             val videoActions = AttentionService.getFollowUserVideoAction(page).awaitAndHandle {
                 it.printStackTrace()
-                Toast.makeText(this@AttentionFocusFragment.context, "加载关注失败", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@AttentionFocusFragment.context, "加载关注失败", Toast.LENGTH_SHORT)
+                    .show()
             }?.data ?: return@launch
 
             itemManager.refreshAll {
@@ -74,7 +80,7 @@ class AttentionFocusFragment : Fragment() {
                     }
                 }
             }
-
+            isLoading = false
         }
     }
 
@@ -82,7 +88,8 @@ class AttentionFocusFragment : Fragment() {
         launch(UI + QuietCoroutineExceptionHandler) {
             val videoActions = AttentionService.getFollowUserVideoAction(page).awaitAndHandle {
                 it.printStackTrace()
-                Toast.makeText(this@AttentionFocusFragment.context, "加载关注失败", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@AttentionFocusFragment.context, "加载关注失败", Toast.LENGTH_SHORT)
+                    .show()
             }?.data ?: return@launch
 
             itemManager.autoRefresh {
@@ -92,7 +99,7 @@ class AttentionFocusFragment : Fragment() {
                     }
                 }
             }
-
+            isLoading = false
         }
     }
 }

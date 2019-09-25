@@ -159,7 +159,7 @@ class AttentionListFragment() : Fragment() {
             }
         })
 
-        isLoading = false
+
 
         activity?.hideSoftInputMethod()
 
@@ -182,6 +182,7 @@ class AttentionListFragment() : Fragment() {
                     }
                 }
             }
+            isLoading = false
         }
     }
 
@@ -201,6 +202,7 @@ class AttentionListFragment() : Fragment() {
                     }
                 }
             }
+            isLoading = false
         }
     }
 
@@ -220,6 +222,7 @@ class AttentionListFragment() : Fragment() {
                     }
                 }
             }
+            isLoading = false
         }
     }
 
@@ -239,6 +242,7 @@ class AttentionListFragment() : Fragment() {
                     }
                 }
             }
+            isLoading = false
         }
     }
 
@@ -258,6 +262,7 @@ class AttentionListFragment() : Fragment() {
                     }
                 }
             }
+            isLoading = false
         }
     }
 
@@ -277,6 +282,7 @@ class AttentionListFragment() : Fragment() {
                     }
                 }
             }
+            isLoading = false
         }
     }
 
@@ -300,6 +306,7 @@ class AttentionListFragment() : Fragment() {
                     }
                 }
             }
+            isLoading = false
         }
     }
 
@@ -325,7 +332,7 @@ class AttentionListFragment() : Fragment() {
                     }
                 }
             }
-
+            isLoading = false
         }
     }
 

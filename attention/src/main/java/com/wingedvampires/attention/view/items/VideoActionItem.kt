@@ -10,13 +10,13 @@ import android.widget.Toast
 import cn.edu.twt.retrox.recyclerviewdsl.Item
 import cn.edu.twt.retrox.recyclerviewdsl.ItemController
 import com.bumptech.glide.Glide
-import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
-import com.yookie.common.experimental.extensions.awaitAndHandle
 import com.wingedvampires.attention.R
 import com.wingedvampires.attention.model.AttentionService
 import com.wingedvampires.attention.model.AttentionUtils
 import com.wingedvampires.attention.model.VideoAction
 import com.wingedvampires.attention.view.CommentsActivity
+import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
+import com.yookie.common.experimental.extensions.awaitAndHandle
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
@@ -79,7 +79,7 @@ class VideoActionItem(
                 number.text = AttentionUtils.format(videoAction.hot_value)
 
                 label.text = labelText
-                shareImg.apply {
+                storeImg.apply {
                     if (isCollected)
                         setImageResource(R.drawable.ms_red_star)
                     else

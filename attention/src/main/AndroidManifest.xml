@@ -7,7 +7,7 @@
         <activity android:name=".view.CommentsActivity"></activity>
         <activity
                 android:name=".view.AttentionActivity"
-                android:windowSoftInputMode="stateVisible|adjustPan"></activity>
+                android:windowSoftInputMode="stateVisible|adjustPan|stateHidden"></activity>
     </application>
 
 </manifest>

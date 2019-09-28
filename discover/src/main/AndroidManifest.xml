@@ -5,10 +5,10 @@
     <application>
         <activity
                 android:name="com.yookie.discover.MoreActivity"
-                android:windowSoftInputMode="stateVisible|adjustPan"></activity>
+                android:windowSoftInputMode="stateVisible|adjustPan|stateHidden"></activity>
         <activity
                 android:name="com.yookie.discover.DiscoverActivity"
-                android:windowSoftInputMode="stateVisible|adjustPan"></activity>
+                android:windowSoftInputMode="stateVisible|adjustPan|stateHidden"></activity>
     </application>
 
 </manifest>

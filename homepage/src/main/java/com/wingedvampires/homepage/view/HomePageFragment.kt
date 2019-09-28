@@ -90,7 +90,6 @@ class HomePageFragment : Fragment() {
                 }
             }
         })
-        isLoading = false
 
         return view
     }
@@ -150,6 +149,7 @@ class HomePageFragment : Fragment() {
 
                 }
             }
+            isLoading = false
         }
     }
 
@@ -169,6 +169,7 @@ class HomePageFragment : Fragment() {
 
                 }
             }
+            isLoading = false
         }
     }
 
@@ -194,6 +195,7 @@ class HomePageFragment : Fragment() {
 
             page = worksWithType.to
             lastPage = worksWithType.last_page
+            isLoading = false
         }
     }
 
@@ -221,6 +223,7 @@ class HomePageFragment : Fragment() {
 
             page = worksWithType.to
             lastPage = worksWithType.last_page
+            isLoading = false
         }
     }
 }

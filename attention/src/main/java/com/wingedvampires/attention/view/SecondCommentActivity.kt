@@ -9,12 +9,12 @@ import android.view.Window
 import android.widget.Toast
 import cn.edu.twt.retrox.recyclerviewdsl.ItemAdapter
 import cn.edu.twt.retrox.recyclerviewdsl.ItemManager
-import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
-import com.yookie.common.experimental.extensions.awaitAndHandle
 import com.wingedvampires.attention.R
 import com.wingedvampires.attention.model.AttentionService
 import com.wingedvampires.attention.model.AttentionUtils
 import com.wingedvampires.attention.view.items.commentItem
+import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
+import com.yookie.common.experimental.extensions.awaitAndHandle
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 import org.jetbrains.anko.collections.forEachWithIndex
@@ -22,7 +22,7 @@ import org.jetbrains.anko.collections.forEachWithIndex
 class SecondCommentActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
-    private val layoutManager = LinearLayoutManager(this)
+
     private var itemManager: ItemManager = ItemManager()
     private var isLoading = true
     private var page: Int = 1
@@ -36,6 +36,7 @@ class SecondCommentActivity : AppCompatActivity() {
         val bundle: Bundle = intent.extras
         commentId = bundle.getString(AttentionUtils.SECOND_COMMENT_INDEX)!!
         val toolbar = findViewById<Toolbar>(R.id.tb_secondcomment_main)
+        val mLayoutManager = LinearLayoutManager(this)
         toolbar.apply {
             title = " "
             setSupportActionBar(this)
@@ -45,7 +46,7 @@ class SecondCommentActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.rv_secondcomment_main)
         recyclerView.apply {
-            layoutManager = layoutManager
+            layoutManager = mLayoutManager
             adapter = ItemAdapter(itemManager)
         }
         loadSecondComment()
@@ -53,8 +54,8 @@ class SecondCommentActivity : AppCompatActivity() {
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                val totalCount = layoutManager.itemCount
-                val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
+                val totalCount = mLayoutManager.itemCount
+                val lastVisibleItem = mLayoutManager.findLastVisibleItemPosition()
 
                 if (!isLoading && (lastVisibleItem + 1 == totalCount)) {
                     isLoading = true
@@ -64,7 +65,7 @@ class SecondCommentActivity : AppCompatActivity() {
                 }
             }
         })
-        isLoading = false
+
     }
 
     private fun loadSecondComment() {
@@ -91,6 +92,7 @@ class SecondCommentActivity : AppCompatActivity() {
             }
 
             lastPage = comments.lastPage
+            isLoading = false
         }
     }
 
@@ -121,6 +123,7 @@ class SecondCommentActivity : AppCompatActivity() {
             }
 
             lastPage = comments.lastPage
+            isLoading = false
         }
     }
 }

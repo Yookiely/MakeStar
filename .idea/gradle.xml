@@ -14,12 +14,15 @@
             <option value="$PROJECT_DIR$/commons" />
             <option value="$PROJECT_DIR$/discover" />
             <option value="$PROJECT_DIR$/homepage" />
+            <option value="$PROJECT_DIR$/playerlibrary" />
             <option value="$PROJECT_DIR$/updatavideo" />
             <option value="$PROJECT_DIR$/upload" />
             <option value="$PROJECT_DIR$/userpage" />
+            <option value="$PROJECT_DIR$/videoplay" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
+        <option name="testRunner" value="PLATFORM" />
       </GradleProjectSettings>
     </option>
   </component>

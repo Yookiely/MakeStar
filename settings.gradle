@@ -1,1 +1,1 @@
-include ':app', ':commons', ':auth', ':homepage', ':userpage', ':discover', ':attention', ':updatavideo', ':upload'
+include ':app', ':commons', ':auth', ':homepage', ':userpage', ':discover', ':attention', ':updatavideo', ':upload', ':playerlibrary', ':videoplay'

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="FocusListText">
+        <item name="android:textColor">#999999</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="SelectedFocusListText">
+        <item name="android:textColor">#e55224</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+
+</resources>

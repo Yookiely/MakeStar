@@ -39,26 +39,31 @@ class AttentionActivity : AppCompatActivity() {
 //        val attention = findViewById<TextView>(R.id.tv_bottom_attention)
         val discover = findViewById<TextView>(R.id.tv_bottom_find)
         val userpage = findViewById<TextView>(R.id.tv_bottom_individual)
+        homepageViewPager = findViewById(R.id.vp_attention_main)
+        dynamicPagerIndicator = findViewById(R.id.dynamic_pager_indicator2)
         homepage.setOnClickListener { Transfer.startActivity(this, "HomePageActivity", Intent()) }
 //        attention.setOnClickListener { Transfer.startActivity(this, "AttentionActivity", Intent()) }
         discover.setOnClickListener { Transfer.startActivity(this, "DiscoverActivity", Intent()) }
         userpage.setOnClickListener { Transfer.startActivity(this, "MyUserActivity", Intent()) }
 
-        homepageViewPager = findViewById(R.id.vp_attention_main)
-        dynamicPagerIndicator = findViewById(R.id.dynamic_pager_indicator2)
+
+
         setViewPagerContent()
-        hideSoftInputMethod()
     }
 
 
     private fun setViewPagerContent() {
         attentionViewPager = AttentionViewPager(supportFragmentManager)
         val attentionListFragment = AttentionListFragment()
-        attentionListFragment.setView(liveLabel, backLabel)
-        attentionListFragment.activity = this
+        attentionListFragment.apply {
+            setView(liveLabel, backLabel)
+            activity = this@AttentionActivity
+        }
+        val attentionFocusFragment = AttentionFocusFragment()
+        attentionFocusFragment.activity = this
 
         attentionViewPager.apply {
-            add("关注", AttentionFocusFragment())
+            add("关注", attentionFocusFragment)
             add("列表", attentionListFragment)
         }
         homepageViewPager.adapter = attentionViewPager

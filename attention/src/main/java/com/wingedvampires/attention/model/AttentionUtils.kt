@@ -7,13 +7,15 @@ import java.util.*
 object AttentionUtils {
     const val COMMENT_INDEX = "commentIndex"
     const val SECOND_COMMENT_INDEX = "secondCommentIndex"
+    const val VIDEO_PALY_WORKID = "videopalyWorkId"
     var searchHistory by hawk("ATTENTION_SEARCH_HISTORY", mutableListOf<DataOfUser>())
 
     fun formatTime(time: Float): String {
-        val timeOfMS = time //* 1000
+        val timeOfMS = time * 1000
         val date = Date(timeOfMS.toLong())
-        val dateFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
-        dateFormat.timeZone = TimeZone.getTimeZone("GMT+0")
+        val dateFormat = SimpleDateFormat("mm:ss", Locale.getDefault())
+        dateFormat.timeZone = TimeZone.getTimeZone("GMT+8")
+
         return dateFormat.format(date)
     }
 

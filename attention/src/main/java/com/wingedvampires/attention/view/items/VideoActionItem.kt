@@ -72,7 +72,7 @@ class VideoActionItem(
                 time.text = videoAction.time.split(" ")[0]
                 title.text = videoAction.work_name
                 duration.text = AttentionUtils.formatTime(videoAction.Duration)
-                rank.text = videoAction.month_rank.toString()
+                rank.text = "No." + videoAction.month_rank.toString()
                 commentNum.text = AttentionUtils.format(videoAction.comment_num)
                 storeNum.text = AttentionUtils.format(videoAction.collection_num)
                 shareNum.text = AttentionUtils.format(videoAction.share_num)
@@ -135,6 +135,7 @@ class VideoActionItem(
                 }
 
                 start.setOnClickListener {
+
                     item.block(it)
                 }
 

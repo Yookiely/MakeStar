@@ -1,5 +1,6 @@
 package com.wingedvampires.attention.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -12,15 +13,18 @@ import cn.edu.twt.retrox.recyclerviewdsl.ItemAdapter
 import cn.edu.twt.retrox.recyclerviewdsl.ItemManager
 import com.wingedvampires.attention.R
 import com.wingedvampires.attention.model.AttentionService
+import com.wingedvampires.attention.model.AttentionUtils
 import com.wingedvampires.attention.view.items.videoActionItem
 import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
 import com.yookie.common.experimental.extensions.awaitAndHandle
+import com.yookie.common.experimental.extensions.jumpchannel.Transfer
 import com.yookie.common.experimental.preference.CommonPreferences
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 
 class AttentionFocusFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
+    var activity: AttentionActivity? = null
     private var itemManager: ItemManager =
         ItemManager() //by lazy { recyclerView.withItems(listOf()) }
     private var isLoading = true
@@ -77,6 +81,13 @@ class AttentionFocusFragment : Fragment() {
                 videoActions.forEach { videoAction ->
                     videoActionItem(videoAction, this@AttentionFocusFragment.context!!) {
                         CommonPreferences.setAndGetUserHistory(videoAction.work_ID)
+                        val intent = Intent().also {
+                            it.putExtra(
+                                AttentionUtils.VIDEO_PALY_WORKID,
+                                videoAction.work_ID
+                            )
+                        }
+                        Transfer.startActivityWithoutClose(activity!!, "VideoPlayActivity", intent)
                     }
                 }
             }
@@ -96,6 +107,13 @@ class AttentionFocusFragment : Fragment() {
                 videoActions.forEach { videoAction ->
                     videoActionItem(videoAction, this@AttentionFocusFragment.context!!) {
                         CommonPreferences.setAndGetUserHistory(videoAction.work_ID)
+                        val intent = Intent().also {
+                            it.putExtra(
+                                AttentionUtils.VIDEO_PALY_WORKID,
+                                videoAction.work_ID
+                            )
+                        }
+                        Transfer.startActivityWithoutClose(activity!!, "VideoPlayActivity", intent)
                     }
                 }
             }

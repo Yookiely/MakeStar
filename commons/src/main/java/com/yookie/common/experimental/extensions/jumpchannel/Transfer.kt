@@ -17,6 +17,15 @@ object Transfer {
         activity.finish()
     }
 
+    fun startActivityWithoutClose(activity: Activity, path: String, intent: Intent) {
+        val clazz = parsePath(path)
+        if (clazz == null || !Activity::class.java.isAssignableFrom(clazz)) {
+            throw IllegalStateException("con't find the class!")
+        }
+        intent.setClass(activity, clazz)
+        activity.startActivity(intent)
+    }
+
     private fun parsePath(path: String): Class<*>? {
         if (TextUtils.isEmpty(path)) {
             throw IllegalArgumentException("path must not null!")

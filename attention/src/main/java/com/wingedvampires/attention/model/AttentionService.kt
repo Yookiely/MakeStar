@@ -29,7 +29,7 @@ interface AttentionService {
         @Query("page") page: Int,
         @Query("user_ID") userId: String = CommonPreferences.userid,
         @Query("limit") limit: Int = 10
-    ): Deferred<CommonBody<List<Fan>>>
+    ): Deferred<CommonBody<FanAbout>>
 
     @GET("/api/user/spotList")
     fun getSpotList(
@@ -165,6 +165,21 @@ data class RecommendUser(
     val signature: String?,
     val tags: String?,
     val month_rank: Int
+)
+
+data class FanAbout(
+    val current_page: Int,
+    val data: List<Fan>,
+    val first_page_url: String,
+    val from: Int,
+    val last_page: Int,
+    val last_page_url: String,
+    val next_page_url: Any,
+    val path: String,
+    val per_page: String,
+    val prev_page_url: Any,
+    val to: Int,
+    val total: Int
 )
 
 data class Fan(

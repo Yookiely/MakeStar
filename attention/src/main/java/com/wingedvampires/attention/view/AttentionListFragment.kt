@@ -4,6 +4,7 @@ import android.os.Build
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.Editable
@@ -32,7 +33,8 @@ import kotlinx.coroutines.experimental.launch
 
 class AttentionListFragment() : Fragment() {
     private lateinit var recyclerView: RecyclerView
-    private var itemManager: ItemManager = ItemManager() //by lazy { recyclerView.withItems(listOf()) }
+    private var itemManager: ItemManager =
+        ItemManager() //by lazy { recyclerView.withItems(listOf()) }
     private var isLoading = true
     private var page = 1
     var activity: AttentionActivity? = null
@@ -44,10 +46,16 @@ class AttentionListFragment() : Fragment() {
     var refreshList: () -> Unit = { loadRecommend() }
     var loadMoreList: () -> Unit = {}
     private lateinit var searchEdit: EditText
+    lateinit var listRefresh: SwipeRefreshLayout
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.fragment_attention_list, container, false)
+        listRefresh = view.findViewById(R.id.sl_attention_list)
         val mLayoutManager = LinearLayoutManager(this.context)
         val clearSearchImg: ImageView = view.findViewById(R.id.iv_attention_clear_history)
         val clearSearchText: TextView = view.findViewById(R.id.tv_attention_clear_history)
@@ -56,7 +64,7 @@ class AttentionListFragment() : Fragment() {
         val fansText = view.findViewById<TextView>(R.id.tv_attention_fans_list)
         searchEdit = view.findViewById(R.id.et_attention_search)
         searchToolbar = view.findViewById(R.id.cl_attention_search_toolbar)
-        tabs = view.findViewById<ConstraintLayout>(R.id.cl_attention_title_list)
+        tabs = view.findViewById(R.id.cl_attention_title_list)
         recyclerView = view.findViewById(R.id.rv_attention_list)
         recyclerView.apply {
             layoutManager = mLayoutManager
@@ -90,7 +98,8 @@ class AttentionListFragment() : Fragment() {
         }
 
         searchEdit.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) =
+                Unit
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
 
@@ -131,6 +140,7 @@ class AttentionListFragment() : Fragment() {
                 focusText.setTextAppearance(R.style.FocusListText)
             }
             loadFans()
+
             refreshList = { loadFans() }
         }
 
@@ -145,7 +155,7 @@ class AttentionListFragment() : Fragment() {
         }
 
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val totalCount = mLayoutManager.itemCount
                 val lastVisibleItem = mLayoutManager.findLastVisibleItemPosition()
@@ -154,24 +164,35 @@ class AttentionListFragment() : Fragment() {
                     isLoading = true
                     page++
                     loadMoreList()
-
                 }
             }
         })
 
-
+        listRefresh.setOnRefreshListener(this::refresh)
 
         activity?.hideSoftInputMethod()
 
         return view
     }
 
+    private fun refresh() {
+
+        refreshList()
+    }
+
+
     private fun loadRecommend() {
+        loadMoreList = { loadMoreRecommend() }
+
         launch(UI + QuietCoroutineExceptionHandler) {
             page = 1
+            itemManager.refreshAll {
+            }
             val recommendUsers = AttentionService.getRecommendUser(page).awaitAndHandle {
                 it.printStackTrace()
-                Toast.makeText(this@AttentionListFragment.context, "推荐加载失败", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@AttentionListFragment.context, "推荐加载失败", Toast.LENGTH_SHORT)
+                    .show()
+                listRefresh.isRefreshing = false
             }?.data ?: return@launch
 
             itemManager.refreshAll {
@@ -183,16 +204,18 @@ class AttentionListFragment() : Fragment() {
                 }
             }
             isLoading = false
+            listRefresh.isRefreshing = false
         }
     }
 
     private fun loadMoreRecommend() {
-        loadMoreList = { loadMoreRecommend() }
+
 
         launch(UI + QuietCoroutineExceptionHandler) {
             val recommendUsers = AttentionService.getRecommendUser(page).awaitAndHandle {
                 it.printStackTrace()
-                Toast.makeText(this@AttentionListFragment.context, "推荐加载失败", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@AttentionListFragment.context, "推荐加载失败", Toast.LENGTH_SHORT)
+                    .show()
             }?.data ?: return@launch
 
             itemManager.autoRefresh {
@@ -207,36 +230,42 @@ class AttentionListFragment() : Fragment() {
     }
 
     private fun loadFans() {
+        loadMoreList = { loadMoreFans() }
+
         launch(UI + QuietCoroutineExceptionHandler) {
             page = 1
+            itemManager.refreshAll {
+            }
             val fans = AttentionService.getFans(page).awaitAndHandle {
                 it.printStackTrace()
-                Toast.makeText(this@AttentionListFragment.context, "粉丝加载失败", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@AttentionListFragment.context, "粉丝加载失败", Toast.LENGTH_SHORT)
+                    .show()
+                listRefresh.isRefreshing = false
             }?.data ?: return@launch
 
             itemManager.refreshAll {
                 clear()
-                fans.forEach { fan ->
+                fans.data.forEach { fan ->
                     fansItem(fan, this@AttentionListFragment.context!!) {
 
                     }
                 }
             }
             isLoading = false
+            listRefresh.isRefreshing = false
         }
     }
 
     private fun loadMoreFans() {
-        loadMoreList = { loadMoreFans() }
-
         launch(UI + QuietCoroutineExceptionHandler) {
             val fans = AttentionService.getFans(page).awaitAndHandle {
                 it.printStackTrace()
-                Toast.makeText(this@AttentionListFragment.context, "粉丝加载失败", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@AttentionListFragment.context, "粉丝加载失败", Toast.LENGTH_SHORT)
+                    .show()
             }?.data ?: return@launch
 
-            itemManager.refreshAll {
-                fans.forEach { fan ->
+            itemManager.autoRefresh {
+                fans.data.forEach { fan ->
                     fansItem(fan, this@AttentionListFragment.context!!) {
 
                     }
@@ -247,11 +276,17 @@ class AttentionListFragment() : Fragment() {
     }
 
     private fun loadFocus() {
+        loadMoreList = { loadMoreFocus() }
+
         launch(UI + QuietCoroutineExceptionHandler) {
             page = 1
+            itemManager.refreshAll {
+            }
             val concernPersons = AttentionService.getSpotList(page).awaitAndHandle {
                 it.printStackTrace()
-                Toast.makeText(this@AttentionListFragment.context, "推荐加载失败", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@AttentionListFragment.context, "推荐加载失败", Toast.LENGTH_SHORT)
+                    .show()
+                listRefresh.isRefreshing = false
             }?.data ?: return@launch
 
             itemManager.refreshAll {
@@ -263,19 +298,21 @@ class AttentionListFragment() : Fragment() {
                 }
             }
             isLoading = false
+            listRefresh.isRefreshing = false
         }
     }
 
     private fun loadMoreFocus() {
-        loadMoreList = { loadMoreFocus() }
+
 
         launch(UI + QuietCoroutineExceptionHandler) {
             val concernPersons = AttentionService.getSpotList(page).awaitAndHandle {
                 it.printStackTrace()
-                Toast.makeText(this@AttentionListFragment.context, "推荐加载失败", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@AttentionListFragment.context, "推荐加载失败", Toast.LENGTH_SHORT)
+                    .show()
             }?.data ?: return@launch
 
-            itemManager.refreshAll {
+            itemManager.autoRefresh {
                 concernPersons.forEach { concernPerson ->
                     focusItem(concernPerson, this@AttentionListFragment.context!!) {
 
@@ -287,13 +324,17 @@ class AttentionListFragment() : Fragment() {
     }
 
     private fun loadSearch() {
+        loadMoreList = { loadMoreSearch() }
+
         launch(UI + QuietCoroutineExceptionHandler) {
             page = 1
             searchToolbar.visibility = View.GONE
-
+            itemManager.refreshAll {
+            }
             val result = AttentionService.search(page, searchEdit.text.toString()).awaitAndHandle {
                 it.printStackTrace()
-                Toast.makeText(this@AttentionListFragment.context, "搜索失败", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@AttentionListFragment.context, "搜索失败", Toast.LENGTH_SHORT)
+                    .show()
             }?.data ?: return@launch
 
             lastPage = result.user.lastPage
@@ -311,16 +352,18 @@ class AttentionListFragment() : Fragment() {
     }
 
     private fun loadMoreSearch() {
-        loadMoreList = { loadMoreSearch() }
+
 
         launch(UI + QuietCoroutineExceptionHandler) {
             if (page > lastPage) {
-                Toast.makeText(this@AttentionListFragment.context, "没有更多了", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@AttentionListFragment.context, "没有更多了", Toast.LENGTH_SHORT)
+                    .show()
                 return@launch
             }
             val result = AttentionService.search(page, searchEdit.text.toString()).awaitAndHandle {
                 it.printStackTrace()
-                Toast.makeText(this@AttentionListFragment.context, "搜索失败", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@AttentionListFragment.context, "搜索失败", Toast.LENGTH_SHORT)
+                    .show()
             }?.data ?: return@launch
 
             lastPage = result.user.lastPage

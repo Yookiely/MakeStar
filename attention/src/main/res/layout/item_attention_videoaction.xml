@@ -89,16 +89,16 @@
             tools:text="NO.123"/>
 
     <ImageView
-            android:layout_marginTop="10dp"
             android:id="@+id/iv_attention_video"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cv_attention_pic"
-            tools:src="@drawable/ms_no_pic"/>
+            tools:src="@drawable/ms_no_pic" />
 
     <ImageView
             android:id="@+id/iv_attention_start"

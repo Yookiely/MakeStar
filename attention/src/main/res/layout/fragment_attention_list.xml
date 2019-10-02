@@ -122,9 +122,16 @@
                 app:layout_constraintTop_toTopOf="@id/tv_attention_clear_history" />
     </android.support.constraint.ConstraintLayout>
 
-    <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_attention_list"
+    <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/sl_attention_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
+
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_attention_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
 
 </LinearLayout>

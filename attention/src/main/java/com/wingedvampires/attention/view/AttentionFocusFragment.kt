@@ -3,6 +3,7 @@ package com.wingedvampires.attention.view
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -27,6 +28,7 @@ class AttentionFocusFragment : Fragment() {
     var activity: AttentionActivity? = null
     private var itemManager: ItemManager =
         ItemManager() //by lazy { recyclerView.withItems(listOf()) }
+    lateinit var attentionRefresh: SwipeRefreshLayout
     private var isLoading = true
     private var page: Int = 1
 
@@ -37,6 +39,7 @@ class AttentionFocusFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_attention_focus, container, false)
+        attentionRefresh = view.findViewById(R.id.sl_attention_focus)
         val mLayoutManager = LinearLayoutManager(this.context)
 
         recyclerView = view.findViewById(R.id.rv_attention_focus)
@@ -48,7 +51,7 @@ class AttentionFocusFragment : Fragment() {
         loadVideoActions()
 
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val totalCount = mLayoutManager.itemCount
                 val lastVisibleItem = mLayoutManager.findLastVisibleItemPosition()
@@ -63,13 +66,14 @@ class AttentionFocusFragment : Fragment() {
             }
         })
 
-
+        attentionRefresh.setOnRefreshListener(this::loadVideoActions)
         return view
     }
 
     private fun loadVideoActions() {
         launch(UI + QuietCoroutineExceptionHandler) {
             page = 1
+            itemManager.refreshAll { }
             val videoActions = AttentionService.getFollowUserVideoAction(page).awaitAndHandle {
                 it.printStackTrace()
                 Toast.makeText(this@AttentionFocusFragment.context, "加载关注失败", Toast.LENGTH_SHORT)
@@ -92,6 +96,7 @@ class AttentionFocusFragment : Fragment() {
                 }
             }
             isLoading = false
+            attentionRefresh.isRefreshing = false
         }
     }
 

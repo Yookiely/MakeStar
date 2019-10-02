@@ -87,15 +87,15 @@ class RecommendItem(val recommendUser: RecommendUser, val context: Context, val 
 
                 tags?.forEachWithIndex { index, tag ->
                     when (index) {
-                        1 -> label1.apply {
+                        0 -> label1.apply {
                             text = tag
                             visibility = View.VISIBLE
                         }
-                        2 -> label2.apply {
+                        1 -> label2.apply {
                             text = tag
                             visibility = View.VISIBLE
                         }
-                        3 -> label3.apply {
+                        2 -> label3.apply {
                             text = tag
                             visibility = View.VISIBLE
                         }

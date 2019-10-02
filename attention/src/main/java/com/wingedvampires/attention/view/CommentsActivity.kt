@@ -16,6 +16,7 @@ import com.wingedvampires.attention.view.items.commentItem
 import com.wingedvampires.attention.view.items.videoActionCommentItem
 import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
 import com.yookie.common.experimental.extensions.awaitAndHandle
+import kotlinx.android.synthetic.main.activity_comments.*
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 import org.jetbrains.anko.collections.forEachWithIndex
@@ -39,11 +40,10 @@ class CommentsActivity : AppCompatActivity() {
         val toolbar = findViewById<Toolbar>(R.id.tb_comment_main)
         val mLayoutManager = LinearLayoutManager(this)
         toolbar.apply {
-            title = " "
+            title = ""
             setSupportActionBar(this)
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
-            setNavigationOnClickListener { onBackPressed() }
         }
+        iv_comment_back.setOnClickListener { onBackPressed() }
 
         recyclerView = findViewById(R.id.rv_comment_main)
         recyclerView.apply {
@@ -54,7 +54,7 @@ class CommentsActivity : AppCompatActivity() {
         loadMainComment()
 
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val totalCount = mLayoutManager.itemCount
                 val lastVisibleItem = mLayoutManager.findLastVisibleItemPosition()
@@ -73,7 +73,7 @@ class CommentsActivity : AppCompatActivity() {
 
     private fun loadMainComment() {
         launch(UI + QuietCoroutineExceptionHandler) {
-            page = 0
+            page = 1
             val work = AttentionService.getWorkByID(workId).awaitAndHandle {
                 it.printStackTrace()
                 Toast.makeText(this@CommentsActivity, "数据加载失败", Toast.LENGTH_SHORT).show()

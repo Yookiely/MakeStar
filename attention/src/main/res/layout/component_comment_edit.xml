@@ -16,7 +16,7 @@
             android:background="@drawable/ms_search_background"
             android:gravity="center"
             android:hint="发布你的惊世言论"
-            android:imeOptions="actionSend"
+            android:imeOptions="actionNext"
             android:maxLines="1"
             android:textColorHint="#cccccc"
             android:textSize="16sp" />

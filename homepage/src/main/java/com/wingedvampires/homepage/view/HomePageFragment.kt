@@ -78,7 +78,7 @@ class HomePageFragment : Fragment() {
         setBanner()
         refreshAndLoad()
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val totalCount = sLayoutManager.itemCount
                 val array = IntArray(2)

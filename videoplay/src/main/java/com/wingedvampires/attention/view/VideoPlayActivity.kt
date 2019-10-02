@@ -3,11 +3,10 @@ package com.wingedvampires.attention.view
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
-import android.os.Build
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.CardView
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
@@ -18,16 +17,11 @@ import com.bumptech.glide.Glide
 import com.example.playerlibrary.assist.DataInter
 import com.example.playerlibrary.assist.OnVideoViewEventHandler
 import com.example.playerlibrary.assist.ReceiverGroupManager
-import com.example.playerlibrary.config.PlayerConfig
-import com.example.playerlibrary.cover.ControllerCover
 import com.example.playerlibrary.entity.DataSource
 import com.example.playerlibrary.event.OnPlayerEventListener
 import com.example.playerlibrary.provider.MonitorDataProvider
 import com.example.playerlibrary.provider.VideoBean
-import com.example.playerlibrary.receiver.IReceiver
 import com.example.playerlibrary.receiver.ReceiverGroup
-import com.example.playerlibrary.render.AspectRatio
-import com.example.playerlibrary.render.IRender
 import com.example.playerlibrary.widget.BaseVideoView
 import com.wingedvampires.attention.R
 import com.wingedvampires.attention.extension.PUtil
@@ -48,24 +42,17 @@ import kotlinx.coroutines.experimental.launch
 class VideoPlayActivity : AppCompatActivity(), OnPlayerEventListener {
 
     private lateinit var mVideoView: BaseVideoView
-
     private var margin: Int = 0
-
-    private val permissionSuccess: Boolean = false
-
-    private val typeIndex: Int = 0
     private var mReceiverGroup: ReceiverGroup? = null
     private var isLandscape: Boolean = false
-
     private var mDataSourceId: Long = 0
-
     private var userPause: Boolean = false
     private lateinit var user: CardView
-    private lateinit var more: LinearLayout
-    var workId: String? = null
-    var videoBeanList = mutableListOf<VideoBean>()
-    var isCollected = false
-    var havaAdd = false
+    private lateinit var more: ConstraintLayout
+    private var workId: String? = null
+    private var videoBeanList = mutableListOf<VideoBean>()
+    private var isCollected = false
+    private var havaAdd = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,8 +64,8 @@ class VideoPlayActivity : AppCompatActivity(), OnPlayerEventListener {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
         setContentView(R.layout.test_video_activity)
-        val bundle: Bundle = intent.extras
-        workId = bundle.getString(VideoPlayUtils.VIDEO_PALY_WORKID)
+        val bundle: Bundle? = intent.extras
+        workId = bundle?.getString(VideoPlayUtils.VIDEO_PALY_WORKID)
         if (workId.isNullOrEmpty()) {
             Toast.makeText(this, "视频id错误", Toast.LENGTH_SHORT).show()
             onBackPressed()
@@ -87,8 +74,6 @@ class VideoPlayActivity : AppCompatActivity(), OnPlayerEventListener {
         mVideoView = findViewById(R.id.videoView)
         user = findViewById(R.id.cv_videoplay_user)
         more = findViewById(R.id.ll_videoplay_more)
-
-
 
         loadVideoInfo()
     }
@@ -257,33 +242,33 @@ class VideoPlayActivity : AppCompatActivity(), OnPlayerEventListener {
                         }
                         DataInter.Event.EVENT_CODE_REQUEST_NEXT -> {
                             mDataSourceId++
-                            mVideoView?.setDataSource(generatorDataSource(mDataSourceId))
-                            mVideoView?.start()
+                            mVideoView.setDataSource(generatorDataSource(mDataSourceId))
+                            mVideoView.start()
                         }
                         DataInter.Event.EVENT_CODE_REQUEST_TOGGLE_SCREEN -> requestedOrientation =
                             if (isLandscape)
                                 ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
                             else
                                 ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-                        DataInter.Event.EVENT_CODE_ERROR_SHOW -> mVideoView?.stop()
+                        DataInter.Event.EVENT_CODE_ERROR_SHOW -> mVideoView.stop()
                     }
                 }
             }
 
-        mVideoView?.setOnPlayerEventListener(this)
-        mVideoView?.setEventHandler(mOnEventAssistHandler)
+        mVideoView.setOnPlayerEventListener(this)
+        mVideoView.setEventHandler(mOnEventAssistHandler)
         mReceiverGroup = ReceiverGroupManager.get().getReceiverGroup(this, null)
         mReceiverGroup?.groupValue?.putBoolean(DataInter.Key.KEY_NETWORK_RESOURCE, true)
         mReceiverGroup?.groupValue?.putBoolean(DataInter.Key.KEY_CONTROLLER_TOP_ENABLE, true)
         mReceiverGroup?.groupValue?.putBoolean(DataInter.Key.KEY_IS_HAS_NEXT, true)
-        mVideoView?.setReceiverGroup(mReceiverGroup)
+        mVideoView.setReceiverGroup(mReceiverGroup)
 
         //设置数据提供者 MonitorDataProvider
         val dataProvider = MonitorDataProvider()
         dataProvider.setTestData(videoBeanList)
-        mVideoView?.setDataProvider(dataProvider)
-        mVideoView?.setDataSource(generatorDataSource(mDataSourceId))
-        mVideoView?.start()
+        mVideoView.setDataProvider(dataProvider)
+        mVideoView.setDataSource(generatorDataSource(mDataSourceId))
+        mVideoView.start()
 
         // If you want to start play at a specified time,
         // please set this method.
@@ -297,110 +282,28 @@ class VideoPlayActivity : AppCompatActivity(), OnPlayerEventListener {
         return dataSource
     }
 
-    fun setRenderSurfaceView(view: View) {
-        mVideoView?.setRenderType(IRender.RENDER_TYPE_SURFACE_VIEW)
-    }
-
-    fun setRenderTextureView(view: View) {
-        mVideoView?.setRenderType(IRender.RENDER_TYPE_TEXTURE_VIEW)
-    }
-
-    fun onStyleSetRoundRect(view: View) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mVideoView?.setRoundRectShape(PUtil.dip2px(this, 25f).toFloat())
-        } else {
-            Toast.makeText(this, "not support", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    fun onStyleSetOvalRect(view: View) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mVideoView?.setOvalRectShape()
-        } else {
-            Toast.makeText(this, "not support", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    fun onShapeStyleReset(view: View) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mVideoView?.clearShapeStyle()
-        } else {
-            Toast.makeText(this, "not support", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    fun onAspect16_9(view: View) {
-        mVideoView?.setAspectRatio(AspectRatio.AspectRatio_16_9)
-    }
-
-    fun onAspect4_3(view: View) {
-        mVideoView?.setAspectRatio(AspectRatio.AspectRatio_4_3)
-    }
-
-    fun onAspectFill(view: View) {
-        mVideoView?.setAspectRatio(AspectRatio.AspectRatio_FILL_PARENT)
-    }
-
-    fun onAspectFit(view: View) {
-        mVideoView?.setAspectRatio(AspectRatio.AspectRatio_FIT_PARENT)
-    }
-
-    fun onAspectOrigin(view: View) {
-        mVideoView?.setAspectRatio(AspectRatio.AspectRatio_ORIGIN)
-    }
-
-    fun onDecoderChangeMediaPlayer(view: View) {
-        val curr = mVideoView!!.currentPosition
-        if (mVideoView!!.switchDecoder(PlayerConfig.DEFAULT_PLAN_ID)) {
-            replay(curr)
-        }
-    }
-
-
-    private fun replay(msc: Int) {
-        mVideoView?.setDataSource(generatorDataSource(mDataSourceId))
-        mVideoView?.start(msc)
-    }
-
-    fun removeControllerCover(view: View) {
-        mReceiverGroup?.removeReceiver(DataInter.ReceiverKey.KEY_CONTROLLER_COVER)
-        Toast.makeText(this, "已移除", Toast.LENGTH_SHORT).show()
-    }
-
-    fun addControllerCover(view: View) {
-        val receiver =
-            mReceiverGroup?.getReceiver<IReceiver>(DataInter.ReceiverKey.KEY_CONTROLLER_COVER)
-        if (receiver == null) {
-            mReceiverGroup?.addReceiver(
-                DataInter.ReceiverKey.KEY_CONTROLLER_COVER,
-                ControllerCover(this, true)
-            )
-            Toast.makeText(this, "已添加", Toast.LENGTH_SHORT).show()
-        }
-    }
-
     override fun onPause() {
         super.onPause()
-        if (mVideoView != null && mVideoView!!.isInPlaybackState) {
-            mVideoView?.pause()
+        if (mVideoView.isInPlaybackState) {
+            mVideoView.pause()
         } else {
-            mVideoView?.stop()
+            mVideoView.stop()
         }
     }
 
     override fun onResume() {
         super.onResume()
-        if (mVideoView != null && mVideoView!!.isInPlaybackState) {
+        if (mVideoView.isInPlaybackState) {
             if (!userPause)
-                mVideoView?.resume()
+                mVideoView.resume()
         } else {
-            mVideoView?.rePlay(0)
+            mVideoView.rePlay(0)
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mVideoView?.stopPlayback()
+        mVideoView.stopPlayback()
     }
 
     override fun onBackPressed() {
@@ -413,18 +316,15 @@ class VideoPlayActivity : AppCompatActivity(), OnPlayerEventListener {
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        Log.d("momom", "fiejo")
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             isLandscape = true
             user.visibility = View.GONE
             more.visibility = View.GONE
-            Toast.makeText(this, "1", Toast.LENGTH_SHORT).show()
             updateVideo(true)
         } else {
             isLandscape = false
             user.visibility = View.VISIBLE
             more.visibility = View.VISIBLE
-            Toast.makeText(this, "2", Toast.LENGTH_SHORT).show()
             updateVideo(false)
         }
         mReceiverGroup?.groupValue?.putBoolean(DataInter.Key.KEY_IS_LANDSCAPE, isLandscape)
@@ -441,7 +341,7 @@ class VideoPlayActivity : AppCompatActivity(), OnPlayerEventListener {
     }
 
     private fun updateVideo(landscape: Boolean) {
-        val layoutParams = mVideoView?.layoutParams as LinearLayout.LayoutParams
+        val layoutParams = mVideoView.layoutParams as LinearLayout.LayoutParams
         if (landscape) {
             layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
             layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
@@ -451,6 +351,6 @@ class VideoPlayActivity : AppCompatActivity(), OnPlayerEventListener {
             layoutParams.height = layoutParams.width * 9 / 16
             layoutParams.setMargins(margin, margin, margin, margin)
         }
-        mVideoView?.layoutParams = layoutParams
+        mVideoView.layoutParams = layoutParams
     }
 }

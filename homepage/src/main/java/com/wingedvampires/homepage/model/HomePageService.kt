@@ -22,8 +22,8 @@ interface HomePageService {
 
     @GET("/api/work/getRecommendWork")
     fun getRecommendWork(
-        @Query("history") history: String = CommonPreferences.setAndGetUserHistory(),
-        @Query("habit") habit: String = CommonPreferences.setAndGetUserHabit(),
+        @Query("history") history: String? = CommonPreferences.setAndGetUserHistory(),
+        @Query("habit") habit: String? = CommonPreferences.setAndGetUserHabit(),
         @Query("limit") limit: Int = 10,
         @Query("mode") mode: Int = 1,
         @Query("user_ID") userId: String = CommonPreferences.userid

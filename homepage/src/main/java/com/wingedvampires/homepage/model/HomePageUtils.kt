@@ -3,6 +3,7 @@ package com.wingedvampires.homepage.model
 object HomePageUtils {
     const val INDEX_KEY = "page"
     const val WORK_TYPE_ID_OF_RECOMMEND = 0
+    const val VIDEO_PALY_WORKID = "videopalyWorkId"
     val typeList = hashMapOf<Int, String>()
 
 

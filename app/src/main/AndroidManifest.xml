@@ -30,7 +30,7 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
-            android:name="com.yookie.yangzihang.makestar.MakeStarApp"
+            android:name=".MakeStarApp"
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
@@ -39,19 +39,19 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
-
-        <activity android:name="com.yookie.yangzihang.makestar.MyselfActivity"></activity>
-        <activity android:name="com.yookie.yangzihang.makestar.MainActivity">
+        <activity android:name=".RedPacketActivity"></activity>
+        <activity android:name=".MyselfActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.yookie.yangzihang.makestar.MyUserActivity"></activity>
-        <activity android:name="com.yookie.yangzihang.makestar.RankhistoryActivity"></activity>
-        <activity android:name="com.yookie.yangzihang.makestar.MessageActivity"></activity>
-        <activity android:name="com.yookie.yangzihang.makestar.FansActivity"></activity>
+        <activity android:name=".MyUserActivity" />
+        <activity android:name=".RankhistoryActivity" />
+        <activity android:name=".MessageActivity" />
+        <activity android:name=".FansActivity" />
     </application>
 
 </manifest>

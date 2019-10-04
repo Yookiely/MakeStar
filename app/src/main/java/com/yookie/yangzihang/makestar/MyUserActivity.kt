@@ -2,8 +2,8 @@ package com.yookie.yangzihang.makestar
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.Window
@@ -15,7 +15,6 @@ import com.yookie.auth.api.authSelfLiveData
 import com.yookie.common.experimental.cache.CacheIndicator
 import com.yookie.common.experimental.extensions.bindNonNull
 import com.yookie.common.experimental.extensions.jumpchannel.Transfer
-import com.yookie.common.experimental.preference.CommonPreferences
 import com.yookie.yangzihang.makestar.View.setUserText
 
 class MyUserActivity : AppCompatActivity() {
@@ -89,6 +88,7 @@ class MyUserActivity : AppCompatActivity() {
             setUserText("历史排名",this@MyUserActivity,1)
             setUserText("我的消息",this@MyUserActivity,2)
             setUserText("我的收藏",this@MyUserActivity,3)
+            setUserText("我的红包", this@MyUserActivity, 7)
             setUserText("粉丝圈",this@MyUserActivity,4)
             setUserText("我的订单",this@MyUserActivity,5)
             setUserText("商务合作",this@MyUserActivity,6)

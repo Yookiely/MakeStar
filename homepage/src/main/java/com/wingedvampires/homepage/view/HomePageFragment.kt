@@ -1,8 +1,10 @@
 package com.wingedvampires.homepage.view
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
@@ -20,6 +22,7 @@ import com.wingedvampires.homepage.model.HomePageService
 import com.wingedvampires.homepage.model.HomePageUtils
 import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
 import com.yookie.common.experimental.extensions.awaitAndHandle
+import com.yookie.common.experimental.extensions.jumpchannel.Transfer
 import com.yookie.common.experimental.preference.CommonPreferences
 import com.youth.banner.BannerConfig
 import com.youth.banner.loader.ImageLoader
@@ -31,10 +34,14 @@ class HomePageFragment : Fragment() {
     private var workType = 0
     private lateinit var recyclerView: RecyclerView
     private lateinit var banner: MyBanner
-    private var itemManager: ItemManager = ItemManager()  //by lazy { recyclerView.withItems(listOf()) }
+    private var itemManager: ItemManager =
+        ItemManager()  //by lazy { recyclerView.withItems(listOf()) }
     private var isLoading = true
     private var page = 1
     private var lastPage = Int.MAX_VALUE
+    lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
+    lateinit var refreshAndLoad: () -> Unit
+    lateinit var loadMore: () -> Unit
 
     companion object {
         fun newInstance(type: Int): HomePageFragment {
@@ -48,21 +55,26 @@ class HomePageFragment : Fragment() {
     }
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.fragment_homepage, container, false)
         val sLayoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
+        mSwipeRefreshLayout = view.findViewById(R.id.sl_homepage_main)
         val bundle = arguments
         workType = bundle!!.getInt(HomePageUtils.INDEX_KEY)
 
         /** 根据不同的界面选择不同的方法
          * workType = 0 是推荐界面
          */
-        val refreshAndLoad = if (workType == HomePageUtils.WORK_TYPE_ID_OF_RECOMMEND) {
+        refreshAndLoad = if (workType == HomePageUtils.WORK_TYPE_ID_OF_RECOMMEND) {
             { loadRecommend() }
         } else {
             { loadByType() }
         }
-        val loadMore = if (workType == HomePageUtils.WORK_TYPE_ID_OF_RECOMMEND) {
+        loadMore = if (workType == HomePageUtils.WORK_TYPE_ID_OF_RECOMMEND) {
             { loadMoreRecommend() }
         } else {
             { loadMoreByType() }
@@ -91,6 +103,8 @@ class HomePageFragment : Fragment() {
             }
         })
 
+        mSwipeRefreshLayout.setOnRefreshListener(this::refresh)
+
         return view
     }
 
@@ -104,19 +118,27 @@ class HomePageFragment : Fragment() {
         banner.stopAutoPlay()
     }
 
+    private fun refresh() = refreshAndLoad()
+
     private fun setBanner() {
         launch(UI + QuietCoroutineExceptionHandler) {
             val bannerData = HomePageService.getRecentBannerByType().awaitAndHandle {
                 it.printStackTrace()
-                Toast.makeText(this@HomePageFragment.context, "加载banner失败", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@HomePageFragment.context, "加载banner失败", Toast.LENGTH_SHORT)
+                    .show()
             }?.data ?: return@launch
 
             val bannerCovers = bannerData.map { banner -> banner.banner_url }
             banner.apply {
                 //设置图片加载器
                 setImageLoader(object : ImageLoader() {
-                    override fun displayImage(context: Context?, path: Any?, imageView: ImageView?) {
-                        Glide.with(context!!).load(path).error(R.drawable.ms_no_pic).into(imageView!!)
+                    override fun displayImage(
+                        context: Context?,
+                        path: Any?,
+                        imageView: ImageView?
+                    ) {
+                        Glide.with(context!!).load(path).error(R.drawable.ms_no_pic)
+                            .into(imageView!!)
                     }
                 })
                 //设置banner样式
@@ -137,6 +159,7 @@ class HomePageFragment : Fragment() {
             val works = HomePageService.getRecommendWork().awaitAndHandle {
                 it.printStackTrace()
                 Toast.makeText(this@HomePageFragment.context, "加载失败", Toast.LENGTH_SHORT).show()
+                mSwipeRefreshLayout.isRefreshing = false
             }?.data ?: return@launch
 
             itemManager.refreshAll {
@@ -145,11 +168,19 @@ class HomePageFragment : Fragment() {
                     CommonPreferences.setAndGetUserHistory(work.work_ID)
                     homePageItem(work) {
                         CommonPreferences.setAndGetUserHabit(work.work_type_ID)
+                        val intent = Intent().also {
+                            it.putExtra(
+                                HomePageUtils.VIDEO_PALY_WORKID,
+                                work.work_ID
+                            )
+                        }
+                        Transfer.startActivityWithoutClose(activity!!, "VideoPlayActivity", intent)
                     }
 
                 }
             }
             isLoading = false
+            mSwipeRefreshLayout.isRefreshing = false
         }
     }
 
@@ -165,11 +196,19 @@ class HomePageFragment : Fragment() {
                     CommonPreferences.setAndGetUserHistory(work.work_ID)
                     homePageItem(work) {
                         CommonPreferences.setAndGetUserHabit(work.work_type_ID)
+                        val intent = Intent().also {
+                            it.putExtra(
+                                HomePageUtils.VIDEO_PALY_WORKID,
+                                work.work_ID
+                            )
+                        }
+                        Transfer.startActivityWithoutClose(activity!!, "VideoPlayActivity", intent)
                     }
 
                 }
             }
             isLoading = false
+            mSwipeRefreshLayout.isRefreshing = false
         }
     }
 
@@ -180,6 +219,7 @@ class HomePageFragment : Fragment() {
             val worksWithType = HomePageService.getWorkByTypeID(page, workType).awaitAndHandle {
                 it.printStackTrace()
                 Toast.makeText(this@HomePageFragment.context, "加载失败", Toast.LENGTH_SHORT).show()
+                mSwipeRefreshLayout.isRefreshing = false
             }?.data ?: return@launch
 
             itemManager.refreshAll {
@@ -188,6 +228,13 @@ class HomePageFragment : Fragment() {
                     CommonPreferences.setAndGetUserHistory(work.work_ID)
                     homePageItem(work) {
                         CommonPreferences.setAndGetUserHabit(work.work_type_ID)
+                        val intent = Intent().also {
+                            it.putExtra(
+                                HomePageUtils.VIDEO_PALY_WORKID,
+                                work.work_ID
+                            )
+                        }
+                        Transfer.startActivityWithoutClose(activity!!, "VideoPlayActivity", intent)
                     }
 
                 }
@@ -196,6 +243,7 @@ class HomePageFragment : Fragment() {
             page = worksWithType.to
             lastPage = worksWithType.last_page
             isLoading = false
+            mSwipeRefreshLayout.isRefreshing = false
         }
     }
 
@@ -216,6 +264,13 @@ class HomePageFragment : Fragment() {
                     CommonPreferences.setAndGetUserHistory(work.work_ID)
                     homePageItem(work) {
                         CommonPreferences.setAndGetUserHabit(work.work_type_ID)
+                        val intent = Intent().also {
+                            it.putExtra(
+                                HomePageUtils.VIDEO_PALY_WORKID,
+                                work.work_ID
+                            )
+                        }
+                        Transfer.startActivityWithoutClose(activity!!, "VideoPlayActivity", intent)
                     }
 
                 }
@@ -224,6 +279,7 @@ class HomePageFragment : Fragment() {
             page = worksWithType.to
             lastPage = worksWithType.last_page
             isLoading = false
+            mSwipeRefreshLayout.isRefreshing = false
         }
     }
 }

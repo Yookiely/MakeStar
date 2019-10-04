@@ -16,6 +16,11 @@ interface VideoPlayService {
         @Query("user_ID") userId: String = CommonPreferences.userid
     ): Deferred<CommonBody<List<WorkById>>>
 
+    @GET("task/watchOneTime")
+    fun watchOneTime(
+        @Query("user_ID") userId: String = CommonPreferences.userid
+    ): Deferred<CommonBody<WatchResult>>
+
     @GET("/api/aliyun/getVideoInfo")
     fun getVideoInfo(
         @Query("videoID") workId: String,
@@ -112,4 +117,10 @@ data class VideoBase(
     val Title: String,
     val TranscodeMode: String,
     val VideoId: String
+)
+
+data class WatchResult(
+    val day_watch_count: Int,
+    val user_ID: String,
+    val y_m_d: String
 )

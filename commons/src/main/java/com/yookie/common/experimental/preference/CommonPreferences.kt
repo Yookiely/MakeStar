@@ -48,19 +48,21 @@ object CommonPreferences {
     }
 
     //获得和存储用户喜好
-    fun setAndGetUserHabit(habitID: Int? = null): String {
+    fun setAndGetUserHabit(habitID: Int? = null): String? {
 
         if (habitID != null) {
             val temp = mutableListOf<Int>().also { it.addAll(userHabit) }
             temp[habitID - 1]++
             userHabit = mutableListOf<Int>().also { it.addAll(temp) }
         }
-
+        if (userHabit.isEmpty()) {
+            return null
+        }
         return userHabit.toString().replace(" ", "").substring(1, 2 * userHabit.size)
     }
 
     //获得和存储看过的ID
-    fun setAndGetUserHistory(historyId: String? = null): String {
+    fun setAndGetUserHistory(historyId: String? = null): String? {
         if (historyId != null && !userHistory.contains(historyId)) {
             var temp = mutableListOf<String>().also { it.addAll(userHistory) }
             temp.add(historyId)
@@ -69,7 +71,9 @@ object CommonPreferences {
             }
             userHistory = mutableListOf<String>().also { it.addAll(temp) }
         }
-
+        if (userHistory.isEmpty()) {
+            return null
+        }
         return userHistory.toString().replace(" ", "").substring(1, 2 * userHistory.size)
     }
 

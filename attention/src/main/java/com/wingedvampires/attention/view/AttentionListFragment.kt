@@ -82,6 +82,7 @@ class AttentionListFragment() : Fragment() {
             if (hasFocus) {
                 if (searchEdit.text.isBlank()) {
                     showHistory()
+                    refreshList = { showHistory() }
                 }
             }
         }
@@ -114,9 +115,11 @@ class AttentionListFragment() : Fragment() {
         // 清除历史
         clearSearchImg.setOnClickListener {
             AttentionUtils.searchHistory = mutableListOf()
+            showHistory()
         }
         clearSearchText.setOnClickListener {
             AttentionUtils.searchHistory = mutableListOf()
+            showHistory()
         }
 
         backLabel?.setOnClickListener {
@@ -175,10 +178,7 @@ class AttentionListFragment() : Fragment() {
         return view
     }
 
-    private fun refresh() {
-
-        refreshList()
-    }
+    private fun refresh() = refreshList()
 
 
     private fun loadRecommend() {
@@ -352,8 +352,6 @@ class AttentionListFragment() : Fragment() {
     }
 
     private fun loadMoreSearch() {
-
-
         launch(UI + QuietCoroutineExceptionHandler) {
             if (page > lastPage) {
                 Toast.makeText(this@AttentionListFragment.context, "没有更多了", Toast.LENGTH_SHORT)
@@ -371,7 +369,7 @@ class AttentionListFragment() : Fragment() {
             itemManager.autoRefresh {
                 usersOfResult.forEach { dataOfUser ->
                     historyItem(dataOfUser, this@AttentionListFragment.context!!) {
-
+                        AttentionUtils.setSearchHistory(dataOfUser)
                     }
                 }
             }

@@ -76,7 +76,17 @@ class VideoPlayActivity : AppCompatActivity(), OnPlayerEventListener {
         more = findViewById(R.id.ll_videoplay_more)
 
         loadVideoInfo()
+        writeOneWatch()
     }
+
+    private fun writeOneWatch() {
+        launch(UI + QuietCoroutineExceptionHandler) {
+            val result = VideoPlayService.watchOneTime().awaitAndHandle {
+                it.printStackTrace()
+            }
+        }
+    }
+
 
     private fun loadVideoInfo() {
         launch(UI + QuietCoroutineExceptionHandler) {

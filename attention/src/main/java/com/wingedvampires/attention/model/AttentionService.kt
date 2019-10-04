@@ -38,7 +38,7 @@ interface AttentionService {
         @Query("limit") limit: Int = 10
     ): Deferred<CommonBody<List<ConcernPerson>>>
 
-    @GET("/api/search")
+    @POST("/api/search")
     fun search(
         @Query("page") page: Int,
         @Query("content") content: String,

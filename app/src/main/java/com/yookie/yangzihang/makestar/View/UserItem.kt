@@ -21,7 +21,7 @@ class UserItem(val titles: String, val context: Context, val activity: Int) : It
             item as UserItem
             holder.title.text = item.titles
             holder.itemView.setOnClickListener {
-                item.startActivity(item.context,item.activity)
+                item.startActivity(item.context, item.activity)
             }
 
         }
@@ -34,20 +34,21 @@ class UserItem(val titles: String, val context: Context, val activity: Int) : It
         }
 
 
-
     }
 
-    fun startActivity(context: Context,activity: Int){
+    fun startActivity(context: Context, activity: Int) {
 
-        when(activity){
-            1 -> intent = Intent(context,RankhistoryActivity::class.java)
-            2 -> intent = Intent(context,MessageActivity::class.java)
-            4 -> intent = Intent(context,FansActivity::class.java)
+        when (activity) {
+            1 -> intent = Intent(context, RankhistoryActivity::class.java)
+            2 -> intent = Intent(context, MessageActivity::class.java)
+            4 -> intent = Intent(context, FansActivity::class.java)
+            7 -> intent = Intent(context, RedPacketActivity::class.java)
         }
 
 
         context.startActivity(intent)
     }
+
     override val controller: ItemController
         get() = UserItem
 

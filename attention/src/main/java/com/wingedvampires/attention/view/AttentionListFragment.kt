@@ -31,10 +31,9 @@ import com.yookie.common.experimental.extensions.awaitAndHandle
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 
-class AttentionListFragment() : Fragment() {
+class AttentionListFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
-    private var itemManager: ItemManager =
-        ItemManager() //by lazy { recyclerView.withItems(listOf()) }
+    private var itemManager: ItemManager = ItemManager()
     private var isLoading = true
     private var page = 1
     var activity: AttentionActivity? = null
@@ -45,8 +44,9 @@ class AttentionListFragment() : Fragment() {
     private lateinit var tabs: ConstraintLayout
     var refreshList: () -> Unit = { loadRecommend() }
     var loadMoreList: () -> Unit = {}
+    private var restoreUI: () -> Unit = {}
     private lateinit var searchEdit: EditText
-    lateinit var listRefresh: SwipeRefreshLayout
+    private lateinit var listRefresh: SwipeRefreshLayout
 
 
     override fun onCreateView(
@@ -87,7 +87,7 @@ class AttentionListFragment() : Fragment() {
             }
         }
 
-        searchEdit.setOnEditorActionListener { v, actionId, event ->
+        searchEdit.setOnEditorActionListener { _, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH && searchEdit.text.isNotBlank()) {
                 loadSearch()
                 searchEdit.isFocusable = false
@@ -182,6 +182,7 @@ class AttentionListFragment() : Fragment() {
 
 
     private fun loadRecommend() {
+        restoreUI = { loadRecommend() }
         loadMoreList = { loadMoreRecommend() }
 
         launch(UI + QuietCoroutineExceptionHandler) {
@@ -230,6 +231,7 @@ class AttentionListFragment() : Fragment() {
     }
 
     private fun loadFans() {
+        restoreUI = { loadFans() }
         loadMoreList = { loadMoreFans() }
 
         launch(UI + QuietCoroutineExceptionHandler) {
@@ -276,6 +278,7 @@ class AttentionListFragment() : Fragment() {
     }
 
     private fun loadFocus() {
+        restoreUI = { loadFocus() }
         loadMoreList = { loadMoreFocus() }
 
         launch(UI + QuietCoroutineExceptionHandler) {
@@ -387,6 +390,8 @@ class AttentionListFragment() : Fragment() {
                 }
             }
         }
+
+        listRefresh.isRefreshing = false
     }
 
     fun setView(live: TextView, back: ImageView) {
@@ -395,7 +400,7 @@ class AttentionListFragment() : Fragment() {
     }
 
     fun refreshView() {
-        refreshList()
+        restoreUI()
         searchEdit.clearFocus()
         searchEdit.text.clear()
         activity?.hideSoftInputMethod()

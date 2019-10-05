@@ -15,7 +15,7 @@ import org.jetbrains.anko.layoutInflater
 
 class HistoryItem(val dataOfUser: DataOfUser, val context: Context, val block: (View) -> Unit) : Item {
     override val controller: ItemController
-        get() = RecommendItem
+        get() = Controller
 
     override fun areContentsTheSame(newItem: Item): Boolean {
         return dataOfUser.user_ID == (newItem as? HistoryItem)?.dataOfUser?.user_ID
@@ -29,7 +29,7 @@ class HistoryItem(val dataOfUser: DataOfUser, val context: Context, val block: (
         override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
             val view = parent.context.layoutInflater.inflate(R.layout.item_attention_history, parent, false)
 
-            return RecommendItem.ViewHolder(view)
+            return ViewHolder(view)
         }
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: Item) {

@@ -8,6 +8,7 @@ import android.widget.TextView
 import android.widget.Toast
 import cn.edu.twt.retrox.recyclerviewdsl.Item
 import cn.edu.twt.retrox.recyclerviewdsl.ItemController
+import com.bumptech.glide.Glide
 import com.wingedvampires.attention.R
 import com.wingedvampires.attention.model.AttentionService
 import com.wingedvampires.attention.model.RecommendUser
@@ -47,7 +48,8 @@ class RecommendItem(val recommendUser: RecommendUser, val context: Context, val 
 
             holder.apply {
 
-                //                Glide.with(this.itemView).load(recommendUser.avatar).error(R.drawable.ms_no_pic).into(avatar)
+                Glide.with(this.itemView).load(recommendUser.avatar).error(R.drawable.ms_no_pic)
+                    .into(avatar)
                 name.text = recommendUser.username
                 message.text = (recommendUser.signature ?: "")
                 rank.text = "No.${recommendUser.month_rank}"

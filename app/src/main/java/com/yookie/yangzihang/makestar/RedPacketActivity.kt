@@ -1,12 +1,12 @@
 package com.yookie.yangzihang.makestar
 
-import android.app.Dialog
 import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
-import android.view.Window
-import android.widget.ImageView
+import android.view.*
+import android.widget.PopupWindow
 import android.widget.TextView
 import android.widget.Toast
 import com.bumptech.glide.Glide
@@ -48,14 +48,21 @@ class RedPacketActivity : AppCompatActivity() {
                 tv_user_getmoney2,
                 (!mRedPacket.is_today_take_upload_money) && (mRedPacket.today_total_upload > 0)
             )
-            judgeState(tv_user_getmoney3, !mRedPacket.is_today_take_watch_money)
+            judgeState(
+                tv_user_getmoney3,
+                (!mRedPacket.is_today_take_watch_money) && (mRedPacket.today_total_watch >= 5)
+            )
 
             tv_user_getmoney1.setOnClickListener {
                 if (!mRedPacket.is_today_signed) {
                     launch(UI + QuietCoroutineExceptionHandler) {
                         val signMoney = UserService.signDay().awaitAndHandle {
                             it.printStackTrace()
-                            Toast.makeText(this@RedPacketActivity, "领取失败", Toast.LENGTH_SHORT)
+                            Toast.makeText(
+                                this@RedPacketActivity,
+                                "领取失败",
+                                Toast.LENGTH_SHORT
+                            )
                                 .show()
                         } ?: return@launch
 
@@ -66,10 +73,11 @@ class RedPacketActivity : AppCompatActivity() {
                         loadAndRefresh()
                     }
                 }
+
             }
 
-            tv_user_getmoney2.setOnClickListener {
-                if (!mRedPacket.is_today_take_watch_money) {
+            tv_user_getmoney3.setOnClickListener {
+                if ((!mRedPacket.is_today_take_watch_money) && (mRedPacket.today_total_watch >= 5)) {
                     launch(UI + QuietCoroutineExceptionHandler) {
                         val watchMoney = UserService.getWatchMoney().awaitAndHandle {
                             it.printStackTrace()
@@ -85,8 +93,8 @@ class RedPacketActivity : AppCompatActivity() {
                 }
             }
 
-            tv_user_getmoney3.setOnClickListener {
-                if (!mRedPacket.is_today_take_upload_money) {
+            tv_user_getmoney2.setOnClickListener {
+                if ((!mRedPacket.is_today_take_upload_money) && (mRedPacket.today_total_upload > 0)) {
                     launch(UI + QuietCoroutineExceptionHandler) {
                         val uploadMoney = UserService.getUploadMoney().awaitAndHandle {
                             it.printStackTrace()
@@ -114,22 +122,44 @@ class RedPacketActivity : AppCompatActivity() {
     }
 
     private fun showDialogOfPic(numOfMoney: String) {
-        val dialog = Dialog(this, R.style.edit_AlertDialog_style)
-        dialog.apply {
-            setContentView(R.layout.dialog_user_redpacket)
-            val money = this.findViewById<TextView>(R.id.tv_dialog_money)
-            val background = this.findViewById<ImageView>(R.id.iv_dialog_background)
-            money.text = "￥${numOfMoney}"
+        val popupWindowView =
+            LayoutInflater.from(this).inflate(R.layout.dialog_user_redpacket, null, false)
+        val money = popupWindowView.findViewById<TextView>(R.id.tv_dialog_money)
+        money.text = "￥${numOfMoney}"
+        val popupWindow = PopupWindow(
+            popupWindowView,
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            true
+        )
+        popupWindow.apply {
+            isFocusable = true
+            isOutsideTouchable = true
+            isTouchable = true
+//            Glide.with(this)
+//                .load(item.images[position])
+//                .error(R.drawable.lf_detail_np)
+//                .into(popupWindowView.findViewById(R.id.iv_detail_popupwindow))
 
-            setCanceledOnTouchOutside(true)
-            val window = window
-            val lp = window.attributes
-            lp.x = 4
-            lp.y = 4
-            dialog.onWindowAttributesChanged(lp)
-            background.setOnClickListener { dismiss() }
-            show()
+
+            setBackgroundDrawable(BitmapDrawable())
+//            popupWindow.setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(item.detailActivity, R.color.white_color)))
+            bgAlpha(0.5f)
+            showAsDropDown(tb_user_redpacket, Gravity.CENTER, 0, 0)
+            setOnDismissListener {
+                // popupWindow 隐藏时恢复屏幕正常透明度
+                bgAlpha(1f)
+            }
         }
+        popupWindowView.setOnClickListener { popupWindow.dismiss() }
 
+
+    }
+
+    private fun bgAlpha(bgAlpha: Float) {
+        val lp = window.attributes
+        lp.alpha = bgAlpha // 0.0-1.0
+        window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
+        window.attributes = lp
     }
 }

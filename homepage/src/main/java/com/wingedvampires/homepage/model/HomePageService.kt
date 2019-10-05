@@ -50,6 +50,13 @@ interface HomePageService {
         @Query("limit") limit: Int = 10
     ): Deferred<CommonBody<WorksWithType>>
 
+    @POST("/api/search")
+    fun search(
+        @Query("page") page: Int,
+        @Query("content") content: String,
+        @Query("user_ID") userId: String = CommonPreferences.userid,
+        @Query("limit") limit: Int = 10
+    ): Deferred<CommonBody<SearchData>>
 
     companion object : HomePageService by ServiceFactory()
 }
@@ -87,6 +94,7 @@ data class Work(
     val work_name: String,
     val work_type_ID: Int
 )
+
 data class Banner(
     val banner_ID: Int,
     val banner_img_ID: String,
@@ -102,4 +110,50 @@ data class WorkType(
 
 data class NewStar(
     val numberOfStar: String
+)
+
+data class SearchData(
+    val user: SearchUser,
+    val work: SearchWork
+)
+
+data class SearchUser(
+    val data: List<DataOfUser>,
+    val currentPage: Int,
+    val lastPage: Int
+)
+
+data class DataOfUser(
+    val age: String,
+    val avatar: String,
+    val city: String,
+    val sex: String,
+    val signature: String?,
+    val username: String,
+    val user_ID: String,
+    val tags: String?
+)
+
+data class SearchWork(
+    val data: List<DataOfWork>,
+    val currentPage: Int,
+    val lastPage: Int
+)
+
+data class DataOfWork(
+    val collection_num: Int,
+    val comment_num: Int,
+    val cover_ID: String,
+    val cover_url: String,
+    val hot_value: Int,
+    val introduction: String,
+    val share_num: Int,
+    val tags: String,
+    val time: String,
+    val username: String,
+    val video_ID: String,
+    val video_link: String,
+    val work_ID: Int,
+    val work_name: String,
+    val work_type: List<WorkType>
 )

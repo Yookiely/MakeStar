@@ -351,6 +351,7 @@ class AttentionListFragment : Fragment() {
                 }
             }
             isLoading = false
+            listRefresh.isRefreshing = false
         }
     }
 
@@ -377,6 +378,7 @@ class AttentionListFragment : Fragment() {
                 }
             }
             isLoading = false
+            listRefresh.isRefreshing = false
         }
     }
 

@@ -4,6 +4,10 @@ object HomePageUtils {
     const val INDEX_KEY = "page"
     const val WORK_TYPE_ID_OF_RECOMMEND = 0
     const val VIDEO_PALY_WORKID = "videopalyWorkId"
+    const val SEARCH_TYPE = "searchType"
+    const val SEARCH_CONTENT = "searchContent"
+    const val SEARCH_USER = "searchUser"
+    const val SEARCH_VIDEO = "searchVideo"
     val typeList = hashMapOf<Int, String>()
 
 

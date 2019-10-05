@@ -225,7 +225,8 @@ data class DataOfUser(
     val sex: String,
     val signature: String?,
     val username: String,
-    val user_ID: String
+    val user_ID: String,
+    val tags: String?
 )
 
 data class SearchWork(
@@ -235,15 +236,26 @@ data class SearchWork(
 )
 
 data class DataOfWork(
-    val hot_value: String,
+    val collection_num: Int,
+    val comment_num: Int,
+    val cover_ID: String,
+    val cover_url: String,
+    val hot_value: Int,
     val introduction: String,
+    val share_num: Int,
     val tags: String,
     val time: String,
     val username: String,
+    val video_ID: String,
     val video_link: String,
+    val work_ID: Int,
     val work_name: String,
-    val work_type: Int,
-    val work_ID: String
+    val work_type: List<WorkType>
+)
+
+data class WorkType(
+    val work_type_ID: Int,
+    val work_type_name: String
 )
 
 data class TotalComments<T>(

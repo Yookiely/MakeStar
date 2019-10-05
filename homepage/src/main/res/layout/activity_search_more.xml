@@ -5,10 +5,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#eeeeee"
-        tools:context=".view.GlobalSearchActivity">
+        tools:context=".view.MoreSearchActivity">
 
     <android.support.v7.widget.Toolbar
-            android:id="@+id/tb_search_main"
+            android:id="@+id/tb_search_more"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@drawable/ms_main_theme"
@@ -23,45 +23,27 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="6dp"
                     android:gravity="center"
-                    android:text="搜索"
+                    android:text="搜索结果"
                     android:textColor="#ffffff"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent" />
+
         </android.support.constraint.ConstraintLayout>
+
     </android.support.v7.widget.Toolbar>
 
-    <LinearLayout
-            android:id="@+id/ll_homepage_search"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#ffffff"
-            app:layout_constraintTop_toBottomOf="@id/tb_search_main">
-
-        <EditText
-                android:id="@+id/et_homepage_search"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/ms_search_background"
-                android:gravity="center"
-                android:hint="輸入"
-                android:imeOptions="actionSearch"
-                android:singleLine="true"
-                android:textColorHint="#cccccc"
-                android:textSize="16sp" />
-    </LinearLayout>
-
-    <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_search_main"
+    <android.support.v4.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ll_homepage_search" />
+            app:layout_constraintTop_toBottomOf="@id/tb_search_more">
+
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_search_more"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </android.support.constraint.ConstraintLayout>

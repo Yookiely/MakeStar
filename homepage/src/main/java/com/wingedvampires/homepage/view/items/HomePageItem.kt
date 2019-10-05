@@ -1,4 +1,4 @@
-package com.wingedvampires.homepage.view
+package com.wingedvampires.homepage.view.items
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -9,12 +9,12 @@ import android.widget.Toast
 import cn.edu.twt.retrox.recyclerviewdsl.Item
 import cn.edu.twt.retrox.recyclerviewdsl.ItemController
 import com.bumptech.glide.Glide
-import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
-import com.yookie.common.experimental.extensions.awaitAndHandle
 import com.wingedvampires.homepage.R
 import com.wingedvampires.homepage.model.HomePageService
 import com.wingedvampires.homepage.model.HomePageUtils
 import com.wingedvampires.homepage.model.Work
+import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
+import com.yookie.common.experimental.extensions.awaitAndHandle
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
@@ -91,4 +91,9 @@ class HomePageItem(val work: Work, val block: (View) -> Unit) : Item {
     }
 }
 
-fun MutableList<Item>.homePageItem(work: Work, block: (View) -> Unit = { _ -> }) = add(HomePageItem(work, block))
+fun MutableList<Item>.homePageItem(work: Work, block: (View) -> Unit = { _ -> }) = add(
+    HomePageItem(
+        work,
+        block
+    )
+)

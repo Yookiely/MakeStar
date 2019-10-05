@@ -29,23 +29,4 @@
             android:textColor="#333333"
             android:textSize="16sp"
             tools:text="世界无敌第一三女孩"/>
-
-    <TextView
-            android:id="@+id/tv_search_userhot"
-            app:layout_constraintTop_toTopOf="@id/iv_search_avatar"
-            app:layout_constraintBottom_toBottomOf="@id/iv_search_avatar"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginEnd="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="125.4 w"/>
-
-    <ImageView
-            app:layout_constraintTop_toTopOf="@id/tv_search_userhot"
-            app:layout_constraintBottom_toBottomOf="@id/tv_search_userhot"
-            app:layout_constraintRight_toLeftOf="@id/tv_search_userhot"
-            android:layout_marginEnd="4dp"
-            android:background="@drawable/ms_living_home"
-            android:layout_width="12dp"
-            android:layout_height="12dp"/>
 </android.support.constraint.ConstraintLayout>

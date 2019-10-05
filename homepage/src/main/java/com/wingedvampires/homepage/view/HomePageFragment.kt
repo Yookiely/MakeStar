@@ -20,6 +20,7 @@ import com.wingedvampires.homepage.R
 import com.wingedvampires.homepage.extension.MyBanner
 import com.wingedvampires.homepage.model.HomePageService
 import com.wingedvampires.homepage.model.HomePageUtils
+import com.wingedvampires.homepage.view.items.homePageItem
 import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
 import com.yookie.common.experimental.extensions.awaitAndHandle
 import com.yookie.common.experimental.extensions.jumpchannel.Transfer

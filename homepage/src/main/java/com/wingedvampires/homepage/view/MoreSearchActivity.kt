@@ -18,6 +18,7 @@ import com.wingedvampires.homepage.view.items.searchVideoItem
 import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
 import com.yookie.common.experimental.extensions.awaitAndHandle
 import com.yookie.common.experimental.extensions.jumpchannel.Transfer
+import kotlinx.android.synthetic.main.activity_search_more.*
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 
@@ -38,6 +39,7 @@ class MoreSearchActivity : AppCompatActivity() {
         setContentView(R.layout.activity_search_more)
         val bundle = intent.extras
         searchContent = bundle.getString(HomePageUtils.SEARCH_CONTENT)
+        mSwipeRefreshLayout = findViewById(R.id.sl_search_more)
         val searchType = bundle.getString(HomePageUtils.SEARCH_TYPE)
         val mLayoutManager = LinearLayoutManager(this)
         if (searchContent.isNullOrEmpty() || searchType.isNullOrEmpty()) {
@@ -48,10 +50,12 @@ class MoreSearchActivity : AppCompatActivity() {
             HomePageUtils.SEARCH_USER -> {
                 refreshList = { loadSearchForUser() }
                 loadMoreList = { loadMoreSearchForUser() }
+                tv_search_more_title.text = "搜索结果：用户"
             }
             HomePageUtils.SEARCH_VIDEO -> {
                 refreshList = { loadSearchForVideo() }
                 loadMoreList = { loadMoreSearchForVideo() }
+                tv_search_more_title.text = "搜索结果：视频"
             }
         }
 

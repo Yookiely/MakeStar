@@ -1,11 +1,16 @@
 package com.yookie.yangzihang.makestar
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.*
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.PopupWindow
 import android.widget.TextView
 import android.widget.Toast
@@ -18,6 +23,7 @@ import kotlinx.android.synthetic.main.activity_user_redpacket.*
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 import org.jetbrains.anko.textColor
+
 
 class RedPacketActivity : AppCompatActivity() {
 
@@ -42,6 +48,8 @@ class RedPacketActivity : AppCompatActivity() {
             tv_user_money.text = "￥ ${mRedPacket.total_money}"
             tv_user_day.text = mRedPacket.red_bag_count.toString()
             tv_user_watch.text = mRedPacket.today_total_watch.toString()
+            tv_redpacket_inviteperson.text = "本周已邀请${mRedPacket.Invitation_count}人"
+
 
             judgeState(tv_user_getmoney1, !mRedPacket.is_today_signed)
             judgeState(
@@ -110,6 +118,14 @@ class RedPacketActivity : AppCompatActivity() {
                     }
                 }
             }
+
+            iv_redpacket_invite.setOnClickListener {
+                showDialogOfInvite(mRedPacket.Invitation_code)
+            }
+
+            tv_redpacket_invite_input.setOnClickListener {
+                showDialogOfInput()
+            }
         }
     }
 
@@ -136,14 +152,9 @@ class RedPacketActivity : AppCompatActivity() {
             isFocusable = true
             isOutsideTouchable = true
             isTouchable = true
-//            Glide.with(this)
-//                .load(item.images[position])
-//                .error(R.drawable.lf_detail_np)
-//                .into(popupWindowView.findViewById(R.id.iv_detail_popupwindow))
 
 
             setBackgroundDrawable(BitmapDrawable())
-//            popupWindow.setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(item.detailActivity, R.color.white_color)))
             bgAlpha(0.5f)
             showAsDropDown(tb_user_redpacket, Gravity.CENTER, 0, 0)
             setOnDismissListener {
@@ -156,10 +167,110 @@ class RedPacketActivity : AppCompatActivity() {
 
     }
 
+    private fun showDialogOfInput() {
+        val popupWindowView =
+            LayoutInflater.from(this).inflate(R.layout.dialog_user_redpacket_input, null, false)
+        val num = popupWindowView.findViewById<EditText>(R.id.tv_redpacketinput_num)
+        val confirm = popupWindowView.findViewById<TextView>(R.id.tv_redpacketinput_confirm)
+        num.clearFocus()
+        val popupWindow = PopupWindow(
+            popupWindowView,
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            true
+        )
+        popupWindow.apply {
+            isFocusable = true
+            isOutsideTouchable = true
+            isTouchable = true
+
+
+            setBackgroundDrawable(BitmapDrawable())
+            bgAlpha(0.5f)
+            showAsDropDown(tb_user_redpacket, Gravity.CENTER, 0, 0)
+            setOnDismissListener {
+                // popupWindow 隐藏时恢复屏幕正常透明度
+                bgAlpha(1f)
+            }
+
+        }
+
+        confirm.setOnClickListener {
+            num.isFocusable = false
+            num.isFocusableInTouchMode = true
+            hideSoftInputMethod()
+            if (num.text.length == 12 && num.text.isNotBlank())
+                launch(UI + QuietCoroutineExceptionHandler) {
+                    val result = UserService.useInvitationCode(num.text.toString()).awaitAndHandle {
+                        it.printStackTrace()
+                        Toast.makeText(this@RedPacketActivity, "邀请失败", Toast.LENGTH_SHORT).show()
+                    } ?: return@launch
+
+                    if (result.error_code != -1) {
+                        Toast.makeText(this@RedPacketActivity, "邀请码过期或有误", Toast.LENGTH_SHORT)
+                            .show()
+                        return@launch
+                    } else {
+                        Toast.makeText(this@RedPacketActivity, "邀请码使用成功", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                    popupWindow.dismiss()
+                    loadAndRefresh()
+                }
+        }
+
+    }
+
+    private fun showDialogOfInvite(inviteNum: String) {
+        val popupWindowView =
+            LayoutInflater.from(this).inflate(R.layout.dialog_user_redpacket_invite, null, false)
+        val confirm = popupWindowView.findViewById<TextView>(R.id.tv_repacketinvite_confirm)
+        val num = popupWindowView.findViewById<TextView>(R.id.tv_redpacketinvite_num)
+        num.text = inviteNum
+
+        val popupWindow = PopupWindow(
+            popupWindowView,
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            true
+        )
+        popupWindow.apply {
+            isFocusable = true
+            isOutsideTouchable = true
+            isTouchable = true
+
+            confirm.setOnClickListener {
+                //获取剪贴板管理器：
+                val cm = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                // 创建普通字符型ClipData
+                val mClipData = ClipData.newPlainText("M-Star InviteCode", inviteNum)
+                // 将ClipData内容放到系统剪贴板里。
+                cm.primaryClip = mClipData
+                Toast.makeText(this@RedPacketActivity, "已复制到粘贴板", Toast.LENGTH_SHORT).show()
+                this.dismiss()
+            }
+            setBackgroundDrawable(BitmapDrawable())
+            bgAlpha(0.5f)
+            showAsDropDown(tb_user_redpacket, Gravity.CENTER, 0, 0)
+            setOnDismissListener {
+                // popupWindow 隐藏时恢复屏幕正常透明度
+                bgAlpha(1f)
+            }
+        }
+    }
+
     private fun bgAlpha(bgAlpha: Float) {
         val lp = window.attributes
         lp.alpha = bgAlpha // 0.0-1.0
         window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
         window.attributes = lp
+    }
+
+    private fun hideSoftInputMethod() {
+        val inputMethodManager =
+            getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        inputMethodManager?.apply {
+            hideSoftInputFromWindow(window.decorView.windowToken, 0)
+        }
     }
 }

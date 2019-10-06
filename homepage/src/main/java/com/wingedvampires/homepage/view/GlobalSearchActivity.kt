@@ -43,6 +43,8 @@ class GlobalSearchActivity : AppCompatActivity() {
             layoutManager = mLayoutManager
             adapter = ItemAdapter(itemManager)
         }
+
+        searchEdit.clearFocus()
         searchEdit.apply {
             isFocusable = false
             isFocusableInTouchMode = true

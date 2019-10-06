@@ -20,8 +20,10 @@ import com.yookie.common.experimental.extensions.awaitAndHandle
 import com.yookie.common.experimental.extensions.jumpchannel.Transfer
 import com.yookie.common.experimental.extensions.morewindow.MoreWindow
 import com.yookie.common.experimental.preference.CommonPreferences
+import kotlinx.android.synthetic.main.activity_homepage.*
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
+import org.jetbrains.anko.startActivity
 
 class HomePageActivity : AppCompatActivity() {
 
@@ -48,6 +50,10 @@ class HomePageActivity : AppCompatActivity() {
         userpage.setOnClickListener { Transfer.startActivity(this, "MyUserActivity", Intent()) }
         homepageViewPager = findViewById(R.id.vp_homepage_main)
         dynamicPagerIndicator = findViewById(R.id.dynamic_pager_indicator2)
+
+        iv_homepage_search.setOnClickListener {
+            it.context.startActivity<GlobalSearchActivity>()
+        }
         setViewPagerContent()
     }
 

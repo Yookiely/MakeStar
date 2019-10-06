@@ -41,6 +41,7 @@
                     app:tabSelectedTextSize="20dp" />
 
             <ImageView
+                    android:id="@+id/iv_homepage_search"
                     android:layout_width="22dp"
                     android:layout_height="22dp"
                     android:layout_gravity="end|bottom"

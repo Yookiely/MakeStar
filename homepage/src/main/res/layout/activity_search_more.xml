@@ -19,6 +19,7 @@
                 android:layout_height="match_parent">
 
             <TextView
+                    android:id="@+id/tv_search_more_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="6dp"
@@ -35,6 +36,7 @@
     </android.support.v7.widget.Toolbar>
 
     <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/sl_search_more"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"

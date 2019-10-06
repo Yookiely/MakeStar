@@ -16,7 +16,11 @@
             android:background="@drawable/ms_history_background"
             android:layout_height="20dp"
             android:gravity="center"
+            android:ellipsize="end"
+            android:maxEms="10"
+            android:singleLine="true"
             android:paddingStart="6dp"
             android:paddingEnd="6dp"
             tools:text="怎样往死里托ddl"/>
+
 </android.support.constraint.ConstraintLayout>

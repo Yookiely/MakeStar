@@ -8,22 +8,26 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
 
-interface UserService{
+interface UserService {
 
     @GET("user/getHistoryRank")
-    fun getHistoryRank(@Query("user_ID") userid: String) : Deferred<CommonBody<List<rank>>>
+    fun getHistoryRank(@Query("user_ID") userid: String): Deferred<CommonBody<List<rank>>>
 
     @POST("message/getMessageByUserID")
-    fun getMessage(@Query("user_ID") userid : String ,@Query("model") model : String,@Query("limit") limit : String,@Query("page")page : Int) : Deferred<CommonBody<message>>
+    fun getMessage(
+        @Query("user_ID") userid: String, @Query("model") model: String, @Query("limit") limit: String, @Query(
+            "page"
+        ) page: Int
+    ): Deferred<CommonBody<message>>
 
     @POST("message/getMessageByID")
-    fun getMessageById(@Query("message_ID")message_ID: String) : Deferred<CommonBody<List<messageData>>>
+    fun getMessageById(@Query("message_ID") message_ID: String): Deferred<CommonBody<List<messageData>>>
 
     @POST("message/setMessageRead")
-    fun setMessageRead(@Query("message_ID")message_ID: String) : Deferred<result>
+    fun setMessageRead(@Query("message_ID") message_ID: String): Deferred<result>
 
     @GET("user/collection")
-    fun getCollection(@Query("limit") limit : Int ,@Query("page") page: Int,@Query("user_ID")userid: String) : Deferred<CommonBody<collection>>
+    fun getCollection(@Query("limit") limit: Int, @Query("page") page: Int, @Query("user_ID") userid: String): Deferred<CommonBody<collection>>
 
     @GET("task/getWeekInfo")
     fun getRedPacketInfo(@Query("user_ID") userid: String = CommonPreferences.userid): Deferred<CommonBody<RedPacketInfo>>
@@ -37,6 +41,12 @@ interface UserService{
 
     @GET("task/getUploadMoney")
     fun getUploadMoney(@Query("user_ID") userid: String = CommonPreferences.userid): Deferred<CommonBody<UploadMoney>>
+
+    @GET("/api/task/useInvitationCode")
+    fun useInvitationCode(
+        @Query("code") code: String,
+        @Query("user_ID") userid: String = CommonPreferences.userid
+    ): Deferred<CommonBody<List<Any>>>
 
 
     companion object : UserService by ServiceFactory()
@@ -113,6 +123,8 @@ data class RedPacketInfo(
     val is_today_signed: Boolean,
     val is_today_take_upload_money: Boolean,
     val is_today_take_watch_money: Boolean,
+    val Invitation_code: String,
+    val Invitation_count: Int,
     val red_bag_count: Int,
     val today_total_upload: Int,
     val today_total_watch: Int,

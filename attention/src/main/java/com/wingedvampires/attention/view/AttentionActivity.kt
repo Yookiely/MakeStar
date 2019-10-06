@@ -88,7 +88,7 @@ class AttentionActivity : AppCompatActivity() {
     }
 
     private fun showMoreWindow(view: View) {
-        if (mMoreWindow != null) {
+        if (mMoreWindow == null) {
             mMoreWindow = MoreWindow(this)
             mMoreWindow!!.init()
         }

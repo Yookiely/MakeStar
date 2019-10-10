@@ -114,6 +114,8 @@ class VideoPlayActivity : AppCompatActivity(), OnPlayerEventListener {
             tv_attention_comment.text = VideoPlayUtils.format(work.comment_num)
             tv_attention_share.text = VideoPlayUtils.format(work.share_num)
             tv_attention_store.text = VideoPlayUtils.format(work.collection_num)
+            tv_videoplay_title.text = work.work_name
+
             iv_attention_store.apply {
                 if (isCollected)
                     setImageResource(R.drawable.ms_red_star)

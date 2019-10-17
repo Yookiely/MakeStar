@@ -1,0 +1,26 @@
+<resources>
+
+
+    <string name="alivc_base_version">SDK VERSION INFO</string>
+
+    <!-- 美颜相关  start -->
+    <string name="alivc_base_beauty">Skin Filter</string>
+    <string name="alivc_base_beauty_face">Face Filter</string>
+    <string name="alivc_base_fine_tune">Makeup</string>
+    <string name="alivc_base_stickers">Stickers</string>
+    <string name="alivc_base_filter">Filter</string>
+
+    <string name="alivc_base_beauty_whitening">Skin Whitening</string>
+    <string name="alivc_base_beauty_buffing">Skin Polishing</string>
+    <string name="alivc_base_beauty_blush">Skin Shining</string>
+    <string name="alivc_base_beauty_bigeye">BigEye</string>
+    <string name="alivc_base_beauty_thinface">SlimFace</string>
+    <string name="alivc_base_beauty_level_advanced">Advanced</string>
+    <string name="alivc_base_beauty_level_normal">Normal</string>
+    <!-- 美颜相关  end   -->
+
+    <string name="alivc_base_tips_fine_tuning">Tuning</string>
+    <string name="alivc_base_beauty_copyright">Advanced features are supported by FaceUnity</string>、
+    <string name="alivc_base_beauty_copyright_link">View details</string>
+    <string name="alivc_base_svideo_next">Next</string>
+</resources>

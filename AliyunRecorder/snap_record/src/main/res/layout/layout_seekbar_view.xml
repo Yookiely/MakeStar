@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_height="140dp">
+
+    <View
+        android:layout_width="@dimen/alivc_common_line_3dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        />
+    <ImageView
+        android:layout_width="@dimen/alivc_common_size_icon_20"
+        android:layout_height="@dimen/alivc_common_size_icon_20"
+        android:src="@drawable/alivc_record_light_sun"
+        android:layout_gravity="center_horizontal"
+        android:padding="-5dp"
+        android:background="@android:color/transparent"
+        />
+</FrameLayout>

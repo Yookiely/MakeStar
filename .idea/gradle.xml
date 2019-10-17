@@ -8,17 +8,26 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/AlivcMedia" />
+            <option value="$PROJECT_DIR$/AliyunCrop" />
+            <option value="$PROJECT_DIR$/AliyunCrop/snap_crop" />
+            <option value="$PROJECT_DIR$/AliyunRecorder" />
+            <option value="$PROJECT_DIR$/AliyunRecorder/snap_record" />
+            <option value="$PROJECT_DIR$/AliyunSVideoBase" />
+            <option value="$PROJECT_DIR$/AliyunSnap" />
+            <option value="$PROJECT_DIR$/AliyunSnap/snap_demo" />
+            <option value="$PROJECT_DIR$/AliyunVideoCommon" />
+            <option value="$PROJECT_DIR$/AliyunVodUpload" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/attention" />
             <option value="$PROJECT_DIR$/auth" />
             <option value="$PROJECT_DIR$/commons" />
             <option value="$PROJECT_DIR$/discover" />
             <option value="$PROJECT_DIR$/homepage" />
-            <option value="$PROJECT_DIR$/playerlibrary" />
+            <option value="$PROJECT_DIR$/recordmain" />
             <option value="$PROJECT_DIR$/updatavideo" />
             <option value="$PROJECT_DIR$/upload" />
             <option value="$PROJECT_DIR$/userpage" />
-            <option value="$PROJECT_DIR$/videoplay" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

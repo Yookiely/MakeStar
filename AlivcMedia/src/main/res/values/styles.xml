@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <style name="MySwitchTheme">
+        <item name="colorControlActivated">@color/alivc_common_cyan_light</item>
+        <item name="colorSwitchThumbNormal">@color/alivc_media_switch_thumble_normal</item>
+        <item name="android:colorForeground">@color/alivc_common_bg_white_alpha_10</item>
+    </style>
+</resources>

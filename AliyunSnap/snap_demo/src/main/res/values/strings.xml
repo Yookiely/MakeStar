@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">QUSnap</string>
+    <string name="alivc_snap_resolution_360p">360p</string>
+    <string name="alivc_snap_resolution_480p">480p</string>
+    <string name="alivc_snap_resolution_540p">540p</string>
+    <string name="alivc_snap_resolution_720p">720p</string>
+    <string name="alivc_snap_quality_median1">Medium</string>
+    <string name="alivc_snap_quality_high">High</string>
+    <string name="alivc_snap_quality_super">Highest</string>
+    <string name="alivc_snap_crop_ratio_1_1">1:1</string>
+    <string name="alivc_snap_crop_ratio_9_16">9:16</string>
+    <string name="alivc_snap_crop_ratio_3_4">3:4</string>
+    <string name="alivc_snap_start_record">Record</string>
+    <string name="alivc_snap_record_setting">Record Settings</string>
+    <string name="alivc_snap_min_record_duration">Minimum Length</string>
+    <string name="alivc_snap_max_record_duration">Maximum Length</string>
+    <string name="alivc_snap_min_record_duration_hint">Default: 2 seconds. The minimum length must be greater than 0.</string>
+    <string name="alivc_snap_record_duration_error_hint">The minimum length cannot be greater than the maximum length</string>
+    <string name="alivc_snap_record_duration_min_error_hint">The minimum length must be greater than 0</string>
+    <string name="alivc_snap_record_duration_max_error_hint">The maximum length cannot be greater than 300 seconds</string>
+    <string name="alivc_snap_max_record_duration_hint">Default: 15 seconds, Maximum: 300 seconds</string>
+
+    <string name="alivc_snap_record_file_path">path:</string>
+    <string name="alivc_snap_record_duration">duration:</string>
+    <string name="alivc_snap_record_cancel">cancel to record the video</string>
+    <string name="alivc_snap_crop_cancel">cancel to crop the video</string>
+</resources>

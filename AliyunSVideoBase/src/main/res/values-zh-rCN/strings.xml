@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="alivc_base_version">SDK版本信息</string>
+    <!-- 美颜相关  start -->
+    <string name="alivc_base_beauty">美颜</string>
+    <string name="alivc_base_beauty_face">美肌</string>
+    <string name="alivc_base_fine_tune">微调</string>
+    <string name="alivc_base_stickers">人脸贴纸</string>
+    <string name="alivc_base_filter">滤镜</string>
+
+    <string name="alivc_base_beauty_buffing">磨皮</string>
+    <string name="alivc_base_beauty_whitening">美白</string>
+    <string name="alivc_base_beauty_blush">红润</string>
+    <string name="alivc_base_beauty_bigeye">大眼</string>
+    <string name="alivc_base_beauty_thinface">瘦脸</string>
+
+    <string name="alivc_base_beauty_level_advanced">高级</string>
+    <string name="alivc_base_beauty_level_normal">普通</string>
+    <!-- 美颜相关  end   -->
+    <string name="alivc_base_tips_fine_tuning">点击可微调</string>
+    <string name="alivc_base_beauty_copyright">高级美颜美肌由faceunity提供</string>
+    <string name="alivc_base_beauty_copyright_link">如何获取</string>
+    <string name="alivc_base_svideo_next">下一步</string>
+</resources>

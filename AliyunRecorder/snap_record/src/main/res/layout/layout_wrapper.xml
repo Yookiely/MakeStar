@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@android:color/holo_blue_bright"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_focus"
+        android:layout_width="@dimen/alivc_common_size_icon_50"
+        android:layout_height="@dimen/alivc_common_size_icon_50"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/alivc_record_focus"
+        />
+    <LinearLayout
+        android:id="@+id/ll_seek_layout"
+        android:layout_toRightOf="@id/iv_focus"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:gravity="center_horizontal"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@drawable/alivc_record_light_up"
+            android:layout_width="@dimen/alivc_common_size_icon_12"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="@dimen/alivc_common_size_icon_12" />
+
+        <com.aliyun.apsaravideo.recorder.view.focus.AlivcVerticalSeekBar
+            android:id="@+id/vertical_seekbar"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:src="@drawable/alivc_record_light_down"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="@dimen/alivc_common_size_icon_12"
+            android:layout_height="@dimen/alivc_common_size_icon_12" />
+
+    </LinearLayout>
+</merge>

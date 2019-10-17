@@ -12,6 +12,7 @@ android {
             storeFile file('/Users/yangzihang/keystore')
             storePassword '123456a?'
         }
+
     }
     compileSdkVersion versions.compileSdk
     buildToolsVersion versions.buildTools
@@ -22,6 +23,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndk {
+            abiFilters "armeabi-v7a"
+        }
     }
     buildTypes {
         release {
@@ -36,19 +40,14 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
     implementation 'cn.edu.twt.retrox:recyclerviewdsl:1.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    [':auth', ':commons', ':homepage', ':userpage', ':discover', ':attention', ':upload', ':videoplay'].each {
+    [':auth', ':commons', ':homepage', ':userpage', ':discover', ':attention', ':upload',':AliyunVideoCommon',':AliyunSVideoBase',':AliyunSnap:snap_demo',':AliyunVodUpload'].each {
         implementation project(it)
     }
-    [*supportLibraries, 'constraint-layout', 'multidex', *archLibraries, 'kotlin-stdlib', 'butterknife', 'anko', 'dynamicpagerindicator', 'circleimageview'].each {
+    [*supportLibraries, 'constraint-layout', 'multidex', *archLibraries, 'kotlin-stdlib', 'butterknife', 'anko','dynamicpagerindicator', 'circleimageview'].each {
         implementation dependenciesMap[it]
     }
     implementation 'q.rorbin:badgeview:1.1.3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-}
-kotlin {
-    experimental {
-        coroutines "enable"
-    }
 }

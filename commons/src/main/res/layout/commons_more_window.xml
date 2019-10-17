@@ -22,7 +22,7 @@
                 android:layout_width="100dp"
                 android:gravity="center"
                 android:layout_height="40dp"
-                android:text="开直播"
+                android:text="发动态"
                 android:textColor="#ffffff"
                 android:textSize="20sp"
                 android:background="@drawable/ms_button_top"/>

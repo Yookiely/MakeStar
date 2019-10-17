@@ -3,9 +3,7 @@ package com.yookie.yangzihang.makestar
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Window
-import com.yookie.discover.view.ActivityFragment
 import com.yookie.discover.view.DynamicFragmentPagerAdapter
-import com.yookie.discover.view.RankFragment
 import com.yookie.yangzihang.makestar.View.AccumulationFragment
 import com.yookie.yangzihang.makestar.View.RankHistoryFragment
 import kotlinx.android.synthetic.main.activity_rankhistory.*

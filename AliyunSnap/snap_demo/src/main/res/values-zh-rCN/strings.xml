@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">造星</string>
+    <string name="alivc_snap_resolution_360p">360p</string>
+    <string name="alivc_snap_resolution_480p">480p</string>
+    <string name="alivc_snap_resolution_540p">540p</string>
+    <string name="alivc_snap_resolution_720p">720p</string>
+    <string name="alivc_snap_quality_median1">中</string>
+    <string name="alivc_snap_quality_high">高</string>
+    <string name="alivc_snap_quality_super">极高</string>
+    <string name="alivc_snap_crop_ratio_1_1">1:1</string>
+    <string name="alivc_snap_crop_ratio_9_16">9:16</string>
+    <string name="alivc_snap_crop_ratio_3_4">3:4</string>
+    <string name="alivc_snap_start_record">启动录制界面</string>
+    <string name="alivc_snap_record_setting">录制设置</string>
+    <string name="alivc_snap_min_record_duration">最小时长</string>
+    <string name="alivc_snap_max_record_duration">最大时长</string>
+    <string name="alivc_snap_min_record_duration_hint">最小时长大于0，默认值2S</string>
+    <string name="alivc_snap_record_duration_error_hint">最小时长不能大于最大时长</string>
+    <string name="alivc_snap_record_duration_min_error_hint">最小时长要大于0</string>
+    <string name="alivc_snap_record_duration_max_error_hint">最大时长不能超过300s</string>
+    <string name="alivc_snap_max_record_duration_hint">不超过300S，默认值15S</string>
+    <string name="alivc_snap_record_file_path">路径为:</string>
+    <string name="alivc_snap_record_duration">时长为:</string>
+    <string name="alivc_snap_record_cancel">用户取消录制</string>
+    <string name="alivc_snap_crop_cancel">用户取消裁剪</string>
+</resources>

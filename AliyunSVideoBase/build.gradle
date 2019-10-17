@@ -1,0 +1,31 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
+
+    defaultConfig {
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
+        consumerProguardFiles 'lib-proguard-rules.pro'
+
+    }
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar','*.aar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    [*supportLibraries, 'constraint-layout', 'multidex', *archLibraries, 'kotlin-stdlib', 'butterknife', 'anko', 'circleimageview','dynamicpagerindicator', 'recyclerviewdsl'].each {
+        implementation dependenciesMap[it]
+    }
+    implementation project(':commons')
+    implementation project(':AliyunVideoCommon')
+    implementation project(':AlivcMedia')
+    implementation 'com.alivc.conan:AlivcConan:0.9.5.1'
+    implementation 'com.aliyun.video.android:core:1.2.1'
+    implementation 'com.aliyun.video.android:AlivcSvideoFFmpeg:1.0.1'
+    api 'com.aliyun.video.android:svideosnap:3.11.0'
+}

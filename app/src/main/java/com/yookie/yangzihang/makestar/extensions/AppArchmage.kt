@@ -1,12 +1,12 @@
 package com.yookie.yangzihang.makestar.extensions
 
-import com.wingedvampires.attention.view.AttentionActivity
-import com.wingedvampires.attention.view.CommentsActivity
-import com.wingedvampires.attention.view.VideoPlayActivity
-import com.wingedvampires.homepage.view.HomePageActivity
+import com.alibaba.sdk.android.vodupload_demo.MultiUploadActivity
+import com.aliyun.svideo.snap.SnapRecorderSetting
 import com.yookie.auth.LoginActivity
 import com.yookie.common.experimental.extensions.jumpchannel.Injector
 import com.yookie.discover.DiscoverActivity
+import com.wingedvampires.attention.view.AttentionActivity
+import com.wingedvampires.homepage.view.HomePageActivity
 import com.yookie.yangzihang.makestar.MyUserActivity
 
 object AppArchmage {
@@ -23,8 +23,7 @@ object AppArchmage {
         Injector.inject("DiscoverActivity", DiscoverActivity::class.java)
         Injector.inject("AttentionActivity", AttentionActivity::class.java)
         Injector.inject("LoginActivity", LoginActivity::class.java)
-        Injector.inject("VideoPlayActivity", VideoPlayActivity::class.java)
-        Injector.inject("CommentsActivity", CommentsActivity::class.java)
-
+        Injector.inject("SnapRecorderSetting",SnapRecorderSetting::class.java)
+        Injector.inject("MultiUploadActivity", MultiUploadActivity::class.java)
     }
 }

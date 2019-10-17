@@ -39,4 +39,9 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.youth.banner:banner:1.4.10'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:design:24.2.1'
+    implementation 'com.aliyun.dpa:oss-android-sdk:+'
+    implementation 'com.google.code.findbugs:jsr305:3.0.0'
+    implementation 'com.aliyun.video.android:upload:1.5.3'
 }

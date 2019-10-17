@@ -1,0 +1,29 @@
+apply plugin: 'com.android.library'
+
+
+android {
+    compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
+
+    defaultConfig {
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
+    }
+}
+
+dependencies {
+    implementation project(':AliyunRecorder:snap_record')
+    implementation project(':AliyunCrop:snap_crop')
+    [*supportLibraries, 'constraint-layout', 'multidex', *archLibraries, 'kotlin-stdlib', 'butterknife', 'anko', 'circleimageview','dynamicpagerindicator', 'recyclerviewdsl'].each {
+        implementation dependenciesMap[it]
+    }
+    implementation project(':AliyunSVideoBase')
+    implementation project(':AliyunVideoCommon')
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.aliyun.video.android:upload:1.5.3'
+    implementation 'com.android.support:design:24.2.1'
+    implementation 'com.aliyun.dpa:oss-android-sdk:+'
+    implementation 'com.google.code.findbugs:jsr305:3.0.0'
+    implementation project(':commons')
+    implementation project(':upload')
+}

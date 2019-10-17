@@ -3,6 +3,7 @@ package com.yookie.common.experimental.extensions.morewindow
 import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.app.Activity
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Paint
@@ -21,6 +22,7 @@ import android.widget.ImageView
 import android.widget.PopupWindow
 import android.widget.RelativeLayout
 import com.yookie.common.R
+import com.yookie.common.experimental.extensions.jumpchannel.Transfer
 
 class MoreWindow(internal var mContext: Activity) : PopupWindow(), View.OnClickListener {
 
@@ -221,9 +223,11 @@ class MoreWindow(internal var mContext: Activity) : PopupWindow(), View.OnClickL
 
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.more_window_auto -> dismiss()
-            R.id.more_window_external -> {
+            R.id.more_window_auto -> {
+                Log.d("wodanimade","zhenbaigei")
+                Transfer.startActivity(mContext, "SnapRecorderSetting", Intent())
             }
+            R.id.more_window_external -> dismiss()
 
             else -> {
             }

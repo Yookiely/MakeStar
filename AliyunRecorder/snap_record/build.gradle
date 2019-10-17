@@ -1,0 +1,21 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
+
+    defaultConfig {
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
+    }
+}
+
+dependencies {
+    implementation project(':AliyunSVideoBase')
+    [*supportLibraries, 'constraint-layout', 'multidex', *archLibraries, 'kotlin-stdlib', 'butterknife', 'anko', 'circleimageview','dynamicpagerindicator', 'recyclerviewdsl'].each {
+        implementation dependenciesMap[it]
+    }
+    implementation project(':AliyunVideoCommon')
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation project(':commons')
+}

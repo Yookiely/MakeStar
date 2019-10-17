@@ -45,9 +45,14 @@ class HomePageActivity : AppCompatActivity() {
         val attention = findViewById<TextView>(R.id.tv_bottom_attention)
         val discover = findViewById<TextView>(R.id.tv_bottom_find)
         val userpage = findViewById<TextView>(R.id.tv_bottom_individual)
+        val camra = findViewById<ImageView>(R.id.iv_homepage_camera)
+        camra.setOnClickListener {
+            Transfer.startActivity(this, "SnapRecorderSetting", Intent())
+        }
         attention.setOnClickListener { Transfer.startActivity(this, "AttentionActivity", Intent()) }
         discover.setOnClickListener { Transfer.startActivity(this, "DiscoverActivity", Intent()) }
         userpage.setOnClickListener { Transfer.startActivity(this, "MyUserActivity", Intent()) }
+
         homepageViewPager = findViewById(R.id.vp_homepage_main)
         dynamicPagerIndicator = findViewById(R.id.dynamic_pager_indicator2)
 

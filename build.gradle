@@ -16,7 +16,6 @@ buildscript {
         ]
 
         dependenciesMap = [
-                'fragmentation'       : 'com.twt.service:fragmentation:1.1.0',
 
                 'support-v4'          : "com.android.support:support-v4:${versions.support}",
                 'appcompat-v7'        : "com.android.support:appcompat-v7:${versions.support}",
@@ -27,8 +26,8 @@ buildscript {
                 'multidex'            : 'com.android.support:multidex:1.0.2',
                 'constraint-layout'   : 'com.android.support.constraint:constraint-layout:1.1.2',
 
-                'lifecycle-extensions': 'android.arch.lifecycle:extensions:1.1.0',
-                'lifecycle-compiler'  : 'android.arch.lifecycle:compiler:1.1.0',
+                'lifecycle-extensions': 'android.arch.lifecycle:extensions:1.1.1',
+                'lifecycle-compiler'  : 'android.arch.lifecycle:compiler:1.1.1',
                 'room'                : 'android.arch.persistence.room:runtime:1.0.0',
                 'room-compiler'       : 'android.arch.persistence.room:compiler:1.0.0',
 
@@ -59,10 +58,15 @@ buildscript {
         ]
     }
     repositories {
-        maven { url "https://jitpack.io" }
-        mavenLocal()
         google()
         jcenter()
+        maven { url "http://maven.aliyun.com/nexus/content/repositories/releases" }
+        maven { url 'https://dl.bintray.com/umsdk/release' }
+        maven { url 'http://4thline.org/m2' }
+        maven { url "https://jitpack.io" }
+        mavenLocal()
+
+        flatDir { dirs 'src/main/libs' }
 
     }
     dependencies {
@@ -71,14 +75,23 @@ buildscript {
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
-    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}" }
+
+    }
 }
 
 allprojects {
     repositories {
+        maven { url "http://maven.aliyun.com/nexus/content/repositories/releases" }
+        maven { url 'https://dl.bintray.com/umsdk/release' }
+        maven { url 'http://4thline.org/m2' }
+        maven { url "https://jitpack.io" }
+        mavenLocal()
         google()
         jcenter()
+        flatDir { dirs 'src/main/libs' }
     }
+    apply plugin: 'idea'
+    buildDir = new File(rootDir, "gradle-build/${path.replaceAll(':', '/')}")
 }
 
 task clean(type: Delete) {

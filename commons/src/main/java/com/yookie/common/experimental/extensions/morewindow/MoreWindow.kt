@@ -3,7 +3,6 @@ package com.yookie.common.experimental.extensions.morewindow
 import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.app.Activity
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Paint
@@ -18,11 +17,8 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationSet
 import android.view.animation.TranslateAnimation
-import android.widget.ImageView
-import android.widget.PopupWindow
-import android.widget.RelativeLayout
+import android.widget.*
 import com.yookie.common.R
-import com.yookie.common.experimental.extensions.jumpchannel.Transfer
 
 class MoreWindow(internal var mContext: Activity) : PopupWindow(), View.OnClickListener {
 
@@ -110,7 +106,10 @@ class MoreWindow(internal var mContext: Activity) : PopupWindow(), View.OnClickL
 
 
     fun showMoreWindow(anchor: View) {
-        layout = LayoutInflater.from(mContext).inflate(R.layout.commons_more_window, null) as RelativeLayout
+        layout = LayoutInflater.from(mContext).inflate(
+            R.layout.commons_more_window,
+            null
+        ) as RelativeLayout
         contentView = layout
 
         val close = layout.findViewById(R.id.center_music_window_close) as ImageView
@@ -131,16 +130,27 @@ class MoreWindow(internal var mContext: Activity) : PopupWindow(), View.OnClickL
                 closeAnimation(layout)
             }
         }
+        val text1 = layout.findViewById(R.id.more_window_external) as TextView
+        val text2 = layout.findViewById(R.id.more_window_auto) as TextView
+
+        text1.setOnClickListener {
+            //TODO Something
+            Toast.makeText(this.mContext, "1111", Toast.LENGTH_SHORT).show()
+
+            if (isShowing) {
+                closeAnimation(layout)
+            }
+        }
+        text2.setOnClickListener {
+            //TODO Something
+            Toast.makeText(this.mContext, "2222", Toast.LENGTH_SHORT).show()
+
+            if (isShowing) {
+                closeAnimation(layout)
+            }
+        }
 
         layout.setOnClickListener { v ->
-            when (v.id) {
-                R.id.more_window_auto -> dismiss()
-                R.id.more_window_external -> {
-                }
-
-                else -> {
-                }
-            }
             if (isShowing) {
                 closeAnimation(layout)
             }
@@ -162,10 +172,13 @@ class MoreWindow(internal var mContext: Activity) : PopupWindow(), View.OnClickL
                 continue
             }
             child.setOnClickListener(this)
+
+
             child.visibility = View.INVISIBLE
             mHandler.postDelayed({
                 child.visibility = View.VISIBLE
-                val fadeAnim: ObjectAnimator = ObjectAnimator.ofFloat(child, "translationY", 600F, 0F)
+                val fadeAnim: ObjectAnimator =
+                    ObjectAnimator.ofFloat(child, "translationY", 600F, 0F)
                 fadeAnim.duration = 300
                 val kickAnimator = KickBackAnimator()
                 kickAnimator.setDuration(150)
@@ -185,7 +198,8 @@ class MoreWindow(internal var mContext: Activity) : PopupWindow(), View.OnClickL
             child.setOnClickListener(this)
             mHandler.postDelayed({
                 child.visibility = View.VISIBLE
-                val fadeAnim: ObjectAnimator = ObjectAnimator.ofFloat(child, "translationY", 0.0F, 600.0F)
+                val fadeAnim: ObjectAnimator =
+                    ObjectAnimator.ofFloat(child, "translationY", 0.0F, 600.0F)
                 fadeAnim.duration = 200
                 val kickAnimator = KickBackAnimator()
                 kickAnimator.setDuration(100)
@@ -222,16 +236,6 @@ class MoreWindow(internal var mContext: Activity) : PopupWindow(), View.OnClickL
     }
 
     override fun onClick(v: View) {
-        when (v.id) {
-            R.id.more_window_auto -> {
-                Log.d("wodanimade","zhenbaigei")
-                Transfer.startActivity(mContext, "SnapRecorderSetting", Intent())
-            }
-            R.id.more_window_external -> dismiss()
-
-            else -> {
-            }
-        }
         if (isShowing) {
             closeAnimation(layout)
         }

@@ -8,6 +8,7 @@ import com.yookie.auth.LoginActivity
 import com.yookie.common.experimental.extensions.jumpchannel.Injector
 import com.yookie.discover.DiscoverActivity
 import com.yookie.yangzihang.makestar.MyUserActivity
+import com.yookie.yangzihang.makestar.RedPacketActivity
 
 object AppArchmage {
 
@@ -25,6 +26,7 @@ object AppArchmage {
         Injector.inject("LoginActivity", LoginActivity::class.java)
         Injector.inject("VideoPlayActivity", VideoPlayActivity::class.java)
         Injector.inject("CommentsActivity", CommentsActivity::class.java)
+        Injector.inject("RedPacketActivity", RedPacketActivity::class.java)
 
     }
 }

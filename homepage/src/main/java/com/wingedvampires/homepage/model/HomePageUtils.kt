@@ -1,5 +1,7 @@
 package com.wingedvampires.homepage.model
 
+import com.yookie.common.experimental.preference.hawk
+
 object HomePageUtils {
     const val INDEX_KEY = "page"
     const val WORK_TYPE_ID_OF_RECOMMEND = 0
@@ -8,6 +10,8 @@ object HomePageUtils {
     const val SEARCH_CONTENT = "searchContent"
     const val SEARCH_USER = "searchUser"
     const val SEARCH_VIDEO = "searchVideo"
+    var haveShowDialog by hawk("have_show_dialog", false)
+
     val typeList = hashMapOf<Int, String>()
 
 

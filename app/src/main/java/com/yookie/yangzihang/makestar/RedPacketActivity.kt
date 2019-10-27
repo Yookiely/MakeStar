@@ -31,6 +31,7 @@ class RedPacketActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_user_redpacket)
+        iv_redpacket_back.setOnClickListener { onBackPressed() }
         loadAndRefresh()
 
     }

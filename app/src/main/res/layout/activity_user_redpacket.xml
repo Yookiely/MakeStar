@@ -18,6 +18,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+            <ImageView
+                    android:id="@+id/iv_redpacket_back"
+                    android:layout_width="15dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="33dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/ms_white_back"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent" />
+
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

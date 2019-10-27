@@ -58,6 +58,9 @@ interface HomePageService {
         @Query("limit") limit: Int = 10
     ): Deferred<CommonBody<SearchData>>
 
+    @GET("task/getWeekInfo")
+    fun getRedPacketInfo(@Query("user_ID") userid: String = CommonPreferences.userid): Deferred<CommonBody<RedPacketInfo>>
+
     companion object : HomePageService by ServiceFactory()
 }
 
@@ -156,4 +159,24 @@ data class DataOfWork(
     val work_ID: Int,
     val work_name: String,
     val work_type: List<WorkType>
+)
+
+data class RedPacketInfo(
+    val day_1: String,
+    val day_2: String,
+    val day_3: String,
+    val day_4: String,
+    val day_5: String,
+    val day_6: String,
+    val day_7: String,
+    val is_today_signed: Boolean,
+    val is_today_take_upload_money: Boolean,
+    val is_today_take_watch_money: Boolean,
+    val Invitation_code: String,
+    val Invitation_count: Int,
+    val red_bag_count: Int,
+    val today_total_upload: Int,
+    val today_total_watch: Int,
+    val total_money: String,
+    val user_ID: Int
 )

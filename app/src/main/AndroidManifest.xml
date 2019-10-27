@@ -39,7 +39,8 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
-        <activity android:name=".RedPacketActivity"></activity>
+        <activity android:name=".WithdrawActivity"></activity>
+        <activity android:name=".RedPacketActivity" />
         <activity android:name=".MyselfActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

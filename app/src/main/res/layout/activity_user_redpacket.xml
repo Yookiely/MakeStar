@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#eeeeee"
-        tools:context="com.yookie.yangzihang.makestar.RedPacketActivity">
+        tools:context="com.example.yangzihang.makestar.RedPacketActivity">
 
     <android.support.v7.widget.Toolbar
             android:id="@+id/tb_user_redpacket"

@@ -7,7 +7,7 @@
         android:background="#eeeeee"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        tools:context="com.yookie.yangzihang.makestar.WithdrawActivity">
+        tools:context="com.example.yangzihang.makestar.WithdrawActivity">
 
     <android.support.v7.widget.Toolbar
             android:id="@+id/tb_user_withdraw"

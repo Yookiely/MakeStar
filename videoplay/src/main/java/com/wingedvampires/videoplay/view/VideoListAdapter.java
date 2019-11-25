@@ -1,4 +1,4 @@
-package com.wingedvampires.attention.view;
+package com.wingedvampires.videoplay.view;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -15,7 +15,7 @@ import com.bumptech.glide.Glide;
 import com.example.playerlibrary.AlivcLiveRoom.DensityUtil;
 import com.example.playerlibrary.AlivcLiveRoom.ScreenUtils;
 import com.example.playerlibrary.provider.VideoBean;
-import com.wingedvampires.attention.R;
+import com.wingedvampires.videoplay.R;
 
 import java.util.List;
 

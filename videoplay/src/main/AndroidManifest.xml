@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        package="com.wingedvampires.attention">
+        package="com.wingedvampires.videoplay">
 
     <application
             android:resizeableActivity="true"
             android:supportsRtl="true">
         <activity
-                android:name=".view.VideoPlayActivity"
+                android:name="com.wingedvampires.videoplay.view.VideoPlayActivity"
                 android:configChanges="orientation|keyboardHidden|screenSize"
                 android:screenOrientation="portrait" />
     </application>

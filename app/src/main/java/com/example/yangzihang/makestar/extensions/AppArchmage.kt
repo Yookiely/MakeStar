@@ -4,8 +4,8 @@ import com.example.yangzihang.makestar.MyUserActivity
 import com.example.yangzihang.makestar.RedPacketActivity
 import com.wingedvampires.attention.view.AttentionActivity
 import com.wingedvampires.attention.view.CommentsActivity
-import com.wingedvampires.attention.view.VideoPlayActivity
 import com.wingedvampires.homepage.view.HomePageActivity
+import com.wingedvampires.videoplay.view.VideoPlayActivity
 import com.yookie.auth.LoginActivity
 import com.yookie.common.experimental.extensions.jumpchannel.Injector
 import com.yookie.discover.DiscoverActivity

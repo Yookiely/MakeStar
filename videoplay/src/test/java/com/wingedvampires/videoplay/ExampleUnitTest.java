@@ -1,4 +1,4 @@
-package com.wingedvampires.attention;
+package com.wingedvampires.videoplay;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.wingedvampires.attention.extension;
+package com.wingedvampires.videoplay.extension;
 
 import android.app.Activity;
 import android.content.Intent;

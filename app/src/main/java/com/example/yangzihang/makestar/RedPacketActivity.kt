@@ -22,6 +22,7 @@ import com.yookie.common.experimental.preference.CommonPreferences
 import kotlinx.android.synthetic.main.activity_user_redpacket.*
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.textColor
 
 
@@ -34,6 +35,9 @@ class RedPacketActivity : AppCompatActivity() {
         iv_redpacket_back.setOnClickListener { onBackPressed() }
         loadAndRefresh()
 
+        tv_user_getallmoney.setOnClickListener {
+            it.context.startActivity<WithdrawActivity>()
+        }
     }
 
     private fun loadAndRefresh() {

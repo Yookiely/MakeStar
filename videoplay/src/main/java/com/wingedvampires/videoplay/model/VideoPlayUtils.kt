@@ -1,4 +1,4 @@
-package com.wingedvampires.attention.model
+package com.wingedvampires.videoplay.model
 
 object VideoPlayUtils {
 

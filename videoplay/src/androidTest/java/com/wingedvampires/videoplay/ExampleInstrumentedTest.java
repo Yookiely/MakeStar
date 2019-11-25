@@ -1,4 +1,4 @@
-package com.wingedvampires.attention;
+package com.wingedvampires.videoplay;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

@@ -1,4 +1,4 @@
-package com.wingedvampires.attention.view;
+package com.wingedvampires.videoplay.view;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,7 +8,7 @@ import com.example.playerlibrary.assist.AssistPlayer;
 import com.example.playerlibrary.entity.DataSource;
 import com.example.playerlibrary.log.PLog;
 import com.example.playerlibrary.provider.VideoBean;
-import com.wingedvampires.attention.extension.PUtil;
+import com.wingedvampires.videoplay.extension.PUtil;
 
 /**
  * Created by Taurus on 2018/4/15.

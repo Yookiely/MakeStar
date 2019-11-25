@@ -1,4 +1,4 @@
-package com.wingedvampires.attention.model
+package com.wingedvampires.videoplay.model
 
 import com.yookie.common.experimental.network.CommonBody
 import com.yookie.common.experimental.network.ServiceFactory

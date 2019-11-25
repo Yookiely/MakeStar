@@ -1,4 +1,4 @@
-package com.wingedvampires.attention.view
+package com.wingedvampires.videoplay.view
 
 import android.content.Intent
 import android.content.pm.ActivityInfo
@@ -23,10 +23,10 @@ import com.example.playerlibrary.provider.MonitorDataProvider
 import com.example.playerlibrary.provider.VideoBean
 import com.example.playerlibrary.receiver.ReceiverGroup
 import com.example.playerlibrary.widget.BaseVideoView
-import com.wingedvampires.attention.R
-import com.wingedvampires.attention.extension.PUtil
-import com.wingedvampires.attention.model.VideoPlayService
-import com.wingedvampires.attention.model.VideoPlayUtils
+import com.wingedvampires.videoplay.R
+import com.wingedvampires.videoplay.extension.PUtil
+import com.wingedvampires.videoplay.model.VideoPlayService
+import com.wingedvampires.videoplay.model.VideoPlayUtils
 import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
 import com.yookie.common.experimental.extensions.awaitAndHandle
 import com.yookie.common.experimental.extensions.jumpchannel.Transfer

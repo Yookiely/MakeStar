@@ -1,4 +1,4 @@
-package com.wingedvampires.attention.view;
+package com.wingedvampires.videoplay.view;
 
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
@@ -20,8 +20,8 @@ import com.example.playerlibrary.player.IPlayer;
 import com.example.playerlibrary.provider.VideoBean;
 import com.example.playerlibrary.receiver.OnReceiverEventListener;
 import com.example.playerlibrary.receiver.ReceiverGroup;
-import com.wingedvampires.attention.R;
-import com.wingedvampires.attention.model.DataUtils;
+import com.wingedvampires.videoplay.R;
+import com.wingedvampires.videoplay.model.DataUtils;
 
 import java.util.ArrayList;
 import java.util.List;

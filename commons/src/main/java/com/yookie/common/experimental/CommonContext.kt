@@ -11,6 +11,10 @@ import java.lang.ref.WeakReference
 
 object CommonContext {
 
+    // 接入微信的appid和secret
+    const val WECHAT_APPID = "wxa29b08e0c928631e"
+    const val WECHAT_SECRET = "87a4d5f067d1c9298d2eb349e21e1fb7"
+
     private var applicationReference: WeakReference<Application>? = null
 
     fun registerApplication(application: Application) {

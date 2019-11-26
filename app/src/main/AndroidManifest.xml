@@ -53,6 +53,13 @@
         <activity android:name="com.example.yangzihang.makestar.RankhistoryActivity" />
         <activity android:name="com.example.yangzihang.makestar.MessageActivity" />
         <activity android:name="com.example.yangzihang.makestar.FansActivity" />
+
+        <activity
+                android:name=".wxapi.WXEntryActivity"
+                android:exported="true" />
+        <activity
+                android:name=".wxapi.WXPayEntryActivity"
+                android:exported="true" />
     </application>
 
 </manifest>

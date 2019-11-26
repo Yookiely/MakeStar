@@ -123,4 +123,13 @@
             app:layout_constraintRight_toRightOf="@+id/logup"
             app:layout_constraintTop_toBottomOf="@+id/login_button" />
 
+    <Button
+            android:id="@+id/share_button"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="weixin分享"
+            app:layout_constraintLeft_toLeftOf="@id/logup"
+            app:layout_constraintRight_toRightOf="@+id/logup"
+            app:layout_constraintTop_toBottomOf="@+id/weixin_button" />
+
 </android.support.constraint.ConstraintLayout>

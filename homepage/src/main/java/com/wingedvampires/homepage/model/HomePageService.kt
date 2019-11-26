@@ -116,20 +116,14 @@ data class NewStar(
 )
 
 data class SearchData(
-    val user: SearchUser,
-    val work: SearchWork
-)
-
-data class SearchUser(
-    val data: List<DataOfUser>,
-    val currentPage: Int,
-    val lastPage: Int
+    val user: DataAndPage<DataOfUser>,
+    val work: DataAndPage<DataOfWork>
 )
 
 data class DataOfUser(
     val age: String,
     val avatar: String,
-    val city: String,
+    val city: String?,
     val sex: String,
     val signature: String?,
     val username: String,
@@ -137,28 +131,29 @@ data class DataOfUser(
     val tags: String?
 )
 
-data class SearchWork(
-    val data: List<DataOfWork>,
-    val currentPage: Int,
-    val lastPage: Int
-)
-
 data class DataOfWork(
-    val collection_num: Int,
-    val comment_num: Int,
+    val collection_num: String,
+    val comment_num: String,
     val cover_ID: String,
-    val cover_url: String,
-    val hot_value: Int,
+    val cover_url: String?,
+    val hot_value: String,
     val introduction: String,
-    val share_num: Int,
+    val share_num: String,
     val tags: String,
     val time: String,
     val username: String,
     val video_ID: String,
-    val video_link: String,
+    val video_link: String?,
     val work_ID: Int,
     val work_name: String,
-    val work_type: List<WorkType>
+    val work_type: String
+)
+
+
+data class DataAndPage<T>(
+    val data: List<T>?,
+    val currentPage: Int,
+    val lastPage: Int
 )
 
 data class RedPacketInfo(

@@ -85,8 +85,8 @@ class CommentsActivity : AppCompatActivity() {
 
             itemManager.refreshAll {
                 videoActionCommentItem(work, this@CommentsActivity)
-                comments.data.forEachWithIndex { index, comment ->
-                    commentItem(this@CommentsActivity, index != comments.data.size, comment) {
+                comments.data?.forEachWithIndex { index, comment ->
+                    commentItem(this@CommentsActivity, index != comments.data?.size, comment) {
                         this.remove(it)
                     }
                 }
@@ -110,7 +110,7 @@ class CommentsActivity : AppCompatActivity() {
             }?.data ?: return@launch
 
             itemManager.autoRefresh {
-                comments.data.forEachWithIndex { index, comment ->
+                comments.data?.forEachWithIndex { index, comment ->
                     commentItem(
                         this@CommentsActivity,
                         index != comments.data.size,

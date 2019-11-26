@@ -294,7 +294,7 @@ class AttentionListFragment : Fragment() {
 
             itemManager.refreshAll {
                 clear()
-                concernPersons.forEach { concernPerson ->
+                concernPersons.data?.forEach { concernPerson ->
                     focusItem(concernPerson, this@AttentionListFragment.context!!) {
 
                     }
@@ -316,7 +316,7 @@ class AttentionListFragment : Fragment() {
             }?.data ?: return@launch
 
             itemManager.autoRefresh {
-                concernPersons.forEach { concernPerson ->
+                concernPersons.data?.forEach { concernPerson ->
                     focusItem(concernPerson, this@AttentionListFragment.context!!) {
 
                     }
@@ -344,7 +344,7 @@ class AttentionListFragment : Fragment() {
             val usersOfResult = result.user.data
             itemManager.refreshAll {
                 clear()
-                usersOfResult.forEach { dataOfUser ->
+                usersOfResult?.forEach { dataOfUser ->
                     historyItem(dataOfUser, this@AttentionListFragment.context!!) {
                         AttentionUtils.setSearchHistory(dataOfUser)
                     }
@@ -371,7 +371,7 @@ class AttentionListFragment : Fragment() {
             lastPage = result.user.lastPage
             val usersOfResult = result.user.data
             itemManager.autoRefresh {
-                usersOfResult.forEach { dataOfUser ->
+                usersOfResult?.forEach { dataOfUser ->
                     historyItem(dataOfUser, this@AttentionListFragment.context!!) {
                         AttentionUtils.setSearchHistory(dataOfUser)
                     }

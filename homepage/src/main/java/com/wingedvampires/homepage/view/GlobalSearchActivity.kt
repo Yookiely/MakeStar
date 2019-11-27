@@ -48,7 +48,7 @@ class GlobalSearchActivity : AppCompatActivity() {
         searchEdit.apply {
             isFocusable = false
             isFocusableInTouchMode = true
-            setOnEditorActionListener { _, actionId, event ->
+            setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH && searchEdit.text.isNotBlank()) {
                     loadSearch()
                     searchEdit.isFocusable = false
@@ -84,7 +84,7 @@ class GlobalSearchActivity : AppCompatActivity() {
                         HomePageUtils.SEARCH_CONTENT to searchEdit.text.toString()
                     )
                 }
-                users.forEachWithIndex { i, dataOfUser ->
+                users?.forEachWithIndex { i, dataOfUser ->
                     if (i <= 1) {
                         searchUserItem(dataOfUser) {
 
@@ -97,7 +97,7 @@ class GlobalSearchActivity : AppCompatActivity() {
                         HomePageUtils.SEARCH_CONTENT to searchEdit.text.toString()
                     )
                 }
-                works.forEachWithIndex { i, dataOfWork ->
+                works?.forEachWithIndex { i, dataOfWork ->
                     if (i <= 1) {
                         searchVideoItem(dataOfWork) {
                             val intent = Intent().also {

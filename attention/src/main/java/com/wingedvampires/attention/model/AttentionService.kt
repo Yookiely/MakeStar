@@ -36,7 +36,7 @@ interface AttentionService {
         @Query("page") page: Int,
         @Query("user_ID") userId: String = CommonPreferences.userid,
         @Query("limit") limit: Int = 10
-    ): Deferred<CommonBody<List<ConcernPerson>>>
+    ): Deferred<CommonBody<DataAndPage<ConcernPerson>>>
 
     @POST("/api/search")
     fun search(
@@ -77,7 +77,7 @@ interface AttentionService {
         @Query("page") page: Int,
         @Query("limit") limit: Int = 10,
         @Query("user_ID") userId: String = CommonPreferences.userid
-    ): Deferred<CommonBody<TotalComments<Comment>>>
+    ): Deferred<CommonBody<DataAndPage<Comment>>>
 
     @POST("/api/comment/create")
     fun createComment(
@@ -105,7 +105,7 @@ interface AttentionService {
         @Query("page") page: Int,
         @Query("limit") limit: Int = 10,
         @Query("user_ID") userId: String = CommonPreferences.userid
-    ): Deferred<CommonBody<TotalComments<SecondComment>>>
+    ): Deferred<CommonBody<DataAndPage<SecondComment>>>
 
     @POST("/api/comment/createCC")
     fun createSecondComment(
@@ -190,38 +190,15 @@ data class Fan(
     val signature: String?
 )
 
-data class ConcernPerson(
-    val user_ID: String,
-    val age: Int,
-    val avatar: String,
-    val city: String,
-    val fans_num: String,
-    val follow_num: String,
-    val month_hot_value: Int,
-    val sex: String,
-    val month_rank: Int,
-    val signature: String?,
-    val username: String,
-    val week_hot_value: Int,
-    val year_hot_value: Int,
-    val tags: String
-)
-
 data class SearchData(
-    val user: SearchUser,
-    val work: SearchWork
-)
-
-data class SearchUser(
-    val data: List<DataOfUser>,
-    val currentPage: Int,
-    val lastPage: Int
+    val user: DataAndPage<DataOfUser>,
+    val work: DataAndPage<DataOfWork>
 )
 
 data class DataOfUser(
     val age: String,
     val avatar: String,
-    val city: String,
+    val city: String?,
     val sex: String,
     val signature: String?,
     val username: String,
@@ -229,37 +206,27 @@ data class DataOfUser(
     val tags: String?
 )
 
-data class SearchWork(
-    val data: List<DataOfWork>,
-    val currentPage: Int,
-    val lastPage: Int
-)
-
 data class DataOfWork(
-    val collection_num: Int,
-    val comment_num: Int,
+    val collection_num: String,
+    val comment_num: String,
     val cover_ID: String,
-    val cover_url: String,
-    val hot_value: Int,
+    val cover_url: String?,
+    val hot_value: String,
     val introduction: String,
-    val share_num: Int,
+    val share_num: String,
     val tags: String,
     val time: String,
     val username: String,
     val video_ID: String,
-    val video_link: String,
+    val video_link: String?,
     val work_ID: Int,
     val work_name: String,
-    val work_type: List<WorkType>
+    val work_type: String
 )
 
-data class WorkType(
-    val work_type_ID: Int,
-    val work_type_name: String
-)
 
-data class TotalComments<T>(
-    val data: List<T>,
+data class DataAndPage<T>(
+    val data: List<T>?,
     val currentPage: Int,
     val lastPage: Int
 )
@@ -302,4 +269,22 @@ data class WorkById(
     val work_ID: String,
     val work_name: String,
     val work_type_ID: Int
+)
+
+data class ConcernPerson(
+    val age: Int,
+    val avatar: String,
+    val city: Any,
+    val fans_num: Int,
+    val follow_num: Int,
+    val month_hot_value: Int,
+    val month_rank: Int,
+    val sex: String,
+    val signature: String,
+    val tags: String,
+    val token: Int,
+    val user_ID: Int,
+    val username: String,
+    val week_hot_value: Int,
+    val year_hot_value: Int
 )

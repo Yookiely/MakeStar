@@ -100,7 +100,7 @@ class MoreSearchActivity : AppCompatActivity() {
             val usersOfResult = result.user.data
             itemManager.refreshAll {
                 clear()
-                usersOfResult.forEach { dataOfUser ->
+                usersOfResult?.forEach { dataOfUser ->
                     searchUserItem(dataOfUser) {
 
                     }
@@ -127,7 +127,7 @@ class MoreSearchActivity : AppCompatActivity() {
             lastPage = result.user.lastPage
             val usersOfResult = result.user.data
             itemManager.autoRefresh {
-                usersOfResult.forEach { dataOfUser ->
+                usersOfResult?.forEach { dataOfUser ->
                     searchUserItem(dataOfUser) {
                     }
                 }
@@ -153,7 +153,7 @@ class MoreSearchActivity : AppCompatActivity() {
             val works = result.work.data
             itemManager.refreshAll {
                 clear()
-                works.forEach { dataOfWork ->
+                works?.forEach { dataOfWork ->
                     searchVideoItem(dataOfWork) {
                         val intent = Intent().also {
                             it.putExtra(
@@ -190,7 +190,7 @@ class MoreSearchActivity : AppCompatActivity() {
             lastPage = result.work.lastPage
             val works = result.work.data
             itemManager.autoRefresh {
-                works.forEach { dataOfWork ->
+                works?.forEach { dataOfWork ->
                     searchVideoItem(dataOfWork) {
                         val intent = Intent().also {
                             it.putExtra(

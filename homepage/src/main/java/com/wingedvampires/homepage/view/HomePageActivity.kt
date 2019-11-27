@@ -1,14 +1,15 @@
 package com.wingedvampires.homepage.view
 
 import android.content.Intent
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.util.Log
-import android.view.View
-import android.view.Window
+import android.view.*
 import android.widget.ImageView
+import android.widget.PopupWindow
 import android.widget.TextView
 import android.widget.Toast
 import com.kcrason.dynamicpagerindicatorlibrary.DynamicPagerIndicator
@@ -60,6 +61,8 @@ class HomePageActivity : AppCompatActivity() {
             it.context.startActivity<GlobalSearchActivity>()
         }
         setViewPagerContent()
+
+        alarm()
     }
 
     private fun setViewPagerContent() {
@@ -108,4 +111,64 @@ class HomePageActivity : AppCompatActivity() {
         mMoreWindow!!.showMoreWindow(view)
     }
 
+    private fun alarm() {
+        launch(UI + QuietCoroutineExceptionHandler) {
+            val mRedPacket = HomePageService.getRedPacketInfo().awaitAndHandle {
+                it.printStackTrace()
+                Toast.makeText(this@HomePageActivity, "加载失败", Toast.LENGTH_SHORT).show()
+            }?.data ?: return@launch
+
+            if (!HomePageUtils.haveShowDialog) {
+                showDialogOfRedpacket(mRedPacket.red_bag_count.toString())
+            }
+        }
+    }
+
+    private fun showDialogOfRedpacket(numOfDay: String) {
+        val popupWindowView =
+            LayoutInflater.from(this).inflate(R.layout.dialog_redpacket_alarm, null, false)
+        val day = popupWindowView.findViewById<TextView>(R.id.tv_redpacket_day)
+        val cancel = popupWindowView.findViewById<TextView>(R.id.tv_redpacket_cancel)
+        val ok = popupWindowView.findViewById<TextView>(R.id.tv_redpacket_ok)
+        day.text = "￥${numOfDay}"
+        val popupWindow = PopupWindow(
+            popupWindowView,
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            true
+        )
+        ok.setOnClickListener {
+            popupWindow.dismiss()
+            HomePageUtils.haveShowDialog = true
+            Transfer.startActivityWithoutClose(this, "RedPacketActivity", Intent())
+        }
+        cancel.setOnClickListener {
+            HomePageUtils.haveShowDialog = true
+            popupWindow.dismiss()
+        }
+
+        popupWindow.apply {
+            isFocusable = true
+            isOutsideTouchable = true
+            isTouchable = true
+
+
+            setBackgroundDrawable(BitmapDrawable())
+            bgAlpha(0.5f)
+            showAsDropDown(tb_main, Gravity.CENTER, 0, 0)
+            setOnDismissListener {
+                // popupWindow 隐藏时恢复屏幕正常透明度
+                bgAlpha(1f)
+            }
+        }
+
+
+    }
+
+    private fun bgAlpha(bgAlpha: Float) {
+        val lp = window.attributes
+        lp.alpha = bgAlpha // 0.0-1.0
+        window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
+        window.attributes = lp
+    }
 }

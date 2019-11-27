@@ -58,6 +58,9 @@ interface HomePageService {
         @Query("limit") limit: Int = 10
     ): Deferred<CommonBody<SearchData>>
 
+    @GET("task/getWeekInfo")
+    fun getRedPacketInfo(@Query("user_ID") userid: String = CommonPreferences.userid): Deferred<CommonBody<RedPacketInfo>>
+
     companion object : HomePageService by ServiceFactory()
 }
 
@@ -113,20 +116,14 @@ data class NewStar(
 )
 
 data class SearchData(
-    val user: SearchUser,
-    val work: SearchWork
-)
-
-data class SearchUser(
-    val data: List<DataOfUser>,
-    val currentPage: Int,
-    val lastPage: Int
+    val user: DataAndPage<DataOfUser>,
+    val work: DataAndPage<DataOfWork>
 )
 
 data class DataOfUser(
     val age: String,
     val avatar: String,
-    val city: String,
+    val city: String?,
     val sex: String,
     val signature: String?,
     val username: String,
@@ -134,26 +131,47 @@ data class DataOfUser(
     val tags: String?
 )
 
-data class SearchWork(
-    val data: List<DataOfWork>,
-    val currentPage: Int,
-    val lastPage: Int
-)
-
 data class DataOfWork(
-    val collection_num: Int,
-    val comment_num: Int,
+    val collection_num: String,
+    val comment_num: String,
     val cover_ID: String,
-    val cover_url: String,
-    val hot_value: Int,
+    val cover_url: String?,
+    val hot_value: String,
     val introduction: String,
-    val share_num: Int,
+    val share_num: String,
     val tags: String,
     val time: String,
     val username: String,
     val video_ID: String,
-    val video_link: String,
+    val video_link: String?,
     val work_ID: Int,
     val work_name: String,
-    val work_type: List<WorkType>
+    val work_type: String
+)
+
+
+data class DataAndPage<T>(
+    val data: List<T>?,
+    val currentPage: Int,
+    val lastPage: Int
+)
+
+data class RedPacketInfo(
+    val day_1: String,
+    val day_2: String,
+    val day_3: String,
+    val day_4: String,
+    val day_5: String,
+    val day_6: String,
+    val day_7: String,
+    val is_today_signed: Boolean,
+    val is_today_take_upload_money: Boolean,
+    val is_today_take_watch_money: Boolean,
+    val Invitation_code: String,
+    val Invitation_count: Int,
+    val red_bag_count: Int,
+    val today_total_upload: Int,
+    val today_total_watch: Int,
+    val total_money: String,
+    val user_ID: Int
 )

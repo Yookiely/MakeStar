@@ -78,7 +78,7 @@ class SecondCommentActivity : AppCompatActivity() {
             }?.data ?: return@launch
 
             itemManager.refreshAll {
-                comments.data.forEachWithIndex { index, comment ->
+                comments.data?.forEachWithIndex { index, comment ->
                     commentItem(
                         this@SecondCommentActivity,
                         index != comments.data.size,
@@ -109,7 +109,7 @@ class SecondCommentActivity : AppCompatActivity() {
             }?.data ?: return@launch
 
             itemManager.refreshAll {
-                comments.data.forEachWithIndex { index, comment ->
+                comments.data?.forEachWithIndex { index, comment ->
                     commentItem(
                         this@SecondCommentActivity,
                         index != comments.data.size,

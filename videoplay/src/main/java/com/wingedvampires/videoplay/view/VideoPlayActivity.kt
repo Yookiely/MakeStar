@@ -28,6 +28,7 @@ import com.wingedvampires.videoplay.extension.PUtil
 import com.wingedvampires.videoplay.model.VideoPlayService
 import com.wingedvampires.videoplay.model.VideoPlayUtils
 import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
+import com.yookie.common.experimental.extensions.WeiXinMethod
 import com.yookie.common.experimental.extensions.awaitAndHandle
 import com.yookie.common.experimental.extensions.jumpchannel.Transfer
 import kotlinx.android.synthetic.main.test_video_activity.*
@@ -77,6 +78,8 @@ class VideoPlayActivity : AppCompatActivity(), OnPlayerEventListener {
 
         loadVideoInfo()
         writeOneWatch()
+
+
     }
 
     private fun writeOneWatch() {
@@ -223,6 +226,14 @@ class VideoPlayActivity : AppCompatActivity(), OnPlayerEventListener {
                 )
             }
 
+            iv_attention_share.setOnClickListener {
+                WeiXinMethod.showDialog(
+                    this@VideoPlayActivity,
+                    workId!!,
+                    work.work_name,
+                    work.username
+                )
+            }
             videoBeanList.clear()
             videoBeanList.add(
                 VideoBean(

@@ -1,21 +1,65 @@
 package com.yookie.common.experimental.extensions
 
+import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.widget.Toast
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage
 import com.tencent.mm.opensdk.modelmsg.WXWebpageObject
 import com.tencent.mm.opensdk.modelpay.PayReq
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
+import com.yookie.common.AuthService
 import com.yookie.common.R
 import com.yookie.common.WeiXinPay
 import com.yookie.common.experimental.CommonContext
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.launch
 import java.io.ByteArrayOutputStream
+
 
 object WeiXinMethod {
     //图片分享的限制大小
     const val IMAGE_SIZE = 32768
+
+    fun showDialog(
+        context: Context,
+        workId: String,
+        title: String,
+        description: String
+    ) {
+
+        launch(UI + QuietCoroutineExceptionHandler) {
+            val result = AuthService.getShareUrl(workId).awaitAndHandle {
+                it.printStackTrace()
+                Toast.makeText(context, "获取Url失败", Toast.LENGTH_SHORT).show()
+            }
+
+            if (result?.data == null || result.error_code != -1) {
+                Toast.makeText(context, "分享失败", Toast.LENGTH_SHORT).show()
+                return@launch
+            }
+
+            val items = arrayOf("分享到朋友圈", "分享到好友")
+            val listDialog: AlertDialog.Builder = AlertDialog.Builder(context)
+            val url = result.data.url
+            listDialog.setTitle("分享到")
+            listDialog.setItems(items) { _, which ->
+
+                // which 下标从0开始
+
+                when (which) {
+                    0 -> weixinShare(context, url, title, description, true)
+                    1 -> weixinShare(context, url, title, description, false)
+                    else -> {
+                    }
+                }
+            }
+            listDialog.show()
+        }
+
+    }
 
     /**
      * 微信分享

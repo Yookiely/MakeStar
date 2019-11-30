@@ -16,6 +16,7 @@ import com.wingedvampires.attention.model.AttentionUtils
 import com.wingedvampires.attention.model.VideoAction
 import com.wingedvampires.attention.view.CommentsActivity
 import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
+import com.yookie.common.experimental.extensions.WeiXinMethod
 import com.yookie.common.experimental.extensions.awaitAndHandle
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.experimental.android.UI
@@ -106,7 +107,7 @@ class VideoActionItem(
                             ).show()
 
                             if (resultCommonBody.error_code == -1) {
-                                shareImg.setImageResource(R.drawable.ms_red_star)
+                                storeImg.setImageResource(R.drawable.ms_red_star)
                                 isCollected = true
                             }
                         } else {
@@ -127,7 +128,7 @@ class VideoActionItem(
                             ).show()
 
                             if (resultCommonBody.error_code == -1) {
-                                shareImg.setImageResource(R.drawable.ms_star)
+                                storeImg.setImageResource(R.drawable.ms_star)
                                 isCollected = false
                             }
                         }
@@ -141,6 +142,15 @@ class VideoActionItem(
 
                 commentImg.setOnClickListener {
                     it.context.startActivity<CommentsActivity>(AttentionUtils.COMMENT_INDEX to videoAction.work_ID)
+                }
+
+                shareImg.setOnClickListener {
+                    WeiXinMethod.showDialog(
+                        item.context,
+                        videoAction.work_ID,
+                        videoAction.work_name,
+                        videoAction.username
+                    )
                 }
             }
 

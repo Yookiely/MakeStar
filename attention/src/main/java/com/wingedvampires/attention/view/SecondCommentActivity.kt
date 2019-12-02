@@ -131,7 +131,7 @@ class SecondCommentActivity : AppCompatActivity() {
                         comment,
                         false
                     ) {
-                        this.remove(it)
+                        loadSecondComment()
                     }
                 }
             }
@@ -163,7 +163,7 @@ class SecondCommentActivity : AppCompatActivity() {
                         comment,
                         false
                     ) {
-                        this.remove(it)
+                        loadSecondComment()
                     }
                 }
             }

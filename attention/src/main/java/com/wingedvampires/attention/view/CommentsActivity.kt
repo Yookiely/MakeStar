@@ -124,7 +124,7 @@ class CommentsActivity : AppCompatActivity() {
                 videoActionCommentItem(work, this@CommentsActivity)
                 comments.data?.forEachWithIndex { index, comment ->
                     commentItem(this@CommentsActivity, index != comments.data?.size, comment) {
-                        this.remove(it)
+                        loadMainComment()
                     }
                 }
             }
@@ -154,7 +154,7 @@ class CommentsActivity : AppCompatActivity() {
                         index != comments.data.size,
                         comment
                     ) {
-                        this.remove(it)
+                        loadMainComment()
                     }
                 }
             }

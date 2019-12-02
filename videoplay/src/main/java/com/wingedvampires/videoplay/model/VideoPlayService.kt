@@ -52,6 +52,12 @@ interface VideoPlayService {
         @Query("from_user_ID") fromUserId: String = CommonPreferences.userid
     ): Deferred<CommonBody<String>>
 
+    @POST("/api/star/loginStar")
+    fun star(
+        @Query("work_ID") workId: String,
+        @Query("user_ID") userId: String = CommonPreferences.userid
+    ): Deferred<CommonBody<NumberOfStar>>
+
     companion object : VideoPlayService by ServiceFactory()
 }
 
@@ -123,4 +129,8 @@ data class WatchResult(
     val day_watch_count: Int,
     val user_ID: String,
     val y_m_d: String
+)
+
+data class NumberOfStar(
+    val numberOfStar: String
 )

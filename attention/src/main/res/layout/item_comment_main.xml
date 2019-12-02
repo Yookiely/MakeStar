@@ -92,28 +92,6 @@
     />
 
     <ImageView
-            android:id="@+id/iv_comment_start"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:background="@drawable/ms_stop"
-            app:layout_constraintLeft_toLeftOf="@id/iv_comment_video"
-            app:layout_constraintBottom_toBottomOf="@id/iv_comment_video"
-            android:layout_marginBottom="12dp"
-            android:layout_marginStart="18dp"/>
-
-    <TextView
-            android:id="@+id/tv_comment_duration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/iv_comment_start"
-            app:layout_constraintBottom_toBottomOf="@id/iv_comment_start"
-            app:layout_constraintLeft_toRightOf="@id/iv_comment_start"
-            tools:text="4:00"
-            android:textSize="16sp"
-            android:layout_marginStart="6dp"
-            android:textColor="#ffffff"/>
-
-    <ImageView
             android:id="@+id/iv_comment_comment"
             android:layout_width="30dp"
             android:layout_height="30dp"

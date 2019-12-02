@@ -29,12 +29,6 @@ interface HomePageService {
         @Query("user_ID") userId: String = CommonPreferences.userid
     ): Deferred<CommonBody<List<Work>>>
 
-    @POST("/api/star/loginStar")
-    fun star(
-        @Query("work_ID") workId: String,
-        @Query("user_ID") userId: String = CommonPreferences.userid
-    ): Deferred<CommonBody<NewStar>>
-
     @GET("/api/work/getWorkByTypeID")
     fun getWorkByTypeID(
         @Query("page") page: Int,
@@ -60,6 +54,7 @@ interface HomePageService {
 
     @GET("task/getWeekInfo")
     fun getRedPacketInfo(@Query("user_ID") userid: String = CommonPreferences.userid): Deferred<CommonBody<RedPacketInfo>>
+
 
     companion object : HomePageService by ServiceFactory()
 }

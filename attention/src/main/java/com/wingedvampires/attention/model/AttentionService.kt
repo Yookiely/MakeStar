@@ -133,6 +133,14 @@ interface AttentionService {
         @Query("user_ID") userId: String = CommonPreferences.userid
     ): Deferred<CommonBody<List<WorkById>>>
 
+    @POST("/api/star/loginStar")
+    fun star(
+        @Query("work_ID") workId: String,
+        @Query("user_ID") userId: String = CommonPreferences.userid
+    ): Deferred<CommonBody<NumberOfStar>>
+
+
+
     companion object : AttentionService by ServiceFactory()
 }
 
@@ -287,4 +295,8 @@ data class ConcernPerson(
     val username: String,
     val week_hot_value: Int,
     val year_hot_value: Int
+)
+
+data class NumberOfStar(
+    val numberOfStar: String
 )

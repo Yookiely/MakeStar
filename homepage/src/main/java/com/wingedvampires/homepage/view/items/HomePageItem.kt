@@ -5,19 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import cn.edu.twt.retrox.recyclerviewdsl.Item
 import cn.edu.twt.retrox.recyclerviewdsl.ItemController
 import com.bumptech.glide.Glide
 import com.wingedvampires.homepage.R
-import com.wingedvampires.homepage.model.HomePageService
 import com.wingedvampires.homepage.model.HomePageUtils
 import com.wingedvampires.homepage.model.Work
-import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
-import com.yookie.common.experimental.extensions.awaitAndHandle
 import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.launch
 import org.jetbrains.anko.layoutInflater
 
 class HomePageItem(val work: Work, val block: (View) -> Unit) : Item {
@@ -59,21 +53,9 @@ class HomePageItem(val work: Work, val block: (View) -> Unit) : Item {
                 hotPerson.text = HomePageUtils.format(work.hot_value.toString())
                 label.text = HomePageUtils.typeList[work.work_type_ID]
             }
-            holder.hot.setOnClickListener { view ->
-                launch(UI + QuietCoroutineExceptionHandler) {
-                    val commbody = HomePageService.star(work.work_ID).awaitAndHandle {
-                        it.printStackTrace()
-                        Toast.makeText(view.context, "点赞失败", Toast.LENGTH_SHORT).show()
-                    }
 
-                    Toast.makeText(view.context, "${commbody?.message}", Toast.LENGTH_SHORT).show()
-                    val numText = holder.hotPerson.text
-                    holder.hotPerson.text = HomePageUtils.format(commbody?.data?.numberOfStar) ?: numText
 
-                }
-            }
-
-            holder.itemView.setOnClickListener {
+            holder.cover.setOnClickListener {
                 item.block(it)
             }
         }

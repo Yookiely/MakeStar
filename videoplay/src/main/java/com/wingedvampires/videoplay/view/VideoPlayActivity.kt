@@ -25,6 +25,7 @@ import com.example.playerlibrary.receiver.ReceiverGroup
 import com.example.playerlibrary.widget.BaseVideoView
 import com.wingedvampires.videoplay.R
 import com.wingedvampires.videoplay.extension.PUtil
+import com.wingedvampires.videoplay.model.NumberOfStar
 import com.wingedvampires.videoplay.model.VideoPlayService
 import com.wingedvampires.videoplay.model.VideoPlayUtils
 import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
@@ -225,6 +226,22 @@ class VideoPlayActivity : AppCompatActivity(), OnPlayerEventListener {
                     intent
                 )
             }
+            iv_attention_number.setOnClickListener { view ->
+                launch(UI + QuietCoroutineExceptionHandler) {
+                    val commbody = VideoPlayService.star(work.work_ID).awaitAndHandle {
+                        it.printStackTrace()
+                        Toast.makeText(view.context, "点赞失败", Toast.LENGTH_SHORT).show()
+                    }
+
+                    Toast.makeText(view.context, "${commbody?.message}", Toast.LENGTH_SHORT).show()
+
+                    if (commbody?.error_code == -1) {
+                        val num = commbody.data as NumberOfStar
+                        tv_attention_number.text = VideoPlayUtils.format(num.numberOfStar)
+                    }
+                }
+            }
+
 
             iv_attention_share.setOnClickListener {
                 WeiXinMethod.showDialog(

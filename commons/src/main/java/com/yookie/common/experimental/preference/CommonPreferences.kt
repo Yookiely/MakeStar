@@ -75,7 +75,9 @@ object CommonPreferences {
         if (userHistory.isEmpty()) {
             return null
         }
-        return userHistory.toString().replace(" ", "").substring(1, 2 * userHistory.size)
+        val historyStirng = userHistory.toString().replace(" ", "")
+        val nhistoryStirng = historyStirng.substring(1, historyStirng.length - 1)
+        return nhistoryStirng
     }
 
     fun clear() {

@@ -1,11 +1,15 @@
 package com.wingedvampires.attention.view
 
+import android.content.Context
 import android.os.Bundle
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.Window
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import cn.edu.twt.retrox.recyclerviewdsl.ItemAdapter
 import cn.edu.twt.retrox.recyclerviewdsl.ItemManager
@@ -15,6 +19,9 @@ import com.wingedvampires.attention.model.AttentionUtils
 import com.wingedvampires.attention.view.items.commentItem
 import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
 import com.yookie.common.experimental.extensions.awaitAndHandle
+import com.yookie.common.experimental.preference.CommonPreferences
+import kotlinx.android.synthetic.main.activity_second_comment.*
+import kotlinx.android.synthetic.main.component_comment_edit.*
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 import org.jetbrains.anko.collections.forEachWithIndex
@@ -27,6 +34,7 @@ class SecondCommentActivity : AppCompatActivity() {
     private var isLoading = true
     private var page: Int = 1
     private var lastPage = Int.MAX_VALUE
+    lateinit var secondCommitRefresh: SwipeRefreshLayout
     lateinit var commentId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,13 +45,13 @@ class SecondCommentActivity : AppCompatActivity() {
         commentId = bundle.getString(AttentionUtils.SECOND_COMMENT_INDEX)!!
         val toolbar = findViewById<Toolbar>(R.id.tb_secondcomment_main)
         val mLayoutManager = LinearLayoutManager(this)
+        secondCommitRefresh = findViewById(R.id.sl_secondcommit_main)
         toolbar.apply {
             title = " "
             setSupportActionBar(this)
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
-            setNavigationOnClickListener { onBackPressed() }
         }
 
+        iv_secondcomment_back.setOnClickListener { onBackPressed() }
         recyclerView = findViewById(R.id.rv_secondcomment_main)
         recyclerView.apply {
             layoutManager = mLayoutManager
@@ -66,6 +74,43 @@ class SecondCommentActivity : AppCompatActivity() {
             }
         })
 
+        et_comment_input.apply {
+            isFocusable = false
+            isFocusableInTouchMode = true
+            setOnEditorActionListener { v, actionId, event ->
+                if (actionId == EditorInfo.IME_ACTION_SEND && et_comment_input.text.isNotBlank()) {
+                    this.clearFocus()
+                    hideSoftInputMethod()
+                    launch(UI + QuietCoroutineExceptionHandler) {
+                        val result = AttentionService.createSecondComment(
+                            commentId,
+                            et_comment_input.text.toString(),
+                            CommonPreferences.userid
+                        ).awaitAndHandle {
+                            it.printStackTrace()
+                            Toast.makeText(this@SecondCommentActivity, "发送失败", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+
+                        if (result == null || result.error_code != -1) {
+                            Toast.makeText(this@SecondCommentActivity, "发送失败", Toast.LENGTH_SHORT)
+                                .show()
+                            return@launch
+                        } else {
+                            Toast.makeText(this@SecondCommentActivity, "发送成功", Toast.LENGTH_SHORT)
+                                .show()
+                            et_comment_input.setText("")
+                            loadSecondComment()
+                        }
+                    }
+                }
+
+                true
+            }
+        }
+
+        secondCommitRefresh.setOnRefreshListener(this::loadSecondComment)
+
     }
 
     private fun loadSecondComment() {
@@ -86,13 +131,14 @@ class SecondCommentActivity : AppCompatActivity() {
                         comment,
                         false
                     ) {
-                        this.remove(it)
+                        loadSecondComment()
                     }
                 }
             }
 
             lastPage = comments.lastPage
             isLoading = false
+            secondCommitRefresh.isRefreshing = false
         }
     }
 
@@ -117,13 +163,21 @@ class SecondCommentActivity : AppCompatActivity() {
                         comment,
                         false
                     ) {
-                        this.remove(it)
+                        loadSecondComment()
                     }
                 }
             }
 
             lastPage = comments.lastPage
             isLoading = false
+        }
+    }
+
+    private fun hideSoftInputMethod() {
+        val inputMethodManager =
+            getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        inputMethodManager?.apply {
+            hideSoftInputFromWindow(window.decorView.windowToken, 0)
         }
     }
 }

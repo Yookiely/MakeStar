@@ -1,11 +1,15 @@
 package com.wingedvampires.attention.view
 
+import android.content.Context
 import android.os.Bundle
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.Window
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import cn.edu.twt.retrox.recyclerviewdsl.ItemAdapter
 import cn.edu.twt.retrox.recyclerviewdsl.ItemManager
@@ -16,7 +20,9 @@ import com.wingedvampires.attention.view.items.commentItem
 import com.wingedvampires.attention.view.items.videoActionCommentItem
 import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
 import com.yookie.common.experimental.extensions.awaitAndHandle
+import com.yookie.common.experimental.preference.CommonPreferences
 import kotlinx.android.synthetic.main.activity_comments.*
+import kotlinx.android.synthetic.main.component_comment_edit.*
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 import org.jetbrains.anko.collections.forEachWithIndex
@@ -27,6 +33,7 @@ class CommentsActivity : AppCompatActivity() {
     private var itemManager: ItemManager =
         ItemManager() //by lazy { recyclerView.withItems(listOf()) }
     private var isLoading = true
+    lateinit var commitRefresh: SwipeRefreshLayout
     private var page: Int = 1
     private var lastPage = Int.MAX_VALUE
     lateinit var workId: String
@@ -39,6 +46,7 @@ class CommentsActivity : AppCompatActivity() {
         workId = bundle.getString(AttentionUtils.COMMENT_INDEX)!!
         val toolbar = findViewById<Toolbar>(R.id.tb_comment_main)
         val mLayoutManager = LinearLayoutManager(this)
+        commitRefresh = findViewById(R.id.sl_commit_main)
         toolbar.apply {
             title = ""
             setSupportActionBar(this)
@@ -50,7 +58,37 @@ class CommentsActivity : AppCompatActivity() {
             layoutManager = mLayoutManager
             adapter = ItemAdapter(itemManager)
         }
+        commitRefresh.setOnRefreshListener(this::loadMainComment)
+        et_comment_input.apply {
+            isFocusable = false
+            isFocusableInTouchMode = true
+            setOnEditorActionListener { v, actionId, event ->
+                if (actionId == EditorInfo.IME_ACTION_SEND && et_comment_input.text.isNotBlank()) {
+                    this.clearFocus()
+                    hideSoftInputMethod()
+                    launch(UI + QuietCoroutineExceptionHandler) {
+                        val result = AttentionService.createComment(
+                            workId,
+                            et_comment_input.text.toString(),
+                            CommonPreferences.userid
+                        ).awaitAndHandle {
+                            it.printStackTrace()
+                            Toast.makeText(this@CommentsActivity, "发送失败", Toast.LENGTH_SHORT).show()
+                        }
 
+                        if (result == null || result.error_code != -1) {
+                            Toast.makeText(this@CommentsActivity, "发送失败", Toast.LENGTH_SHORT).show()
+                            return@launch
+                        } else {
+                            Toast.makeText(this@CommentsActivity, "发送成功", Toast.LENGTH_SHORT).show()
+                            et_comment_input.setText("")
+                        }
+                    }
+                }
+
+                true
+            }
+        }
         loadMainComment()
 
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -67,7 +105,6 @@ class CommentsActivity : AppCompatActivity() {
                 }
             }
         })
-
 
     }
 
@@ -87,12 +124,13 @@ class CommentsActivity : AppCompatActivity() {
                 videoActionCommentItem(work, this@CommentsActivity)
                 comments.data?.forEachWithIndex { index, comment ->
                     commentItem(this@CommentsActivity, index != comments.data?.size, comment) {
-                        this.remove(it)
+                        loadMainComment()
                     }
                 }
             }
 
             lastPage = comments.lastPage
+            commitRefresh.isRefreshing = false
             isLoading = false
         }
     }
@@ -116,13 +154,21 @@ class CommentsActivity : AppCompatActivity() {
                         index != comments.data.size,
                         comment
                     ) {
-                        this.remove(it)
+                        loadMainComment()
                     }
                 }
             }
 
             lastPage = comments.lastPage
             isLoading = false
+        }
+    }
+
+    private fun hideSoftInputMethod() {
+        val inputMethodManager =
+            getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        inputMethodManager?.apply {
+            hideSoftInputFromWindow(window.decorView.windowToken, 0)
         }
     }
 }

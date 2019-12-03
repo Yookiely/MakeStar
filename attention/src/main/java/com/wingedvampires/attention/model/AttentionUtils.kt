@@ -40,4 +40,5 @@ object AttentionUtils {
         temp.add(0, dataOfUser)
         searchHistory = mutableListOf<DataOfUser>().also { it.addAll(temp) }
     }
+
 }

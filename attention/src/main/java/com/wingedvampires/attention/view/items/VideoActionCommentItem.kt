@@ -15,6 +15,7 @@ import com.wingedvampires.attention.model.AttentionService
 import com.wingedvampires.attention.model.AttentionUtils
 import com.wingedvampires.attention.model.WorkById
 import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
+import com.yookie.common.experimental.extensions.WeiXinMethod
 import com.yookie.common.experimental.extensions.awaitAndHandle
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.experimental.android.UI
@@ -105,6 +106,15 @@ class VideoActionCommentItem(val workById: WorkById, val context: Context) : Ite
                             }
                         }
                     }
+                }
+
+                shareImg.setOnClickListener {
+                    WeiXinMethod.showDialog(
+                        item.context,
+                        workById.work_ID,
+                        workById.work_name,
+                        workById.username
+                    )
                 }
             }
         }

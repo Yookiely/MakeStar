@@ -26,6 +26,8 @@ interface AuthService {
     @GET("user/myself")
     fun authSelf(): Deferred<CommonBody<AuthData>>
 
+    @GET("/api/work/shareNumInc")
+    fun getShareUrl(@Query("work_ID") work_ID: String): Deferred<CommonBody<ShareContent>>
 
     companion object : AuthService by ServiceFactory()
 }
@@ -45,6 +47,7 @@ interface WeiXinService {
         @Query("access_token") access_token: String,
         @Query("openid") openid: String
     ): Deferred<WeiXinInfo>
+
 
     companion object : WeiXinService by WeiXinServiceFactory()
 }
@@ -126,4 +129,8 @@ data class WeiXinToken(
 
 data class NewUser(
     val token: String
+)
+
+data class ShareContent(
+    val url: String
 )

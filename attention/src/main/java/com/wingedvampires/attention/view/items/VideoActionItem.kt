@@ -13,9 +13,11 @@ import com.bumptech.glide.Glide
 import com.wingedvampires.attention.R
 import com.wingedvampires.attention.model.AttentionService
 import com.wingedvampires.attention.model.AttentionUtils
+import com.wingedvampires.attention.model.NumberOfStar
 import com.wingedvampires.attention.model.VideoAction
 import com.wingedvampires.attention.view.CommentsActivity
 import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
+import com.yookie.common.experimental.extensions.WeiXinMethod
 import com.yookie.common.experimental.extensions.awaitAndHandle
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.experimental.android.UI
@@ -106,7 +108,7 @@ class VideoActionItem(
                             ).show()
 
                             if (resultCommonBody.error_code == -1) {
-                                shareImg.setImageResource(R.drawable.ms_red_star)
+                                storeImg.setImageResource(R.drawable.ms_red_star)
                                 isCollected = true
                             }
                         } else {
@@ -127,7 +129,7 @@ class VideoActionItem(
                             ).show()
 
                             if (resultCommonBody.error_code == -1) {
-                                shareImg.setImageResource(R.drawable.ms_star)
+                                storeImg.setImageResource(R.drawable.ms_star)
                                 isCollected = false
                             }
                         }
@@ -141,6 +143,32 @@ class VideoActionItem(
 
                 commentImg.setOnClickListener {
                     it.context.startActivity<CommentsActivity>(AttentionUtils.COMMENT_INDEX to videoAction.work_ID)
+                }
+
+                shareImg.setOnClickListener {
+                    WeiXinMethod.showDialog(
+                        item.context,
+                        videoAction.work_ID,
+                        videoAction.work_name,
+                        videoAction.username
+                    )
+                }
+
+                star.setOnClickListener { view ->
+                    launch(UI + QuietCoroutineExceptionHandler) {
+                        val commbody = AttentionService.star(videoAction.work_ID).awaitAndHandle {
+                            it.printStackTrace()
+                            Toast.makeText(view.context, "点赞失败", Toast.LENGTH_SHORT).show()
+                        }
+
+                        Toast.makeText(view.context, "${commbody?.message}", Toast.LENGTH_SHORT)
+                            .show()
+
+                        if (commbody?.error_code == -1) {
+                            val num = commbody.data as NumberOfStar
+                            number.text = AttentionUtils.format(num.numberOfStar)
+                        }
+                    }
                 }
             }
 
@@ -168,6 +196,7 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val storeNum: TextView = itemView.findViewById(R.id.tv_attention_store)
     val commentImg: ImageView = itemView.findViewById(R.id.iv_attention_comment)
     val commentNum: TextView = itemView.findViewById(R.id.tv_attention_comment)
+    val star: ImageView = itemView.findViewById(R.id.iv_attention_number)
 }
 
 

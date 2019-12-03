@@ -11,15 +11,15 @@ import android.widget.Toast
 import cn.edu.twt.retrox.recyclerviewdsl.Item
 import cn.edu.twt.retrox.recyclerviewdsl.ItemController
 import com.bumptech.glide.Glide
-import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
-import com.yookie.common.experimental.extensions.awaitAndHandle
-import com.yookie.common.experimental.preference.CommonPreferences
 import com.wingedvampires.attention.R
 import com.wingedvampires.attention.model.AttentionService
 import com.wingedvampires.attention.model.AttentionUtils
 import com.wingedvampires.attention.model.Comment
 import com.wingedvampires.attention.model.SecondComment
 import com.wingedvampires.attention.view.SecondCommentActivity
+import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
+import com.yookie.common.experimental.extensions.awaitAndHandle
+import com.yookie.common.experimental.preference.CommonPreferences
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
@@ -87,6 +87,10 @@ class CommentItem(
                 it.context.startActivity<SecondCommentActivity>(AttentionUtils.SECOND_COMMENT_INDEX to comment!!.comment_ID)
             }
 
+            holder.commentImg.setOnClickListener {
+                it.context.startActivity<SecondCommentActivity>(AttentionUtils.SECOND_COMMENT_INDEX to comment!!.comment_ID)
+            }
+
             holder.itemView.setOnLongClickListener {
                 val items: ArrayList<String> = arrayListOf("举报了举报了！", "我要删它！", "手瓢点错了，取消叭").also {
                     if (userId != CommonPreferences.userid) {
@@ -128,11 +132,12 @@ class CommentItem(
                 true
             }
 
+
         }
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val avatar: CircleImageView = itemView.findViewById(R.id.cv_comment_pic)
+        val avatar: CircleImageView = itemView.findViewById(R.id.cv_comment_avatar)
         val name: TextView = itemView.findViewById(R.id.tv_comment_name)
         val time: TextView = itemView.findViewById(R.id.tv_comment_time)
         val shareImg: ImageView = itemView.findViewById(R.id.iv_comment_share)

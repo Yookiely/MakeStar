@@ -59,13 +59,13 @@ interface AttentionService {
         @Query("from_user_ID") fromUserId: String = CommonPreferences.userid
     ): Deferred<CommonBody<String>>
 
-    @GET("/work/addCollection")
+    @GET("/api/work/addCollection")
     fun addCollection(
         @Query("work_ID") workId: String,
         @Query("user_ID") userId: String = CommonPreferences.userid
     ): Deferred<CommonBody<String?>>
 
-    @GET("/work/deleteCollectionByWork")
+    @GET("/api/work/deleteCollectionByWork")
     fun deleteCollection(
         @Query("work_ID") workId: String,
         @Query("user_ID") userId: String = CommonPreferences.userid
@@ -132,6 +132,14 @@ interface AttentionService {
         @Query("work_ID") workId: String,
         @Query("user_ID") userId: String = CommonPreferences.userid
     ): Deferred<CommonBody<List<WorkById>>>
+
+    @POST("/api/star/loginStar")
+    fun star(
+        @Query("work_ID") workId: String,
+        @Query("user_ID") userId: String = CommonPreferences.userid
+    ): Deferred<CommonBody<NumberOfStar>>
+
+
 
     companion object : AttentionService by ServiceFactory()
 }
@@ -287,4 +295,8 @@ data class ConcernPerson(
     val username: String,
     val week_hot_value: Int,
     val year_hot_value: Int
+)
+
+data class NumberOfStar(
+    val numberOfStar: String
 )

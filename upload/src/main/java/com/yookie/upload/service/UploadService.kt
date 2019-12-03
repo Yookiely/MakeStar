@@ -13,6 +13,9 @@ interface UploadService {
     @POST("aliyun/getCoverUpload")
     fun getCoverUpload(@Query("ext") ext : String) : Deferred<CommonBody<coverUpload>>
 
+    @POST("action/sendNewAction")
+    fun sendAction(@Query("user_ID") userId : String , @Query("content") content : String,@Query("img_IDs") imgIDs : String,@Query("tbe_at_user_ID") atuser : String) : Deferred<actionResponse>
+
     companion object  : UploadService by ServiceFactory()
 }
 
@@ -30,4 +33,9 @@ data class coverUpload(
     val RequestId: String,
     val UploadAddress: String,
     val UploadAuth: String
+)
+
+data class actionResponse(
+    val error_code: Int,
+    val message: String
 )

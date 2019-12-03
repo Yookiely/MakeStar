@@ -8,7 +8,7 @@
             android:centerColor="#70a450"
             android:centerX="0.5"
             android:centerY="0.5"
-            android:endColor="	#5f9142"
+            android:endColor="#5f9142"
             android:startColor="#8ec86b"
             android:type="linear"/>
     <!-- android:radius 弧形的半径 -->

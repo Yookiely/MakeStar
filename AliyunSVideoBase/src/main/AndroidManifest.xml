@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.aliyun.svideo.base">
+        xmlns:tools="http://schemas.android.com/tools"
+        package="com.aliyun.svideo.base">
 
     <application
-        android:label="@string/app_name"
         android:supportsRtl="true">
         <activity android:name=".CopyrightWebActivity"></activity>
         <activity

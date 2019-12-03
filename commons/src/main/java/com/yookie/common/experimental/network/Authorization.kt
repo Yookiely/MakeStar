@@ -1,5 +1,6 @@
 package com.yookie.common.experimental.network
 
+import android.util.Log
 import com.orhanobut.logger.Logger
 import com.yookie.common.AuthService
 import com.yookie.common.experimental.CommonContext
@@ -25,7 +26,7 @@ object RealAuthenticator : Authenticator {
     override fun authenticate(route: Route?, response: Response): Request? {
         val responseBodyCopy = response.peekBody(Long.MAX_VALUE) // 避免responseBody被一次性清空
         val request = if (response.request().isTrusted) {
-            val code = JSONObject(responseBodyCopy?.string()).getInt("error_code")
+            val code = JSONObject(responseBodyCopy.string()).getInt("error_code")
             val relogin = fun(): Nothing {
                 launch(UI) {
                     AuthService.getToken(CommonPreferences.userid, CommonPreferences.password)

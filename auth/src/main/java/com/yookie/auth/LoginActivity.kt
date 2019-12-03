@@ -9,10 +9,12 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.tencent.connect.common.Constants
 import com.tencent.mm.opensdk.modelbase.BaseResp
 import com.tencent.mm.opensdk.modelmsg.SendAuth
 import com.tencent.mm.opensdk.openapi.IWXAPI
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
+import com.tencent.tauth.Tencent
 import com.yookie.auth.api.authSelfLiveData
 import com.yookie.auth.api.login
 import com.yookie.common.WeiXin
@@ -38,6 +40,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var username: String
     private lateinit var passwords: String
     private lateinit var wxAPI: IWXAPI
+//    var mlistener =
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +50,6 @@ class LoginActivity : AppCompatActivity() {
         EventBus.getDefault().register(this)//注册
         wxAPI = WXAPIFactory.createWXAPI(this, CommonContext.WECHAT_APPID, true)
         wxAPI.registerApp(CommonContext.WECHAT_APPID)
-
         usernameText = findViewById(R.id.account_input)
         passwordText = findViewById(R.id.password_input)
         loginButton = findViewById<Button>(R.id.login_button).apply {
@@ -151,6 +153,13 @@ class LoginActivity : AppCompatActivity() {
         inputMethodManager?.apply {
             hideSoftInputFromWindow(window.decorView.windowToken, 0)
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if(requestCode == Constants.REQUEST_LOGIN) {
+//            Tencent.onActivityResultData(requestCode,resultCode,data,listener)
+        }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun onDestroy() {

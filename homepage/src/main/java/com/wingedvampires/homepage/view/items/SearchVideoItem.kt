@@ -33,7 +33,7 @@ class SearchVideoItem(val work: DataOfWork, val block: (View) -> Unit) : Item {
                 introduction.text = work.introduction
                 time.text = work.time
                 count.text = "${work.hot_value}次助力"
-                Glide.with(itemView)
+                Glide.with(this.itemView.context)
                     .load(work.cover_url)
                     .error(R.drawable.ms_no_pic)
                     .into(cover)

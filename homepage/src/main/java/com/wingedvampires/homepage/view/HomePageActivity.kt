@@ -47,9 +47,6 @@ class HomePageActivity : AppCompatActivity() {
         val discover = findViewById<TextView>(R.id.tv_bottom_find)
         val userpage = findViewById<TextView>(R.id.tv_bottom_individual)
         val camra = findViewById<ImageView>(R.id.iv_homepage_camera)
-        camra.setOnClickListener {
-            Transfer.startActivity(this, "SnapRecorderSetting", Intent())
-        }
         attention.setOnClickListener { Transfer.startActivity(this, "AttentionActivity", Intent()) }
         discover.setOnClickListener { Transfer.startActivity(this, "DiscoverActivity", Intent()) }
         userpage.setOnClickListener { Transfer.startActivity(this, "MyUserActivity", Intent()) }

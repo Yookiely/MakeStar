@@ -1,4 +1,4 @@
-package com.yookie.yangzihang.makestar.extensions
+package com.example.yangzihang.makestar.extensions
 
 import com.example.yangzihang.makestar.MyUserActivity
 import com.example.yangzihang.makestar.RedPacketActivity
@@ -11,9 +11,7 @@ import com.aliyun.svideo.snap.SnapRecorderSetting
 import com.yookie.auth.LoginActivity
 import com.yookie.common.experimental.extensions.jumpchannel.Injector
 import com.yookie.discover.DiscoverActivity
-import com.wingedvampires.attention.view.AttentionActivity
-import com.wingedvampires.homepage.view.HomePageActivity
-import com.yookie.yangzihang.makestar.MyUserActivity
+import com.yookie.upload.ReleaseActivity
 
 object AppArchmage {
 
@@ -35,5 +33,6 @@ object AppArchmage {
 
         Injector.inject("SnapRecorderSetting",SnapRecorderSetting::class.java)
         Injector.inject("MultiUploadActivity", MultiUploadActivity::class.java)
+        Injector.inject("ReleaseActivity", ReleaseActivity::class.java)
     }
 }

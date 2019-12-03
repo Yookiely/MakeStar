@@ -6,8 +6,6 @@ import android.view.Window
 import com.example.yangzihang.makestar.View.AccumulationFragment
 import com.example.yangzihang.makestar.View.RankHistoryFragment
 import com.yookie.discover.view.DynamicFragmentPagerAdapter
-import com.yookie.yangzihang.makestar.View.AccumulationFragment
-import com.yookie.yangzihang.makestar.View.RankHistoryFragment
 import kotlinx.android.synthetic.main.activity_rankhistory.*
 
 

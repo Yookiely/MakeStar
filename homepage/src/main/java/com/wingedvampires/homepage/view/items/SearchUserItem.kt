@@ -40,7 +40,7 @@ class SearchUserItem(val dataOfUser: DataOfUser, val block: (View) -> Unit) : It
 
             holder.apply {
                 name.text = dataOfUser.username
-                Glide.with(this.itemView).load(dataOfUser.avatar).error(R.drawable.ms_no_pic)
+                Glide.with(this.itemView.context).load(dataOfUser.avatar).error(R.drawable.ms_no_pic)
                     .into(avatar)
             }
 

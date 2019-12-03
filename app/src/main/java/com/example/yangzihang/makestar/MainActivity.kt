@@ -1,20 +1,21 @@
-package com.yookie.yangzihang.makestar
+package com.example.yangzihang.makestar
 
 import android.Manifest
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.Window
-import com.example.yangzihang.makestar.extensions.AppArchmage
+import com.aliyun.svideo.common.utils.PermissionUtils
 import com.aliyun.svideo.snap.SnapCropSetting.PERMISSION_REQUEST_CODE
 import com.wingedvampires.homepage.view.HomePageActivity
 import com.yookie.auth.LoginActivity
 import com.yookie.common.experimental.preference.CommonPreferences
-import com.yookie.yangzihang.makestar.extensions.AppArchmage
-import com.yookie.yangzihang.makestar.utils.PermissionUtils
+import com.example.yangzihang.makestar.extensions.AppArchmage
+import com.tencent.tauth.Tencent
 import org.jetbrains.anko.startActivity
 
 class MainActivity : AppCompatActivity() {
@@ -38,6 +39,10 @@ class MainActivity : AppCompatActivity() {
             startActivity<HomePageActivity>()
             finish()
         } else startActivity<LoginActivity>()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
 

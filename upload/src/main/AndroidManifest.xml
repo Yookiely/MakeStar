@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.yookie.upload">
+        package="com.yookie.upload">
 
     <application>
-        <activity android:name="com.yookie.upload.UploadActivity">
-        </activity>
+        <activity android:name=".ReleaseActivity"></activity>
+        <activity android:name=".UploadActivity"></activity>
     </application>
 
 </manifest>

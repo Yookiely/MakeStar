@@ -54,7 +54,7 @@ class CommentsActivity : AppCompatActivity() {
         loadMainComment()
 
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val totalCount = mLayoutManager.itemCount
                 val lastVisibleItem = mLayoutManager.findLastVisibleItemPosition()

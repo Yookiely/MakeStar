@@ -3,6 +3,7 @@ package com.yookie.common.experimental.extensions.morewindow
 import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.app.Activity
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Paint
@@ -19,6 +20,7 @@ import android.view.animation.AnimationSet
 import android.view.animation.TranslateAnimation
 import android.widget.*
 import com.yookie.common.R
+import com.yookie.common.experimental.extensions.jumpchannel.Transfer
 
 class MoreWindow(internal var mContext: Activity) : PopupWindow(), View.OnClickListener {
 
@@ -136,6 +138,7 @@ class MoreWindow(internal var mContext: Activity) : PopupWindow(), View.OnClickL
         text1.setOnClickListener {
             //TODO Something
             Toast.makeText(this.mContext, "1111", Toast.LENGTH_SHORT).show()
+            Transfer.startActivity(this.mContext, "ReleaseActivity", Intent())
 
             if (isShowing) {
                 closeAnimation(layout)
@@ -144,6 +147,7 @@ class MoreWindow(internal var mContext: Activity) : PopupWindow(), View.OnClickL
         text2.setOnClickListener {
             //TODO Something
             Toast.makeText(this.mContext, "2222", Toast.LENGTH_SHORT).show()
+            Transfer.startActivity(this.mContext, "SnapRecorderSetting", Intent())
 
             if (isShowing) {
                 closeAnimation(layout)

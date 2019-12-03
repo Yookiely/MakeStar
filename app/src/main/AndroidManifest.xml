@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         package="com.example.yangzihang.makestar">
 
     <uses-permission android:name="android.permission.INTERNET" /> <!-- 允许程序设置内置sd卡的写权限 -->
@@ -20,10 +21,8 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 上网功能的权限 -->
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
@@ -33,11 +32,12 @@
             android:name="com.example.yangzihang.makestar.MakeStarApp"
             android:allowBackup="true"
             android:icon="@drawable/ms_icon"
-            android:label="微星秀"
+            android:label="@string/app_name"
             android:largeHeap="true"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
+            tools:replace="android:icon, android:theme"
             android:usesCleartextTraffic="true">
         <activity android:name="com.example.yangzihang.makestar.WithdrawActivity"></activity>
         <activity android:name="com.example.yangzihang.makestar.RedPacketActivity" />
@@ -49,10 +49,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.yangzihang.makestar.MyUserActivity" />
-        <activity android:name="com.example.yangzihang.makestar.RankhistoryActivity" />
-        <activity android:name="com.example.yangzihang.makestar.MessageActivity" />
-        <activity android:name="com.example.yangzihang.makestar.FansActivity" />
+        <activity android:name=".MyUserActivity" />
+        <activity android:name=".RankhistoryActivity" />
+        <activity android:name=".MessageActivity" />
+        <activity android:name=".FansActivity" />
+
 
         <activity
                 android:name=".wxapi.WXEntryActivity"

@@ -1,6 +1,7 @@
 package com.yookie.common.experimental.preference
 
 import com.orhanobut.hawk.Hawk
+import com.tencent.tauth.Tencent
 import com.yookie.common.experimental.CommonContext
 
 object CommonPreferences {

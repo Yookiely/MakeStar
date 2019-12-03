@@ -1,8 +1,8 @@
 package com.yookie.upload.service
 
 import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
-import kotlinx.coroutines.experimental.launch
 import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.launch
 
 object UploadImp {
     fun getVideoUpload(title : String,fileName : String,description : String,coverID : String,tags : String, videoUploadCallback :(videoUpload) -> Unit){
@@ -22,7 +22,13 @@ object UploadImp {
                 coverUploadCallback(callback.data!!)
             }
         }
+    }
 
+    fun sendAction(userId : String,content : String,imgIDs : String,atuser : String,sendCallback : (actionResponse) -> Unit){
+        launch(UI + QuietCoroutineExceptionHandler){
+            val callback = UploadService.sendAction(userId, content, imgIDs, atuser).await()
+            sendCallback(callback)
+        }
 
     }
 }

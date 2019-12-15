@@ -16,6 +16,7 @@ import com.yookie.auth.api.authSelfLiveData
 import com.yookie.common.experimental.cache.CacheIndicator
 import com.yookie.common.experimental.extensions.bindNonNull
 import com.yookie.common.experimental.extensions.jumpchannel.Transfer
+import com.yookie.common.experimental.preference.CommonPreferences
 
 class MyUserActivity : AppCompatActivity() {
     lateinit var recyclerView: RecyclerView
@@ -47,42 +48,6 @@ class MyUserActivity : AppCompatActivity() {
         }
 
         recyclerView = findViewById(R.id.user_rec)
-
-        authSelfLiveData.bindNonNull(this) {
-            Glide.with(this)
-                .load(it.data?.avatar)
-                .into(portrait)
-            it.data?.apply {
-                fansNum.text = this.fans_num.toString()
-                mystyle.text = this.signature
-                nickname.text = this.username
-                userId.text = this.user_ID.toString()
-                popNum.text = this.year_hot_value.toString()
-                focusNum.text = this.follow_num.toString()
-                rank.text = this.month_rank.toString()
-                if (this.sex=="男"){
-                    message.text = "♂" + " | " + this.age + " | " + this.city
-                }else{
-                    message.text = "♀" + " | " + this.age + " | " + this.city
-                }
-            }
-        }
-        authSelfLiveData.refresh(CacheIndicator.REMOTE)
-//        Glide.with(this)
-//            .load(CommonPreferences.avatars)
-//            .into(portrait)
-//        fansNum.text = CommonPreferences.fans_num
-//        mystyle.text = CommonPreferences.signature
-//        nickname.text = CommonPreferences.username
-//        popNum.text = CommonPreferences.year_hot_value
-//        rank.text = CommonPreferences.rank.toString()
-//        focusNum.text = CommonPreferences.focus_num.toString()
-//        if (CommonPreferences.sex=="男"){
-//            message.text = "♂" + " | " + CommonPreferences.age + " | " + CommonPreferences.city
-//        }else{
-//            message.text = "♀" + " | " + CommonPreferences.age + " | " + CommonPreferences.city
-//        }
-
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.withItems {
             setUserText("历史排名",this@MyUserActivity,1)
@@ -93,5 +58,41 @@ class MyUserActivity : AppCompatActivity() {
             setUserText("我的订单",this@MyUserActivity,5)
             setUserText("商务合作",this@MyUserActivity,6)
         }
+//        authSelfLiveData.bindNonNull(this) {
+//            Glide.with(this)
+//                .load(it.data?.avatar)
+//                .into(portrait)
+//            it.data?.apply {
+//                fansNum.text = this.fans_num.toString()
+//                mystyle.text = this.signature
+//                nickname.text = this.username
+//                userId.text = this.user_ID.toString()
+//                popNum.text = this.year_hot_value.toString()
+//                focusNum.text = this.follow_num.toString()
+//                rank.text = this.month_rank.toString()
+//                if (this.sex=="男"){
+//                    message.text = "♂" + " | " + this.age + " | " + this.city
+//                }else{
+//                    message.text = "♀" + " | " + this.age + " | " + this.city
+//                }
+//            }
+//        }
+        Glide.with(this)
+            .load(CommonPreferences.avatars)
+            .into(portrait)
+        fansNum.text = CommonPreferences.fans_num
+        mystyle.text = CommonPreferences.signature
+        nickname.text = CommonPreferences.username
+        userId.text = CommonPreferences.userid
+        popNum.text = CommonPreferences.year_hot_value
+        focusNum.text = CommonPreferences.focus_num
+        rank.text = CommonPreferences.rank
+        if (CommonPreferences.sex=="男"){
+            message.text = "♂" + " | " + CommonPreferences.age + " | " + CommonPreferences.city
+        }else{
+            message.text = "♀" + " | " + CommonPreferences.age + " | " + CommonPreferences.city
+        }
+
+
     }
 }

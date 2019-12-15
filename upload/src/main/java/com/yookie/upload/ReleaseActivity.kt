@@ -34,8 +34,8 @@ class ReleaseActivity : AppCompatActivity() {
     private var imgs = ""
     var VOD_REGION = "cn-shanghai"
     var VOD_RECORD_UPLOAD_PROGRESS_ENABLED = true
-    lateinit var imgAuth: ArrayList<String>
-    lateinit var imgloadAddress: ArrayList<String>
+    var imgAuth: ArrayList<String> = ArrayList()
+    var imgloadAddress: ArrayList<String> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,9 +62,9 @@ class ReleaseActivity : AppCompatActivity() {
 
             override fun onUploadSucceed(info: UploadFileInfo) {
                 OSSLog.logDebug("onsucceed ------------------" + info.filePath)
-                if (x== (selectPicList.size - 2) || x == 8){
+                if (x== (selectPicList.size - 1)){
                     UploadImp.sendAction(CommonPreferences.userid,release_des.text.toString(),imgs,""){
-
+                        Log.d("擦擦擦","得好好庆祝一番")
                     }
                 }
 
@@ -177,14 +177,15 @@ class ReleaseActivity : AppCompatActivity() {
         }
 
         upload_button_up.setOnClickListener {
+            selectPicList.remove(noSelectPic)
             for ((index, value) in selectPicList.withIndex()) {
-                if (value != noSelectPic) {
                     UploadImp.getCoverUpload("jpg") {
                         imgAuth.add(it.UploadAuth)
                         imgloadAddress.add(it.UploadAddress)
                         imgIdList.add(it.ImageId)
-                        if (index == (selectPicList.size - 2) || index == 8) {
+                        if (index == (selectPicList.size - 1)) {
                             for ((indexs, values) in selectPicList.withIndex()) {
+                                Log.d("indexindexindex",indexs.toString())
                                 imgcallback.setIndex(indexs)
                                 imguploader.addFile(
                                     values.toString(),
@@ -195,8 +196,9 @@ class ReleaseActivity : AppCompatActivity() {
                             }
                         }
                     }
-                }
+
             }
+
             for (x in imgIdList) {
                 imgs = "$imgs$x;"
             }

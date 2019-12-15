@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".LogonActivity">
+
+    <EditText
+            android:layout_width="240dp"
+            android:layout_height="40dp"
+            android:background="@drawable/circle_input"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/logon_input"
+            android:layout_marginTop="10dp"
+            />
+    <EditText
+            android:layout_width="240dp"
+            android:layout_height="40dp"
+            android:background="@drawable/circle_input"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/logon_input"
+            android:id="@+id/password_input"
+            android:layout_marginTop="10dp"
+            />
+    <EditText
+            android:layout_width="240dp"
+            android:layout_height="40dp"
+            android:background="@drawable/circle_input"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/password_input"
+            android:id="@+id/re_password_input"
+            android:layout_marginTop="10dp"
+            />
+
+    <Button
+            android:layout_width="240dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/re_password_input"
+            android:layout_marginTop="20dp"
+            android:id="@+id/start_logon"
+            />
+
+</android.support.constraint.ConstraintLayout>

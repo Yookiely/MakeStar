@@ -79,7 +79,7 @@ object WeiXinServiceFactory {
 }
 
 data class AuthData(
-    val age: Int,
+    val age: Float,
     val avatar: String,
     val city: String,
     val fans_num: Int,
@@ -133,4 +133,21 @@ data class NewUser(
 
 data class ShareContent(
     val url: String
+)
+data class test(
+    val age: Int,
+    val avatar: String,
+    val city: String,
+    val fans_num: Int,
+    val follow_num: Int,
+    val month_hot_value: Int,
+    val month_rank: Int,
+    val sex: String,
+    val signature: String,
+    val tags: String,
+    val token: String,
+    val user_ID: Int,
+    val username: String,
+    val week_hot_value: Int,
+    val year_hot_value: Int
 )

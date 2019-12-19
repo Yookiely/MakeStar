@@ -35,12 +35,13 @@ class CommentItem(
     val showMore: Boolean,
     val block: (CommentItem) -> Unit
 ) : Item {
+    var isSecond = false
 
     override val controller: ItemController
         get() = Controller
 
     companion object Controller : ItemController {
-        var isSecond = false
+
 
         override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
             val view =
@@ -54,16 +55,16 @@ class CommentItem(
             holder as ViewHolder
             val comment = item.comment
             val secondComment = item.secondComment
-            isSecond = (comment == null)
+            item.isSecond = (comment == null)
 
-            val avatarUrl = if (isSecond) secondComment?.avatar else comment?.avatar
-            val contentText = if (isSecond) secondComment?.content else comment?.content
-            val nameText = if (isSecond) secondComment?.username else comment?.username
-            val timeText = if (isSecond) secondComment?.time else comment?.time
-            val userId = if (isSecond) secondComment?.user_ID else comment?.user_ID
-            val commentId = if (isSecond) secondComment?.ccID else comment?.comment_ID
+            val avatarUrl = if (item.isSecond) secondComment?.avatar else comment?.avatar
+            val contentText = if (item.isSecond) secondComment?.content else comment?.content
+            val nameText = if (item.isSecond) secondComment?.username else comment?.username
+            val timeText = if (item.isSecond) secondComment?.time else comment?.time
+            val userId = if (item.isSecond) secondComment?.user_ID else comment?.user_ID
+            val commentId = if (item.isSecond) secondComment?.ccID else comment?.comment_ID
             val store = 0
-            val moreNum = if (isSecond) 0 else comment?.comment_comment
+            val moreNum = if (item.isSecond) 0 else comment?.comment_comment
 
 
             holder.apply {
@@ -73,8 +74,8 @@ class CommentItem(
                 name.text = nameText
                 content.text = contentText
                 time.text = timeText
-                commentImg.visibility = if (isSecond) View.GONE else View.VISIBLE
-                shareImg.visibility = if (isSecond) View.GONE else View.VISIBLE
+                commentImg.visibility = if (item.isSecond) View.GONE else View.VISIBLE
+                shareImg.visibility = if (item.isSecond) View.GONE else View.VISIBLE
                 more.apply {
                     text = "共${moreNum}条回复 >>"
                     visibility = if (!item.showMore) View.GONE else View.VISIBLE
@@ -108,7 +109,7 @@ class CommentItem(
                             }
                             else -> {
                                 launch(UI + QuietCoroutineExceptionHandler) {
-                                    val result = if (isSecond) {
+                                    val result = if (item.isSecond) {
                                         AttentionService.deleteSecondComment(commentId!!)
                                     } else {
                                         AttentionService.deleteComment(commentId!!)

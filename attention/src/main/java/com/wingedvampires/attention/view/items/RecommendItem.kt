@@ -21,6 +21,8 @@ import org.jetbrains.anko.collections.forEachWithIndex
 import org.jetbrains.anko.layoutInflater
 
 class RecommendItem(val recommendUser: RecommendUser, val context: Context, val block: (View) -> Unit) : Item {
+    var havaAdd = false
+
     override val controller: ItemController
         get() = Controller
 
@@ -33,7 +35,7 @@ class RecommendItem(val recommendUser: RecommendUser, val context: Context, val 
     }
 
     companion object Controller : ItemController {
-        var havaAdd = false
+
         override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
             val view = parent.context.layoutInflater.inflate(R.layout.item_attention_recommend, parent, false)
 
@@ -55,7 +57,7 @@ class RecommendItem(val recommendUser: RecommendUser, val context: Context, val 
                 rank.text = "No.${recommendUser.month_rank}"
 
                 add.setOnClickListener {
-                    if (havaAdd) {
+                    if (item.havaAdd) {
                         launch(UI + QuietCoroutineExceptionHandler) {
                             val addCommonBody = AttentionService.deleteFollow(recommendUser.user_ID).awaitAndHandle {
                                 it.printStackTrace()
@@ -66,7 +68,7 @@ class RecommendItem(val recommendUser: RecommendUser, val context: Context, val 
 
                             if (addCommonBody.error_code == -1) {
                                 add.text = "+关注"
-                                havaAdd = false
+                                item.havaAdd = false
                             }
                         }
                     } else {
@@ -80,7 +82,7 @@ class RecommendItem(val recommendUser: RecommendUser, val context: Context, val 
 
                             if (addCommonBody.error_code == -1) {
                                 add.text = "取消关注"
-                                havaAdd = true
+                                item.havaAdd = true
                             }
                         }
                     }

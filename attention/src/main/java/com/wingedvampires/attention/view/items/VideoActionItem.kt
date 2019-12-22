@@ -30,6 +30,7 @@ class VideoActionItem(
     val context: Context,
     val block: (View) -> Unit
 ) : Item {
+    var isCollected = false
     override val controller: ItemController
         get() = Controller
 
@@ -42,7 +43,6 @@ class VideoActionItem(
     }
 
     companion object Controller : ItemController {
-        var isCollected = false
 
         override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
             val view = parent.context.layoutInflater.inflate(
@@ -63,7 +63,7 @@ class VideoActionItem(
             videoAction.tags.split(",").forEach {
                 labelText += "#$it      "
             }
-            isCollected = videoAction.is_collected
+            item.isCollected = videoAction.is_collected
 
             holder.apply {
                 Glide.with(this.itemView).load(videoAction.avatar).error(R.drawable.ms_no_pic)
@@ -82,7 +82,7 @@ class VideoActionItem(
 
                 label.text = labelText
                 storeImg.apply {
-                    if (isCollected)
+                    if (item.isCollected)
                         setImageResource(R.drawable.ms_red_star)
                     else
                         setImageResource(R.drawable.ms_star)
@@ -90,7 +90,7 @@ class VideoActionItem(
 
                 storeImg.setOnClickListener {
                     launch(UI + QuietCoroutineExceptionHandler) {
-                        if (!isCollected) {
+                        if (!item.isCollected) {
                             val resultCommonBody =
                                 AttentionService.addCollection(videoAction.work_ID).awaitAndHandle {
                                     it.printStackTrace()
@@ -109,7 +109,7 @@ class VideoActionItem(
 
                             if (resultCommonBody.error_code == -1) {
                                 storeImg.setImageResource(R.drawable.ms_red_star)
-                                isCollected = true
+                                item.isCollected = true
                             }
                         } else {
                             val resultCommonBody =
@@ -130,7 +130,7 @@ class VideoActionItem(
 
                             if (resultCommonBody.error_code == -1) {
                                 storeImg.setImageResource(R.drawable.ms_star)
-                                isCollected = false
+                                item.isCollected = false
                             }
                         }
                     }

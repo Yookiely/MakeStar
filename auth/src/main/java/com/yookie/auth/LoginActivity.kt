@@ -7,9 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import com.tencent.connect.common.Constants
 import com.tencent.mm.opensdk.modelbase.BaseResp
 import com.tencent.mm.opensdk.modelmsg.SendAuth
@@ -36,8 +34,8 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var usernameText: EditText
     private lateinit var passwordText: EditText
-    private lateinit var loginButton: Button
-    private lateinit var weiXinButton: Button
+    private lateinit var loginButton: TextView
+    private lateinit var weiXinButton: ImageView
     private lateinit var username: String
     private lateinit var passwords: String
     private lateinit var wxAPI: IWXAPI
@@ -53,7 +51,7 @@ class LoginActivity : AppCompatActivity() {
         wxAPI.registerApp(CommonContext.WECHAT_APPID)
         usernameText = findViewById(R.id.account_input)
         passwordText = findViewById(R.id.password_input)
-        loginButton = findViewById<Button>(R.id.login_button).apply {
+        loginButton = findViewById<TextView>(R.id.login_button).apply {
             setOnClickListener {
                 hideSoftInputMethod()
                 val activity = this@LoginActivity.asReference()
@@ -103,7 +101,7 @@ class LoginActivity : AppCompatActivity() {
             }
 
         }
-        weiXinButton = findViewById<Button>(R.id.weixin_button).apply {
+        weiXinButton = findViewById<ImageView>(R.id.weixin_button).apply {
             setOnClickListener { login() }
 
         }

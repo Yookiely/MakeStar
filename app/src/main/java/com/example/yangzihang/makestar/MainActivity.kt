@@ -34,11 +34,12 @@ class MainActivity : AppCompatActivity() {
         val checkResult = PermissionUtils.checkPermissionsGroup(this, permission)
         if (!checkResult) {
             PermissionUtils.requestPermissions(this, permission, PERMISSION_REQUEST_CODE)
+        }else{
+            if (CommonPreferences.isLogin) {
+                startActivity<HomePageActivity>()
+                finish()
+            } else startActivity<LoginActivity>()
         }
-        if (CommonPreferences.isLogin) {
-            startActivity<HomePageActivity>()
-            finish()
-        } else startActivity<LoginActivity>()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -64,7 +65,10 @@ class MainActivity : AppCompatActivity() {
 
             if (isAllGranted) {
                 // 如果所有的权限都授予了
-                //Toast.makeText(this, "get All Permisison", Toast.LENGTH_SHORT).show();
+                if (CommonPreferences.isLogin) {
+                    startActivity<HomePageActivity>()
+                    finish()
+                } else startActivity<LoginActivity>()
             } else {
                 // 弹出对话框告诉用户需要权限的原因, 并引导用户去应用权限管理中手动打开权限按钮
                 showPermissionDialog()

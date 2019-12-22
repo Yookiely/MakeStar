@@ -6,13 +6,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".LoginActivity"
+        android:background="@drawable/background"
 
 >
     <TextView
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="center"
-            android:text="V-STAR"
+            android:text="微星秀"
             android:textSize="30sp"
             android:textColor="#ffffff"
             app:layout_constraintTop_toTopOf="parent"
@@ -105,20 +106,26 @@
 
     />
 
-    <Button
+    <TextView
             android:layout_width="80dp"
             android:layout_height="40dp"
             app:layout_constraintLeft_toLeftOf="@id/logup"
             app:layout_constraintTop_toBottomOf="@+id/logup"
             app:layout_constraintRight_toRightOf="@+id/logup"
             android:id="@+id/login_button"
+            android:text="登录"
+            android:textColor="#eeeeee"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/circle_button"
     />
 
-    <Button
+    <ImageView
             android:id="@+id/weixin_button"
-            android:layout_width="80dp"
+            android:layout_width="50dp"
             android:layout_height="40dp"
             android:text="weixin"
+            android:background="@drawable/wechat"
             app:layout_constraintLeft_toLeftOf="@id/logup"
             app:layout_constraintRight_toRightOf="@+id/logup"
             app:layout_constraintTop_toBottomOf="@+id/login_button" />

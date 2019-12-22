@@ -59,6 +59,7 @@ dependencies {
     api 'com.annimon:stream:1.1.4'
     api 'com.tapadoo.android:alerter:2.0.2'
     api 'pub.devrel:easypermissions:0.1.9'
+    api 'com.github.HanHuoBin:BaseDialog:1.2.0'
     //    api 'com.github.GrenderG:Toasty:1.4.2'
     api files('libs/open_sdk_r53890096d0e731f134f448c1286e48c2043b484b_lite.jar')
 }

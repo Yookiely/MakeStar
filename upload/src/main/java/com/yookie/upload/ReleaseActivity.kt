@@ -17,6 +17,7 @@ import com.alibaba.sdk.android.vod.upload.VODUploadCallback
 import com.alibaba.sdk.android.vod.upload.VODUploadClientImpl
 import com.alibaba.sdk.android.vod.upload.model.UploadFileInfo
 import com.alibaba.sdk.android.vod.upload.model.VodInfo
+import com.hb.dialog.dialog.LoadingDialog
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
@@ -63,8 +64,10 @@ class ReleaseActivity : AppCompatActivity() {
             override fun onUploadSucceed(info: UploadFileInfo) {
                 OSSLog.logDebug("onsucceed ------------------" + info.filePath)
                 if (x== (selectPicList.size - 1)){
-                    UploadImp.sendAction(CommonPreferences.userid,release_des.text.toString(),imgs,""){
+                    Log.d("怎么还没成功",x.toString())
+                    UploadImp.sendAction(CommonPreferences.userid,release_des.text.toString(),imgs," "){
                         Log.d("擦擦擦","得好好庆祝一番")
+                        startActivity(Intent(this@ReleaseActivity,SuccessActivity::class.java))
                     }
                 }
 
@@ -184,6 +187,9 @@ class ReleaseActivity : AppCompatActivity() {
                         imgloadAddress.add(it.UploadAddress)
                         imgIdList.add(it.ImageId)
                         if (index == (selectPicList.size - 1)) {
+                            for (x in imgIdList) {
+                                imgs = "$imgs$x,"
+                            }
                             for ((indexs, values) in selectPicList.withIndex()) {
                                 Log.d("indexindexindex",indexs.toString())
                                 imgcallback.setIndex(indexs)
@@ -191,6 +197,7 @@ class ReleaseActivity : AppCompatActivity() {
                                     values.toString(),
                                     getImgVodInfo("placeholder", "placeholder")
                                 )
+                                Log.d("开始传输图片","开始传输图片" + index + "    "+indexs)
                                 imguploader.start()
                                 imguploader.deleteFile(0)
                             }
@@ -198,11 +205,9 @@ class ReleaseActivity : AppCompatActivity() {
                     }
 
             }
-
-            for (x in imgIdList) {
-                imgs = "$imgs$x;"
-            }
-
+            var loadingDialog = LoadingDialog(this)
+            loadingDialog.setMessage("正在上传")
+            loadingDialog.show()
 
         }
 

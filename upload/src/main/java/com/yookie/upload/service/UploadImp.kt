@@ -5,9 +5,9 @@ import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 
 object UploadImp {
-    fun getVideoUpload(title : String,fileName : String,description : String,coverID : String,tags : String, videoUploadCallback :(videoUpload) -> Unit){
+    fun getVideoUpload(title : String,fileName : String,description : String,coverID : String,tags : String,workType : Int,userId: String, videoUploadCallback :(videoUpload) -> Unit){
         launch(UI+ QuietCoroutineExceptionHandler){
-            val callback = UploadService.getVideoUpload(title,fileName, description, coverID, tags).await()
+            val callback = UploadService.getVideoUpload(title,fileName, description, coverID, tags,workType,userId).await()
             if (callback.error_code==-1){
                 videoUploadCallback(callback.data!!)
 

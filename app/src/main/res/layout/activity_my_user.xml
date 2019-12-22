@@ -34,7 +34,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="26sp"
+                    android:textSize="18sp"
                     android:text="93"
                     android:textColor="#f7f7f7"
                     app:layout_constraintRight_toRightOf="parent"
@@ -46,7 +46,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:text="本月排名："
                     android:textColor="#f7f7f7"
                     app:layout_constraintRight_toLeftOf="@+id/rank"
@@ -61,7 +61,8 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     android:layout_marginTop="42dp"
                     android:layout_marginLeft="20dp"
-                    android:textSize="18sp"
+                    android:textSize="14sp"
+                    android:text="123"
                     android:id="@+id/nickname"
                     android:textColor="#f7f7f7"
             />
@@ -72,7 +73,7 @@
                     app:layout_constraintTop_toTopOf="@+id/nickname"
                     app:layout_constraintBottom_toBottomOf="@+id/nickname"
                     android:layout_marginLeft="15dp"
-                    android:textSize="16sp"
+                    android:textSize="12sp"
                     android:id="@+id/message"
                     android:textColor="#f7f7f7"
             />
@@ -82,6 +83,7 @@
                     app:layout_constraintLeft_toLeftOf="@+id/nickname"
                     app:layout_constraintTop_toBottomOf="@+id/nickname"
                     android:text="ssssss"
+                    android:textSize="14sp"
                     android:textColor="#f7f7f7"
                     android:id="@+id/user_id"
             />
@@ -123,7 +125,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:textColor="#f7f7f7"
                     android:layout_marginBottom="45dp"
-                    android:textSize="16sp"
+                    android:textSize="13sp"
                     app:layout_constraintLeft_toRightOf="@+id/trend"
                     android:layout_marginLeft="4dp"
                     android:id="@+id/trend_num"
@@ -147,7 +149,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:textColor="#f7f7f7"
                     android:layout_marginBottom="45dp"
-                    android:textSize="16sp"
+                    android:textSize="13sp"
                     app:layout_constraintLeft_toRightOf="@+id/people"
                     android:layout_marginLeft="4dp"
                     android:id="@+id/people_num"
@@ -170,7 +172,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:textColor="#f7f7f7"
                     android:layout_marginBottom="45dp"
-                    android:textSize="16sp"
+                    android:textSize="13sp"
                     android:layout_marginLeft="4dp"
                     app:layout_constraintLeft_toRightOf="@+id/pop"
                     android:id="@+id/pop_num"
@@ -194,7 +196,7 @@
                     android:textColor="#f7f7f7"
                     android:layout_marginBottom="45dp"
                     android:layout_marginLeft="4dp"
-                    android:textSize="16sp"
+                    android:textSize="13sp"
                     app:layout_constraintLeft_toRightOf="@+id/focus"
                     android:id="@+id/focus_num"
             />
@@ -205,7 +207,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    android:textSize="16sp"
+                    android:textSize="13sp"
                     android:textColor="#ffffff"
                     android:text="进入个人主页>>"
                     android:layout_marginBottom="16sp"
@@ -246,7 +248,7 @@
             app:layout_constraintBottom_toBottomOf="parent"/>
 
     <ImageView
-            android:id="@+id/iv_homepage_camera"
+            android:id="@+id/iv_user_camera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxWidth="50dp"

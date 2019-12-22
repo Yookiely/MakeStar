@@ -8,13 +8,13 @@ import retrofit2.http.Query
 
 interface UploadService {
     @POST("aliyun/getVideoUpload")
-    fun getVideoUpload(@Query("title") title:String,@Query("fileName") fileName : String,@Query("description") description: String,@Query("coverID")coverID:String,@Query("tags")tags:String) : Deferred<CommonBody<videoUpload>>
+    fun getVideoUpload(@Query("title") title:String,@Query("fileName") fileName : String,@Query("description") description: String,@Query("coverID")coverID:String,@Query("tags")tags:String,@Query("workType") workType : Int,@Query("userID") userId : String) : Deferred<CommonBody<videoUpload>>
 
     @POST("aliyun/getCoverUpload")
     fun getCoverUpload(@Query("ext") ext : String) : Deferred<CommonBody<coverUpload>>
 
     @POST("action/sendNewAction")
-    fun sendAction(@Query("user_ID") userId : String , @Query("content") content : String,@Query("img_IDs") imgIDs : String,@Query("tbe_at_user_ID") atuser : String) : Deferred<actionResponse>
+    fun sendAction(@Query("user_ID") userId : String , @Query("content") content : String,@Query("img_IDs") imgIDs : String,@Query("be_at_user_ID") atuser : String) : Deferred<actionResponse>
 
     companion object  : UploadService by ServiceFactory()
 }

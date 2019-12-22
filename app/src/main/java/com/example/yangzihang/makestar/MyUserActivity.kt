@@ -6,26 +6,28 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import android.view.Window
 import android.widget.ImageView
 import android.widget.TextView
 import cn.edu.twt.retrox.recyclerviewdsl.withItems
 import com.bumptech.glide.Glide
 import com.example.yangzihang.makestar.View.setUserText
-import com.yookie.auth.api.authSelfLiveData
-import com.yookie.common.experimental.cache.CacheIndicator
-import com.yookie.common.experimental.extensions.bindNonNull
 import com.yookie.common.experimental.extensions.jumpchannel.Transfer
+import com.yookie.common.experimental.extensions.morewindow.MoreWindow
 import com.yookie.common.experimental.preference.CommonPreferences
 
 class MyUserActivity : AppCompatActivity() {
     lateinit var recyclerView: RecyclerView
-
+    lateinit var image : ImageView
+    private var mMoreWindow: MoreWindow? = null
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_my_user)
+        image = findViewById(R.id.iv_user_camera)
+        image.setOnClickListener { v -> showMoreWindow(v) }
         val portrait = findViewById<ImageView>(R.id.portrait)
         var rank = findViewById<TextView>(R.id.rank)
         val nickname = findViewById<TextView>(R.id.nickname)
@@ -55,8 +57,8 @@ class MyUserActivity : AppCompatActivity() {
             setUserText("我的收藏",this@MyUserActivity,3)
             setUserText("我的红包", this@MyUserActivity, 7)
             setUserText("粉丝圈",this@MyUserActivity,4)
-            setUserText("我的订单",this@MyUserActivity,5)
-            setUserText("商务合作",this@MyUserActivity,6)
+//            setUserText("我的订单",this@MyUserActivity,5)
+//            setUserText("商务合作",this@MyUserActivity,6)
         }
 //        authSelfLiveData.bindNonNull(this) {
 //            Glide.with(this)
@@ -94,5 +96,13 @@ class MyUserActivity : AppCompatActivity() {
         }
 
 
+    }
+    private fun showMoreWindow(view: View) {
+        if (mMoreWindow == null) {
+            mMoreWindow = MoreWindow(this)
+            mMoreWindow!!.init()
+        }
+
+        mMoreWindow!!.showMoreWindow(view)
     }
 }

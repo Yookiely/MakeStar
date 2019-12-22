@@ -121,7 +121,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/middle"
                     android:background="#666666"
                     android:layout_marginTop="20dp"
-                    android:id="@+id/bottom"
+                    android:id="@+id/middle_bottom"
             >
                 <TextView
                         android:layout_width="wrap_content"
@@ -143,7 +143,7 @@
                         app:layout_constraintLeft_toLeftOf="@+id/tag"
                         app:layout_constraintTop_toBottomOf="@+id/tag"
                         android:layout_marginTop="20dp"
-                        android:background="@drawable/button_circle_shapes"
+                        android:background="@drawable/tag_circle_gray"
                         android:text="#小剧场"
                         android:textColor="#ffffff"
                         android:id="@+id/upload_tag_theatre"
@@ -155,7 +155,7 @@
                         app:layout_constraintTop_toTopOf="@+id/upload_tag_theatre"
                         app:layout_constraintLeft_toRightOf="@+id/upload_tag_theatre"
                         android:layout_marginLeft="30dp"
-                        android:background="@drawable/button_circle_shapes"
+                        android:background="@drawable/tag_circle_gray"
                         android:text="#搞笑"
                         android:textColor="#ffffff"
                         android:id="@+id/upload_tag_funny"
@@ -167,7 +167,7 @@
                         app:layout_constraintTop_toTopOf="@+id/upload_tag_funny"
                         app:layout_constraintLeft_toRightOf="@+id/upload_tag_funny"
                         android:layout_marginLeft="30dp"
-                        android:background="@drawable/button_circle_shapes"
+                        android:background="@drawable/tag_circle_gray"
                         android:text="#音乐"
                         android:textColor="#ffffff"
                         android:id="@+id/upload_tag_music"
@@ -253,6 +253,106 @@
 <!--                        android:text="仅自己"-->
 
 <!--                />-->
+
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/middle_bottom"
+                    android:background="#666666"
+                    android:layout_marginTop="20dp"
+                    android:id="@+id/bottom"
+                    >
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginLeft="24dp"
+                        android:text="分类"
+                        android:textSize="16sp"
+                        android:textColor="#aaaaaa"
+                        android:id="@+id/id_tag"
+
+                        />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintLeft_toLeftOf="@+id/id_tag"
+                        app:layout_constraintTop_toBottomOf="@+id/id_tag"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/tag_circle_gray"
+                        android:text="#小剧场"
+                        android:textColor="#ffffff"
+                        android:id="@+id/id_upload_tag_theatre"
+                        />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="@+id/id_upload_tag_theatre"
+                        app:layout_constraintLeft_toRightOf="@+id/id_upload_tag_theatre"
+                        android:layout_marginLeft="30dp"
+                        android:background="@drawable/tag_circle_gray"
+                        android:text="#搞笑"
+                        android:textColor="#ffffff"
+                        android:id="@+id/id_upload_tag_funny"
+                        />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="@+id/id_upload_tag_funny"
+                        app:layout_constraintLeft_toRightOf="@+id/id_upload_tag_funny"
+                        android:layout_marginLeft="30dp"
+                        android:background="@drawable/tag_circle_gray"
+                        android:text="#音乐"
+                        android:textColor="#ffffff"
+                        android:id="@+id/id_upload_tag_music"
+                        />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="@+id/id_upload_tag_music"
+                        app:layout_constraintLeft_toRightOf="@+id/id_upload_tag_music"
+                        android:layout_marginLeft="30dp"
+                        android:background="@drawable/tag_circle_gray"
+                        android:text="#舞蹈"
+                        android:textColor="#ffffff"
+                        android:id="@+id/id_upload_tag_dance"
+                        />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@+id/id_upload_tag_theatre"
+                        app:layout_constraintLeft_toLeftOf="@+id/id_upload_tag_theatre"
+                        android:background="@drawable/tag_circle_gray"
+                        android:text="#游戏"
+                        android:textColor="#ffffff"
+                        android:id="@+id/id_upload_tag_appearance"
+                        android:layout_marginTop="12dp"
+                        />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@+id/id_upload_tag_theatre"
+                        app:layout_constraintLeft_toRightOf="@+id/id_upload_tag_appearance"
+                        android:background="@drawable/tag_circle_gray"
+                        android:layout_marginLeft="30dp"
+                        android:text="#其他"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginBottom="20dp"
+                        android:textColor="#ffffff"
+                        android:id="@+id/id_upload_tag_other"
+                        android:layout_marginTop="12dp"
+                        />
 
 
             </android.support.constraint.ConstraintLayout>

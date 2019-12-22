@@ -3,8 +3,9 @@
         package="com.yookie.upload">
 
     <application>
-        <activity android:name=".ReleaseActivity"></activity>
-        <activity android:name=".UploadActivity"></activity>
+        <activity android:name=".SuccessActivity"></activity>
+        <activity android:name=".ReleaseActivity" />
+        <activity android:name=".UploadActivity" />
     </application>
 
 </manifest>

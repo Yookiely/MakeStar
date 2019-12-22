@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import com.yookie.common.AuthService
 import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
@@ -19,7 +20,7 @@ class LogonActivity : AppCompatActivity() {
         var username = findViewById<EditText>(R.id.logon_input)
         var password = findViewById<EditText>(R.id.password_input)
         var rePassword = findViewById<EditText>(R.id.re_password_input)
-        var start = findViewById<Button>(R.id.start_logon)
+        var start = findViewById<TextView>(R.id.start_logon)
         start.setOnClickListener {
             if (username.text!=null&&password.text!=null&&rePassword.text!=null){
                 if (password.text.toString()==rePassword.text.toString()){

@@ -101,6 +101,7 @@ public class SnapRecorderSetting extends Activity implements View.OnClickListene
                                    Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(this, UploadActivity.class);
                     intent.putExtra("filename",data.getStringExtra(AliyunVideoRecorder.OUTPUT_PATH));
+                    Log.d("！！！！！！",data.getStringExtra(AliyunVideoRecorder.OUTPUT_PATH));
                     startActivity(intent);
                 }
             } else if (resultCode == Activity.RESULT_CANCELED) {

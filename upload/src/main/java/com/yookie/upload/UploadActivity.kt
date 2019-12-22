@@ -23,40 +23,116 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.util.Log
+import android.widget.Button
+import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.hb.dialog.dialog.LoadingDialog
+import com.yookie.common.experimental.preference.CommonPreferences
 import pub.devrel.easypermissions.EasyPermissions
 import java.io.File
+import java.util.concurrent.atomic.AtomicIntegerArray
 
 
 class UploadActivity : AppCompatActivity() {
-    lateinit var coverId: String
+    var coverId: String = ""
     lateinit var coverUrl: String
-    lateinit var imgpath : File
+    lateinit var imgpath: File
     var tag: String = ""
     lateinit var uploadAuth: String
     lateinit var uploadAddress: String
-    lateinit var imgAuth : String
-    lateinit var  imgloadAddress : String
+    lateinit var imgAuth: String
+    lateinit var imgloadAddress: String
     var VOD_REGION = "cn-shanghai"
     var VOD_RECORD_UPLOAD_PROGRESS_ENABLED = true
-    lateinit var vodUploadList: List<ItemInfo>
+    var vodUploadList: List<ItemInfo> = ArrayList()
+    var buttonList : ArrayList<TextView> = ArrayList()
+    var x=0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_upload_upload)
-        val fileName = intent.getStringExtra("fileName")
+        val fileName = intent.getStringExtra("filename")
+        Log.d("！！！！！1", fileName)
         val uploader = VODUploadClientImpl(applicationContext)
         val imguploader = VODUploadClientImpl(applicationContext)
         imguploader.setRegion(VOD_REGION)
         imguploader.setRecordUploadProgressEnabled(VOD_RECORD_UPLOAD_PROGRESS_ENABLED)
         uploader.setRegion(VOD_REGION)
         uploader.setRecordUploadProgressEnabled(VOD_RECORD_UPLOAD_PROGRESS_ENABLED)
-        var tags = ArrayList<String>()
+        val tags = ArrayList<String>()
+        val buttonMusic = findViewById<TextView>(R.id.id_upload_tag_music)
+        buttonList.add(buttonMusic)
+        val buttonDance = findViewById<TextView>(R.id.id_upload_tag_dance)
+        buttonList.add(buttonDance)
+        val buttonFunny = findViewById<TextView>(R.id.id_upload_tag_funny)
+        buttonList.add(buttonFunny)
+        val buttonGame = findViewById<TextView>(R.id.id_upload_tag_appearance)
+        buttonList.add(buttonGame)
+        val buttonTheate = findViewById<TextView>(R.id.id_upload_tag_theatre)
+        buttonList.add(buttonTheate)
+        val buttonOther = findViewById<TextView>(R.id.id_upload_tag_other)
+        buttonList.add(buttonOther)
+        buttonMusic.setOnClickListener {
+            if (x!=1){
+                for (index in 0 until buttonList.size){
+                    buttonList[index].setBackgroundResource(R.drawable.tag_circle_gray)
+                }
+                it.setBackgroundResource(R.drawable.button_circle_shape_green)
+                x=1
+            }
+        }
+        buttonDance.setOnClickListener {
+            if (x!=2){
+                for (index in 0 until buttonList.size){
+                    buttonList[index].setBackgroundResource(R.drawable.tag_circle_gray)
+                }
+                it.setBackgroundResource(R.drawable.button_circle_shape_green)
+                x=2
+            }
+        }
+        buttonFunny.setOnClickListener {
+            if (x!=3){
+                for (index in 0 until buttonList.size){
+                    buttonList[index].setBackgroundResource(R.drawable.tag_circle_gray)
+                }
+                it.setBackgroundResource(R.drawable.button_circle_shape_green)
+                x=3
+            }
+        }
+        buttonGame.setOnClickListener {
+            if (x!=4){
+                for (index in 0 until buttonList.size){
+                    buttonList[index].setBackgroundResource(R.drawable.tag_circle_gray)
+                }
+                it.setBackgroundResource(R.drawable.button_circle_shape_green)
+                x=4
+            }
+        }
+        buttonTheate.setOnClickListener {
+            if (x!=5){
+                for (index in 0 until buttonList.size){
+                    buttonList[index].setBackgroundResource(R.drawable.tag_circle_gray)
+                }
+                it.setBackgroundResource(R.drawable.button_circle_shape_green)
+                x=5
+            }
+        }
+        buttonOther.setOnClickListener {
+            if (x!=6){
+                for (index in 0 until buttonList.size){
+                    buttonList[index].setBackgroundResource(R.drawable.tag_circle_gray)
+                }
+                it.setBackgroundResource(R.drawable.button_circle_shape_green)
+                x=6
+            }
+        }
         val callback = object : VODUploadCallback() {
 
             override fun onUploadSucceed(info: UploadFileInfo) {
                 OSSLog.logDebug("onsucceed ------------------" + info.filePath)
+                Log.d("视频发送成功", "视频发送成功")
+                startActivity(Intent(this@UploadActivity,SuccessActivity::class.java))
                 for (i in 0 until vodUploadList.size) {
                     if (vodUploadList[i].file == info.filePath) {
                         if (vodUploadList[i].status === UploadStateType.SUCCESS.toString()) {
@@ -68,10 +144,12 @@ class UploadActivity : AppCompatActivity() {
                         break
                     }
                 }
+
             }
 
             override fun onUploadFailed(info: UploadFileInfo, code: String?, message: String?) {
                 OSSLog.logError("onfailed ------------------ " + info.filePath + " " + code + " " + message)
+                Log.d("视频发送失败", "视频发送成功"+ message)
                 for (i in 0 until vodUploadList.size) {
                     if (vodUploadList[i].file == info.filePath) {
                         vodUploadList[i].status = info.status.toString()
@@ -86,6 +164,7 @@ class UploadActivity : AppCompatActivity() {
                 totalSize: Long
             ) {
                 OSSLog.logDebug("onProgress ------------------ " + info.filePath + " " + uploadedSize + " " + totalSize)
+                Log.d("视频发送过程中", "视频发送成功")
                 for (i in 0 until vodUploadList.size) {
                     if (vodUploadList[i].file == info.filePath) {
                         if (vodUploadList[i].status === UploadStateType.SUCCESS.toString()) {
@@ -101,12 +180,8 @@ class UploadActivity : AppCompatActivity() {
 
             override fun onUploadTokenExpired() {
                 OSSLog.logError("onExpired ------------- ")
-                    // 实现时，重新获取上传凭证:UploadAuth
-                UploadImp.getVideoUpload(upload_title.text.toString(), fileName,upload_describe.text.toString(), coverId, tag) {
-                    uploadAuth = it.UploadAuth
-                    uploadAddress = it.UploadAddress
-                }
-                    uploader.resumeWithAuth(uploadAuth)
+                // 实现时，重新获取上传凭证:UploadAuth
+                uploader.resumeWithAuth(uploadAuth)
 
             }
 
@@ -120,7 +195,8 @@ class UploadActivity : AppCompatActivity() {
 
             override fun onUploadStarted(uploadFileInfo: UploadFileInfo?) {
                 OSSLog.logError("onUploadStarted ------------- ")
-                    uploader.setUploadAuthAndAddress(uploadFileInfo, uploadAuth, uploadAddress)
+                Log.d("视频发送开始初始化", "视频发送成功")
+                uploader.setUploadAuthAndAddress(uploadFileInfo, uploadAuth, uploadAddress)
                 OSSLog.logError(
                     "file path:" + uploadFileInfo!!.filePath +
                             ", endpoint: " + uploadFileInfo.endpoint +
@@ -134,6 +210,7 @@ class UploadActivity : AppCompatActivity() {
 
             override fun onUploadSucceed(info: UploadFileInfo) {
                 OSSLog.logDebug("onsucceed ------------------" + info.filePath)
+                Log.d("图片发送成功", "视频发送成功")
 
             }
 
@@ -250,31 +327,40 @@ class UploadActivity : AppCompatActivity() {
             }
         }
 
+
+
         upload_button_up.setOnClickListener {
-            if ( upload_title.text.isNotEmpty() && upload_describe.text.isNotEmpty() && imgpath.exists()){
+            if (upload_title.text.isNotEmpty() && upload_describe.text.isNotEmpty() && imgpath.exists()&&x!=0) {
                 val title = upload_title.text.toString()
                 val description = upload_describe.text.toString()
                 for (x in tags) {
                     tag += x
                 }
-                UploadImp.getVideoUpload(title, fileName, description, coverId, tag) {
-                    uploadAuth = it.UploadAuth
-                    uploadAddress = it.UploadAddress//获取视频上传证书
-                    UploadImp.getCoverUpload("jpg") {
-                        coverId = it.ImageId
-                        coverUrl = it.ImageURL
-                        imgAuth = it.UploadAuth
-                        imgloadAddress = it.UploadAddress//获取图片上传证书
-                        imguploader.addFile(imgpath.absolutePath,getImgVodInfo(title,description))
+                UploadImp.getCoverUpload("jpg") {
+                    coverId = it.ImageId
+                    coverUrl = it.ImageURL
+                    imgAuth = it.UploadAuth
+                    imgloadAddress = it.UploadAddress//获取图片上传证书
+                    UploadImp.getVideoUpload(title, fileName, description, coverId, tag,1,CommonPreferences.userid) {
+                        uploadAuth = it.UploadAuth
+                        uploadAddress = it.UploadAddress//获取视频上传证书
+                        imguploader.addFile(imgpath.absolutePath, getImgVodInfo(title, description))
+                        Log.d("图片发送开始", "视频发送成功")
                         imguploader.start()
-                        uploader.addFile(fileName,getVodInfo(title,description,coverUrl,tags))
+                        uploader.addFile(fileName, getVodInfo(title, description, coverUrl, tags))
+                        Log.d("视频发送开始", "视频发送成功")
                         uploader.start()//可以同时传输吧？？盲猜可以
+                        var loadingDialog = LoadingDialog(this)
+                        loadingDialog.setMessage("正在上传")
+                        loadingDialog.show()
                     }
                 }
-            }else if (upload_title.text.isEmpty()){
+            } else if (upload_title.text.isEmpty()) {
                 Toast.makeText(this, "请填写标题", Toast.LENGTH_SHORT).show()
-            }else if (upload_describe.text.isEmpty()){
+            } else if (upload_describe.text.isEmpty()) {
                 Toast.makeText(this, "请填写描述", Toast.LENGTH_SHORT).show()
+            }else if (x == 0){
+                Toast.makeText(this, "请选择分类", Toast.LENGTH_SHORT).show()
             }
 
         }
@@ -283,30 +369,38 @@ class UploadActivity : AppCompatActivity() {
     }
 
     // request = 2 代表来自于系统相册，requestCode ！= 0 代表选择图片成功
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?){
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode === Activity.RESULT_OK) {
             when (requestCode) {
                 PictureConfig.CHOOSE_REQUEST -> {
                     // 图片、视频、音频选择结果回调
                     val selectList = PictureSelector.obtainMultipleResult(data)
-                    Log.d("whatthefuck",selectList[0].path)
+                    Log.d("whatthefuck", selectList[0].path)
                     Glide.with(this)
+                        .asBitmap()
                         .load(selectList[0].path)
                         .into(upload_video)
+
                     // 例如 LocalMedia 里面返回三种path
                     // 1.media.getPath(); 为原图path
                     // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true  注意：音视频除外
                     // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
                     // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
-                    imgpath=File(selectList[0].path)
+                    imgpath = File(selectList[0].path)
 
-
-                    }
 
                 }
+
             }
         }
-    private fun getVodInfo(title : String,desc : String,coverUrl : String, tags : ArrayList<String>): VodInfo {
+    }
+
+    private fun getVodInfo(
+        title: String,
+        desc: String,
+        coverUrl: String,
+        tags: ArrayList<String>
+    ): VodInfo {
         val vodInfo = VodInfo()
         vodInfo.title = title
         vodInfo.desc = desc
@@ -314,12 +408,12 @@ class UploadActivity : AppCompatActivity() {
         vodInfo.isProcess = true
         vodInfo.coverUrl = coverUrl
         vodInfo.tags = tags
-            vodInfo.isShowWaterMark = false
-            vodInfo.priority = 7
+        vodInfo.isShowWaterMark = false
+        vodInfo.priority = 7
         return vodInfo
     }
 
-    private fun getImgVodInfo(title : String,desc : String): VodInfo {
+    private fun getImgVodInfo(title: String, desc: String): VodInfo {
         val vodInfo = VodInfo()
         vodInfo.title = title
         vodInfo.desc = desc
@@ -344,11 +438,22 @@ class UploadActivity : AppCompatActivity() {
         .sizeMultiplier(0.5f)// glide 加载图片大小 0~1之间 如设置 .glideOverride()无效
         .setOutputCameraPath("/CustomPath")// 自定义拍照保存路径,可不填
         .forResult(PictureConfig.CHOOSE_REQUEST)
-//
+
+    //
     fun checkPermAndOpenPic() {
         // 检查存储权限
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            EasyPermissions.requestPermissions(this, "需要外部存储来提供必要的缓存", 0, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+        if (ContextCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.READ_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            EasyPermissions.requestPermissions(
+                this,
+                "需要外部存储来提供必要的缓存",
+                0,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            )
         } else {
             openSelectPic()
         }

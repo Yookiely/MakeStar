@@ -9,7 +9,7 @@ android {
         config {
             keyAlias 'key'
             keyPassword '123456a?'
-            storeFile file('/Users/yangzihang/keystore')
+            storeFile file('app/debug.keystore')
             storePassword '123456a?'
         }
 

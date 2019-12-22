@@ -27,13 +27,13 @@ interface VideoPlayService {
         @Query("user_ID") userId: String = CommonPreferences.userid
     ): Deferred<CommonBody<VideoInfo>>
 
-    @GET("/work/addCollection")
+    @GET("/api/work/addCollection")
     fun addCollection(
         @Query("work_ID") workId: String,
         @Query("user_ID") userId: String = CommonPreferences.userid
     ): Deferred<CommonBody<String?>>
 
-    @GET("/work/deleteCollectionByWork")
+    @GET("/api/work/deleteCollectionByWork")
     fun deleteCollection(
         @Query("work_ID") workId: String,
         @Query("user_ID") userId: String = CommonPreferences.userid

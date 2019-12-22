@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
@@ -15,7 +14,9 @@ import com.tencent.mm.opensdk.modelbase.BaseResp
 import com.tencent.mm.opensdk.modelmsg.SendAuth
 import com.tencent.mm.opensdk.openapi.IWXAPI
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
+import com.tencent.tauth.IUiListener
 import com.tencent.tauth.Tencent
+import com.tencent.tauth.UiError
 import com.yookie.auth.api.authSelfLiveData
 import com.yookie.auth.api.login
 import com.yookie.common.WeiXin
@@ -38,9 +39,12 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var passwordText: EditText
     private lateinit var loginButton: Button
     private lateinit var weiXinButton: Button
+    private lateinit var qqButton: Button
     private lateinit var username: String
     private lateinit var passwords: String
     private lateinit var wxAPI: IWXAPI
+    private lateinit var context: Context
+    val QQAPPID  = "101831652"
 //    var mlistener =
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,6 +57,8 @@ class LoginActivity : AppCompatActivity() {
         wxAPI.registerApp(CommonContext.WECHAT_APPID)
         usernameText = findViewById(R.id.account_input)
         passwordText = findViewById(R.id.password_input)
+        qqButton =findViewById(R.id.qq_button)
+        context =this.context
         loginButton = findViewById<Button>(R.id.login_button).apply {
             setOnClickListener {
                 hideSoftInputMethod()
@@ -105,11 +111,30 @@ class LoginActivity : AppCompatActivity() {
         }
         weiXinButton = findViewById<Button>(R.id.weixin_button).apply {
             setOnClickListener { login() }
-
+        qqButton.setOnClickListener {
+            qqLogin()
+        }
         }
 
     }
+    private fun qqLogin(){
+        val mTencent =Tencent.createInstance(QQAPPID,this.applicationContext)
+        if (!mTencent.isSessionValid){
+            mTencent.login(this, "all", object :IUiListener {
+                override fun onComplete(p0: Any?) {
+                    Toast.makeText(context,"授权成功",Toast.LENGTH_SHORT).show()
+                }
 
+                override fun onCancel() {
+                }
+
+                override fun onError(p0: UiError?) {
+                }
+
+            } )
+        }
+
+    }
     private fun login() {
         val req = SendAuth.Req()
         req.scope = "snsapi_userinfo"

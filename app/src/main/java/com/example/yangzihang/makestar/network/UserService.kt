@@ -4,12 +4,9 @@ import com.yookie.common.experimental.network.CommonBody
 import com.yookie.common.experimental.network.ServiceFactory
 import com.yookie.common.experimental.preference.CommonPreferences
 import kotlinx.coroutines.experimental.Deferred
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface UserService {
-
     @GET("user/getHistoryRank")
     fun getHistoryRank(@Query("user_ID") userid: String): Deferred<CommonBody<List<rank>>>
 
@@ -47,8 +44,19 @@ interface UserService {
         @Query("code") code: String,
         @Query("user_ID") userid: String = CommonPreferences.userid
     ): Deferred<CommonBody<List<Any>>>
-
-
+    @GET("fandomAction/getFandomInfo")
+    fun getFandomInfo(@Query("host_user_ID") hostUserID :Int  ,@Query("user_ID") userid: String = CommonPreferences.userid ):Deferred<CommonBody<FandomInfo>>
+    @FormUrlEncoded
+    @POST("fandomAction/changeStatusOfFandom")
+    fun changeStatusOfFandom(@FieldMap params : Map<String,String>): Deferred<CommonBody<StatusOfFandom>>
+    @GET("fandomAction/getUserFandomList")
+    fun getUserFandomList(@Query("user_ID") userid: String = CommonPreferences.userid) :Deferred<CommonBody<FandomListData>>
+    @GET("fandomAction/getRecentActions")
+    fun getRecentActions(@Query("limit") limit: Int, @Query("page") page: Int, @Query("host_user_ID") hostUserId: Int ):Deferred<CommonBody<FansCircleInfo>>
+    @GET("fandomAction/getCommentByActionID")
+    fun getCommemtByActionID(@Query("fandom_action_ID") fandom_action_ID: Int,@Query("limit") limit: Int,@Query("page")page: Int):Deferred<CommonBody<FansComment>>
+    @GET("fandomAction/getCommentCommentByAcID")
+    fun getCommentCommentByAcID(@Query("facID") facID: Int,@Query("limit") limit: Int ,@Query("page")page: Int) : Deferred<CommonBody<FansSeComment>>
     companion object : UserService by ServiceFactory()
 
 }
@@ -152,4 +160,117 @@ data class UploadMoney(
     val this_time_get_money: String,
     val user_ID: String,
     val y_m_d: String
+)
+//data class FandomInfo(
+//    val `data`: Data,
+//    val error_code: Int,
+//    val message: String
+//)
+
+data class FandomInfo(
+    val fandom_user_num: Int,
+    val fans_num: Int,
+    val host_username: String,
+    val is_into: Boolean,
+    val month_rank: Int,
+    val total_fandom_action_num: Int,
+    val total_hot: String,
+    val total_work_num: Int
+)
+data class FandomListData(
+    val my: List<MyCircle>,
+    val others: List<OtherCircle>
+)
+
+data class OtherCircle(
+    val host_avatar: String,
+    val host_user_ID: Int,
+    val host_username: String
+)
+
+data class MyCircle(
+    val fans_num: Int,
+    val host_avatar: String,
+    val host_user_ID: Int,
+    val host_username: String
+)
+data class StatusOfFandom(
+    val error_code: Int,
+    val message: String
+)
+data class FansCircleInfo(
+    val `data`: List<FansCircleData>,
+    val current_page: Int,
+    val first_page_url: String,
+    val from: Int,
+    val last_page: Int,
+    val last_page_url: String,
+    val next_page_url: String,
+    val path: String,
+    val per_page: String,
+    val prev_page_url: Any,
+    val to: Int,
+    val total: Int
+)
+
+data class FansCircleData(
+    val avatar: String,
+    val content: String,
+    val fandom_action_ID: Int,
+    val img_IDs: String,
+    val img_urls: List<String>,
+    val time: String,
+    val user_ID: Int,
+    val username: String
+)
+
+data class FansComment(
+    val `data`: List<FansCommentText>,
+    val current_page: Int,
+    val first_page_url: String,
+    val from: Int,
+    val last_page: Int,
+    val last_page_url: String,
+    val next_page_url: Any,
+    val path: String,
+    val per_page: String,
+    val prev_page_url: Any,
+    val to: Int,
+    val total: Int
+)
+
+data class FansCommentText(
+    val avatar: String,
+    val be_at_user_ID: String,
+    val facID: Int,
+    val fac_content: String,
+    val second_level_comment_num: Int,
+    val time: String,
+    val user_ID: Int,
+    val username: String
+)
+
+data class FansSeComment(
+    val `data`: List<FansSeCommentText>,
+    val current_page: Int,
+    val first_page_url: String,
+    val from: Int,
+    val last_page: Int,
+    val last_page_url: String,
+    val next_page_url: String,
+    val path: String,
+    val per_page: String,
+    val prev_page_url: Any,
+    val to: Int,
+    val total: Int
+)
+
+data class FansSeCommentText(
+    val avatar: String,
+    val be_at_user_ID: String,
+    val faccID: Int,
+    val facc_content: String,
+    val time: String,
+    val user_ID: Int,
+    val username: String
 )

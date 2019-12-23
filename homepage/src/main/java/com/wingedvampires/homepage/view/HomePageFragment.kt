@@ -182,6 +182,7 @@ class HomePageFragment : Fragment() {
             }
             isLoading = false
             mSwipeRefreshLayout.isRefreshing = false
+            Toast.makeText(this@HomePageFragment.context, "加载成功", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -210,6 +211,7 @@ class HomePageFragment : Fragment() {
             }
             isLoading = false
             mSwipeRefreshLayout.isRefreshing = false
+            Toast.makeText(this@HomePageFragment.context, "加载成功", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -245,6 +247,7 @@ class HomePageFragment : Fragment() {
             lastPage = worksWithType.last_page
             isLoading = false
             mSwipeRefreshLayout.isRefreshing = false
+            Toast.makeText(this@HomePageFragment.context, "加载成功", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -281,6 +284,7 @@ class HomePageFragment : Fragment() {
             lastPage = worksWithType.last_page
             isLoading = false
             mSwipeRefreshLayout.isRefreshing = false
+            Toast.makeText(this@HomePageFragment.context, "加载成功", Toast.LENGTH_SHORT).show()
         }
     }
 }

@@ -169,9 +169,6 @@ class LoginActivity : AppCompatActivity() {
                                 Toast.makeText(this@LoginActivity, "登录失败", Toast.LENGTH_SHORT)
                                     .show()
                             }
-                    usernameText.setText(weiXinInfo?.nickname)
-                    Toast.makeText(this@LoginActivity, weiXinInfo?.nickname, Toast.LENGTH_SHORT)
-                        .show()
                 }
 
             }

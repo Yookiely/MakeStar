@@ -23,11 +23,13 @@ import kotlinx.coroutines.experimental.launch
 import org.jetbrains.anko.layoutInflater
 
 class VideoActionCommentItem(val workById: WorkById, val context: Context) : Item {
+    var isCollected = false
+
     override val controller: ItemController
         get() = Controller
 
     companion object Controller : ItemController {
-        var isCollected = false
+
 
         override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
             val view =
@@ -41,7 +43,7 @@ class VideoActionCommentItem(val workById: WorkById, val context: Context) : Ite
             holder as ViewHolder
 
             val workById = item.workById
-            isCollected = workById.is_collected
+            item.isCollected = workById.is_collected
 
             holder.apply {
                 Glide.with(this.itemView).load(workById.avatar).error(R.drawable.ms_no_pic)
@@ -54,7 +56,7 @@ class VideoActionCommentItem(val workById: WorkById, val context: Context) : Ite
                 storeNum.text = AttentionUtils.format(workById.collection_num)
                 shareNum.text = AttentionUtils.format(workById.share_num)
                 storeImg.apply {
-                    if (isCollected)
+                    if (item.isCollected)
                         setImageResource(R.drawable.ms_red_star)
                     else
                         setImageResource(R.drawable.ms_star)
@@ -62,7 +64,7 @@ class VideoActionCommentItem(val workById: WorkById, val context: Context) : Ite
 
                 storeImg.setOnClickListener {
                     launch(UI + QuietCoroutineExceptionHandler) {
-                        if (!isCollected) {
+                        if (!item.isCollected) {
                             val resultCommonBody =
                                 AttentionService.addCollection(workById.work_ID).awaitAndHandle {
                                     it.printStackTrace()
@@ -80,8 +82,8 @@ class VideoActionCommentItem(val workById: WorkById, val context: Context) : Ite
                             ).show()
 
                             if (resultCommonBody.error_code == -1) {
-                                shareImg.setImageResource(R.drawable.ms_red_star)
-                                isCollected = true
+                                storeImg.setImageResource(R.drawable.ms_red_star)
+                                item.isCollected = true
                             }
                         } else {
                             val resultCommonBody =
@@ -101,8 +103,8 @@ class VideoActionCommentItem(val workById: WorkById, val context: Context) : Ite
                             ).show()
 
                             if (resultCommonBody.error_code == -1) {
-                                shareImg.setImageResource(R.drawable.ms_star)
-                                isCollected = false
+                                storeImg.setImageResource(R.drawable.ms_star)
+                                item.isCollected = false
                             }
                         }
                     }

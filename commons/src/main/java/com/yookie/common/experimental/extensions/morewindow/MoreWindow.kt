@@ -18,7 +18,10 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationSet
 import android.view.animation.TranslateAnimation
-import android.widget.*
+import android.widget.ImageView
+import android.widget.PopupWindow
+import android.widget.RelativeLayout
+import android.widget.TextView
 import com.yookie.common.R
 import com.yookie.common.experimental.extensions.jumpchannel.Transfer
 
@@ -115,17 +118,6 @@ class MoreWindow(internal var mContext: Activity) : PopupWindow(), View.OnClickL
         contentView = layout
 
         val close = layout.findViewById(R.id.center_music_window_close) as ImageView
-        //		android.widget.RelativeLayout.LayoutParams params = new android.widget.RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
-        //		params.bottomMargin = bottomMargin;
-        //		params.addRule(RelativeLayout.BELOW, R.id.ll_2);
-        //		params.addRule(RelativeLayout.RIGHT_OF, R.id.ll_1);
-        //		View view = LayoutInflater.from(mContext).inflate(R.layout.activity_main, null);
-        //		ImageView standrad  = view.findViewById(R.id.iv_homepage_camera);
-        //		params.height = standrad.getHeight();
-        //		params.width = standrad.getWidth();
-        //		params.topMargin = 200;
-        //		params.leftMargin = 18;
-        //		close.setLayoutParams(params);
 
         close.setOnClickListener {
             if (isShowing) {
@@ -136,18 +128,14 @@ class MoreWindow(internal var mContext: Activity) : PopupWindow(), View.OnClickL
         val text2 = layout.findViewById(R.id.more_window_auto) as TextView
 
         text1.setOnClickListener {
-            //TODO Something
-            Toast.makeText(this.mContext, "1111", Toast.LENGTH_SHORT).show()
-            Transfer.startActivity(this.mContext, "ReleaseActivity", Intent())
+            Transfer.startActivityWithoutClose(this.mContext, "ReleaseActivity", Intent())
 
             if (isShowing) {
                 closeAnimation(layout)
             }
         }
         text2.setOnClickListener {
-            //TODO Something
-            Toast.makeText(this.mContext, "2222", Toast.LENGTH_SHORT).show()
-            Transfer.startActivity(this.mContext, "SnapRecorderSetting", Intent())
+            Transfer.startActivityWithoutClose(this.mContext, "SnapRecorderSetting", Intent())
 
             if (isShowing) {
                 closeAnimation(layout)

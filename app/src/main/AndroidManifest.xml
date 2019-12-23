@@ -53,7 +53,7 @@
         <activity android:name=".RankhistoryActivity" />
         <activity android:name=".MessageActivity" />
         <activity android:name=".FansActivity" />
-
+        <activity android:name=".FansHomeActivity"/>
 
         <activity
                 android:name=".wxapi.WXEntryActivity"

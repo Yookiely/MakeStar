@@ -129,6 +129,15 @@
             app:layout_constraintLeft_toLeftOf="@id/logup"
             app:layout_constraintRight_toRightOf="@+id/logup"
             app:layout_constraintTop_toBottomOf="@+id/login_button" />
+    <Button
+            android:id="@+id/qq_button"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:text="QQ"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/weixin_button"
+            app:layout_constraintTop_toTopOf="@id/weixin_button"
+        />
 
     <Button
             android:id="@+id/share_button"

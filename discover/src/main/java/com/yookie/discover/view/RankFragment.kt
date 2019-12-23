@@ -45,7 +45,7 @@ class RankFragment : Fragment() {
         UserRank.getWorkRank(3) {
             videoRec.withItems {
                 for ((index, value) in it.withIndex()) {
-                    addVideoItem(value, index + 1)
+                    addVideoItem(value, index + 1,activity!!)
                 }
                 addMoreItem(this@RankFragment.context!!, 1)
             }

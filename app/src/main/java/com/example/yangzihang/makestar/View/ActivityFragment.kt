@@ -16,10 +16,8 @@ import cn.edu.twt.retrox.recyclerviewdsl.withItems
 import com.example.yangzihang.makestar.R
 import com.example.yangzihang.makestar.network.UserImp
 import com.yookie.common.experimental.preference.CommonPreferences
-import kotlinx.android.synthetic.main.activity_fans.*
 
-
-class FansCircleFragment : Fragment() {
+class ActivityFragment : Fragment() {
     var items = mutableListOf<Item>()
     lateinit var recyclerView: RecyclerView
     private var pageNum: Int = 1
@@ -29,29 +27,29 @@ class FansCircleFragment : Fragment() {
     private var isLoading = true
     private var hostUserId =1
     private var lastPage = Int.MAX_VALUE
-    companion object {
-        private const val HOST_USER_ID = "hostuserid"
-        fun newInstance(hostUserId: Int): FansCircleFragment {
-            val fcFragment = FansCircleFragment()
-            val bundle = Bundle()
-            bundle.putInt(HOST_USER_ID, hostUserId)
-            fcFragment.arguments = bundle
-            return fcFragment
-        }
-    }
+//    companion object {
+//        private const val HOST_USER_ID = "hostuserid"
+//        fun newInstance(hostUserId: Int): FansCircleFragment {
+//            val fcFragment = FansCircleFragment()
+//            val bundle = Bundle()
+//            bundle.putInt(HOST_USER_ID, hostUserId)
+//            fcFragment.arguments = bundle
+//            return fcFragment
+//        }
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view: View = inflater.inflate(R.layout.fragment_fans_circle, container, false)
-        recyclerView = view.findViewById(R.id.rec_fans_circle)
-        fansRefresh =view.findViewById(R.id.fans_home_refresh)
+        val view: View = inflater.inflate(R.layout.fragment_myself_activity, container, false)
+        recyclerView = view.findViewById(R.id.rec_activity_circle)
+        fansRefresh =view.findViewById(R.id.activity_home_refresh)
         val mLayoutManager = LinearLayoutManager(this.context)
         recyclerView.layoutManager=mLayoutManager
         recyclerView.adapter = ItemAdapter(itemManager)
-        hostUserId = arguments!!.getInt(HOST_USER_ID)
+//        hostUserId = arguments!!.getInt(HOST_USER_ID)
         loadFansCircle()
         recyclerView.addOnScrollListener(object:RecyclerView.OnScrollListener(){
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
@@ -84,15 +82,15 @@ class FansCircleFragment : Fragment() {
     private fun loadMoreFansCircle(){
         pageNum++
         if(pageNum>lastPage){
-            Toast.makeText(context,"加载到底了",Toast.LENGTH_SHORT).show()
+            Toast.makeText(context,"加载到底了", Toast.LENGTH_SHORT).show()
         }
         UserImp.getRecentActions(5, pageNum, CommonPreferences.userid.toInt()) { fansComment->
             lastPage = fansComment.last_page
             itemManager.refreshAll {
-               fansComment.data.forEach { fansCircleData->
-                   FansCircleInfoItem(activity!!.applicationContext,fansCircleData)
-               }
-           }
+                fansComment.data.forEach { fansCircleData->
+                    FansCircleInfoItem(activity!!.applicationContext,fansCircleData)
+                }
+            }
         }
         isLoading = false
     }

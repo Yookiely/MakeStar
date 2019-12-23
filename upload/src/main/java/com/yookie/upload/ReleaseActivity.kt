@@ -12,6 +12,7 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
+import android.view.Window
 import com.alibaba.sdk.android.oss.common.OSSLog
 import com.alibaba.sdk.android.vod.upload.VODUploadCallback
 import com.alibaba.sdk.android.vod.upload.VODUploadClientImpl
@@ -40,6 +41,7 @@ class ReleaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_release)
         val imguploader = VODUploadClientImpl(applicationContext)
         imguploader.setRegion(VOD_REGION)

@@ -30,7 +30,7 @@ class MoreActivity : AppCompatActivity() {
             UserRank.getWorkRank(50) {
                 moreRec.withItems {
                     for ((index, value) in it.withIndex()) {
-                        addVideoItem(value, index + 1)
+                        addVideoItem(value, index + 1,this@MoreActivity)
                     }
                 }
 

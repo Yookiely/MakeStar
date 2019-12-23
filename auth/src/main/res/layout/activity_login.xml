@@ -121,7 +121,7 @@
     />
 
     <ImageView
-            android:id="@+id/weixin_button"
+            android:id="@+id/we_button"
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:text="weixin"
@@ -135,8 +135,8 @@
             android:layout_height="40dp"
             android:text="QQ"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/weixin_button"
-            app:layout_constraintTop_toTopOf="@id/weixin_button"
+            app:layout_constraintEnd_toStartOf="@+id/we_button"
+            app:layout_constraintTop_toTopOf="@id/we_button"
         />
 
     <Button
@@ -146,6 +146,6 @@
             android:text="weixin分享"
             app:layout_constraintLeft_toLeftOf="@id/logup"
             app:layout_constraintRight_toRightOf="@+id/logup"
-            app:layout_constraintTop_toBottomOf="@+id/weixin_button" />
+            app:layout_constraintTop_toBottomOf="@+id/we_button" />
 
 </android.support.constraint.ConstraintLayout>

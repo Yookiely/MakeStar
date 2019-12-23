@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.Window
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import com.tencent.connect.common.Constants
@@ -37,18 +38,17 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var passwordText: EditText
     private lateinit var loginButton: TextView
     private lateinit var weiXinButton: ImageView
-    private lateinit var loginButton: Button
-    private lateinit var weiXinButton: Button
     private lateinit var qqButton: Button
     private lateinit var username: String
     private lateinit var passwords: String
     private lateinit var wxAPI: IWXAPI
     private lateinit var context: Context
-    val QQAPPID  = "101831652"
+    val QQAPPID = "101831652"
 //    var mlistener =
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_login)
 
         // 注册EventBus
@@ -57,9 +57,9 @@ class LoginActivity : AppCompatActivity() {
         wxAPI.registerApp(CommonContext.WECHAT_APPID)
         usernameText = findViewById(R.id.account_input)
         passwordText = findViewById(R.id.password_input)
+        qqButton = findViewById(R.id.qq_button)
+        weiXinButton = findViewById(R.id.we_button)
         loginButton = findViewById<TextView>(R.id.login_button).apply {
-        qqButton =findViewById(R.id.qq_button)
-        loginButton = findViewById<Button>(R.id.login_button).apply {
             setOnClickListener {
                 hideSoftInputMethod()
                 val activity = this@LoginActivity.asReference()
@@ -72,10 +72,14 @@ class LoginActivity : AppCompatActivity() {
                     login(usernameText.text.toString(), passwordText.text.toString()) {
                         when (it) {
                             is RefreshState.Success -> {
-                                authSelfLiveData.refresh(REMOTE){
+                                authSelfLiveData.refresh(REMOTE) {
                                     when (it) {
                                         is RefreshState.Success -> {
-                                            Toast.makeText(this@LoginActivity, "登录成功", Toast.LENGTH_LONG).show()
+                                            Toast.makeText(
+                                                this@LoginActivity,
+                                                "登录成功",
+                                                Toast.LENGTH_LONG
+                                            ).show()
                                             Transfer.startActivity(
                                                 this@LoginActivity,
                                                 "HomePageActivity",
@@ -107,22 +111,21 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
             }
-
         }
-        weiXinButton = findViewById<ImageView>(R.id.weixin_button).apply {
-            setOnClickListener { login() }
+        weiXinButton.setOnClickListener {
+            login()
+        }
         qqButton.setOnClickListener {
             qqLogin()
         }
-        }
-
     }
-    private fun qqLogin(){
-        val mTencent =Tencent.createInstance(QQAPPID,this.applicationContext)
-        if (!mTencent.isSessionValid){
-            mTencent.login(this, "all", object :IUiListener {
+
+    private fun qqLogin() {
+        val mTencent = Tencent.createInstance(QQAPPID, this.applicationContext)
+        if (!mTencent.isSessionValid) {
+            mTencent.login(this, "all", object : IUiListener {
                 override fun onComplete(p0: Any?) {
-                    Toast.makeText(context,"授权成功",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "授权成功", Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onCancel() {
@@ -131,10 +134,11 @@ class LoginActivity : AppCompatActivity() {
                 override fun onError(p0: UiError?) {
                 }
 
-            } )
+            })
         }
 
     }
+
     private fun login() {
         val req = SendAuth.Req()
         req.scope = "snsapi_userinfo"
@@ -196,7 +200,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if(requestCode == Constants.REQUEST_LOGIN) {
+        if (requestCode == Constants.REQUEST_LOGIN) {
 //            Tencent.onActivityResultData(requestCode,resultCode,data,listener)
         }
         super.onActivityResult(requestCode, resultCode, data)

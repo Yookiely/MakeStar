@@ -22,11 +22,11 @@
                 app:indicatorLineEndColor="@color/white"
                 app:indicatorLineScrollMode="dynamic"
                 app:indicatorLineStartColor="@color/white"
-                app:pagerIndicatorMode="scrollable"
                 android:layout_gravity="bottom"
                 android:layout_marginBottom="6dp"
                 app:pagerIndicatorScrollToCenterMode="linkage"
                 app:tabNormalTextColor="@color/white"
+                app:pagerIndicatorMode="scrollable_center"
                 app:tabSelectedTextColor="@color/white"
                 app:tabSelectedTextSize="20dp"
                 app:tabNormalTextSize="18dp"/>

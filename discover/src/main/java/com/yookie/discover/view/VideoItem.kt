@@ -1,5 +1,8 @@
 package com.yookie.discover.view
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
@@ -9,11 +12,12 @@ import android.widget.TextView
 import cn.edu.twt.retrox.recyclerviewdsl.Item
 import cn.edu.twt.retrox.recyclerviewdsl.ItemController
 import com.bumptech.glide.Glide
+import com.yookie.common.experimental.extensions.jumpchannel.Transfer
 import com.yookie.discover.R
 import com.yookie.discover.network.workData
 import org.jetbrains.anko.layoutInflater
 
-class VideoItem(val work : workData,val rank : Int) : Item{
+class VideoItem(val work: workData, val rank: Int, val activity: Activity) : Item {
 
     private companion object Controller : ItemController {
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: Item) {
@@ -54,17 +58,20 @@ class VideoItem(val work : workData,val rank : Int) : Item{
 //                }
             }
 
-            holder.itemView.setOnClickListener{}
-
+            holder.itemView.setOnClickListener {
+                val intent = Intent().also { it.putExtra("videopalyWorkId", item.work.video_ID) }
+                Transfer.startActivityWithoutClose(item.activity, "VideoPlayActivity", intent)
+            }
         }
 
         override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
             val inflater = parent.context.layoutInflater
-            val view = inflater.inflate(R.layout.item_discover_vedio,parent,false)
+            val view = inflater.inflate(R.layout.item_discover_vedio, parent, false)
             return VedioItemViewHolder(view)
         }
 
     }
+
     private class VedioItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val title = itemView.findViewById<TextView>(R.id.rank_text_title)
         val nickname = itemView.findViewById<TextView>(R.id.rank_text_nickname)
@@ -82,4 +89,5 @@ class VideoItem(val work : workData,val rank : Int) : Item{
         get() = VideoItem
 }
 
-fun MutableList<Item>.addVideoItem(work: workData,rank: Int) = add(VideoItem(work, rank))
+fun MutableList<Item>.addVideoItem(work: workData, rank: Int, activity: Activity) =
+    add(VideoItem(work, rank, activity))

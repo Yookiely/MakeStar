@@ -34,23 +34,23 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="26sp"
+                    android:textSize="18sp"
                     android:text="93"
                     android:textColor="#f7f7f7"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     android:layout_marginTop="18dp"
                     android:layout_marginRight="18dp"
-                    android:id="@+id/rank"
+                    android:id="@+id/se_rank"
                     />
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:text="本月排名："
                     android:textColor="#f7f7f7"
-                    app:layout_constraintRight_toLeftOf="@+id/rank"
-                    app:layout_constraintBottom_toBottomOf="@+id/rank"
+                    app:layout_constraintRight_toLeftOf="@+id/se_rank"
+                    app:layout_constraintBottom_toBottomOf="@+id/se_rank"
 
                     />
 
@@ -61,29 +61,30 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     android:layout_marginTop="42dp"
                     android:layout_marginLeft="20dp"
-                    android:textSize="18sp"
-                    android:id="@+id/nickname"
+                    android:textSize="14sp"
+                    android:id="@+id/se_nickname"
                     android:textColor="#f7f7f7"
                     />
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintLeft_toRightOf="@+id/nickname"
-                    app:layout_constraintTop_toTopOf="@+id/nickname"
-                    app:layout_constraintBottom_toBottomOf="@+id/nickname"
+                    app:layout_constraintLeft_toRightOf="@+id/se_nickname"
+                    app:layout_constraintTop_toTopOf="@+id/se_nickname"
+                    app:layout_constraintBottom_toBottomOf="@+id/se_nickname"
                     android:layout_marginLeft="15dp"
-                    android:textSize="16sp"
-                    android:id="@+id/message"
+                    android:textSize="14sp"
+                    android:id="@+id/se_message"
                     android:textColor="#f7f7f7"
                     />
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintLeft_toLeftOf="@+id/nickname"
-                    app:layout_constraintTop_toBottomOf="@+id/nickname"
+                    app:layout_constraintLeft_toLeftOf="@+id/se_nickname"
+                    app:layout_constraintTop_toBottomOf="@+id/se_nickname"
                     android:text="ssssss"
+                    android:textSize="12sp"
                     android:textColor="#f7f7f7"
-                    android:id="@+id/user_id"
+                    android:id="@+id/se_myself"
                     />
 
             <TextView
@@ -104,10 +105,10 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:textColor="#f7f7f7"
                     android:layout_marginBottom="60dp"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     app:layout_constraintLeft_toRightOf="@+id/people"
                     android:layout_marginLeft="4dp"
-                    android:id="@+id/people_num"
+                    android:id="@+id/se_people_num"
                     />
             <TextView
                     android:layout_width="wrap_content"
@@ -127,10 +128,10 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:textColor="#f7f7f7"
                     android:layout_marginBottom="60dp"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:layout_marginLeft="4dp"
                     app:layout_constraintLeft_toRightOf="@+id/pop"
-                    android:id="@+id/pop_num"
+                    android:id="@+id/se_pop_num"
                     />
             <TextView
                     android:layout_width="wrap_content"
@@ -151,20 +152,19 @@
                     android:textColor="#f7f7f7"
                     android:layout_marginBottom="60dp"
                     android:layout_marginLeft="4dp"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     app:layout_constraintLeft_toRightOf="@+id/focus"
-                    android:id="@+id/focus_num"
+                    android:id="@+id/se_focus_num"
                     />
             <com.kcrason.dynamicpagerindicatorlibrary.DynamicPagerIndicator
-                    android:id="@+id/dynamic_pager_indicator2_rankhistory"
+                    android:id="@+id/se_dynamic_pager_indicator2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:indicatorLineEndColor="@color/white"
                     app:indicatorLineScrollMode="dynamic"
                     app:indicatorLineStartColor="@color/white"
-                    android:layout_marginEnd="60dp"
-                    android:layout_marginStart="60dp"
-                    app:pagerIndicatorMode="scrollable"
+
+                    app:pagerIndicatorMode="scrollable_center"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginBottom="6dp"
                     app:pagerIndicatorScrollToCenterMode="linkage"
@@ -187,7 +187,7 @@
             app:layout_constraintBottom_toBottomOf="@id/myCard"
             android:layout_marginLeft="40dp"
             android:layout_marginBottom="140dp"
-            android:id="@+id/portrait"
+            android:id="@+id/se_portrait"
             android:elevation="10dp"
             />
 
@@ -196,6 +196,7 @@
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/myCard"
+            android:id="@+id/se_view"
             />
 
 </android.support.constraint.ConstraintLayout>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:orientation="horizontal">
+
+    <EditText
+            android:id="@+id/fans_comment_input"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="14dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/ms_search_background"
+            android:gravity="center"
+            android:imeOptions="actionSend"
+            android:hint="发布你的惊世言论"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:textColorHint="#cccccc"
+            android:textSize="16sp" />
+</LinearLayout>

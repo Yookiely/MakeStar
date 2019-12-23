@@ -59,7 +59,6 @@ class LoginActivity : AppCompatActivity() {
         passwordText = findViewById(R.id.password_input)
         loginButton = findViewById<TextView>(R.id.login_button).apply {
         qqButton =findViewById(R.id.qq_button)
-        context =this.context
         loginButton = findViewById<Button>(R.id.login_button).apply {
             setOnClickListener {
                 hideSoftInputMethod()

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:id="@+id/fans_home_portrait"
+            android:elevation="10dp" />
+    <TextView
+            android:id="@+id/fans_home_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="漂亮小仙女的全球后援会"
+            android:textSize="18sp"
+            android:textColor="#2d2d2d"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@id/fans_home_portrait"
+            app:layout_constraintTop_toTopOf="@id/fans_home_portrait"
+            app:layout_constraintBottom_toBottomOf="@id/fans_home_portrait"/>
+</android.support.constraint.ConstraintLayout>

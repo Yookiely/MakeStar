@@ -71,7 +71,7 @@ class FansCircleFragment : Fragment() {
     private fun loadFansCircle() {
         pageNum =1
         items .clear()
-        UserImp.getRecentActions(5, pageNum, CommonPreferences.userid.toInt()) {
+        UserImp.getRecentActions(5, pageNum, hostUserId) {
             lastPage = it.last_page
             it.data.forEach {
                 items.add(FansCircleInfoItem(activity!!.applicationContext, it))
@@ -86,7 +86,7 @@ class FansCircleFragment : Fragment() {
         if(pageNum>lastPage){
             Toast.makeText(context,"加载到底了",Toast.LENGTH_SHORT).show()
         }
-        UserImp.getRecentActions(5, pageNum, CommonPreferences.userid.toInt()) { fansComment->
+        UserImp.getRecentActions(5, pageNum, hostUserId) { fansComment->
             lastPage = fansComment.last_page
             itemManager.refreshAll {
                fansComment.data.forEach { fansCircleData->

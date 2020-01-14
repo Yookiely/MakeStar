@@ -122,4 +122,27 @@ object UserImp {
             }
         }
     }
+
+    fun getMyVideoList(userid: String,listcallback:(List<MyVideo>) -> Unit){
+        launch(UI + QuietCoroutineExceptionHandler){
+            val callback  = UserService.getmyVideoList(userid,1,100).await()
+            if (callback.error_code==-1){
+                callback.data?.let {
+                    listcallback(it.data)
+                }
+            }
+        }
+    }
+
+
+    fun getUserInfo(userid: String,UserInfoCallback: (UserInfo) -> Unit){
+        launch(UI+ QuietCoroutineExceptionHandler){
+            val callback = UserService.getUserInfo(userid).await()
+            if (callback.error_code==-1){
+                UserInfoCallback(callback.data!!)
+            }
+        }
+    }
+
+
 }

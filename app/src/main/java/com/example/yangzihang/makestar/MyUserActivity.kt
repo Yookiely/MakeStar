@@ -46,7 +46,9 @@ class MyUserActivity : AppCompatActivity() {
         discover.setOnClickListener { Transfer.startActivity(this, "DiscoverActivity", Intent()) }
 
         enter.setOnClickListener {
-            startActivity(Intent(this,MyselfActivity::class.java))
+            val intent = Intent(this,MyselfActivity::class.java)
+            intent.putExtra("userID",CommonPreferences.userid)
+            startActivity(intent)
         }
 
         recyclerView = findViewById(R.id.user_rec)

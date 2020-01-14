@@ -39,11 +39,18 @@ interface UserService {
     @GET("task/getUploadMoney")
     fun getUploadMoney(@Query("user_ID") userid: String = CommonPreferences.userid): Deferred<CommonBody<UploadMoney>>
 
-    @GET("/api/task/useInvitationCode")
+    @GET("task/useInvitationCode")
     fun useInvitationCode(
         @Query("code") code: String,
         @Query("user_ID") userid: String = CommonPreferences.userid
     ): Deferred<CommonBody<List<Any>>>
+
+    @GET("work/getWorkByUserID")
+    fun getmyVideoList(@Query("user_ID")userid: String,@Query("page") page: Int,@Query("limit")limit : Int) : Deferred<CommonBody<MyVideoList>>
+
+    @GET("user/userinfo")
+    fun getUserInfo(@Query("user_ID")userid: String) : Deferred<CommonBody<UserInfo>>
+
     @GET("fandomAction/getFandomInfo")
     fun getFandomInfo(@Query("host_user_ID") hostUserID :Int  ,@Query("user_ID") userid: String = CommonPreferences.userid ):Deferred<CommonBody<FandomInfo>>
     @FormUrlEncoded
@@ -161,11 +168,6 @@ data class UploadMoney(
     val user_ID: String,
     val y_m_d: String
 )
-//data class FandomInfo(
-//    val `data`: Data,
-//    val error_code: Int,
-//    val message: String
-//)
 
 data class FandomInfo(
     val fandom_user_num: Int,
@@ -273,4 +275,51 @@ data class FansSeCommentText(
     val time: String,
     val user_ID: Int,
     val username: String
+)
+
+data class MyVideo(
+    val Introduction: String,
+    val avatar: String,
+    val cover_url: String,
+    val hot_value: Int,
+    val tags: String,
+    val time: String,
+    val user_ID: Int,
+    val username: String,
+    val video_ID: String,
+    val work_ID: Int,
+    val work_name: String,
+    val work_type_ID: Int
+)
+
+data class MyVideoList(
+    val data: List<MyVideo>,
+    val current_page: Int,
+    val first_page_url: String,
+    val from: Int,
+    val last_page: Int,
+    val last_page_url: String,
+    val next_page_url: String,
+    val path: String,
+    val per_page: String,
+    val prev_page_url: String,
+    val to: Int,
+    val total: Int
+)
+
+data class UserInfo(
+    val age: Int,
+    val avatar: String,
+    val city: String,
+    val fans_num: Int,
+    val follow_num: Int,
+    val month_hot_value: Int,
+    val month_rank: Int,
+    val sex: String,
+    val signature: String,
+    val tags: String,
+    val user_ID: Int,
+    val username: String,
+    val week_hot_value: Int,
+    val year_hot_value: Int
 )

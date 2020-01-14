@@ -11,6 +11,7 @@ import android.widget.TextView
 import cn.edu.twt.retrox.recyclerviewdsl.Item
 import cn.edu.twt.retrox.recyclerviewdsl.ItemController
 import com.bumptech.glide.Glide
+import com.yookie.common.experimental.extensions.jumpchannel.Transfer
 import com.yookie.discover.R
 import com.yookie.discover.network.userData
 import org.jetbrains.anko.layoutInflater
@@ -20,7 +21,11 @@ class RankItem(val num : String,val userData: userData,val context : Context,val
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: Item) {
             holder as RankItemViewHolder
             item as RankItem
-            holder.itemView.setOnClickListener{}
+            holder.itemView.setOnClickListener{
+                val intent = Intent()
+                intent.putExtra("userID",item.userData.user_ID.toString())
+                Transfer.startActivity(item.activity,"MyselfActivity",intent)
+            }
             holder.apply {
                 rankNum.text = item.num
                 Glide.with(item.activity)
@@ -28,7 +33,6 @@ class RankItem(val num : String,val userData: userData,val context : Context,val
                     .into(userRankImg)
                 userRankNickname.text = item.userData.username
                 userRankHeat.text = item.userData.month_hot_value.toString()
-
             }
 
         }

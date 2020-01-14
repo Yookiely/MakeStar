@@ -28,7 +28,7 @@ class RankFragment : Fragment() {
         UserRank.getUserRank(6) {
             personRec.withItems {
                 if (it.size >= 3) {
-                    addTopRankItem(it)
+                    addTopRankItem(it,activity!!)
                 }
                 for (index in 3 until it.size) {
                     addRankItem(

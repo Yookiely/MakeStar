@@ -25,18 +25,18 @@ class ActivityFragment : Fragment() {
         ItemManager()
     lateinit var fansRefresh: SwipeRefreshLayout
     private var isLoading = true
-    private var hostUserId =1
+    private var hostUserId = 0
     private var lastPage = Int.MAX_VALUE
-//    companion object {
-//        private const val HOST_USER_ID = "hostuserid"
-//        fun newInstance(hostUserId: Int): FansCircleFragment {
-//            val fcFragment = FansCircleFragment()
-//            val bundle = Bundle()
-//            bundle.putInt(HOST_USER_ID, hostUserId)
-//            fcFragment.arguments = bundle
-//            return fcFragment
-//        }
-//    }
+    companion object {
+        private const val HOST_USER_ID = "hostuserid"
+        fun newInstance(hostUserId: Int): ActivityFragment {
+            val fcFragment = ActivityFragment()
+            val bundle = Bundle()
+            bundle.putInt(HOST_USER_ID, hostUserId)
+            fcFragment.arguments = bundle
+            return fcFragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,7 +49,7 @@ class ActivityFragment : Fragment() {
         val mLayoutManager = LinearLayoutManager(this.context)
         recyclerView.layoutManager=mLayoutManager
         recyclerView.adapter = ItemAdapter(itemManager)
-//        hostUserId = arguments!!.getInt(HOST_USER_ID)
+        hostUserId = arguments!!.getInt(HOST_USER_ID)
         loadFansCircle()
         recyclerView.addOnScrollListener(object:RecyclerView.OnScrollListener(){
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
@@ -69,7 +69,7 @@ class ActivityFragment : Fragment() {
     private fun loadFansCircle() {
         pageNum =1
         items .clear()
-        UserImp.getRecentActions(5, pageNum, CommonPreferences.userid.toInt()) {
+        UserImp.getRecentActions(5, pageNum, hostUserId) {
             lastPage = it.last_page
             it.data.forEach {
                 items.add(FansCircleInfoItem(activity!!.applicationContext, it))
@@ -84,7 +84,7 @@ class ActivityFragment : Fragment() {
         if(pageNum>lastPage){
             Toast.makeText(context,"加载到底了", Toast.LENGTH_SHORT).show()
         }
-        UserImp.getRecentActions(5, pageNum, CommonPreferences.userid.toInt()) { fansComment->
+        UserImp.getRecentActions(5, pageNum, hostUserId) { fansComment->
             lastPage = fansComment.last_page
             itemManager.refreshAll {
                 fansComment.data.forEach { fansCircleData->

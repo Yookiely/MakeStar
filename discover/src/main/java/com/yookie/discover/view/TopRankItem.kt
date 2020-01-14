@@ -1,5 +1,7 @@
 package com.yookie.discover.view
 
+import android.app.Activity
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
@@ -8,11 +10,12 @@ import android.widget.TextView
 import cn.edu.twt.retrox.recyclerviewdsl.Item
 import cn.edu.twt.retrox.recyclerviewdsl.ItemController
 import com.bumptech.glide.Glide
+import com.yookie.common.experimental.extensions.jumpchannel.Transfer
 import com.yookie.discover.R
 import com.yookie.discover.network.userData
 import org.jetbrains.anko.layoutInflater
 
-class TopRankItem(val userList: List<userData>) : Item {
+class TopRankItem(val userList: List<userData>,val activity : Activity) : Item {
 
     private companion object Controller : ItemController {
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: Item) {
@@ -38,15 +41,22 @@ class TopRankItem(val userList: List<userData>) : Item {
                     .into(thirdImg)
 
                 firstImg.setOnClickListener {
+                    val intent = Intent()
+                    intent.putExtra("userID",item.userList[0].user_ID.toString())
+                    Transfer.startActivity(item.activity,"MyselfActivity",intent)
 
                 }
 
                 secondImg.setOnClickListener {
-
+                    val intent = Intent()
+                    intent.putExtra("userID",item.userList[1].user_ID.toString())
+                    Transfer.startActivity(item.activity,"MyselfActivity",intent)
                 }
 
                 thirdImg.setOnClickListener {
-
+                    val intent = Intent()
+                    intent.putExtra("userID",item.userList[2].user_ID.toString())
+                    Transfer.startActivity(item.activity,"MyselfActivity",intent)
                 }
 
             }
@@ -81,4 +91,4 @@ class TopRankItem(val userList: List<userData>) : Item {
 
 }
 
-fun MutableList<Item>.addTopRankItem(userList: List<userData>) = add(TopRankItem(userList))
+fun MutableList<Item>.addTopRankItem(userList: List<userData>,activity: Activity) = add(TopRankItem(userList,activity))

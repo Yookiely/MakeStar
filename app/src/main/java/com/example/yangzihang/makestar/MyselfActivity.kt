@@ -8,6 +8,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.yangzihang.makestar.View.ActivityFragment
 import com.example.yangzihang.makestar.View.VideoFragment
+import com.example.yangzihang.makestar.network.UserImp
 import com.yookie.common.experimental.preference.CommonPreferences
 import com.yookie.discover.view.DynamicFragmentPagerAdapter
 import kotlinx.android.synthetic.main.activity_myself.*
@@ -26,23 +27,26 @@ class MyselfActivity : AppCompatActivity() {
         val popNum = findViewById<TextView>(R.id.se_pop_num)
         val focusNum = findViewById<TextView>(R.id.se_focus_num)
         val rank = findViewById<TextView>(R.id.se_rank)
-        Glide.with(this)
-            .load(CommonPreferences.avatars)
-            .into(avatars)
-        fansNum.text = CommonPreferences.fans_num
-        mystyle.text = CommonPreferences.signature
-        nickname.text = CommonPreferences.username
-        popNum.text = CommonPreferences.year_hot_value
-        focusNum.text = CommonPreferences.focus_num
-        rank.text = CommonPreferences.rank
-        if (CommonPreferences.sex=="男"){
-            message.text = "♂" + " | " + CommonPreferences.age + " | " + CommonPreferences.city
-        }else{
-            message.text = "♀" + " | " + CommonPreferences.age + " | " + CommonPreferences.city
+        val userid = intent.getStringExtra("userID")
+        UserImp.getUserInfo(userid){
+            Glide.with(this)
+                .load(it.avatar)
+                .into(avatars)
+            fansNum.text = it.fans_num.toString()
+            mystyle.text = it.signature
+            popNum.text = it.year_hot_value.toString()
+            focusNum.text = it.follow_num.toString()
+            rank.text = it.month_rank.toString()
+            if (it.sex=="男"){
+                message.text = "♂" + " | " + it.age + " | " + it.city
+            }else{
+                message.text = "♀" + " | " + it.age + " | " + it.city
+            }
+
         }
         val dynamicFragmentPagerAdapter = DynamicFragmentPagerAdapter(supportFragmentManager)
-        dynamicFragmentPagerAdapter.add("动态",ActivityFragment())
-        dynamicFragmentPagerAdapter.add("视频",VideoFragment())
+        dynamicFragmentPagerAdapter.add("动态",ActivityFragment.newInstance(userid.toInt()))
+        dynamicFragmentPagerAdapter.add("视频",VideoFragment.newInstance(userid))
         se_view.adapter = dynamicFragmentPagerAdapter
         se_dynamic_pager_indicator2.setViewPager(se_view)
     }

@@ -25,11 +25,13 @@ class MyVideoItem(val work : MyVideo, val activity: Activity) :Item{
             holder.apply {
                 Glide.with(item.activity)
                     .load(item.work.cover_url)
+                    .error(R.drawable.ms_no_pic)
+                    .placeholder(R.drawable.ms_no_pic)
                     .into(cover)
                 text.text = item.work.hot_value.toString()
             }
             holder.itemView.setOnClickListener {
-                val intent = Intent().also { it.putExtra("videopalyWorkId", item.work.video_ID) }
+                val intent = Intent().also { it.putExtra("videopalyWorkId", item.work.work_ID.toString()) }
                 Transfer.startActivityWithoutClose(item.activity, "VideoPlayActivity", intent)
             }
         }

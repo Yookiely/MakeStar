@@ -32,6 +32,7 @@ class MyselfActivity : AppCompatActivity() {
             Glide.with(this)
                 .load(it.avatar)
                 .into(avatars)
+            nickname.text = it.username
             fansNum.text = it.fans_num.toString()
             mystyle.text = it.signature
             popNum.text = it.year_hot_value.toString()

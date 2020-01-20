@@ -1,7 +1,6 @@
 package com.yookie.common.experimental.preference
 
 import com.orhanobut.hawk.Hawk
-import com.tencent.tauth.Tencent
 import com.yookie.common.experimental.CommonContext
 
 object CommonPreferences {
@@ -67,13 +66,13 @@ object CommonPreferences {
         if (historyId != null && !userHistory.contains(historyId)) {
             var temp = mutableListOf<String>().also { it.addAll(userHistory) }
             temp.add(historyId)
-            if (temp.size > 150) {
-                temp = temp.subList(75, temp.size - 1) //保留一半历史数据
+            if (temp.size > 20) {
+                temp = temp.subList(10, temp.size - 1) //保留一半历史数据
             }
             userHistory = mutableListOf<String>().also { it.addAll(temp) }
         }
         if (userHistory.isEmpty()) {
-            return null
+            return ""
         }
         val historyStirng = userHistory.toString().replace(" ", "")
         val nhistoryStirng = historyStirng.substring(1, historyStirng.length - 1)

@@ -19,7 +19,7 @@ import kotlinx.coroutines.experimental.launch
 import java.io.ByteArrayOutputStream
 
 
-object WeiXinMethod {
+object ShareMethod {
     //图片分享的限制大小
     const val IMAGE_SIZE = 32768
 

@@ -17,7 +17,7 @@ import com.wingedvampires.attention.model.NumberOfStar
 import com.wingedvampires.attention.model.VideoAction
 import com.wingedvampires.attention.view.CommentsActivity
 import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
-import com.yookie.common.experimental.extensions.WeiXinMethod
+import com.yookie.common.experimental.extensions.ShareMethod
 import com.yookie.common.experimental.extensions.awaitAndHandle
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.experimental.android.UI
@@ -146,7 +146,7 @@ class VideoActionItem(
                 }
 
                 shareImg.setOnClickListener {
-                    WeiXinMethod.showDialog(
+                    ShareMethod.showDialog(
                         item.context,
                         videoAction.work_ID,
                         videoAction.work_name,

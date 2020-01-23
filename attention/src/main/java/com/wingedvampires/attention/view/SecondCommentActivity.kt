@@ -126,6 +126,7 @@ class SecondCommentActivity : AppCompatActivity() {
                 comments.data?.forEachWithIndex { index, comment ->
                     commentItem(
                         this@SecondCommentActivity,
+                        this@SecondCommentActivity,
                         index != comments.data.size,
                         null,
                         comment,
@@ -157,6 +158,7 @@ class SecondCommentActivity : AppCompatActivity() {
             itemManager.refreshAll {
                 comments.data?.forEachWithIndex { index, comment ->
                     commentItem(
+                        this@SecondCommentActivity,
                         this@SecondCommentActivity,
                         index != comments.data.size,
                         null,

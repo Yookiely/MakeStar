@@ -12,7 +12,10 @@ import com.wingedvampires.homepage.model.DataOfUser
 import de.hdodenhof.circleimageview.CircleImageView
 import org.jetbrains.anko.layoutInflater
 
-class SearchUserItem(val dataOfUser: DataOfUser, val block: (View) -> Unit) : Item {
+class SearchUserItem(
+    val dataOfUser: DataOfUser,
+    val block: (View) -> Unit
+) : Item {
     override val controller: ItemController
         get() = Controller
 
@@ -40,7 +43,8 @@ class SearchUserItem(val dataOfUser: DataOfUser, val block: (View) -> Unit) : It
 
             holder.apply {
                 name.text = dataOfUser.username
-                Glide.with(this.itemView.context).load(dataOfUser.avatar).error(R.drawable.ms_no_pic)
+                Glide.with(this.itemView.context).load(dataOfUser.avatar)
+                    .error(R.drawable.ms_no_pic)
                     .into(avatar)
             }
 

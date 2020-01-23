@@ -1,5 +1,7 @@
 package com.wingedvampires.homepage.view.items
 
+import android.app.Activity
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
@@ -11,10 +13,11 @@ import com.bumptech.glide.Glide
 import com.wingedvampires.homepage.R
 import com.wingedvampires.homepage.model.HomePageUtils
 import com.wingedvampires.homepage.model.Work
+import com.yookie.common.experimental.extensions.jumpchannel.Transfer
 import de.hdodenhof.circleimageview.CircleImageView
 import org.jetbrains.anko.layoutInflater
 
-class HomePageItem(val work: Work, val block: (View) -> Unit) : Item {
+class HomePageItem(val activity: Activity, val work: Work, val block: (View) -> Unit) : Item {
     override val controller: ItemController
         get() = Controller
 
@@ -54,6 +57,11 @@ class HomePageItem(val work: Work, val block: (View) -> Unit) : Item {
                 label.text = HomePageUtils.typeList[work.work_type_ID]
             }
 
+            holder.avatar.setOnClickListener {
+                val intent = Intent()
+                intent.putExtra("userID", work.user_ID.toString())
+                Transfer.startActivityWithoutClose(item.activity, "MyselfActivity", intent)
+            }
 
             holder.cover.setOnClickListener {
                 item.block(it)
@@ -73,8 +81,13 @@ class HomePageItem(val work: Work, val block: (View) -> Unit) : Item {
     }
 }
 
-fun MutableList<Item>.homePageItem(work: Work, block: (View) -> Unit = { _ -> }) = add(
+fun MutableList<Item>.homePageItem(
+    activity: Activity,
+    work: Work,
+    block: (View) -> Unit = { _ -> }
+) = add(
     HomePageItem(
+        activity,
         work,
         block
     )

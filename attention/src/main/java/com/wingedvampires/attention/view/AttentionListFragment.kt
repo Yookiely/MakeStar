@@ -1,5 +1,6 @@
 package com.wingedvampires.attention.view
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
@@ -28,6 +29,7 @@ import com.wingedvampires.attention.view.items.historyItem
 import com.wingedvampires.attention.view.items.recommendItem
 import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
 import com.yookie.common.experimental.extensions.awaitAndHandle
+import com.yookie.common.experimental.extensions.jumpchannel.Transfer
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 
@@ -200,7 +202,9 @@ class AttentionListFragment : Fragment() {
                 clear()
                 recommendUsers.forEach { recommendUser ->
                     recommendItem(recommendUser, this@AttentionListFragment.context!!) {
-
+                        val intent = Intent()
+                        intent.putExtra("userID", recommendUser.user_ID.toString())
+                        Transfer.startActivityWithoutClose(activity!!, "MyselfActivity", intent)
                     }
                 }
             }
@@ -222,7 +226,9 @@ class AttentionListFragment : Fragment() {
             itemManager.autoRefresh {
                 recommendUsers.forEach { recommendUser ->
                     recommendItem(recommendUser, this@AttentionListFragment.context!!) {
-
+                        val intent = Intent()
+                        intent.putExtra("userID", recommendUser.user_ID.toString())
+                        Transfer.startActivityWithoutClose(activity!!, "MyselfActivity", intent)
                     }
                 }
             }
@@ -249,7 +255,9 @@ class AttentionListFragment : Fragment() {
                 clear()
                 fans.data.forEach { fan ->
                     fansItem(fan, this@AttentionListFragment.context!!) {
-
+                        val intent = Intent()
+                        intent.putExtra("userID", fan.user_ID.toString())
+                        Transfer.startActivityWithoutClose(activity!!, "MyselfActivity", intent)
                     }
                 }
             }
@@ -269,7 +277,9 @@ class AttentionListFragment : Fragment() {
             itemManager.autoRefresh {
                 fans.data.forEach { fan ->
                     fansItem(fan, this@AttentionListFragment.context!!) {
-
+                        val intent = Intent()
+                        intent.putExtra("userID", fan.user_ID.toString())
+                        Transfer.startActivityWithoutClose(activity!!, "MyselfActivity", intent)
                     }
                 }
             }
@@ -296,7 +306,9 @@ class AttentionListFragment : Fragment() {
                 clear()
                 concernPersons.data?.forEach { concernPerson ->
                     focusItem(concernPerson, this@AttentionListFragment.context!!) {
-
+                        val intent = Intent()
+                        intent.putExtra("userID", concernPerson.user_ID.toString())
+                        Transfer.startActivityWithoutClose(activity!!, "MyselfActivity", intent)
                     }
                 }
             }
@@ -318,7 +330,9 @@ class AttentionListFragment : Fragment() {
             itemManager.autoRefresh {
                 concernPersons.data?.forEach { concernPerson ->
                     focusItem(concernPerson, this@AttentionListFragment.context!!) {
-
+                        val intent = Intent()
+                        intent.putExtra("userID", concernPerson.user_ID.toString())
+                        Transfer.startActivityWithoutClose(activity!!, "MyselfActivity", intent)
                     }
                 }
             }
@@ -347,6 +361,9 @@ class AttentionListFragment : Fragment() {
                 usersOfResult?.forEach { dataOfUser ->
                     historyItem(dataOfUser, this@AttentionListFragment.context!!) {
                         AttentionUtils.setSearchHistory(dataOfUser)
+                        val intent = Intent()
+                        intent.putExtra("userID", dataOfUser.user_ID.toString())
+                        Transfer.startActivityWithoutClose(activity!!, "MyselfActivity", intent)
                     }
                 }
             }
@@ -374,6 +391,9 @@ class AttentionListFragment : Fragment() {
                 usersOfResult?.forEach { dataOfUser ->
                     historyItem(dataOfUser, this@AttentionListFragment.context!!) {
                         AttentionUtils.setSearchHistory(dataOfUser)
+                        val intent = Intent()
+                        intent.putExtra("userID", dataOfUser.user_ID.toString())
+                        Transfer.startActivityWithoutClose(activity!!, "MyselfActivity", intent)
                     }
                 }
             }
@@ -389,6 +409,9 @@ class AttentionListFragment : Fragment() {
             AttentionUtils.searchHistory.forEach { dataOfUser ->
                 historyItem(dataOfUser, this@AttentionListFragment.context!!) {
                     AttentionUtils.setSearchHistory(dataOfUser)
+                    val intent = Intent()
+                    intent.putExtra("userID", dataOfUser.user_ID.toString())
+                    Transfer.startActivityWithoutClose(activity!!, "MyselfActivity", intent)
                 }
             }
         }

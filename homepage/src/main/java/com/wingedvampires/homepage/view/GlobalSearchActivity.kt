@@ -85,9 +85,15 @@ class GlobalSearchActivity : AppCompatActivity() {
                     )
                 }
                 users?.forEachWithIndex { i, dataOfUser ->
-                    if (i <= 1) {
+                    if (i <= 2) {
                         searchUserItem(dataOfUser) {
-
+                            val intent = Intent()
+                            intent.putExtra("userID", dataOfUser.user_ID)
+                            Transfer.startActivityWithoutClose(
+                                this@GlobalSearchActivity,
+                                "MyselfActivity",
+                                intent
+                            )
                         }
                     }
                 }
@@ -106,6 +112,7 @@ class GlobalSearchActivity : AppCompatActivity() {
                                     dataOfWork.work_ID
                                 )
                             }
+
                             Transfer.startActivityWithoutClose(
                                 this@GlobalSearchActivity,
                                 "VideoPlayActivity",

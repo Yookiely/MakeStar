@@ -1,7 +1,9 @@
 package com.wingedvampires.attention.view.items
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +21,7 @@ import com.wingedvampires.attention.model.SecondComment
 import com.wingedvampires.attention.view.SecondCommentActivity
 import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
 import com.yookie.common.experimental.extensions.awaitAndHandle
+import com.yookie.common.experimental.extensions.jumpchannel.Transfer
 import com.yookie.common.experimental.preference.CommonPreferences
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.experimental.android.UI
@@ -28,6 +31,7 @@ import org.jetbrains.anko.startActivity
 
 
 class CommentItem(
+    val activity: Activity,
     val context: Context,
     val showLine: Boolean,
     val comment: Comment?,
@@ -92,6 +96,12 @@ class CommentItem(
                 it.context.startActivity<SecondCommentActivity>(AttentionUtils.SECOND_COMMENT_INDEX to comment!!.comment_ID)
             }
 
+            holder.avatar.setOnClickListener {
+                val intent = Intent()
+                intent.putExtra("userID", userId.toString())
+                Transfer.startActivityWithoutClose(item.activity, "MyselfActivity", intent)
+            }
+
             holder.itemView.setOnLongClickListener {
                 val items: ArrayList<String> = arrayListOf("举报了举报了！", "我要删它！", "手瓢点错了，取消叭").also {
                     if (userId != CommonPreferences.userid) {
@@ -153,10 +163,11 @@ class CommentItem(
 }
 
 fun MutableList<Item>.commentItem(
+    activity: Activity,
     context: Context,
     showLine: Boolean,
     comment: Comment? = null,
     secondComment: SecondComment? = null,
     showMore: Boolean = true,
     block: (CommentItem) -> Unit = {}
-) = add(CommentItem(context, showLine, comment, secondComment, showMore, block))
+) = add(CommentItem(activity, context, showLine, comment, secondComment, showMore, block))

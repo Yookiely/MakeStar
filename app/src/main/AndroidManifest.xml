@@ -29,7 +29,7 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
-            android:name="com.example.yangzihang.makestar.MakeStarApp"
+            android:name=".MakeStarApp"
             android:allowBackup="true"
             android:icon="@drawable/ms_icon"
             android:label="@string/app_name"
@@ -37,12 +37,13 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
-            tools:replace="android:icon, android:theme"
-            android:usesCleartextTraffic="true">
-        <activity android:name="com.example.yangzihang.makestar.WithdrawActivity"></activity>
-        <activity android:name="com.example.yangzihang.makestar.RedPacketActivity" />
-        <activity android:name="com.example.yangzihang.makestar.MyselfActivity" />
-        <activity android:name="com.example.yangzihang.makestar.MainActivity">
+            android:usesCleartextTraffic="true"
+            tools:replace="android:icon, android:theme">
+        <activity android:name=".CollectionActivity"></activity>
+        <activity android:name=".WithdrawActivity" />
+        <activity android:name=".RedPacketActivity" />
+        <activity android:name=".MyselfActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -53,8 +54,7 @@
         <activity android:name=".RankhistoryActivity" />
         <activity android:name=".MessageActivity" />
         <activity android:name=".FansActivity" />
-        <activity android:name=".FansHomeActivity"/>
-
+        <activity android:name=".FansHomeActivity" />
         <activity
                 android:name=".wxapi.WXEntryActivity"
                 android:exported="true" />

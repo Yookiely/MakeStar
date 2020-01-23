@@ -43,20 +43,20 @@ class TopRankItem(val userList: List<userData>,val activity : Activity) : Item {
                 firstImg.setOnClickListener {
                     val intent = Intent()
                     intent.putExtra("userID",item.userList[0].user_ID.toString())
-                    Transfer.startActivity(item.activity,"MyselfActivity",intent)
+                    Transfer.startActivityWithoutClose(item.activity,"MyselfActivity",intent)
 
                 }
 
                 secondImg.setOnClickListener {
                     val intent = Intent()
                     intent.putExtra("userID",item.userList[1].user_ID.toString())
-                    Transfer.startActivity(item.activity,"MyselfActivity",intent)
+                    Transfer.startActivityWithoutClose(item.activity,"MyselfActivity",intent)
                 }
 
                 thirdImg.setOnClickListener {
                     val intent = Intent()
                     intent.putExtra("userID",item.userList[2].user_ID.toString())
-                    Transfer.startActivity(item.activity,"MyselfActivity",intent)
+                    Transfer.startActivityWithoutClose(item.activity,"MyselfActivity",intent)
                 }
 
             }

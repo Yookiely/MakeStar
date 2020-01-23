@@ -24,7 +24,7 @@ class RankItem(val num : String,val userData: userData,val context : Context,val
             holder.itemView.setOnClickListener{
                 val intent = Intent()
                 intent.putExtra("userID",item.userData.user_ID.toString())
-                Transfer.startActivity(item.activity,"MyselfActivity",intent)
+                Transfer.startActivityWithoutClose(item.activity,"MyselfActivity",intent)
             }
             holder.apply {
                 rankNum.text = item.num

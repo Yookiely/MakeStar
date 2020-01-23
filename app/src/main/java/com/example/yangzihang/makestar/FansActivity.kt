@@ -29,6 +29,9 @@ class FansActivity : AppCompatActivity() {
         val mPagerAdapter = FansPagerAdapter(supportFragmentManager)
         val hostUserID = intent.getIntExtra("userID",0)
         val avator =intent.getStringExtra("avatar")
+        fans_back.setOnClickListener {
+            onBackPressed()
+        }
         rank=findViewById(R.id.fans_num)
         hot =findViewById(R.id.read_num)
         userName =findViewById(R.id.fans_user_nickname)

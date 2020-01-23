@@ -15,6 +15,9 @@ object CommonContext {
     const val WECHAT_APPID = "wxa29b08e0c928631e"
     const val WECHAT_SECRET = "87a4d5f067d1c9298d2eb349e21e1fb7"
 
+    //接入QQ的appid
+    const val QQ_APPID = "101831652"
+
     private var applicationReference: WeakReference<Application>? = null
 
     fun registerApplication(application: Application) {

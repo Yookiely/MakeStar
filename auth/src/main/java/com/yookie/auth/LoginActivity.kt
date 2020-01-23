@@ -21,6 +21,7 @@ import com.yookie.auth.api.login
 import com.yookie.common.WeiXin
 import com.yookie.common.WeiXinService
 import com.yookie.common.experimental.CommonContext
+import com.yookie.common.experimental.CommonContext.QQ_APPID
 import com.yookie.common.experimental.cache.CacheIndicator.REMOTE
 import com.yookie.common.experimental.cache.RefreshState
 import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
@@ -43,7 +44,6 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var passwords: String
     private lateinit var wxAPI: IWXAPI
     private lateinit var context: Context
-    val QQAPPID = "101831652"
 //    var mlistener =
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -121,7 +121,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun qqLogin() {
-        val mTencent = Tencent.createInstance(QQAPPID, this.applicationContext)
+        val mTencent = Tencent.createInstance(QQ_APPID, this.applicationContext)
         if (!mTencent.isSessionValid) {
             mTencent.login(this, "all", object : IUiListener {
                 override fun onComplete(p0: Any?) {

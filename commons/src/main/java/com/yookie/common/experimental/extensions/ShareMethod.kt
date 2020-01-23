@@ -1,15 +1,21 @@
 package com.yookie.common.experimental.extensions
 
+import android.app.Activity
 import android.app.AlertDialog
+import android.content.ContentResolver
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
+import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage
 import com.tencent.mm.opensdk.modelmsg.WXWebpageObject
 import com.tencent.mm.opensdk.modelpay.PayReq
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
+import com.tencent.tauth.Tencent
 import com.yookie.common.AuthService
 import com.yookie.common.R
 import com.yookie.common.WeiXinPay
@@ -17,6 +23,12 @@ import com.yookie.common.experimental.CommonContext
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 import java.io.ByteArrayOutputStream
+import com.tencent.connect.share.QQShare
+import com.tencent.connect.share.QzoneShare
+import com.tencent.connect.share.QzoneShare.SHARE_TO_QZONE_TYPE_IMAGE_TEXT
+import com.tencent.tauth.IUiListener
+import com.tencent.tauth.UiError
+import retrofit2.http.Url
 
 
 object ShareMethod {
@@ -41,9 +53,10 @@ object ShareMethod {
                 return@launch
             }
 
-            val items = arrayOf("分享到朋友圈", "分享到好友")
+            val items = arrayOf("分享到朋友圈", "分享到微信好友", "分享到QQ空间", "分享到QQ好友")
             val listDialog: AlertDialog.Builder = AlertDialog.Builder(context)
             val url = result.data.url
+            Log.d("shareurl", url)
             listDialog.setTitle("分享到")
             listDialog.setItems(items) { _, which ->
 
@@ -52,6 +65,8 @@ object ShareMethod {
                 when (which) {
                     0 -> weixinShare(context, url, title, description, true)
                     1 -> weixinShare(context, url, title, description, false)
+                    2 -> qqShare(context, url, title, description, false)
+                    3 -> qqShare(context, url, title, description, true)
                     else -> {
                     }
                 }
@@ -114,6 +129,63 @@ object ShareMethod {
 
         wxAPI?.registerApp(CommonContext.WECHAT_APPID)
         wxAPI.sendReq(req)
+    }
+
+    fun qqShare(
+        context: Context,
+        url: String,
+        title: String,
+        description: String,
+        qqCircle: Boolean
+    ) {
+        val mTencent = Tencent.createInstance(CommonContext.QQ_APPID, context)
+        val params = Bundle()
+        if (qqCircle) {
+            params.putInt(QQShare.SHARE_TO_QQ_KEY_TYPE, QQShare.SHARE_TO_QQ_TYPE_DEFAULT)
+            params.putString(QQShare.SHARE_TO_QQ_TITLE, title)
+            params.putString(QQShare.SHARE_TO_QQ_SUMMARY, description)
+            params.putString(QQShare.SHARE_TO_QQ_TARGET_URL, url)
+            params.putString(
+                QQShare.SHARE_TO_QQ_IMAGE_URL,
+                "https://www.establishstar.com/icon.png"
+            )
+        } else {
+            params.putInt(
+                QzoneShare.SHARE_TO_QZONE_KEY_TYPE,
+                QzoneShare.SHARE_TO_QZONE_TYPE_IMAGE_TEXT
+            )
+            params.putString(QzoneShare.SHARE_TO_QQ_TITLE, title)
+            params.putString(QzoneShare.SHARE_TO_QQ_SUMMARY, description)
+            params.putString(QzoneShare.SHARE_TO_QQ_TARGET_URL, url)
+            val images = arrayListOf("https://www.establishstar.com/icon.png")
+            params.putStringArrayList(QzoneShare.SHARE_TO_QQ_IMAGE_URL, images)
+        }
+        if (qqCircle) {
+            mTencent.shareToQQ(context as Activity, params, object : IUiListener {
+                override fun onComplete(p0: Any?) {
+                }
+
+                override fun onCancel() {
+                }
+
+                override fun onError(p0: UiError?) {
+                }
+
+            })
+        } else {
+            mTencent.shareToQzone(context as Activity, params, object : IUiListener {
+                override fun onComplete(p0: Any?) {
+                }
+
+                override fun onCancel() {
+                }
+
+                override fun onError(p0: UiError?) {
+                }
+
+            })
+        }
+
     }
 
     private fun getThumbData(context: Context): ByteArray? {

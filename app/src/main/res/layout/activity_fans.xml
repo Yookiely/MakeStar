@@ -198,8 +198,10 @@
 
     />
     <ImageView
+            android:id="@+id/fans_back"
             android:layout_width="32dp"
             android:layout_height="32dp"
+            android:padding="8dp"
             android:src="@drawable/ms_white_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

@@ -48,9 +48,15 @@ interface VideoPlayService {
 
     @POST("/api/follow/delete")
     fun deleteFollow(
-        @Query("to_user_ID") toUserId: String,
+        @Query("to_user_ID") checkUserId: String,
         @Query("from_user_ID") fromUserId: String = CommonPreferences.userid
     ): Deferred<CommonBody<String>>
+
+    @GET("/api/user/isFollowed")
+    fun isFollow(
+        @Query("check_user_ID") toUserId: String,
+        @Query("user_ID") fromUserId: String = CommonPreferences.userid
+    ): Deferred<CommonBody<Boolean>>
 
     @POST("/api/star/loginStar")
     fun star(

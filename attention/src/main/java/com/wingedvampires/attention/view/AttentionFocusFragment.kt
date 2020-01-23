@@ -83,7 +83,11 @@ class AttentionFocusFragment : Fragment() {
             itemManager.refreshAll {
                 clear()
                 videoActions.forEach { videoAction ->
-                    videoActionItem(videoAction, this@AttentionFocusFragment.context!!) {
+                    videoActionItem(
+                        activity!!,
+                        videoAction,
+                        this@AttentionFocusFragment.context!!
+                    ) {
                         CommonPreferences.setAndGetUserHistory(videoAction.work_ID)
                         val intent = Intent().also {
                             it.putExtra(
@@ -110,7 +114,11 @@ class AttentionFocusFragment : Fragment() {
 
             itemManager.autoRefresh {
                 videoActions.forEach { videoAction ->
-                    videoActionItem(videoAction, this@AttentionFocusFragment.context!!) {
+                    videoActionItem(
+                        activity!!,
+                        videoAction,
+                        this@AttentionFocusFragment.context!!
+                    ) {
                         CommonPreferences.setAndGetUserHistory(videoAction.work_ID)
                         val intent = Intent().also {
                             it.putExtra(

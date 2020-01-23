@@ -1,6 +1,8 @@
 package com.wingedvampires.attention.view.items
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +21,7 @@ import com.wingedvampires.attention.view.CommentsActivity
 import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
 import com.yookie.common.experimental.extensions.ShareMethod
 import com.yookie.common.experimental.extensions.awaitAndHandle
+import com.yookie.common.experimental.extensions.jumpchannel.Transfer
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
@@ -26,6 +29,7 @@ import org.jetbrains.anko.layoutInflater
 import org.jetbrains.anko.startActivity
 
 class VideoActionItem(
+    val activity: Activity,
     val videoAction: VideoAction,
     val context: Context,
     val block: (View) -> Unit
@@ -137,7 +141,9 @@ class VideoActionItem(
                 }
 
                 start.setOnClickListener {
-
+                    item.block(it)
+                }
+                cover.setOnClickListener {
                     item.block(it)
                 }
 
@@ -172,6 +178,11 @@ class VideoActionItem(
                 }
             }
 
+            holder.avatar.setOnClickListener {
+                val intent = Intent()
+                intent.putExtra("userID", videoAction.user_ID.toString())
+                Transfer.startActivityWithoutClose(item.activity, "MyselfActivity", intent)
+            }
         }
     }
 
@@ -201,8 +212,9 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
 
 fun MutableList<Item>.videoActionItem(
+    activity: Activity,
     videoAction: VideoAction,
     context: Context,
     block: (View) -> Unit = { _ -> }
 ) =
-    add(VideoActionItem(videoAction, context, block))
+    add(VideoActionItem(activity, videoAction, context, block))

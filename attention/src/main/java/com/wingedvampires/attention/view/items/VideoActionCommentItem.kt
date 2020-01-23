@@ -1,6 +1,8 @@
 package com.wingedvampires.attention.view.items
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
@@ -17,12 +19,14 @@ import com.wingedvampires.attention.model.WorkById
 import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
 import com.yookie.common.experimental.extensions.ShareMethod
 import com.yookie.common.experimental.extensions.awaitAndHandle
+import com.yookie.common.experimental.extensions.jumpchannel.Transfer
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 import org.jetbrains.anko.layoutInflater
 
-class VideoActionCommentItem(val workById: WorkById, val context: Context) : Item {
+class VideoActionCommentItem(val activity: Activity, val workById: WorkById, val context: Context) :
+    Item {
     var isCollected = false
 
     override val controller: ItemController
@@ -119,6 +123,13 @@ class VideoActionCommentItem(val workById: WorkById, val context: Context) : Ite
                     )
                 }
             }
+
+            holder.avatar.setOnClickListener {
+                val intent = Intent()
+                intent.putExtra("userID", workById.user_ID.toString())
+                Transfer.startActivityWithoutClose(item.activity, "MyselfActivity", intent)
+            }
+
         }
     }
 
@@ -140,5 +151,9 @@ class VideoActionCommentItem(val workById: WorkById, val context: Context) : Ite
 
 }
 
-fun MutableList<Item>.videoActionCommentItem(workById: WorkById, context: Context) =
-    add(VideoActionCommentItem(workById, context))
+fun MutableList<Item>.videoActionCommentItem(
+    activity: Activity,
+    workById: WorkById,
+    context: Context
+) =
+    add(VideoActionCommentItem(activity, workById, context))

@@ -139,7 +139,7 @@ data class DataOfWork(
     val username: String,
     val video_ID: String,
     val video_link: String?,
-    val work_ID: Int,
+    val work_ID: String,
     val work_name: String,
     val work_type: String
 )

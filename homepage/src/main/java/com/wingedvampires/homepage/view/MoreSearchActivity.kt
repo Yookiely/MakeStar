@@ -102,7 +102,13 @@ class MoreSearchActivity : AppCompatActivity() {
                 clear()
                 usersOfResult?.forEach { dataOfUser ->
                     searchUserItem(dataOfUser) {
-
+                        val intent = Intent()
+                        intent.putExtra("userID", dataOfUser.user_ID)
+                        Transfer.startActivityWithoutClose(
+                            this@MoreSearchActivity,
+                            "MyselfActivity",
+                            intent
+                        )
                     }
                 }
             }
@@ -129,6 +135,13 @@ class MoreSearchActivity : AppCompatActivity() {
             itemManager.autoRefresh {
                 usersOfResult?.forEach { dataOfUser ->
                     searchUserItem(dataOfUser) {
+                        val intent = Intent()
+                        intent.putExtra("userID", dataOfUser.user_ID)
+                        Transfer.startActivityWithoutClose(
+                            this@MoreSearchActivity,
+                            "MyselfActivity",
+                            intent
+                        )
                     }
                 }
             }

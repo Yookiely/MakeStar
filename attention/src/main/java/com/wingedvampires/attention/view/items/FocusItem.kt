@@ -71,6 +71,10 @@ class FocusItem(val concernPerson: ConcernPerson, val context: Context, val bloc
                     }
                 }
             }
+
+            holder.itemView.setOnClickListener {
+                item.block(it)
+            }
         }
 
     }

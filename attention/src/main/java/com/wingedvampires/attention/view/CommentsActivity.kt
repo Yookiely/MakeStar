@@ -121,9 +121,14 @@ class CommentsActivity : AppCompatActivity() {
             }?.data ?: return@launch
 
             itemManager.refreshAll {
-                videoActionCommentItem(work, this@CommentsActivity)
+                videoActionCommentItem(this@CommentsActivity, work, this@CommentsActivity)
                 comments.data?.forEachWithIndex { index, comment ->
-                    commentItem(this@CommentsActivity, index != comments.data?.size, comment) {
+                    commentItem(
+                        this@CommentsActivity,
+                        this@CommentsActivity,
+                        index != comments.data?.size,
+                        comment
+                    ) {
                         loadMainComment()
                     }
                 }
@@ -150,6 +155,7 @@ class CommentsActivity : AppCompatActivity() {
             itemManager.autoRefresh {
                 comments.data?.forEachWithIndex { index, comment ->
                     commentItem(
+                        this@CommentsActivity,
                         this@CommentsActivity,
                         index != comments.data.size,
                         comment

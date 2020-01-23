@@ -167,7 +167,7 @@ class HomePageFragment : Fragment() {
                 clear()
                 works.forEach { work ->
                     CommonPreferences.setAndGetUserHistory(work.work_ID)
-                    homePageItem(work) {
+                    homePageItem(activity!!, work) {
                         CommonPreferences.setAndGetUserHabit(work.work_type_ID)
                         val intent = Intent().also {
                             it.putExtra(
@@ -196,7 +196,7 @@ class HomePageFragment : Fragment() {
             itemManager.autoRefresh {
                 works.forEach { work ->
                     CommonPreferences.setAndGetUserHistory(work.work_ID)
-                    homePageItem(work) {
+                    homePageItem(activity!!, work) {
                         CommonPreferences.setAndGetUserHabit(work.work_type_ID)
                         val intent = Intent().also {
                             it.putExtra(
@@ -229,7 +229,7 @@ class HomePageFragment : Fragment() {
                 clear() // 删除之前的item
                 worksWithType.data.forEach { work ->
                     CommonPreferences.setAndGetUserHistory(work.work_ID)
-                    homePageItem(work) {
+                    homePageItem(activity!!, work) {
                         CommonPreferences.setAndGetUserHabit(work.work_type_ID)
                         val intent = Intent().also {
                             it.putExtra(
@@ -266,7 +266,7 @@ class HomePageFragment : Fragment() {
             itemManager.autoRefresh {
                 worksWithType.data.forEach { work ->
                     CommonPreferences.setAndGetUserHistory(work.work_ID)
-                    homePageItem(work) {
+                    homePageItem(activity!!, work) {
                         CommonPreferences.setAndGetUserHabit(work.work_type_ID)
                         val intent = Intent().also {
                             it.putExtra(

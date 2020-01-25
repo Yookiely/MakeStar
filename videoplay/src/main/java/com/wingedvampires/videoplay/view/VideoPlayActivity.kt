@@ -130,6 +130,11 @@ class VideoPlayActivity : AppCompatActivity(), OnPlayerEventListener {
             tv_attention_store.text = VideoPlayUtils.format(work.collection_num)
             tv_videoplay_title.text = work.work_name
 
+            cv_videoplay_avatar.setOnClickListener {
+                val intent = Intent()
+                intent.putExtra("userID", work.user_ID)
+                Transfer.startActivityWithoutClose(this@VideoPlayActivity, "MyselfActivity", intent)
+            }
             iv_attention_store.apply {
                 if (isCollected)
                     setImageResource(R.drawable.ms_red_star)
@@ -304,6 +309,11 @@ class VideoPlayActivity : AppCompatActivity(), OnPlayerEventListener {
             tv_attention_store.text = VideoPlayUtils.format(work.collection_num)
             tv_videoplay_title.text = work.work_name
 
+            cv_videoplay_avatar.setOnClickListener {
+                val intent = Intent()
+                intent.putExtra("userID", work.user_ID)
+                Transfer.startActivityWithoutClose(this@VideoPlayActivity, "MyselfActivity", intent)
+            }
             iv_attention_store.apply {
                 if (isCollected)
                     setImageResource(R.drawable.ms_red_star)

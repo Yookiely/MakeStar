@@ -20,6 +20,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+            <ImageView
+                    android:id="@+id/iv_homepage_search_back"
+                    android:layout_width="15dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="33dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/ms_white_back"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent" />
+
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -51,7 +62,7 @@
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/ms_search_background"
                 android:gravity="center"
-                android:hint="輸入"
+                android:hint="输入内容"
                 android:imeOptions="actionSearch"
                 android:singleLine="true"
                 android:textColorHint="#cccccc"

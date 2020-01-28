@@ -22,6 +22,7 @@ import com.wingedvampires.homepage.view.items.searchVideoItem
 import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
 import com.yookie.common.experimental.extensions.awaitAndHandle
 import com.yookie.common.experimental.extensions.jumpchannel.Transfer
+import kotlinx.android.synthetic.main.activity_global_search.*
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 import org.jetbrains.anko.collections.forEachWithIndex
@@ -42,6 +43,10 @@ class GlobalSearchActivity : AppCompatActivity() {
         recyclerView.apply {
             layoutManager = mLayoutManager
             adapter = ItemAdapter(itemManager)
+        }
+
+        iv_homepage_search_back.setOnClickListener {
+            onBackPressed()
         }
 
         searchEdit.clearFocus()

@@ -46,6 +46,9 @@ class MoreSearchActivity : AppCompatActivity() {
             Toast.makeText(this, "搜索内容有误", Toast.LENGTH_SHORT).show()
         }
 
+        iv_search_more_back.setOnClickListener {
+            onBackPressed()
+        }
         when (searchType) {
             HomePageUtils.SEARCH_USER -> {
                 refreshList = { loadSearchForUser() }

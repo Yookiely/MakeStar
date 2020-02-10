@@ -4,6 +4,7 @@ import com.yookie.common.experimental.CommonContext
 import com.yookie.common.experimental.network.CommonBody
 import com.yookie.common.experimental.network.CoroutineCallAdapterFactory
 import com.yookie.common.experimental.network.ServiceFactory
+import com.yookie.common.experimental.preference.CommonPreferences
 import kotlinx.coroutines.experimental.Deferred
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -22,6 +23,16 @@ interface AuthService {
     @POST("user/login")
     fun getToken(@Query("username") user: String, @Query("password") register: String): Deferred<CommonBody<AuthData>>
 
+    @POST("user/update")
+    fun update(
+        @Query("avatar") avatar: String? = null,
+        @Query("city_Name") city_Name: String? = null,
+        @Query("sex") sex: Int? = null,
+        @Query("age") age: String? = null,
+        @Query("signature") signature: String? = null,
+        @Query("tags") tags: String? = null,
+        @Query(" ser_ID") user_ID: String = CommonPreferences.userid
+    ): Deferred<CommonBody<String>>
 
     @GET("user/myself")
     fun authSelf(): Deferred<CommonBody<AuthData>>
@@ -93,7 +104,14 @@ data class AuthData(
     val user_ID: Int,
     val username: String,
     val week_hot_value: Int,
-    val year_hot_value: Int
+    val year_hot_value: Int,
+    val birthday: Birthday?
+)
+
+data class Birthday(
+    val year: Int,
+    val month: Int,
+    val day: Int
 )
 
 data class WeiXin(
@@ -134,6 +152,7 @@ data class NewUser(
 data class ShareContent(
     val url: String
 )
+
 data class test(
     val age: Int,
     val avatar: String,

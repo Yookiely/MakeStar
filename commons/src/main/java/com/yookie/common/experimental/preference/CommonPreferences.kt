@@ -33,6 +33,7 @@ object CommonPreferences {
     var signature by hawk("signature", "")
     var city by hawk("city", "")
     var rank by hawk("rank", "")
+    var birthday by hawk("birthday", "")
 
     var userHabit by hawk("USER_HABIT", mutableListOf<Int>()) // 用户的喜好类型ID
 

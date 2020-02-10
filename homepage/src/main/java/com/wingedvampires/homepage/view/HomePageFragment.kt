@@ -35,8 +35,7 @@ class HomePageFragment : Fragment() {
     private var workType = 0
     private lateinit var recyclerView: RecyclerView
     private lateinit var banner: MyBanner
-    private var itemManager: ItemManager =
-        ItemManager()  //by lazy { recyclerView.withItems(listOf()) }
+    private var itemManager: ItemManager = ItemManager()
     private var isLoading = true
     private var page = 1
     private var lastPage = Int.MAX_VALUE

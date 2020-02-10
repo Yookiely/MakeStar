@@ -23,6 +23,7 @@ import com.example.playerlibrary.provider.MonitorDataProvider
 import com.example.playerlibrary.provider.VideoBean
 import com.example.playerlibrary.receiver.ReceiverGroup
 import com.example.playerlibrary.widget.BaseVideoView
+import com.hb.dialog.dialog.LoadingDialog
 import com.wingedvampires.videoplay.R
 import com.wingedvampires.videoplay.extension.PUtil
 import com.wingedvampires.videoplay.model.NumberOfStar
@@ -55,6 +56,7 @@ class VideoPlayActivity : AppCompatActivity(), OnPlayerEventListener {
     private var videoBeanList = mutableListOf<VideoBean>()
     private var isCollected = false
     private var havaAdd = false
+    lateinit var loadingDialog: LoadingDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,6 +68,8 @@ class VideoPlayActivity : AppCompatActivity(), OnPlayerEventListener {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
         setContentView(R.layout.test_video_activity)
+        loadingDialog = LoadingDialog(this)
+        loadingDialog.setMessage("加载中...")
         val bundle: Bundle? = intent.extras
         workId = bundle?.getString(VideoPlayUtils.VIDEO_PALY_WORKID)
         if (workId.isNullOrEmpty()) {
@@ -97,26 +101,30 @@ class VideoPlayActivity : AppCompatActivity(), OnPlayerEventListener {
 
     private fun loadVideoInfo() {
         launch(UI + QuietCoroutineExceptionHandler) {
-
+            loadingDialog.show()
             val work = VideoPlayService.getWorkByID(workId!!).awaitAndHandle {
                 it.printStackTrace()
                 Toast.makeText(this@VideoPlayActivity, "数据加载失败", Toast.LENGTH_SHORT).show()
+                loadingDialog.dismiss()
             }?.data?.get(0) ?: return@launch
 
             val videoInfo = VideoPlayService.getVideoInfo(work.video_ID).awaitAndHandle {
                 it.printStackTrace()
                 Toast.makeText(this@VideoPlayActivity, "数据加载失败", Toast.LENGTH_SHORT).show()
+                loadingDialog.dismiss()
             }?.data ?: return@launch
 
             val isFollow = VideoPlayService.isFollow(work.user_ID).awaitAndHandle {
                 it.printStackTrace()
                 Toast.makeText(this@VideoPlayActivity, "用户信息加载失败", Toast.LENGTH_SHORT).show()
+                loadingDialog.dismiss()
             }?.data ?: return@launch
 
 
 
             if (videoInfo.PlayInfoList.PlayInfo.isEmpty()) {
                 Toast.makeText(this@VideoPlayActivity, "视频Url获取失败", Toast.LENGTH_SHORT).show()
+                loadingDialog.dismiss()
                 return@launch
             }
             isCollected = work.is_collected
@@ -272,30 +280,35 @@ class VideoPlayActivity : AppCompatActivity(), OnPlayerEventListener {
             )
 
             initPlay()
+            loadingDialog.dismiss()
         }
     }
 
     private fun refreshVideoInfo() {
         launch(UI + QuietCoroutineExceptionHandler) {
-
+            loadingDialog.show()
             val work = VideoPlayService.getWorkByID(workId!!).awaitAndHandle {
                 it.printStackTrace()
                 Toast.makeText(this@VideoPlayActivity, "数据加载失败", Toast.LENGTH_SHORT).show()
+                loadingDialog.dismiss()
             }?.data?.get(0) ?: return@launch
 
             val videoInfo = VideoPlayService.getVideoInfo(work.video_ID).awaitAndHandle {
                 it.printStackTrace()
                 Toast.makeText(this@VideoPlayActivity, "数据加载失败", Toast.LENGTH_SHORT).show()
+                loadingDialog.dismiss()
             }?.data ?: return@launch
 
             val isFollow = VideoPlayService.isFollow(work.user_ID).awaitAndHandle {
                 it.printStackTrace()
                 Toast.makeText(this@VideoPlayActivity, "用户信息加载失败", Toast.LENGTH_SHORT).show()
+                loadingDialog.dismiss()
             }?.data ?: return@launch
 
 
             if (videoInfo.PlayInfoList.PlayInfo.isEmpty()) {
                 Toast.makeText(this@VideoPlayActivity, "视频Url获取失败", Toast.LENGTH_SHORT).show()
+                loadingDialog.dismiss()
                 return@launch
             }
             isCollected = work.is_collected
@@ -452,6 +465,7 @@ class VideoPlayActivity : AppCompatActivity(), OnPlayerEventListener {
                 )
             )
         }
+        loadingDialog.dismiss()
     }
 
     private fun initPlay() {

@@ -28,6 +28,13 @@ val authSelfLiveData = RefreshableLiveData.use(authSelfLocalCache, authSelfRemot
         CommonPreferences.rank = this.month_rank.toString()
         CommonPreferences.focus_num = this.follow_num.toString()
 
+        if (this.birthday != null) {
+            CommonPreferences.birthday =
+                "${this.birthday!!.year}-${this.birthday!!.month}-${this.birthday!!.day}"
+        } else {
+            CommonPreferences.birthday = ""
+        }
+
     }
 }
 fun login(username: String, password: String, callback: suspend (RefreshState<Unit>) -> Unit = {}) {
@@ -51,6 +58,15 @@ fun login(username: String, password: String, callback: suspend (RefreshState<Un
             CommonPreferences.city = it.city
             CommonPreferences.rank = it.month_rank.toString()
             CommonPreferences.focus_num = it.follow_num.toString()
+
+            if (it.birthday != null) {
+                CommonPreferences.birthday =
+                    "${it.birthday!!.year}-${it.birthday!!.month}-${it.birthday!!.day}"
+            } else {
+                CommonPreferences.birthday = ""
+            }
+
+
             callback(RefreshState.Success(Unit))
         }
     }

@@ -26,8 +26,7 @@ import kotlinx.coroutines.experimental.launch
 class AttentionFocusFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     var activity: AttentionActivity? = null
-    private var itemManager: ItemManager =
-        ItemManager() //by lazy { recyclerView.withItems(listOf()) }
+    private var itemManager: ItemManager = ItemManager()
     lateinit var attentionRefresh: SwipeRefreshLayout
     private var isLoading = true
     private var page: Int = 1

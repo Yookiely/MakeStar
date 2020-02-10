@@ -66,6 +66,7 @@ interface UserService {
     fun getCommentCommentByAcID(@Query("facID") facID: Int,@Query("limit") limit: Int ,@Query("page")page: Int) : Deferred<CommonBody<FansSeComment>>
     companion object : UserService by ServiceFactory()
 
+
 }
 
 

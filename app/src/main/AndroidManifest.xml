@@ -39,7 +39,9 @@
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true"
             tools:replace="android:icon, android:theme">
-        <activity android:name=".CollectionActivity"></activity>
+        <activity android:name=".EditDetailActivity"></activity>
+        <activity android:name=".EditActivity" />
+        <activity android:name=".CollectionActivity" />
         <activity android:name=".WithdrawActivity" />
         <activity android:name=".RedPacketActivity" />
         <activity android:name=".MyselfActivity" />

@@ -59,6 +59,7 @@ class MyUserActivity : AppCompatActivity() {
             setUserText("我的收藏",this@MyUserActivity,3)
             setUserText("我的红包", this@MyUserActivity, 7)
             setUserText("粉丝圈",this@MyUserActivity,4)
+            setUserText("修改个人信息", this@MyUserActivity, 8)
 //            setUserText("我的订单",this@MyUserActivity,5)
 //            setUserText("商务合作",this@MyUserActivity,6)
         }

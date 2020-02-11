@@ -27,6 +27,7 @@ val authSelfLiveData = RefreshableLiveData.use(authSelfLocalCache, authSelfRemot
         CommonPreferences.city = this.city
         CommonPreferences.rank = this.month_rank.toString()
         CommonPreferences.focus_num = this.follow_num.toString()
+        CommonPreferences.tags = this.tags
 
         if (this.birthday != null) {
             CommonPreferences.birthday =
@@ -58,6 +59,7 @@ fun login(username: String, password: String, callback: suspend (RefreshState<Un
             CommonPreferences.city = it.city
             CommonPreferences.rank = it.month_rank.toString()
             CommonPreferences.focus_num = it.follow_num.toString()
+            CommonPreferences.tags = it.tags
 
             if (it.birthday != null) {
                 CommonPreferences.birthday =

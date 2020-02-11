@@ -6,14 +6,13 @@ import com.yookie.common.experimental.network.CoroutineCallAdapterFactory
 import com.yookie.common.experimental.network.ServiceFactory
 import com.yookie.common.experimental.preference.CommonPreferences
 import kotlinx.coroutines.experimental.Deferred
+import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 import java.util.concurrent.TimeUnit
 
 interface AuthService {
@@ -23,15 +22,16 @@ interface AuthService {
     @POST("user/login")
     fun getToken(@Query("username") user: String, @Query("password") register: String): Deferred<CommonBody<AuthData>>
 
+    @Multipart
     @POST("user/update")
     fun update(
-        @Query("avatar") avatar: String? = null,
+        @Part avatar: MultipartBody.Part? = null,
         @Query("city_Name") city_Name: String? = null,
         @Query("sex") sex: Int? = null,
         @Query("age") age: String? = null,
         @Query("signature") signature: String? = null,
         @Query("tags") tags: String? = null,
-        @Query(" ser_ID") user_ID: String = CommonPreferences.userid
+        @Query("user_ID") user_ID: String = CommonPreferences.userid
     ): Deferred<CommonBody<String>>
 
     @GET("user/myself")

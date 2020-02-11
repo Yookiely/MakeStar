@@ -53,23 +53,35 @@ interface UserService {
 
     @GET("fandomAction/getFandomInfo")
     fun getFandomInfo(@Query("host_user_ID") hostUserID :Int  ,@Query("user_ID") userid: String = CommonPreferences.userid ):Deferred<CommonBody<FandomInfo>>
+
     @FormUrlEncoded
     @POST("fandomAction/changeStatusOfFandom")
     fun changeStatusOfFandom(@FieldMap params : Map<String,String>): Deferred<CommonBody<StatusOfFandom>>
+
     @GET("fandomAction/getUserFandomList")
     fun getUserFandomList(@Query("user_ID") userid: String = CommonPreferences.userid) :Deferred<CommonBody<FandomListData>>
+
     @GET("fandomAction/getRecentActions")
     fun getRecentActions(@Query("limit") limit: Int, @Query("page") page: Int, @Query("host_user_ID") hostUserId: Int ):Deferred<CommonBody<FansCircleInfo>>
+
     @GET("fandomAction/getCommentByActionID")
     fun getCommemtByActionID(@Query("fandom_action_ID") fandom_action_ID: Int,@Query("limit") limit: Int,@Query("page")page: Int):Deferred<CommonBody<FansComment>>
+
     @GET("fandomAction/getCommentCommentByAcID")
     fun getCommentCommentByAcID(@Query("facID") facID: Int,@Query("limit") limit: Int ,@Query("page")page: Int) : Deferred<CommonBody<FansSeComment>>
+
+    @GET("tag/getConstUserTags")
+    fun getConstUserTags(): Deferred<CommonBody<List<ConstUserTag>>>
+
     companion object : UserService by ServiceFactory()
 
 
 }
 
-
+data class ConstUserTag(
+    val tag_ID: Int,
+    val tag_name: String
+)
 data class rank(
     val month: String,
     val rank: String,

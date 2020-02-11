@@ -48,7 +48,6 @@
                 android:layout_height="wrap_content"
                 android:textColor="#999999"
                 android:textSize="16sp"
-
                 tools:text="世界无敌第一桑女孩" />
 
 

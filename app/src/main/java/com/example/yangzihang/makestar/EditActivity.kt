@@ -29,11 +29,17 @@ import com.example.yangzihang.makestar.View.EditPicItem
 import com.example.yangzihang.makestar.View.editInfoItem
 import com.example.yangzihang.makestar.View.editPicItem
 import com.example.yangzihang.makestar.utils.AppUtils
+import com.hb.dialog.dialog.LoadingDialog
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
+import com.yookie.common.AuthService
+import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
+import com.yookie.common.experimental.extensions.awaitAndHandle
 import com.yookie.common.experimental.preference.CommonPreferences
 import kotlinx.android.synthetic.main.activity_edit.*
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.launch
 import org.jetbrains.anko.startActivity
 import pub.devrel.easypermissions.EasyPermissions
 import java.text.SimpleDateFormat
@@ -46,6 +52,7 @@ class EditActivity : AppCompatActivity() {
     private lateinit var pvTime: TimePickerView
     private lateinit var pvOptions: OptionsPickerView<String>
     private lateinit var editPicItem: EditPicItem
+    private lateinit var loadingDialog: LoadingDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +60,8 @@ class EditActivity : AppCompatActivity() {
         setContentView(R.layout.activity_edit)
         iv_edit_back.setOnClickListener { onBackPressed() }
 
-
+        loadingDialog = LoadingDialog(this)
+        loadingDialog.setMessage("正在修改")
         val mLayoutManager = LinearLayoutManager(this)
         recyclerView = findViewById(R.id.rv_user_edit)
         recyclerView.apply {
@@ -72,48 +80,49 @@ class EditActivity : AppCompatActivity() {
         loadInfo()
     }
 
-    private fun loadInfo() {
+    private fun loadInfo() = itemManager.refreshAll {
+        clear()
+        editPicItem("头像", this@EditActivity, CommonPreferences.avatars) {
+            editPicItem = it
+            checkPermAndOpenPic()
+        }
 
-        itemManager.refreshAll {
-            clear()
-            editPicItem("头像", this@EditActivity, CommonPreferences.avatars) {
-                editPicItem = it
-                checkPermAndOpenPic()
-            }
+        editInfoItem("名称", CommonPreferences.username, false) {
+            it.context.startActivity<EditDetailActivity>(AppUtils.EDIT_INDEX to EditType.name)
+        }
 
-            editInfoItem("名称", CommonPreferences.username, false) {
-                it.context.startActivity<EditDetailActivity>(AppUtils.EDIT_INDEX to EditType.name)
-            }
+        editInfoItem("个性签名", CommonPreferences.signature, true) {
+            it.context.startActivity<EditDetailActivity>(AppUtils.EDIT_INDEX to EditType.signature)
+        }
 
-            editInfoItem("个性签名", CommonPreferences.signature, true) {
-                it.context.startActivity<EditDetailActivity>(AppUtils.EDIT_INDEX to EditType.signature)
-            }
+        editInfoItem("地区", CommonPreferences.city, true) {
+            it.context.startActivity<EditDetailActivity>(AppUtils.EDIT_INDEX to EditType.city)
+        }
 
-            editInfoItem("地区", CommonPreferences.city, true) {
-                it.context.startActivity<EditDetailActivity>(AppUtils.EDIT_INDEX to EditType.city)
-            }
+        editInfoItem("性别", CommonPreferences.sex, true) {
+            pvOptions.show(it)
+        }
 
-            editInfoItem("性别", CommonPreferences.sex, true) {
-                pvOptions.show(it)
-            }
+        editInfoItem("生日", CommonPreferences.birthday, true) {
+            pvTime.show(it)
+        }
 
-            editInfoItem("生日", CommonPreferences.age, true) {
-                pvTime.show(it)
-            }
-
-
+        editInfoItem("标签", "", true) {
+            it.context.startActivity<EditDetailActivity>(AppUtils.EDIT_INDEX to EditType.tag)
         }
     }
+
 
     private fun initTimePicker() { //Dialog 模式下，在底部弹出
         pvTime = TimePickerBuilder(this,
             OnTimeSelectListener { date, v ->
-                Toast.makeText(
-                    this@EditActivity,
-                    getTime(date),
-                    Toast.LENGTH_SHORT
-                ).show()
-                Log.i("pvTime", "onTimeSelect")
+                val birthday = getTime(date)
+
+                if (birthday != null) {
+                    uploadAndRefreshBirthday(birthday) {
+                        CommonPreferences.birthday = birthday
+                    }
+                }
             })
             .setTimeSelectChangeListener { Log.i("pvTime", "onTimeSelectChanged") }
             .setType(booleanArrayOf(true, true, true, false, false, false))
@@ -151,10 +160,6 @@ class EditActivity : AppCompatActivity() {
     }
 
     private fun initOptionPicker() { //条件选择器初始化
-        /**
-         * 注意 ：如果是三级联动的数据(省市区等)，请参照 JsonDataActivity 类里面的写法。
-         */
-
         val list = mutableListOf<String>()
         list.apply {
             add("男")
@@ -162,9 +167,12 @@ class EditActivity : AppCompatActivity() {
         }
 
         pvOptions = OptionsPickerBuilder(this,
-            OnOptionsSelectListener { options1, options2, options3, v ->
+            OnOptionsSelectListener { options1, _, _, v ->
                 //返回的分别是三个级别的选中位置
-
+                Log.d("momomom", list[options1])
+                uploadAndRefreshSex(options1 + 1) {
+                    CommonPreferences.sex = list[options1]
+                }
             })
             .setContentTextSize(20) //设置滚轮文字大小
             .setDividerColor(Color.LTGRAY) //设置分割线的颜色
@@ -178,10 +186,15 @@ class EditActivity : AppCompatActivity() {
             .build()
         //        pvOptions.setSelectOptions(1,1);
         pvOptions.setPicker(list) //一级选择器
+
+        when (CommonPreferences.sex) {
+            "男" -> pvOptions.setSelectOptions(0)
+            "女" -> pvOptions.setSelectOptions(1)
+        }
     }
 
     private fun getTime(date: Date): String? { //可根据需要自行截取数据显示
-        val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        val format = SimpleDateFormat("yyyy-MM-dd")
         return format.format(date)
     }
 
@@ -225,7 +238,10 @@ class EditActivity : AppCompatActivity() {
                     // 图片、视频、音频选择结果回调
                     val selectList = PictureSelector.obtainMultipleResult(data)
                     Log.d("whatthefuck", selectList[0].path)
-                    editPicItem.loadAnUploadPic(selectList[0].path)
+                    editPicItem.loadAnUploadPic(selectList[0].path) {
+                        CommonPreferences.avatars = selectList[0].path
+                        loadInfo()
+                    }
 
                     // 例如 LocalMedia 里面返回三种path
                     // 1.media.getPath(); 为原图path
@@ -237,4 +253,45 @@ class EditActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun uploadAndRefreshSex(sex: Int, block: () -> Unit) {
+        launch(UI + QuietCoroutineExceptionHandler) {
+            loadingDialog.show()
+            val result =
+                AuthService.update(sex = sex).awaitAndHandle {
+                    it.printStackTrace()
+                    Toast.makeText(this@EditActivity, "修改失败", Toast.LENGTH_SHORT).show()
+                    loadingDialog.dismiss()
+                } ?: return@launch
+
+            if (result.error_code == -1) {
+                block()
+            }
+
+            Toast.makeText(this@EditActivity, result.message, Toast.LENGTH_SHORT).show()
+            loadInfo()
+            loadingDialog.dismiss()
+        }
+    }
+
+    private fun uploadAndRefreshBirthday(birthday: String, block: () -> Unit) {
+        launch(UI + QuietCoroutineExceptionHandler) {
+            loadingDialog.show()
+            val result =
+                AuthService.update(age = birthday).awaitAndHandle {
+                    it.printStackTrace()
+                    Toast.makeText(this@EditActivity, "修改失败", Toast.LENGTH_SHORT).show()
+                    loadingDialog.dismiss()
+                } ?: return@launch
+
+            if (result.error_code == -1) {
+                block()
+            }
+
+            Toast.makeText(this@EditActivity, result.message, Toast.LENGTH_SHORT).show()
+            loadInfo()
+            loadingDialog.dismiss()
+        }
+    }
+
 }

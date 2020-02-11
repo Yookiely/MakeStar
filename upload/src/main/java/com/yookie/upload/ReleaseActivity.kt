@@ -5,11 +5,10 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.Window
@@ -210,6 +209,7 @@ class ReleaseActivity : AppCompatActivity() {
             var loadingDialog = LoadingDialog(this)
             loadingDialog.setMessage("正在上传")
             loadingDialog.show()
+
 
         }
 

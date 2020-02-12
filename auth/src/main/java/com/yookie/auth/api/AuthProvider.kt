@@ -27,7 +27,7 @@ val authSelfLiveData = RefreshableLiveData.use(authSelfLocalCache, authSelfRemot
         CommonPreferences.city = this.city
         CommonPreferences.rank = this.month_rank.toString()
         CommonPreferences.focus_num = this.follow_num.toString()
-        CommonPreferences.tags = this.tags
+        CommonPreferences.tags = if (this.tags == null) "" else this.tags!!
 
         if (this.birthday != null) {
             CommonPreferences.birthday =
@@ -38,6 +38,7 @@ val authSelfLiveData = RefreshableLiveData.use(authSelfLocalCache, authSelfRemot
 
     }
 }
+
 fun login(username: String, password: String, callback: suspend (RefreshState<Unit>) -> Unit = {}) {
     launch(UI) {
         AuthService.getToken(username, password).awaitAndHandle {
@@ -59,7 +60,7 @@ fun login(username: String, password: String, callback: suspend (RefreshState<Un
             CommonPreferences.city = it.city
             CommonPreferences.rank = it.month_rank.toString()
             CommonPreferences.focus_num = it.follow_num.toString()
-            CommonPreferences.tags = it.tags
+            CommonPreferences.tags = if (it.tags == null) "" else it.tags!!
 
             if (it.birthday != null) {
                 CommonPreferences.birthday =

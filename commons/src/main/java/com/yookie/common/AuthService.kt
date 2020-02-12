@@ -22,10 +22,11 @@ interface AuthService {
     @POST("user/login")
     fun getToken(@Query("username") user: String, @Query("password") register: String): Deferred<CommonBody<AuthData>>
 
+    //文件上传不饿能为null，可以传默认MultipartBody.Part.createFormData("","")
     @Multipart
     @POST("user/update")
     fun update(
-        @Part avatar: MultipartBody.Part? = null,
+        @Part avatar: MultipartBody.Part? = MultipartBody.Part.createFormData("", ""),
         @Query("city_Name") city_Name: String? = null,
         @Query("sex") sex: Int? = null,
         @Query("age") age: String? = null,
@@ -99,7 +100,7 @@ data class AuthData(
     val month_rank: Int,
     val sex: String,
     val signature: String,
-    val tags: String,
+    val tags: String?,
     val token: String,
     val user_ID: Int,
     val username: String,

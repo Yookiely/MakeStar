@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginBottom="20dp">
 
-    <TextView
-            android:id="@+id/tv_edit_tag"
-            android:layout_width="wrap_content"
+    <EditText
+            android:id="@+id/et_edit_tag"
+            android:layout_width="110dp"
             android:layout_height="30dp"
             android:background="@drawable/ms_tag_noselect"
             android:gravity="center"
+            android:hint="添加(9字内)"
+            android:maxLength="9"
             android:paddingStart="14dp"
             android:paddingEnd="14dp"
+            android:singleLine="true"
             android:textColor="#999999"
             android:textSize="16sp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="搞笑播主" />
-
+            app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

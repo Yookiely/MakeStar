@@ -2,48 +2,48 @@ package com.example.yangzihang.makestar.View
 
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.EditText
 import cn.edu.twt.retrox.recyclerviewdsl.Item
 import cn.edu.twt.retrox.recyclerviewdsl.ItemController
 import com.example.yangzihang.makestar.EditDetailActivity
 import com.example.yangzihang.makestar.R
 import org.jetbrains.anko.layoutInflater
 
-class EditTagItem(
+class EditTagInputItem(
     val editDetailActivity: EditDetailActivity,
     val tagContent: String,
-    val select: Boolean,
-    val list: MutableList<String>
+    val select: Boolean
 ) : Item {
     var isSelect = false
+    var tagText: String? = null
 
     override val controller: ItemController
         get() = Controller
 
 
     companion object Controller : ItemController {
-
         override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
-            val view = parent.context.layoutInflater.inflate(R.layout.item_edit_tag, parent, false)
+            val view =
+                parent.context.layoutInflater.inflate(R.layout.item_edit_tag_input, parent, false)
 
             return ViewHolder(view)
         }
 
-
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: Item) {
             holder as ViewHolder
-            item as EditTagItem
+            item as EditTagInputItem
 
             item.isSelect = item.select
 
             holder.apply {
-
-                tag.text = item.tagContent
+                inputTag.setText(item.tagContent)
 
                 if (item.isSelect) {
-                    tag.apply {
+                    inputTag.apply {
                         setBackgroundResource(R.drawable.ms_tag_select)
                         setTextColor(
                             ContextCompat.getColor(
@@ -52,10 +52,9 @@ class EditTagItem(
                             )
                         )
                     }
-
-                    item.list.add(item.tagContent)
+                    item.tagText = inputTag.text.toString()
                 } else {
-                    tag.apply {
+                    inputTag.apply {
                         setBackgroundResource(R.drawable.ms_tag_noselect)
                         setTextColor(
                             ContextCompat.getColor(
@@ -64,13 +63,12 @@ class EditTagItem(
                             )
                         )
                     }
-
-                    item.list.remove(item.tagContent)
+                    item.tagText = null
                 }
 
                 itemView.setOnClickListener {
                     if (item.isSelect) {
-                        tag.apply {
+                        inputTag.apply {
                             setBackgroundResource(R.drawable.ms_tag_noselect)
                             setTextColor(
                                 ContextCompat.getColor(
@@ -81,12 +79,11 @@ class EditTagItem(
                         }
 
                         item.isSelect = false
-                        item.list.remove(item.tagContent)
+                        item.tagText = null
                         item.decLabel()
-
                     } else {
                         if (item.editDetailActivity.totalSelected < 6) {
-                            tag.apply {
+                            inputTag.apply {
                                 setBackgroundResource(R.drawable.ms_tag_select)
                                 setTextColor(
                                     ContextCompat.getColor(
@@ -97,14 +94,40 @@ class EditTagItem(
                             }
 
                             item.isSelect = true
-                            item.list.add(item.tagContent)
+                            item.tagText = inputTag.text.toString()
+                            if (inputTag.text.toString().isBlank()) {
+                                item.tagText = null
+                            }
                             item.incLabel()
                         }
                     }
                 }
+
+
+                inputTag.addTextChangedListener(object : TextWatcher {
+                    override fun afterTextChanged(s: Editable?) = Unit
+
+                    override fun beforeTextChanged(
+                        s: CharSequence?,
+                        start: Int,
+                        count: Int,
+                        after: Int
+                    ) = Unit
+
+                    override fun onTextChanged(
+                        s: CharSequence?,
+                        start: Int,
+                        before: Int,
+                        count: Int
+                    ) {
+                        item.tagText = inputTag.text.toString()
+                        if (inputTag.text.toString().isBlank()) {
+                            item.tagText = null
+                        }
+                    }
+                })
             }
         }
-
     }
 
     fun decLabel() {
@@ -122,13 +145,6 @@ class EditTagItem(
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tag: TextView = itemView.findViewById(R.id.tv_edit_tag)
+        val inputTag: EditText = itemView.findViewById(R.id.et_edit_tag)
     }
 }
-
-fun MutableList<Item>.editTagItem(
-    editDetailActivity: EditDetailActivity,
-    tagContent: String,
-    select: Boolean,
-    list: MutableList<String>
-) = add(EditTagItem(editDetailActivity, tagContent, select, list))

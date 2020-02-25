@@ -17,6 +17,7 @@ class MessageFragment : Fragment(){
         val view: View = inflater.inflate(R.layout.fragment_message_message, container, false)
 
 
+
         return view
     }
 }

@@ -102,7 +102,7 @@ class LoginActivity : AppCompatActivity() {
                             is RefreshState.Failure -> {
                                 Toast.makeText(
                                     this@LoginActivity,
-                                    "发生错误 ${it.throwable.message}！${it.javaClass.name}",
+                                    "请检查用户名密码是否错误",
                                     Toast.LENGTH_LONG
                                 ).show()
                                 this.isEnabled = true

@@ -64,6 +64,13 @@ class GlobalSearchActivity : AppCompatActivity() {
                 true
             }
         }
+        if (intent.getStringExtra("SearchText")!=null){
+            searchEdit.setText(intent.getStringExtra("SearchText"))
+            loadSearch()
+            searchEdit.isFocusable = false
+            searchEdit.isFocusableInTouchMode = true
+            hideSoftInputMethod()
+        }
 
         hideSoftInputMethod()
     }

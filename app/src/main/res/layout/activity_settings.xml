@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".SettingsActivity">
+
+    <android.support.v7.widget.Toolbar
+            android:id="@+id/tb_main_settings"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/ms_main_theme"
+            app:layout_constraintTop_toTopOf="parent">
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:gravity="center"
+                android:layout_marginBottom="20dp"
+                android:textColor="#ffffff"
+                android:layout_marginEnd="60dp"
+                android:layout_marginStart="60dp"
+                android:textSize="24sp"
+                android:text="设置"
+                />
+    </android.support.v7.widget.Toolbar>
+
+
+
+    <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/tb_main_settings"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/settings_rec"
+            />
+
+</android.support.constraint.ConstraintLayout>

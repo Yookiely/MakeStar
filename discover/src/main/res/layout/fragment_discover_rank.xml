@@ -22,15 +22,15 @@
                     android:id="@+id/clayout"
                     android:background="@drawable/card_circle_shape">
 
-                <EditText
+                <TextView
                         android:layout_width="0dp"
                         android:layout_height="40dp"
-                        android:hint="sdasdw"
+                        android:hint="点此搜索"
                         app:layout_constraintLeft_toLeftOf="parent"
                         android:layout_marginLeft="13dp"
                         app:layout_constraintRight_toRightOf="parent"
                         android:layout_marginRight="13dp"
-                        android:id="@+id/search"
+                        android:id="@+id/search_rank"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         android:gravity="center"

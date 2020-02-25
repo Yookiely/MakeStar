@@ -4,12 +4,16 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".CollectionActivity">
+        tools:context=".AccountActivity"
+        android:background="#cccccc"
+        >
 
     <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/my_collection_rec"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="12dp"
+            android:id="@+id/account_recycler"
             />
 
 </android.support.constraint.ConstraintLayout>

@@ -73,6 +73,18 @@ interface UserService {
     @GET("tag/getConstUserTags")
     fun getConstUserTags(): Deferred<CommonBody<List<ConstUserTag>>>
 
+    @GET("systemMessage/getUserNewMessageNum")
+    fun getNewMessageCount(@Query("userID") userid: String) : Deferred<CommonBody<NewMessage>>
+
+    @GET("systemMessage/getAllSystemMessageList")
+    fun getAllMessage(@Query("page")page: Int,@Query("limit")limit: Int,@Query("userID")userid: String) : Deferred<CommonBody<Comment>>
+
+    @GET("systemMessage/getAllSystemStarList")
+    fun getAllStar(@Query("page")page: Int,@Query("limit")limit: Int,@Query("userID")userid: String) : Deferred<CommonBody<StarMessage>>
+
+    @GET("work/deleteCollection")
+    fun deleteCollection(@Query("collection_ID") collection_ID: Int) : Deferred<CommonBody<String>>
+
     companion object : UserService by ServiceFactory()
 
 
@@ -124,6 +136,7 @@ data class collection(
 )
 
 data class collectionData(
+    val work_ID : Int,
     val collection_ID: Int,
     val collection_num: Int,
     val comment_num: Int,
@@ -336,3 +349,72 @@ data class UserInfo(
     val week_hot_value: Int,
     val year_hot_value: Int
 )
+
+
+data class NewMessage(
+    val new_comment_num: Int,
+    val new_message_num: Int,
+    val new_star_num: Int
+)
+data class Comment(
+    val data : List<MessageDatas>,
+    val current_page: Int,
+    val first_page_url: String,
+    val from: Int,
+    val last_page: Int,
+    val last_page_url: String,
+    val next_page_url: String,
+    val path: String,
+    val per_page: String,
+    val prev_page_url: Any,
+    val to: Int,
+    val total: Int
+)
+
+data class MessageDatas(
+    val content: String,
+    val direct_ID: Int,
+    val direct_second_ID: Int,
+    val direct_third_ID: Any,
+    val from_user_ID: Int,
+    val from_user_avatar: String,
+    val from_user_name: String,
+    val is_read: Int,
+    val new_content: String,
+    val old_content: String,
+    val system_message_ID: Int,
+    val time: String,
+    val type: Int,
+    val user_ID: Int
+)
+
+
+data class StarMessage(
+    val data: List<StarData>,
+    val current_page: Int,
+    val first_page_url: String,
+    val from: Int,
+    val last_page: Int,
+    val last_page_url: String,
+    val next_page_url: Any,
+    val path: String,
+    val per_page: String,
+    val prev_page_url: Any,
+    val to: Int,
+    val total: Int
+)
+
+data class StarData(
+    val content: String,
+    val from_user_ID: Int,
+    val from_user_avatar: String,
+    val from_user_name: String,
+    val is_read: Int,
+    val system_star_ID: Int,
+    val time: String,
+    val to_user_ID: Int,
+    val work_ID: Int,
+    val name : String,
+    val introduction : String
+)
+

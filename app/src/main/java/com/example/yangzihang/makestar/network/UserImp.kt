@@ -56,23 +56,52 @@ object UserImp {
         }
     }
 
+    fun getMessageNum(userid: String, numCallback: (NewMessage) -> Unit) {
+        launch(UI + QuietCoroutineExceptionHandler) {
+            val callback = UserService.getNewMessageCount(userid).await()
+            if (callback.error_code == -1) {
+                numCallback(callback.data!!)
+
+            }
+        }
+    }
+
+    fun getAllMessage(page: Int,limit: Int,userid: String,messageCallBack : (Comment) -> Unit){
+        launch(UI + QuietCoroutineExceptionHandler) {
+            val callback = UserService.getAllMessage(page, limit, userid).await()
+            if (callback.error_code == -1){
+                messageCallBack(callback.data!!)
+            }
+        }
+    }
+
     fun getCollection(
         limit: Int,
         page: Int,
         userid: String,
-        collectionCallback: (List<collectionData>) -> Unit
+        collectionCallback: (collection) -> Unit
     ) {
         launch(UI + QuietCoroutineExceptionHandler) {
             val callback = UserService.getCollection(limit, page, userid).await()
             if (callback.error_code == -1) {
-                collectionCallback(callback.data!!.data)
+                collectionCallback(callback.data!!)
             }
 
         }
 
     }
 
-    fun getFandomInfo( userid: Int ,fansCallback : (FandomInfo)-> Unit){
+
+    fun getStar(limit: Int,page: Int,userid: String,starList : (StarMessage) -> Unit){
+        launch(UI + QuietCoroutineExceptionHandler){
+            val callback = UserService.getAllStar(page, limit, userid).await()
+            if (callback.error_code==-1){
+                starList(callback.data!!)
+            }
+        }
+
+    }
+    fun getFandomInfo(userid: Int, fansCallback: (FandomInfo) -> Unit) {
         launch(UI + QuietCoroutineExceptionHandler) {
             val callback = UserService.getFandomInfo(userid).await()
             if (callback.error_code == -1) {
@@ -80,7 +109,8 @@ object UserImp {
             }
         }
     }
-    fun getFandomList(fansListCallback :(FandomListData) -> Unit){
+
+    fun getFandomList(fansListCallback: (FandomListData) -> Unit) {
         launch(UI + QuietCoroutineExceptionHandler) {
             val callback = UserService.getUserFandomList().await()
             if (callback.error_code == -1) {
@@ -88,59 +118,87 @@ object UserImp {
             }
         }
     }
-    fun changeStatusOfFandom(userid:Int ,statuscallback: suspend (Int) -> (Unit)) {
+
+    fun changeStatusOfFandom(userid: Int, statuscallback: suspend (Int) -> (Unit)) {
         launch(UI + QuietCoroutineExceptionHandler) {
             val params = mapOf(
                 "user_ID" to CommonPreferences.userid,
-                "host_user_ID"  to userid.toString()
+                "host_user_ID" to userid.toString()
             )
             val callback = UserService.changeStatusOfFandom(params).await()
             statuscallback(callback.error_code)
         }
     }
-    fun getRecentActions(limit: Int,page: Int,hostUserId :Int,actionsListCallback :(FansCircleInfo) -> Unit){
+
+    fun getRecentActions(
+        limit: Int,
+        page: Int,
+        hostUserId: Int,
+        actionsListCallback: (FansCircleInfo) -> Unit
+    ) {
         launch(UI + QuietCoroutineExceptionHandler) {
-            val callback = UserService.getRecentActions(limit,page,hostUserId).await()
+            val callback = UserService.getRecentActions(limit, page, hostUserId).await()
             if (callback.error_code == -1) {
                 callback.data?.let { actionsListCallback(it) }
             }
         }
     }
-    fun getCommemtByActionID(fandomId:Int ,limit: Int,page: Int, commentCallback:(FansComment) ->(Unit)){
-        launch(UI+ QuietCoroutineExceptionHandler){
-            val callback = UserService.getCommemtByActionID(fandomId,limit,page).await()
-            if(callback.error_code==-1){
-                callback.data?.let { commentCallback(it)  }
-            }
-        }
-    }
-    fun getCommentCommentByAcID(facId : Int ,limit: Int,page: Int, secommentCallback:(FansSeComment) ->(Unit)){
-        launch(UI+ QuietCoroutineExceptionHandler){
-            val callback = UserService.getCommentCommentByAcID(facId,limit,page).await()
-            if(callback.error_code==-1){
-                callback.data?.let { secommentCallback(it)  }
-            }
-        }
-    }
 
-    fun getMyVideoList(userid: String,listcallback:(List<MyVideo>) -> Unit){
-        launch(UI + QuietCoroutineExceptionHandler){
-            val callback  = UserService.getmyVideoList(userid,1,100).await()
-            if (callback.error_code==-1){
-                callback.data?.let {
-                    listcallback(it.data)
-                }
+    fun getCommemtByActionID(
+        fandomId: Int,
+        limit: Int,
+        page: Int,
+        commentCallback: (FansComment) -> (Unit)
+    ) {
+        launch(UI + QuietCoroutineExceptionHandler) {
+            val callback = UserService.getCommemtByActionID(fandomId, limit, page).await()
+            if (callback.error_code == -1) {
+                callback.data?.let { commentCallback(it) }
             }
         }
     }
 
+    fun getCommentCommentByAcID(
+        facId: Int,
+        limit: Int,
+        page: Int,
+        secommentCallback: (FansSeComment) -> (Unit)
+    ) {
+        launch(UI + QuietCoroutineExceptionHandler) {
+            val callback = UserService.getCommentCommentByAcID(facId, limit, page).await()
+            if (callback.error_code == -1) {
+                callback.data?.let { secommentCallback(it) }
+            }
+        }
+    }
 
-    fun getUserInfo(userid: String,UserInfoCallback: (UserInfo) -> Unit){
-        launch(UI+ QuietCoroutineExceptionHandler){
+    fun getMyVideoList(page: Int,userid: String, listcallback: (MyVideoList) -> Unit) {
+        launch(UI + QuietCoroutineExceptionHandler) {
+            val callback = UserService.getmyVideoList(userid, page, 10).await()
+            if (callback.error_code == -1) {
+                listcallback(callback.data!!)
+            }
+        }
+    }
+
+
+    fun getUserInfo(userid: String, UserInfoCallback: (UserInfo) -> Unit) {
+        launch(UI + QuietCoroutineExceptionHandler) {
             val callback = UserService.getUserInfo(userid).await()
-            if (callback.error_code==-1){
+            if (callback.error_code == -1) {
                 UserInfoCallback(callback.data!!)
             }
+        }
+    }
+
+
+    fun deleteCollection(collectionId : Int , deleteCallback : () -> Unit){
+        launch(UI+ QuietCoroutineExceptionHandler){
+            val callback = UserService.deleteCollection(collectionId).await()
+            if (callback.error_code==-1){
+                deleteCallback()
+            }
+
         }
     }
 

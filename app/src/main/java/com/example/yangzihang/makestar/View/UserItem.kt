@@ -41,7 +41,9 @@ class UserItem(val titles: String, val context: Context, val activity: Int) : It
         when (activity) {
             1 -> intent = Intent(context, RankhistoryActivity::class.java)
             2 -> intent = Intent(context, MessageActivity::class.java)
+            3 -> intent = Intent(context,CollectionActivity::class.java)
             4 -> intent = Intent(context, FansHomeActivity::class.java)
+            5 -> intent = Intent(context,SettingsActivity::class.java)
             7 -> intent = Intent(context, RedPacketActivity::class.java)
             8 -> intent = Intent(context, EditActivity::class.java)
         }

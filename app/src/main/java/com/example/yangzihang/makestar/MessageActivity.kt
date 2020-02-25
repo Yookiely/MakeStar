@@ -12,6 +12,8 @@ import com.example.yangzihang.makestar.View.DiscussFragment
 import com.example.yangzihang.makestar.View.LikeFragment
 import com.example.yangzihang.makestar.View.MessageFragment
 import com.example.yangzihang.makestar.View.MessagePagerAdapter
+import com.example.yangzihang.makestar.network.UserImp
+import com.yookie.common.experimental.preference.CommonPreferences
 import q.rorbin.badgeview.QBadgeView
 
 class MessageActivity : AppCompatActivity() {
@@ -28,14 +30,22 @@ class MessageActivity : AppCompatActivity() {
         val mPagerAdapter = MessagePagerAdapter(supportFragmentManager)
         mPagerAdapter.apply {
             add(MessageFragment(),"消息")
-            add(LikeFragment(),"2")
-            add(DiscussFragment(),"3")
+            add(LikeFragment(),"点赞")
+            add(DiscussFragment(),"评论")
         }
         viewPager.adapter = mPagerAdapter
         mTabLayout.setupWithViewPager(viewPager)
-        setTabBadage(0,10,"消息")
-        setTabBadage(1,9,"点赞")
-        setTabBadage(2,1,"评论")
+        UserImp.getMessageNum(CommonPreferences.userid){
+            if (it.new_message_num>0){
+                setTabBadage(0,it.new_message_num,"消息")
+            }
+            if (it.new_star_num>0){
+                setTabBadage(1,it.new_star_num,"点赞")
+            }
+            if (it.new_comment_num>0){
+                setTabBadage(2,it.new_comment_num,"评论")
+            }
+        }
 
 
     }

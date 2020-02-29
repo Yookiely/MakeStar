@@ -62,16 +62,6 @@ fun <M> RefreshState.Failure<M>.handleError(block: HttpExceptionHandler) {
     exception.handleError(block)
 }
 
-//fun Context.simpleCallback(success: String? = "加载成功", error: String? = "发生错误", refreshing: String? = "加载中"): suspend (RefreshState<*>) -> Unit =
-//    with(this.asReference()) {
-//        {
-//            when (it) {
-//                is RefreshState.Success -> if (success != null) Toasty.success(this(), success).show()
-//                is RefreshState.Failure -> if (error != null) Toasty.error(this(), "$error ${it.throwable.message}！${it.javaClass.name}").show()
-//                is RefreshState.Refreshing -> if (refreshing != null) Toasty.normal(this(), "$refreshing...").show()
-//            }
-//        }
-//    }
 
 fun <V : Any> RefreshableLiveData.Companion.use(local: Cache<V>, remote: Cache<V>) =
     object : RefreshableLiveData<V, CacheIndicator>() {
@@ -174,41 +164,3 @@ fun <V : Any> RefreshableLiveData.Companion.use(local: Cache<V>, remote: Cache<V
         }
 
     }
-
-fun <V : Any> RefreshableLiveData.Companion.retrofit(remote: Cache<V>) = object : RefreshableLiveData<V, CacheIndicator>() {
-    private var running: Job? = null
-
-    override fun refresh(vararg indicators: CacheIndicator, callback: suspend (RefreshState<CacheIndicator>) -> Unit) {
-        if (running?.isActive == true) return
-        running = launch(UI + QuietCoroutineExceptionHandler) {
-
-            callback(RefreshState.Refreshing())
-
-            val handler: suspend (Throwable) -> Unit = { callback(RefreshState.Failure(it)) }
-
-
-            val remoteDeferred =
-                if (CacheIndicator.REMOTE in indicators)
-                    remote.get() else null
-
-            remoteDeferred?.awaitAndHandle(handler)?.also {
-                value = it
-                callback(RefreshState.Success(CacheIndicator.REMOTE))
-            }
-
-        }.apply { invokeOnCompletion { running = null } }
-    }
-
-    override fun cancel() {
-        running?.cancel()
-    }
-
-    override fun onActive() {
-        refresh(CacheIndicator.REMOTE)
-    }
-
-    override fun onInactive() {
-        cancel()
-    }
-
-}

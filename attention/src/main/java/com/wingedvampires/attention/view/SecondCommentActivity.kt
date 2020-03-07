@@ -81,31 +81,18 @@ class SecondCommentActivity : AppCompatActivity() {
                 if (actionId == EditorInfo.IME_ACTION_SEND && et_comment_input.text.isNotBlank()) {
                     this.clearFocus()
                     hideSoftInputMethod()
-                    launch(UI + QuietCoroutineExceptionHandler) {
-                        val result = AttentionService.createSecondComment(
-                            commentId,
-                            et_comment_input.text.toString(),
-                            CommonPreferences.userid
-                        ).awaitAndHandle {
-                            it.printStackTrace()
-                            Toast.makeText(this@SecondCommentActivity, "发送失败", Toast.LENGTH_SHORT)
-                                .show()
-                        }
-
-                        if (result == null || result.error_code != -1) {
-                            Toast.makeText(this@SecondCommentActivity, "发送失败", Toast.LENGTH_SHORT)
-                                .show()
-                            return@launch
-                        } else {
-                            Toast.makeText(this@SecondCommentActivity, "发送成功", Toast.LENGTH_SHORT)
-                                .show()
-                            et_comment_input.setText("")
-                            loadSecondComment()
-                        }
-                    }
+                    sendSecondComment()
                 }
 
                 true
+            }
+        }
+
+        et_comment_confirm.setOnClickListener {
+            if (et_comment_input.text.isNotBlank()) {
+                et_comment_input.clearFocus()
+                hideSoftInputMethod()
+                sendSecondComment()
             }
         }
 
@@ -172,6 +159,31 @@ class SecondCommentActivity : AppCompatActivity() {
 
             lastPage = comments.lastPage
             isLoading = false
+        }
+    }
+
+    private fun sendSecondComment() {
+        launch(UI + QuietCoroutineExceptionHandler) {
+            val result = AttentionService.createSecondComment(
+                commentId,
+                et_comment_input.text.toString(),
+                CommonPreferences.userid
+            ).awaitAndHandle {
+                it.printStackTrace()
+                Toast.makeText(this@SecondCommentActivity, "发送失败", Toast.LENGTH_SHORT)
+                    .show()
+            }
+
+            if (result == null || result.error_code != -1) {
+                Toast.makeText(this@SecondCommentActivity, "发送失败", Toast.LENGTH_SHORT)
+                    .show()
+                return@launch
+            } else {
+                Toast.makeText(this@SecondCommentActivity, "发送成功", Toast.LENGTH_SHORT)
+                    .show()
+                et_comment_input.setText("")
+                loadSecondComment()
+            }
         }
     }
 

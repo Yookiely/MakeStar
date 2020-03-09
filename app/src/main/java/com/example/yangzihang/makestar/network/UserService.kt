@@ -85,6 +85,9 @@ interface UserService {
     @GET("work/deleteCollection")
     fun deleteCollection(@Query("collection_ID") collection_ID: Int) : Deferred<CommonBody<String>>
 
+    @FormUrlEncoded
+    @POST("message/sendMessage")
+    fun sendMessage(@FieldMap params : Map<String,String>): Deferred<CommonBody<String>>
     companion object : UserService by ServiceFactory()
 
 

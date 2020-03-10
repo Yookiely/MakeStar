@@ -233,5 +233,20 @@ object UserImp {
             }
         }
     }
+    fun sendMessage(from :String ,to: String, content : String, userid: String,sendMessageCallback :() -> Unit){
+        launch(UI+ QuietCoroutineExceptionHandler){
+            val params = mapOf(
+                "from" to from,
+                "to" to to,
+                "content" to content,
+                "user_ID" to userid
+            )
+            val callback = UserService.sendMessage(params).await()
+            if(callback.error_code == -1){
+                sendMessageCallback()
+            }
+        }
+    }
+
 
 }

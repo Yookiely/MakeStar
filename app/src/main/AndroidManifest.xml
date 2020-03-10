@@ -39,7 +39,8 @@
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true"
             tools:replace="android:icon, android:theme">
-        <activity android:name=".AccountActivity"/>
+        <activity android:name=".LeaveMessageActivity"></activity>
+        <activity android:name=".AccountActivity" />
         <activity android:name=".AgreementActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".CollectionActivity" />

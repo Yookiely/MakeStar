@@ -94,6 +94,9 @@ interface UserService {
     @GET("setting/getPrivacyProtocol")
     fun getPrivateAgreement() : Deferred<CommonBody<infoData>>
 
+    @FormUrlEncoded
+    @POST("message/sendMessage")
+    fun sendMessage(@FieldMap params : Map<String,String>): Deferred<CommonBody<String>>
     companion object : UserService by ServiceFactory()
 
 

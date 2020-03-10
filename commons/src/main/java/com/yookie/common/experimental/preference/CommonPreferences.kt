@@ -36,6 +36,16 @@ object CommonPreferences {
     var birthday by hawk("birthday", "")
     var tags by hawk("tags", "")
 
+    var newMessage by hawk("new_message",0)
+
+    var newUserMessage by hawk("new_user_message",0)
+
+    var newStarMessage by hawk("new_star_num",0)
+
+    var newCommentMessage by hawk("new_comment_num" , 0)
+
+    var newSystemMessage by hawk("new_message_num",0)
+
     var userHabit by hawk("USER_HABIT", mutableListOf<Int>()) // 用户的喜好类型ID
 
     var userHistory by hawk("USER_HISTORY", mutableListOf<String>()) // 用户看过的ID

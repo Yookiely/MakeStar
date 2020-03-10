@@ -94,4 +94,18 @@
             android:background="#999999"
             />
 
+    <android.support.v7.widget.CardView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="24dp"
+            app:cardCornerRadius="15dp"
+            android:visibility="gone"
+            app:cardBackgroundColor = "#ee0000"
+            android:id="@+id/meassage_up_flag"
+
+            />
+
 </android.support.constraint.ConstraintLayout>

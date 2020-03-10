@@ -69,10 +69,10 @@ class ActivityFragment : Fragment() {
     private fun loadFansCircle() {
         pageNum =1
         items .clear()
-        UserImp.getRecentActions(5, pageNum, hostUserId) {
+        UserImp.getUserActions(5, pageNum, hostUserId) {
             lastPage = it.last_page
             it.data.forEach {
-                items.add(FansCircleInfoItem(activity!!.applicationContext, it))
+                items.add(MyFansCircleInfoItem(activity!!.applicationContext, it))
             }
             recyclerView.withItems(items)
         }
@@ -84,11 +84,11 @@ class ActivityFragment : Fragment() {
         if(pageNum>lastPage){
             Toast.makeText(context,"加载到底了", Toast.LENGTH_SHORT).show()
         }
-        UserImp.getRecentActions(5, pageNum, hostUserId) { fansComment->
+        UserImp.getUserActions(5, pageNum, hostUserId) { fansComment->
             lastPage = fansComment.last_page
             itemManager.refreshAll {
                 fansComment.data.forEach { fansCircleData->
-                    FansCircleInfoItem(activity!!.applicationContext,fansCircleData)
+                    MyFansCircleInfoItem(activity!!.applicationContext,fansCircleData)
                 }
             }
         }

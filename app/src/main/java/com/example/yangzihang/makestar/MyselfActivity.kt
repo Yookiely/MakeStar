@@ -2,6 +2,7 @@ package com.example.yangzihang.makestar
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Window
 import android.widget.ImageView
 import android.widget.TextView
@@ -28,6 +29,7 @@ class MyselfActivity : AppCompatActivity() {
         val focusNum = findViewById<TextView>(R.id.se_focus_num)
         val rank = findViewById<TextView>(R.id.se_rank)
         val userid = intent.getStringExtra("userID")
+        Log.d("?????",userid)
         UserImp.getUserInfo(userid){
             Glide.with(this)
                 .load(it.avatar)

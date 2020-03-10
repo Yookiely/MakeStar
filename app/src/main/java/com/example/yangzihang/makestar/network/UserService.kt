@@ -64,6 +64,9 @@ interface UserService {
     @GET("fandomAction/getRecentActions")
     fun getRecentActions(@Query("limit") limit: Int, @Query("page") page: Int, @Query("host_user_ID") hostUserId: Int ):Deferred<CommonBody<FansCircleInfo>>
 
+    @GET("user/getFollowUserAction")
+    fun getUserActions(@Query("limit") limit: Int, @Query("page") page: Int, @Query("user_ID") hostUserId: Int ):Deferred<CommonBody<UserActive>>
+
     @GET("fandomAction/getCommentByActionID")
     fun getCommemtByActionID(@Query("fandom_action_ID") fandom_action_ID: Int,@Query("limit") limit: Int,@Query("page")page: Int):Deferred<CommonBody<FansComment>>
 
@@ -84,6 +87,12 @@ interface UserService {
 
     @GET("work/deleteCollection")
     fun deleteCollection(@Query("collection_ID") collection_ID: Int) : Deferred<CommonBody<String>>
+
+    @GET("setting/getUserProtocol")
+    fun getUserAgreement() : Deferred<CommonBody<infoData>>
+
+    @GET("setting/getPrivacyProtocol")
+    fun getPrivateAgreement() : Deferred<CommonBody<infoData>>
 
     companion object : UserService by ServiceFactory()
 
@@ -354,7 +363,8 @@ data class UserInfo(
 data class NewMessage(
     val new_comment_num: Int,
     val new_message_num: Int,
-    val new_star_num: Int
+    val new_star_num: Int,
+    val new_user_message_num : Int
 )
 data class Comment(
     val data : List<MessageDatas>,
@@ -418,3 +428,26 @@ data class StarData(
     val introduction : String
 )
 
+data class infoData(
+    val info_title : String,
+    val info_time : String,
+    val info_content : String
+)
+
+data class UserActive(
+    val data : List<UserActiveData>,
+    val last_page : Int
+)
+data class UserActiveData(
+    val action_ID: Int,
+    val avatar: String,
+    val content: String,
+    val img_IDs: String,
+    val img_urls: List<String>,
+    val month_rank: Int,
+    val signature: String,
+    val tags: String,
+    val time: String,
+    val user_ID: Int,
+    val username: String
+)

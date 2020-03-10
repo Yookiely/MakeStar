@@ -22,20 +22,20 @@ class ActivityFragment :Fragment(){
     lateinit var search : TextView
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view: View = inflater.inflate(R.layout.fragment_discover_donate, container, false)
-        val activityRec = view.findViewById<RecyclerView>(R.id.activity_rec)
-        activityRec.layoutManager = LinearLayoutManager(activity)
-
-        UserRank.getActivity(1,10000){
-            activityRec.withItems {
-                for (x in it.data){
-                    addActivityItem(x,this@ActivityFragment.activity!!)
-                }
-            }
-        }
-        search = view.findViewById(R.id.search)
-        search.setOnClickListener {
-            Transfer.startActivityWithoutClose(activity!!,"GlobalSearchActivity",Intent())
-        }
+//        val activityRec = view.findViewById<RecyclerView>(R.id.activity_rec)
+//        activityRec.layoutManager = LinearLayoutManager(activity)
+//
+//        UserRank.getActivity(1,10000){
+//            activityRec.withItems {
+//                for (x in it.data){
+//                    addActivityItem(x,this@ActivityFragment.activity!!)
+//                }
+//            }
+//        }
+//        search = view.findViewById(R.id.search)
+//        search.setOnClickListener {
+//            Transfer.startActivityWithoutClose(activity!!,"GlobalSearchActivity",Intent())
+//        }
 
 
         return view

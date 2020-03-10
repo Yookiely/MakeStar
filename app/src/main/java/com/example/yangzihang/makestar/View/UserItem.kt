@@ -2,6 +2,7 @@ package com.example.yangzihang.makestar.View
 
 import android.content.Context
 import android.content.Intent
+import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,7 @@ import cn.edu.twt.retrox.recyclerviewdsl.ItemController
 import com.example.yangzihang.makestar.*
 import org.jetbrains.anko.layoutInflater
 
-class UserItem(val titles: String, val context: Context, val activity: Int) : Item {
+class UserItem(val titles: String, val context: Context, val activity: Int,val flag : Int) : Item {
     lateinit var intent: Intent
 
 
@@ -20,6 +21,9 @@ class UserItem(val titles: String, val context: Context, val activity: Int) : It
             holder as UserItemViewHolder
             item as UserItem
             holder.title.text = item.titles
+            if (item.flag==1){
+                holder.flag.visibility = View.VISIBLE
+            }
             holder.itemView.setOnClickListener {
                 item.startActivity(item.context, item.activity)
             }
@@ -57,10 +61,11 @@ class UserItem(val titles: String, val context: Context, val activity: Int) : It
 
     private class UserItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val title: TextView = itemView.findViewById(R.id.user_text)
+        val flag : CardView = itemView.findViewById(R.id.meassage_flag)
     }
 
 }
 
 
-fun MutableList<Item>.setUserText(titles: String, context: Context, activity: Int) =
-    add(UserItem(titles, context, activity))
+fun MutableList<Item>.setUserText(titles: String, context: Context, activity: Int,flag : Int) =
+    add(UserItem(titles, context, activity,flag))

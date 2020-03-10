@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -24,6 +25,7 @@ class RankItem(val num : String,val userData: userData,val context : Context,val
             holder.itemView.setOnClickListener{
                 val intent = Intent()
                 intent.putExtra("userID",item.userData.user_ID.toString())
+                Log.d("?????",item.userData.user_ID.toString())
                 Transfer.startActivityWithoutClose(item.activity,"MyselfActivity",intent)
             }
             holder.apply {

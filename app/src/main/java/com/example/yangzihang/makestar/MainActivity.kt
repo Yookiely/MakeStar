@@ -15,7 +15,11 @@ import com.wingedvampires.homepage.view.HomePageActivity
 import com.yookie.auth.LoginActivity
 import com.yookie.common.experimental.preference.CommonPreferences
 import com.example.yangzihang.makestar.extensions.AppArchmage
+import com.example.yangzihang.makestar.network.UserImp
 import com.tencent.tauth.Tencent
+import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.launch
 import org.jetbrains.anko.startActivity
 
 class MainActivity : AppCompatActivity() {
@@ -31,6 +35,19 @@ class MainActivity : AppCompatActivity() {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_main)
         AppArchmage.init()
+        UserImp.getMessageNum(CommonPreferences.userid){
+            if (it.new_star_num+it.new_comment_num+it.new_message_num+it.new_user_message_num>0){
+                CommonPreferences.newMessage = 1
+            }else{
+                CommonPreferences.newMessage = 0
+            }
+            CommonPreferences.apply {
+                newStarMessage = it.new_star_num
+                newUserMessage = it.new_user_message_num
+                newSystemMessage = it.new_message_num
+                newCommentMessage = it.new_comment_num
+            }
+        }
         val checkResult = PermissionUtils.checkPermissionsGroup(this, permission)
         if (!checkResult) {
             PermissionUtils.requestPermissions(this, permission, PERMISSION_REQUEST_CODE)

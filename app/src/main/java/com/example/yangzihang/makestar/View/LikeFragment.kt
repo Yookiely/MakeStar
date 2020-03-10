@@ -17,6 +17,7 @@ import com.yookie.common.experimental.preference.CommonPreferences
 class LikeFragment : Fragment(){
     lateinit var recyclerView: RecyclerView
     lateinit var itemManager : ItemManager
+    var nums = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(R.layout.fragment_message_like, container, false)
@@ -24,6 +25,7 @@ class LikeFragment : Fragment(){
         recyclerView.layoutManager = LinearLayoutManager(activity)
         itemManager = ItemManager()
         recyclerView.adapter = ItemAdapter(itemManager)
+        nums = CommonPreferences.newStarMessage
         refreshList(1)
         return view
     }
@@ -31,7 +33,14 @@ class LikeFragment : Fragment(){
         UserImp.getStar(num,10, CommonPreferences.userid){
             itemManager.autoRefresh {
                 for (x in it.data) {
-                    addStarItem(0,x.from_user_avatar,x.from_user_name,x.time,"",x.introduction)
+                    if (nums>0){
+                        addStarItem(0,x.from_user_avatar,x.from_user_name,x.time,"",x.introduction,true)
+                        nums--
+                    }else{
+                        addStarItem(0,x.from_user_avatar,x.from_user_name,x.time,"",x.introduction,false)
+                        CommonPreferences.newStarMessage = 0
+                    }
+
 
                 }
                 if (it.last_page>num){

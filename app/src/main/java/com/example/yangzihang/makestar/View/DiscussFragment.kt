@@ -19,6 +19,7 @@ class DiscussFragment : Fragment(){
 
     lateinit var recyclerView: RecyclerView
     lateinit var itemManager : ItemManager
+    var nums = 0
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -27,6 +28,7 @@ class DiscussFragment : Fragment(){
         recyclerView.layoutManager = LinearLayoutManager(activity)
          itemManager = ItemManager()
         recyclerView.adapter = ItemAdapter(itemManager)
+        nums = CommonPreferences.newCommentMessage
         refreshList(1)
 
 
@@ -38,7 +40,13 @@ class DiscussFragment : Fragment(){
         UserImp.getAllMessage(num,10,CommonPreferences.userid){
             itemManager.autoRefresh {
                 for (x in it.data) {
-                    addStarItem(1,x.from_user_avatar,x.from_user_name,x.time,x.new_content,x.old_content)
+                    if (nums>0){
+                        addStarItem(1,x.from_user_avatar,x.from_user_name,x.time,x.new_content,x.old_content,true)
+                        nums--
+                    }else{
+                        addStarItem(1,x.from_user_avatar,x.from_user_name,x.time,x.new_content,x.old_content,false)
+                        CommonPreferences.newCommentMessage = 0
+                    }
 
                 }
                 if (it.last_page>num){

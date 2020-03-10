@@ -1,6 +1,7 @@
 package com.example.yangzihang.makestar.View
 
 import android.annotation.SuppressLint
+import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,7 @@ import com.bumptech.glide.Glide
 import com.example.yangzihang.makestar.R
 import org.jetbrains.anko.layoutInflater
 
-class StarItem(val FLAG : Int ,val avater : String,val nicknames : String , val time : String , val comment : String ,val quote : String) : Item {
+class StarItem(val FLAG : Int ,val avater : String,val nicknames : String , val time : String , val comment : String ,val quote : String,val isnew : Boolean) : Item {
     private companion object Controller : ItemController {
         @SuppressLint("SetTextI18n")
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: Item) {
@@ -30,6 +31,11 @@ class StarItem(val FLAG : Int ,val avater : String,val nicknames : String , val 
                 }
                 comment.text = item.comment
                 quote.text = "\"" +item.quote
+                if (item.isnew){
+                    flag.visibility = View.VISIBLE
+                }else{
+                    flag.visibility = View.GONE
+                }
             }
 
 
@@ -57,6 +63,7 @@ class StarItem(val FLAG : Int ,val avater : String,val nicknames : String , val 
         val action = itemView.findViewById<TextView>(R.id.user_action)
         val comment = itemView.findViewById<TextView>(R.id.user_comment)
         val quote = itemView.findViewById<TextView>(R.id.user_quote)
+        val flag = itemView.findViewById<CardView>(R.id.meassage_up_flag)
 
 
 
@@ -64,4 +71,4 @@ class StarItem(val FLAG : Int ,val avater : String,val nicknames : String , val 
 
 }
 
-fun MutableList<Item>.addStarItem(FLAG: Int,avater: String,nicknames: String,time: String,comment: String,quote: String) = add(StarItem(FLAG, avater, nicknames, time, comment, quote))
+fun MutableList<Item>.addStarItem(FLAG: Int,avater: String,nicknames: String,time: String,comment: String,quote: String,isnew : Boolean) = add(StarItem(FLAG, avater, nicknames, time, comment, quote,isnew))

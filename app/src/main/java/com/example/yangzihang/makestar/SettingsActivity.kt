@@ -37,7 +37,7 @@ class SettingsActivity : AppCompatActivity() {
 
             }
             setGreyText("关于")
-            setNormalItem("排名规则"){
+            setNormalItem("隐私协议"){
                 val intent = Intent(this@SettingsActivity,AgreementActivity::class.java)
                 intent.putExtra("FLAG","rule")
                 startActivity(intent)

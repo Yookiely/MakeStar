@@ -23,12 +23,12 @@ object UserImp {
         model: String,
         limit: String,
         page: Int,
-        messageCallback: (List<messageData>) -> Unit
+        messageCallback: (message) -> Unit
     ) {
         launch(UI + QuietCoroutineExceptionHandler) {
             val callback = UserService.getMessage(userid, model, limit, page).await()
             if (callback.error_code == -1) {
-                messageCallback(callback.data!!.data)
+                messageCallback(callback.data!!)
             }
 
         }
@@ -144,6 +144,21 @@ object UserImp {
         }
     }
 
+
+    fun getUserActions(
+        limit: Int,
+        page: Int,
+        hostUserId: Int,
+        actionsListCallback: (UserActive) -> Unit
+    ) {
+        launch(UI + QuietCoroutineExceptionHandler) {
+            val callback = UserService.getUserActions(limit, page, hostUserId).await()
+            if (callback.error_code == -1) {
+                callback.data?.let { actionsListCallback(it) }
+            }
+        }
+    }
+
     fun getCommemtByActionID(
         fandomId: Int,
         limit: Int,
@@ -202,5 +217,21 @@ object UserImp {
         }
     }
 
+    fun getUserAgreement(agreeCallBack : (String) -> Unit){
+        launch(UI + QuietCoroutineExceptionHandler){
+            val callback = UserService.getUserAgreement().await()
+            if (callback.error_code==-1){
+                agreeCallBack(callback.data!!.info_content)
+            }
+        }
+    }
+    fun getPrivateAgreement(agreeCallBack : (String) -> Unit){
+        launch(UI + QuietCoroutineExceptionHandler){
+            val callback = UserService.getPrivateAgreement().await()
+            if (callback.error_code==-1){
+                agreeCallBack(callback.data!!.info_content)
+            }
+        }
+    }
 
 }

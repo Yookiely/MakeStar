@@ -115,7 +115,7 @@ class EditActivity : AppCompatActivity() {
 
     private fun initTimePicker() { //Dialog 模式下，在底部弹出
         pvTime = TimePickerBuilder(this,
-            OnTimeSelectListener { date, v ->
+            OnTimeSelectListener { date, _ ->
                 val birthday = getTime(date)
 
                 if (birthday != null) {
@@ -139,23 +139,21 @@ class EditActivity : AppCompatActivity() {
             .setLineSpacingMultiplier(2.0f)
             .isAlphaGradient(true)
             .build()
-        val mDialog: Dialog = pvTime.getDialog()
-        if (mDialog != null) {
-            val params =
-                FrameLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT,
-                    Gravity.BOTTOM
-                )
-            params.leftMargin = 0
-            params.rightMargin = 0
-            pvTime.dialogContainerLayout.layoutParams = params
-            val dialogWindow = mDialog.window
-            if (dialogWindow != null) {
-                dialogWindow.setWindowAnimations(com.bigkoo.pickerview.R.style.picker_view_slide_anim) //修改动画样式
-                dialogWindow.setGravity(Gravity.BOTTOM) //改成Bottom,底部显示
-                dialogWindow.setDimAmount(0.3f)
-            }
+        val mDialog: Dialog = pvTime.dialog
+        val params =
+            FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                Gravity.BOTTOM
+            )
+        params.leftMargin = 0
+        params.rightMargin = 0
+        pvTime.dialogContainerLayout.layoutParams = params
+        val dialogWindow = mDialog.window
+        if (dialogWindow != null) {
+            dialogWindow.setWindowAnimations(com.bigkoo.pickerview.R.style.picker_view_slide_anim) //修改动画样式
+            dialogWindow.setGravity(Gravity.BOTTOM) //改成Bottom,底部显示
+            dialogWindow.setDimAmount(0.3f)
         }
     }
 
@@ -167,9 +165,8 @@ class EditActivity : AppCompatActivity() {
         }
 
         pvOptions = OptionsPickerBuilder(this,
-            OnOptionsSelectListener { options1, _, _, v ->
+            OnOptionsSelectListener { options1, _, _, _ ->
                 //返回的分别是三个级别的选中位置
-                Log.d("momomom", list[options1])
                 uploadAndRefreshSex(options1 + 1) {
                     CommonPreferences.sex = list[options1]
                 }
@@ -237,7 +234,7 @@ class EditActivity : AppCompatActivity() {
                 PictureConfig.CHOOSE_REQUEST -> {
                     // 图片、视频、音频选择结果回调
                     val selectList = PictureSelector.obtainMultipleResult(data)
-                    Log.d("whatthefuck", selectList[0].path)
+
                     editPicItem.loadAnUploadPic(selectList[0].path) {
                         CommonPreferences.avatars = selectList[0].path
                         loadInfo()

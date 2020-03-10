@@ -77,7 +77,7 @@ class SecondCommentActivity : AppCompatActivity() {
         et_comment_input.apply {
             isFocusable = false
             isFocusableInTouchMode = true
-            setOnEditorActionListener { v, actionId, event ->
+            setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_SEND && et_comment_input.text.isNotBlank()) {
                     this.clearFocus()
                     hideSoftInputMethod()

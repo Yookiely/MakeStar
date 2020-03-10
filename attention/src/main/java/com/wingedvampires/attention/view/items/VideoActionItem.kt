@@ -64,10 +64,10 @@ class VideoActionItem(
 
             val videoAction = item.videoAction
             var labelText = ""
-            videoAction.tags.split(",").forEach {
+            videoAction.tags?.split(",")?.forEach {
                 labelText += "#$it      "
             }
-            item.isCollected = videoAction.is_collected
+            item.isCollected = videoAction.is_collected ?: false
 
             holder.apply {
                 Glide.with(this.itemView).load(videoAction.avatar).error(R.drawable.ms_no_pic)
@@ -75,7 +75,7 @@ class VideoActionItem(
                 Glide.with(this.itemView).load(videoAction.cover_url).error(R.drawable.ms_no_pic)
                     .into(cover)
                 name.text = videoAction.username
-                time.text = videoAction.time.split(" ")[0]
+                time.text = videoAction.time?.split(" ")?.get(0) ?: ""
                 title.text = videoAction.work_name
                 duration.text = AttentionUtils.formatTime(videoAction.Duration)
                 rank.text = "No." + videoAction.month_rank.toString()
@@ -155,8 +155,8 @@ class VideoActionItem(
                     ShareMethod.showDialog(
                         item.context,
                         videoAction.work_ID,
-                        videoAction.work_name,
-                        videoAction.username
+                        videoAction.work_name!!,
+                        videoAction.username!!
                     )
                 }
 

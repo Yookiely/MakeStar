@@ -47,7 +47,7 @@ class VideoActionCommentItem(val activity: Activity, val workById: WorkById, val
             holder as ViewHolder
 
             val workById = item.workById
-            item.isCollected = workById.is_collected
+            item.isCollected = workById.is_collected ?: false
 
             holder.apply {
                 Glide.with(this.itemView).load(workById.avatar).error(R.drawable.ms_no_pic)
@@ -70,7 +70,7 @@ class VideoActionCommentItem(val activity: Activity, val workById: WorkById, val
                     launch(UI + QuietCoroutineExceptionHandler) {
                         if (!item.isCollected) {
                             val resultCommonBody =
-                                AttentionService.addCollection(workById.work_ID).awaitAndHandle {
+                                AttentionService.addCollection(workById.work_ID!!).awaitAndHandle {
                                     it.printStackTrace()
                                     Toast.makeText(
                                         item.context,
@@ -91,7 +91,7 @@ class VideoActionCommentItem(val activity: Activity, val workById: WorkById, val
                             }
                         } else {
                             val resultCommonBody =
-                                AttentionService.deleteCollection(workById.work_ID).awaitAndHandle {
+                                AttentionService.deleteCollection(workById.work_ID!!).awaitAndHandle {
                                     it.printStackTrace()
                                     Toast.makeText(
                                         item.context,
@@ -117,9 +117,9 @@ class VideoActionCommentItem(val activity: Activity, val workById: WorkById, val
                 shareImg.setOnClickListener {
                     ShareMethod.showDialog(
                         item.context,
-                        workById.work_ID,
-                        workById.work_name,
-                        workById.username
+                        workById.work_ID!!,
+                        workById.work_name!!,
+                        workById.username!!
                     )
                 }
             }

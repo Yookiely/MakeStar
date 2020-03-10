@@ -110,7 +110,7 @@ class CommentItem(
                 }
 
                 val listDialog = AlertDialog.Builder(item.context)
-                    .setItems(items.toArray(arrayOf<String>())) { dialog, which ->
+                    .setItems(items.toArray(arrayOf<String>())) { _, which ->
                         // which 下标从0开始
                         // ...To-do
                         when (which) {

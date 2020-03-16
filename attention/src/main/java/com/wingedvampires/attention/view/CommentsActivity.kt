@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import cn.edu.twt.retrox.recyclerviewdsl.ItemAdapter
 import cn.edu.twt.retrox.recyclerviewdsl.ItemManager
+import com.hb.dialog.dialog.LoadingDialog
 import com.wingedvampires.attention.R
 import com.wingedvampires.attention.model.AttentionService
 import com.wingedvampires.attention.model.AttentionUtils
@@ -37,6 +38,7 @@ class CommentsActivity : AppCompatActivity() {
     private var page: Int = 1
     private var lastPage = Int.MAX_VALUE
     lateinit var workId: String
+    private lateinit var loadingDialog: LoadingDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +48,8 @@ class CommentsActivity : AppCompatActivity() {
         workId = bundle.getString(AttentionUtils.COMMENT_INDEX)!!
         val toolbar = findViewById<Toolbar>(R.id.tb_comment_main)
         val mLayoutManager = LinearLayoutManager(this)
+        loadingDialog = LoadingDialog(this)
+        loadingDialog.setMessage("正在上传")
         commitRefresh = findViewById(R.id.sl_commit_main)
         toolbar.apply {
             title = ""
@@ -104,10 +108,12 @@ class CommentsActivity : AppCompatActivity() {
             page = 1
             val work = AttentionService.getWorkByID(workId).awaitAndHandle {
                 it.printStackTrace()
+                commitRefresh.isRefreshing = false
                 Toast.makeText(this@CommentsActivity, "数据加载失败", Toast.LENGTH_SHORT).show()
             }?.data?.get(0) ?: return@launch
             val comments = AttentionService.getTotalComments(workId, page).awaitAndHandle {
                 it.printStackTrace()
+                commitRefresh.isRefreshing = false
                 Toast.makeText(this@CommentsActivity, "评论加载失败", Toast.LENGTH_SHORT).show()
             }?.data ?: return@launch
 
@@ -158,10 +164,12 @@ class CommentsActivity : AppCompatActivity() {
 
             lastPage = comments.lastPage
             isLoading = false
+            commitRefresh.isRefreshing = false
         }
     }
 
     private fun sendMainComment() {
+        loadingDialog.show()
         launch(UI + QuietCoroutineExceptionHandler) {
             val result = AttentionService.createComment(
                 workId,
@@ -169,15 +177,19 @@ class CommentsActivity : AppCompatActivity() {
                 CommonPreferences.userid
             ).awaitAndHandle {
                 it.printStackTrace()
+                loadingDialog.dismiss()
                 Toast.makeText(this@CommentsActivity, "发送失败", Toast.LENGTH_SHORT).show()
             }
 
             if (result == null || result.error_code != -1) {
                 Toast.makeText(this@CommentsActivity, "发送失败", Toast.LENGTH_SHORT).show()
+                loadingDialog.dismiss()
                 return@launch
             } else {
                 Toast.makeText(this@CommentsActivity, "发送成功", Toast.LENGTH_SHORT).show()
                 et_comment_input.setText("")
+                loadingDialog.dismiss()
+                loadMainComment()
             }
         }
     }

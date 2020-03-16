@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import cn.edu.twt.retrox.recyclerviewdsl.ItemAdapter
 import cn.edu.twt.retrox.recyclerviewdsl.ItemManager
+import com.hb.dialog.dialog.LoadingDialog
 import com.wingedvampires.attention.R
 import com.wingedvampires.attention.model.AttentionService
 import com.wingedvampires.attention.model.AttentionUtils
@@ -36,6 +37,7 @@ class SecondCommentActivity : AppCompatActivity() {
     private var lastPage = Int.MAX_VALUE
     lateinit var secondCommitRefresh: SwipeRefreshLayout
     lateinit var commentId: String
+    private lateinit var loadingDialog: LoadingDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +52,8 @@ class SecondCommentActivity : AppCompatActivity() {
             title = " "
             setSupportActionBar(this)
         }
-
+        loadingDialog = LoadingDialog(this)
+        loadingDialog.setMessage("正在上传")
         iv_secondcomment_back.setOnClickListener { onBackPressed() }
         recyclerView = findViewById(R.id.rv_secondcomment_main)
         recyclerView.apply {
@@ -106,6 +109,7 @@ class SecondCommentActivity : AppCompatActivity() {
 
             val comments = AttentionService.getScecondComments(commentId, page).awaitAndHandle {
                 it.printStackTrace()
+                secondCommitRefresh.isRefreshing = false
                 Toast.makeText(this@SecondCommentActivity, "评论加载失败", Toast.LENGTH_SHORT).show()
             }?.data ?: return@launch
 
@@ -163,6 +167,7 @@ class SecondCommentActivity : AppCompatActivity() {
     }
 
     private fun sendSecondComment() {
+        loadingDialog.show()
         launch(UI + QuietCoroutineExceptionHandler) {
             val result = AttentionService.createSecondComment(
                 commentId,
@@ -170,6 +175,7 @@ class SecondCommentActivity : AppCompatActivity() {
                 CommonPreferences.userid
             ).awaitAndHandle {
                 it.printStackTrace()
+                loadingDialog.dismiss()
                 Toast.makeText(this@SecondCommentActivity, "发送失败", Toast.LENGTH_SHORT)
                     .show()
             }
@@ -177,11 +183,13 @@ class SecondCommentActivity : AppCompatActivity() {
             if (result == null || result.error_code != -1) {
                 Toast.makeText(this@SecondCommentActivity, "发送失败", Toast.LENGTH_SHORT)
                     .show()
+                loadingDialog.dismiss()
                 return@launch
             } else {
                 Toast.makeText(this@SecondCommentActivity, "发送成功", Toast.LENGTH_SHORT)
                     .show()
                 et_comment_input.setText("")
+                loadingDialog.dismiss()
                 loadSecondComment()
             }
         }

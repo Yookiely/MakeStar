@@ -245,22 +245,42 @@ data class DataAndPage<T>(
 )
 
 data class Comment(
-    val avatar: String?,
+    val star: Int,
     val comment_ID: String,
     val content: String,
     val time: String,
-    val user_ID: String,
-    val comment_comment: Int,
-    val username: String
+    val user: User,
+    val comment_comment: Int
 )
 
+data class User(
+    val age: Int,
+    val avatar: String,
+    val birthday: Birthday,
+    val city: String,
+    val fans_num: String,
+    val follow_num: Int,
+    val month_hot_value: Int,
+    val month_rank: Int,
+    val sex: String,
+    val signature: String,
+    val tags: String,
+    val user_ID: String,
+    val username: String,
+    val week_hot_value: Int,
+    val year_hot_value: Int
+)
+
+data class Birthday(
+    val day: Int,
+    val month: Int,
+    val year: Int
+)
 data class SecondComment(
-    val avatar: String?,
     val ccID: String,
     val content: String,
-    val time: String,
-    val username: String,
-    val user_ID: String
+    val user: User,
+    val time: String
 )
 
 data class WorkById(

@@ -61,11 +61,13 @@ class CommentItem(
             val secondComment = item.secondComment
             item.isSecond = (comment == null)
 
-            val avatarUrl = if (item.isSecond) secondComment?.avatar else comment?.avatar
+            val avatarUrl =
+                if (item.isSecond) secondComment?.user?.avatar else comment?.user?.avatar
             val contentText = if (item.isSecond) secondComment?.content else comment?.content
-            val nameText = if (item.isSecond) secondComment?.username else comment?.username
+            val nameText =
+                if (item.isSecond) secondComment?.user?.username else comment?.user?.username
             val timeText = if (item.isSecond) secondComment?.time else comment?.time
-            val userId = if (item.isSecond) secondComment?.user_ID else comment?.user_ID
+            val userId = if (item.isSecond) secondComment?.user?.user_ID else comment?.user?.user_ID
             val commentId = if (item.isSecond) secondComment?.ccID else comment?.comment_ID
             val store = 0
             val moreNum = if (item.isSecond) 0 else comment?.comment_comment

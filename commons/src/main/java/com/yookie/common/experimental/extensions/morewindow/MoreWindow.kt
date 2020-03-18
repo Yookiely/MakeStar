@@ -142,7 +142,7 @@ class MoreWindow(internal var mContext: Activity) : PopupWindow(), View.OnClickL
             }
         }
 
-        layout.setOnClickListener { v ->
+        layout.setOnClickListener {
             if (isShowing) {
                 closeAnimation(layout)
             }

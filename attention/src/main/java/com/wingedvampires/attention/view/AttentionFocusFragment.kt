@@ -30,6 +30,7 @@ class AttentionFocusFragment : Fragment() {
     lateinit var attentionRefresh: SwipeRefreshLayout
     private var isLoading = true
     private var page: Int = 1
+    private var lastPage = Int.MAX_VALUE
 
 
     override fun onCreateView(
@@ -58,8 +59,9 @@ class AttentionFocusFragment : Fragment() {
                 if (!isLoading && (lastVisibleItem + 1 == totalCount)) {
                     isLoading = true
                     page++
-
-                    loadMoreVideoActions()
+                    if (page <= lastPage) {
+                        loadMoreVideoActions()
+                    }
 
                 }
             }
@@ -77,11 +79,12 @@ class AttentionFocusFragment : Fragment() {
                 it.printStackTrace()
                 Toast.makeText(this@AttentionFocusFragment.context, "加载关注失败", Toast.LENGTH_SHORT)
                     .show()
+                attentionRefresh.isRefreshing = false
             }?.data ?: return@launch
 
             itemManager.refreshAll {
                 clear()
-                videoActions.forEach { videoAction ->
+                videoActions.data.forEach { videoAction ->
                     videoActionItem(
                         activity!!,
                         videoAction,
@@ -99,6 +102,7 @@ class AttentionFocusFragment : Fragment() {
                 }
             }
             isLoading = false
+            lastPage = videoActions.last_page
             attentionRefresh.isRefreshing = false
         }
     }
@@ -109,10 +113,11 @@ class AttentionFocusFragment : Fragment() {
                 it.printStackTrace()
                 Toast.makeText(this@AttentionFocusFragment.context, "加载关注失败", Toast.LENGTH_SHORT)
                     .show()
+                attentionRefresh.isRefreshing = false
             }?.data ?: return@launch
 
             itemManager.autoRefresh {
-                videoActions.forEach { videoAction ->
+                videoActions.data.forEach { videoAction ->
                     videoActionItem(
                         activity!!,
                         videoAction,
@@ -129,7 +134,9 @@ class AttentionFocusFragment : Fragment() {
                     }
                 }
             }
+            lastPage = videoActions.last_page
             isLoading = false
+            attentionRefresh.isRefreshing = false
         }
     }
 }

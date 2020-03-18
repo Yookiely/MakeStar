@@ -144,7 +144,7 @@ class EditDetailActivity : AppCompatActivity() {
             val mTagList = CommonPreferences.tags.split(",")
 
             itemManager.refreshAll {
-                tags.forEachWithIndex { index, constUserTag ->
+                tags.forEachWithIndex { _, constUserTag ->
                     editTagItem(
                         this@EditDetailActivity,
                         constUserTag.tag_name,

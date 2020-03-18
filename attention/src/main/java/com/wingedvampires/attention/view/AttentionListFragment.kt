@@ -89,7 +89,7 @@ class AttentionListFragment : Fragment() {
             }
         }
 
-        searchEdit.setOnEditorActionListener { _, actionId, event ->
+        searchEdit.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH && searchEdit.text.isNotBlank()) {
                 loadSearch()
                 searchEdit.isFocusable = false

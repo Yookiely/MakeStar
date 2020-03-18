@@ -38,7 +38,7 @@ class FocusItem(val concernPerson: ConcernPerson, val context: Context, val bloc
             holder as ViewHolder
             val concernPerson = item.concernPerson
 
-            val tags = concernPerson.tags.split(",")
+            val tags = concernPerson.tags?.split(",")
 
             holder.apply {
                 Glide.with(this.itemView).load(concernPerson.avatar).error(R.drawable.ms_no_pic).into(avatar)
@@ -46,7 +46,7 @@ class FocusItem(val concernPerson: ConcernPerson, val context: Context, val bloc
                 rank.text = "No.${concernPerson.month_rank}"
                 message.text = (concernPerson.signature ?: "")
                 // 设置标签
-                tags.forEachWithIndex { index, tag ->
+                tags?.forEachWithIndex { index, tag ->
                     when (index) {
                         1 -> label1.apply {
                             text = tag

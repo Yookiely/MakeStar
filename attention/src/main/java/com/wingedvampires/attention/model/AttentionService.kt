@@ -15,7 +15,7 @@ interface AttentionService {
         @Query("page") page: Int,
         @Query("limit") limit: Int = 5,
         @Query("user_ID") userId: String = CommonPreferences.userid
-    ): Deferred<CommonBody<List<VideoAction>>>
+    ): Deferred<CommonBody<VideoActions>>
 
     @GET("/api/user/getRecommendUser")
     fun getRecommendUser(
@@ -145,24 +145,29 @@ interface AttentionService {
 }
 
 data class VideoAction(
-    val Duration: Float,
-    val share_num: String,
-    val hot_value: String,
-    val avatar: String,
-    val collection_num: String,
-    val comment_num: String,
-    val cover_ID: String,
-    val cover_url: String,
-    val month_rank: Int,
+    val Duration: Float?,
+    val share_num: String?,
+    val hot_value: String?,
+    val avatar: String?,
+    val collection_num: String?,
+    val comment_num: String?,
+    val cover_ID: String?,
+    val cover_url: String?,
+    val month_rank: Int?,
     val signature: String?,
-    val tags: String,
-    val time: String,
-    val user_ID: String,
-    val username: String,
-    val video_ID: String,
+    val tags: String?,
+    val time: String?,
+    val user_ID: String?,
+    val username: String?,
+    val video_ID: String?,
     val work_ID: String,
-    val work_name: String,
-    val is_collected: Boolean
+    val work_name: String?,
+    val is_collected: Boolean?
+)
+
+data class VideoActions(
+    val data: List<VideoAction>,
+    val last_page: Int
 )
 
 data class RecommendUser(
@@ -240,61 +245,81 @@ data class DataAndPage<T>(
 )
 
 data class Comment(
-    val avatar: String?,
+    val star: Int,
     val comment_ID: String,
     val content: String,
     val time: String,
-    val user_ID: String,
-    val comment_comment: Int,
-    val username: String
+    val user: User,
+    val comment_comment: Int
 )
 
-data class SecondComment(
-    val avatar: String?,
-    val ccID: String,
-    val content: String,
-    val time: String,
-    val username: String,
-    val user_ID: String
-)
-
-data class WorkById(
-    val Duration: String,
-    val Introduction: String,
-    val avatar: String,
-    val collection_num: String,
-    val comment_num: String,
-    val cover_url: String,
-    val hot_value: String,
-    val is_collected: Boolean,
-    val share_num: String,
-    val tags: String,
-    val time: String,
-    val user_ID: String,
-    val username: String,
-    val video_ID: String,
-    val video_link: String,
-    val work_ID: String,
-    val work_name: String,
-    val work_type_ID: Int
-)
-
-data class ConcernPerson(
+data class User(
     val age: Int,
     val avatar: String,
-    val city: Any,
-    val fans_num: Int,
+    val birthday: Birthday,
+    val city: String,
+    val fans_num: String,
     val follow_num: Int,
     val month_hot_value: Int,
     val month_rank: Int,
     val sex: String,
     val signature: String,
     val tags: String,
-    val token: Int,
-    val user_ID: Int,
+    val user_ID: String,
     val username: String,
     val week_hot_value: Int,
     val year_hot_value: Int
+)
+
+data class Birthday(
+    val day: Int,
+    val month: Int,
+    val year: Int
+)
+data class SecondComment(
+    val ccID: String,
+    val content: String,
+    val user: User,
+    val time: String
+)
+
+data class WorkById(
+    val Duration: String?,
+    val Introduction: String?,
+    val avatar: String?,
+    val collection_num: String?,
+    val comment_num: String?,
+    val cover_url: String?,
+    val hot_value: String?,
+    val is_collected: Boolean?,
+    val share_num: String?,
+    val tags: String?,
+    val time: String?,
+    val user_ID: String?,
+    val username: String?,
+    val video_ID: String?,
+    val video_link: String?,
+    val work_ID: String?,
+    val work_name: String?,
+    val work_type_ID: Int?
+)
+
+data class ConcernPerson(
+    val age: Int?,
+    val avatar: String?,
+    val city: Any?,
+    val fans_num: Int?,
+    val follow_num: Int?,
+    val month_hot_value: Int?,
+    val month_rank: Int?,
+    val sex: String?,
+    val signature: String?,
+    val tags: String?,
+    val token: Int?,
+    val user_ID: Int?,
+    val username: String?,
+    val week_hot_value: Int?,
+    val year_hot_value: Int?
 )
 
 data class NumberOfStar(

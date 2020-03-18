@@ -57,6 +57,7 @@ public class VideoListActivity extends AppCompatActivity implements VideoListAda
 
         mRecycler = findViewById(R.id.recycler);
         mContainer = findViewById(R.id.listPlayContainer);
+
         mRecycler.setLayoutManager(
                 new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 

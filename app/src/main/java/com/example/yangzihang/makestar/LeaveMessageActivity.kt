@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.InputDevice
 import android.view.View
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import com.bumptech.glide.Glide
@@ -45,6 +46,8 @@ class LeaveMessageActivity : AppCompatActivity() {
             editText.requestFocus()
             showSoftKeyboard(editText)
         }
+        val localLayoutParams = window.attributes
+        localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
         send.setOnClickListener {
             UserImp.sendMessage(CommonPreferences.userid,userid,editText.text.toString(),CommonPreferences.userid) {
                 Toast.makeText(this,"发送成功",Toast.LENGTH_SHORT).show()

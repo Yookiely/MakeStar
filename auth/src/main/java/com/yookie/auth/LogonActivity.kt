@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Window
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -23,6 +24,8 @@ class LogonActivity : AppCompatActivity() {
         var password = findViewById<EditText>(R.id.password_input)
         var rePassword = findViewById<EditText>(R.id.re_password_input)
         var start = findViewById<TextView>(R.id.start_logon)
+        val localLayoutParams = window.attributes
+        localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
         start.setOnClickListener {
             if (username.text!=null&&password.text!=null&&rePassword.text!=null){
                 if (password.text.toString()==rePassword.text.toString()){

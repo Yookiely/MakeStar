@@ -4,11 +4,8 @@ import android.app.ActionBar
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
 import android.util.Log
-import android.view.Window
+import android.view.*
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.PopupWindow
@@ -41,6 +38,8 @@ class MyselfActivity : AppCompatActivity() {
         val fans =findViewById<TextView>(R.id.page_to_fanscircle)
         back.setOnClickListener { onBackPressed() }
         val userid = intent.getStringExtra("userID")
+        val localLayoutParams = window.attributes
+        localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
         more.setOnClickListener {
             showPopupWindow(userid,it)
         }

@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.WindowManager
 import cn.edu.twt.retrox.recyclerviewdsl.withItems
 import com.yookie.discover.network.UserRank
 import com.yookie.discover.view.addRankItem
@@ -18,6 +19,8 @@ class MoreActivity : AppCompatActivity() {
         val moreRec = findViewById<RecyclerView>(R.id.more_rec)
         moreRec.layoutManager = LinearLayoutManager(this)
         val num = intent.getIntExtra("flag", 2)
+        val localLayoutParams = window.attributes
+        localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
         if (num == 0) {
             UserRank.getUserRank(50) {
                 moreRec.withItems {

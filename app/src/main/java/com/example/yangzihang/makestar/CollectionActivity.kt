@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.Window
+import android.view.WindowManager
 import cn.edu.twt.retrox.recyclerviewdsl.ItemAdapter
 import cn.edu.twt.retrox.recyclerviewdsl.ItemManager
 import cn.edu.twt.retrox.recyclerviewdsl.withItems
@@ -18,12 +20,15 @@ class CollectionActivity : AppCompatActivity() {
     lateinit var itemManager : ItemManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_collection)
         recyclerView = findViewById(R.id.my_collection_rec)
         val mlayoutManager = GridLayoutManager(this, 3)
         recyclerView.layoutManager = mlayoutManager
         itemManager = ItemManager()
         recyclerView.adapter = ItemAdapter(itemManager)
+        val localLayoutParams = window.attributes
+        localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
         refreshList(1)
 
 //        UserImp.getCollection(100,1,CommonPreferences.userid){

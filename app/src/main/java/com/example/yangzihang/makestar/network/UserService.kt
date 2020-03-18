@@ -83,7 +83,7 @@ interface UserService {
     fun getAllMessage(@Query("page")page: Int,@Query("limit")limit: Int,@Query("userID")userid: String) : Deferred<CommonBody<Comment>>
 
     @GET("systemMessage/getAllSystemStarList")
-    fun getAllStar(@Query("page")page: Int,@Query("limit")limit: Int,@Query("userID")userid: String) : Deferred<CommonBody<StarMessage>>
+    fun getAllStar(@Query("page")page: Int,@Query("limit")limit: Int,@Query("user_ID")userid: String) : Deferred<CommonBody<StarMessage>>
 
     @GET("work/deleteCollection")
     fun deleteCollection(@Query("collection_ID") collection_ID: Int) : Deferred<CommonBody<String>>

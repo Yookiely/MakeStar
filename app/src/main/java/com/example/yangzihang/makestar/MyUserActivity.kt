@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.Window
+import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
 import cn.edu.twt.retrox.recyclerviewdsl.withItems
@@ -41,6 +42,8 @@ class MyUserActivity : AppCompatActivity() {
         val attention = findViewById<TextView>(R.id.tv_bottom_attention)
         val home = findViewById<TextView>(R.id.tv_bottom_homepage)
         val discover = findViewById<TextView>(R.id.tv_bottom_find)
+        val localLayoutParams = window.attributes
+        localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
         attention.setOnClickListener { Transfer.startActivity(this, "AttentionActivity", Intent()) }
         home.setOnClickListener { Transfer.startActivity(this, "HomePageActivity", Intent()) }
         discover.setOnClickListener { Transfer.startActivity(this, "DiscoverActivity", Intent()) }

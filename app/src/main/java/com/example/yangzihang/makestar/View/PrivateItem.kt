@@ -10,6 +10,7 @@ import android.widget.TextView
 import cn.edu.twt.retrox.recyclerviewdsl.Item
 import cn.edu.twt.retrox.recyclerviewdsl.ItemController
 import com.bumptech.glide.Glide
+import com.example.yangzihang.makestar.LeaveMessageActivity
 import com.example.yangzihang.makestar.MessageActivity
 import com.example.yangzihang.makestar.R
 import com.example.yangzihang.makestar.network.messageData
@@ -30,8 +31,9 @@ class PrivateItem(val messagedata : messageData,val flag : Boolean)  : Item {
                 message.text = item.messagedata.content
                 time.text = item.messagedata.time
                 button.setOnClickListener {
-                    val intent = Intent(holder.itemView.context,MessageActivity::class.java)
-                    holder.itemView.context.startActivity(intent)
+                    val intent = Intent(itemView.context, LeaveMessageActivity::class.java)
+                    intent.putExtra("userID",item.messagedata.from)
+                    itemView.context.startActivity(intent)
                 }
                 if (item.flag){
                     flag.visibility = View.VISIBLE

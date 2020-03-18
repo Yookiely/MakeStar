@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.Window
+import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
@@ -40,6 +41,8 @@ class GlobalSearchActivity : AppCompatActivity() {
         val mLayoutManager = LinearLayoutManager(this)
         searchEdit = findViewById(R.id.et_homepage_search)
         recyclerView = findViewById(R.id.rv_search_main)
+        val localLayoutParams = window.attributes
+        localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
         recyclerView.apply {
             layoutManager = mLayoutManager
             adapter = ItemAdapter(itemManager)

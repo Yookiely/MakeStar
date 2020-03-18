@@ -8,6 +8,7 @@ import android.support.annotation.RequiresApi
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.view.WindowManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -41,6 +42,8 @@ class FansHomeActivity : AppCompatActivity() {
         search =findViewById(R.id.fans_home_search)
         search.focusable = View.NOT_FOCUSABLE
         back = findViewById(R.id.fans_home_back)
+        val localLayoutParams = window.attributes
+        localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
         myRec.layoutManager =LinearLayoutManager(this)
         rec.layoutManager =LinearLayoutManager(this)
         UserImp.getFandomList { fandomList ->

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Window
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import com.tencent.connect.common.Constants
@@ -54,6 +55,8 @@ class LoginActivity : AppCompatActivity() {
         // 注册EventBus
         EventBus.getDefault().register(this)//注册
         wxAPI = WXAPIFactory.createWXAPI(this, CommonContext.WECHAT_APPID, true)
+        val localLayoutParams = window.attributes
+        localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
         wxAPI.registerApp(CommonContext.WECHAT_APPID)
         usernameText = findViewById(R.id.account_input)
         passwordText = findViewById(R.id.password_input)

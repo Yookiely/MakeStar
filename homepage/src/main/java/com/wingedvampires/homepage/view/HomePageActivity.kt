@@ -47,6 +47,8 @@ class HomePageActivity : AppCompatActivity() {
         val discover = findViewById<TextView>(R.id.tv_bottom_find)
         val userpage = findViewById<TextView>(R.id.tv_bottom_individual)
         val camra = findViewById<ImageView>(R.id.iv_homepage_camera)
+        val localLayoutParams = window.attributes
+        localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
         attention.setOnClickListener { Transfer.startActivity(this, "AttentionActivity", Intent()) }
         discover.setOnClickListener { Transfer.startActivity(this, "DiscoverActivity", Intent()) }
         userpage.setOnClickListener { Transfer.startActivity(this, "MyUserActivity", Intent()) }

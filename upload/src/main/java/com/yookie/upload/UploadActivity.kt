@@ -23,6 +23,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.util.Log
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.TextView
 import com.bumptech.glide.Glide
@@ -73,6 +74,8 @@ class UploadActivity : AppCompatActivity() {
         buttonList.add(buttonTheate)
         val buttonOther = findViewById<TextView>(R.id.id_upload_tag_other)
         buttonList.add(buttonOther)
+        val localLayoutParams = window.attributes
+        localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
         buttonMusic.setOnClickListener {
             if (x!=1){
                 for (index in 0 until buttonList.size){

@@ -3,6 +3,7 @@ package com.example.yangzihang.makestar
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Window
+import android.view.WindowManager
 import android.widget.Toast
 import com.example.yangzihang.makestar.network.UserService
 import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
@@ -17,7 +18,8 @@ class WithdrawActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_withdraw)
-
+        val localLayoutParams = window.attributes
+        localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
         iv_withdraw_back.setOnClickListener { onBackPressed() }
 
         launch(UI + QuietCoroutineExceptionHandler) {

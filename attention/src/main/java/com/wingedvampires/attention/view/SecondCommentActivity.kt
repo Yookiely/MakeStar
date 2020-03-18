@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.Window
+import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
@@ -46,6 +47,8 @@ class SecondCommentActivity : AppCompatActivity() {
         val bundle: Bundle = intent.extras
         commentId = bundle.getString(AttentionUtils.SECOND_COMMENT_INDEX)!!
         val toolbar = findViewById<Toolbar>(R.id.tb_secondcomment_main)
+        val localLayoutParams = window.attributes
+        localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
         val mLayoutManager = LinearLayoutManager(this)
         secondCommitRefresh = findViewById(R.id.sl_secondcommit_main)
         toolbar.apply {

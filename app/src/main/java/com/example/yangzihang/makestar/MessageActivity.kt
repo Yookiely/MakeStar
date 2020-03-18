@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Gravity
 import android.view.View
 import android.view.Window
+import android.view.WindowManager
 import android.widget.TextView
 import com.example.yangzihang.makestar.View.DiscussFragment
 import com.example.yangzihang.makestar.View.LikeFragment
@@ -33,6 +34,8 @@ class MessageActivity : AppCompatActivity() {
             add(LikeFragment(),"点赞")
             add(DiscussFragment(),"评论")
         }
+        val localLayoutParams = window.attributes
+        localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
         viewPager.adapter = mPagerAdapter
         mTabLayout.setupWithViewPager(viewPager)
         CommonPreferences.newMessage = 0

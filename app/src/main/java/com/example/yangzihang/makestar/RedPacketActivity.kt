@@ -34,7 +34,8 @@ class RedPacketActivity : AppCompatActivity() {
         setContentView(R.layout.activity_user_redpacket)
         iv_redpacket_back.setOnClickListener { onBackPressed() }
         loadAndRefresh()
-
+        val localLayoutParams = window.attributes
+        localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
         tv_user_getallmoney.setOnClickListener {
             it.context.startActivity<WithdrawActivity>()
         }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
+import android.view.WindowManager
 import android.widget.TextView
 import android.widget.Toast
 import com.bumptech.glide.Glide
@@ -32,6 +33,8 @@ class FansActivity : AppCompatActivity() {
         fans_back.setOnClickListener {
             onBackPressed()
         }
+        val localLayoutParams = window.attributes
+        localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
         rank=findViewById(R.id.fans_num)
         hot =findViewById(R.id.read_num)
         userName =findViewById(R.id.fans_user_nickname)

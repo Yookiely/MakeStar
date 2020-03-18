@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.Window
+import android.view.WindowManager
 import android.widget.Toast
 import cn.edu.twt.retrox.recyclerviewdsl.ItemAdapter
 import cn.edu.twt.retrox.recyclerviewdsl.ItemManager
@@ -40,6 +41,8 @@ class MoreSearchActivity : AppCompatActivity() {
         val bundle = intent.extras
         searchContent = bundle.getString(HomePageUtils.SEARCH_CONTENT)
         mSwipeRefreshLayout = findViewById(R.id.sl_search_more)
+        val localLayoutParams = window.attributes
+        localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
         val searchType = bundle.getString(HomePageUtils.SEARCH_TYPE)
         val mLayoutManager = LinearLayoutManager(this)
         if (searchContent.isNullOrEmpty() || searchType.isNullOrEmpty()) {

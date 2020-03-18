@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.View
 import android.view.Window
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
@@ -31,6 +32,8 @@ class AttentionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_attention)
         val toolbar = findViewById<Toolbar>(R.id.tb_attention_main)
         setSupportActionBar(toolbar)
+        val localLayoutParams = window.attributes
+        localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
         image = findViewById(R.id.iv_attention_camera)
         image.setOnClickListener { v -> showMoreWindow(v) }
         liveLabel = findViewById(R.id.tv_attention_live_label)

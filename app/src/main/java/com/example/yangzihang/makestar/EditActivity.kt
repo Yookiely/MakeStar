@@ -15,6 +15,7 @@ import android.util.Log
 import android.view.Gravity
 import android.view.ViewGroup
 import android.view.Window
+import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.Toast
 import cn.edu.twt.retrox.recyclerviewdsl.ItemAdapter
@@ -68,7 +69,8 @@ class EditActivity : AppCompatActivity() {
             layoutManager = mLayoutManager
             adapter = ItemAdapter(itemManager)
         }
-
+        val localLayoutParams = window.attributes
+        localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
         initTimePicker()
         initOptionPicker()
         loadInfo()

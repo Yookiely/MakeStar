@@ -7,6 +7,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager
 import android.util.Log
 import android.view.View
 import android.view.Window
+import android.view.WindowManager
 import android.widget.Toast
 import cn.edu.twt.retrox.recyclerviewdsl.ItemAdapter
 import cn.edu.twt.retrox.recyclerviewdsl.ItemManager
@@ -49,6 +50,8 @@ class EditDetailActivity : AppCompatActivity() {
         val editType = bundle?.getString(AppUtils.EDIT_INDEX)
         val mLayoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
         recyclerView = findViewById(R.id.rv_edit_detail_tags)
+        val localLayoutParams = window.attributes
+        localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
         recyclerView.apply {
             layoutManager = mLayoutManager
             adapter = ItemAdapter(itemManager)

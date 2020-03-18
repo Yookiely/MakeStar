@@ -7,6 +7,7 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import cn.edu.twt.retrox.recyclerviewdsl.Item
 import cn.edu.twt.retrox.recyclerviewdsl.ItemAdapter
@@ -40,6 +41,8 @@ class PostBodyActivity : AppCompatActivity() {
         fandomId =intent.getIntExtra("fandomid",0)
         val mLayoutManager = LinearLayoutManager(this)
         val imgs =intent.getStringArrayListExtra("imgs")
+        val localLayoutParams = window.attributes
+        localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
         rec.layoutManager =mLayoutManager
         Glide.with(this)
             .load(avater)

@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.Window
+import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
@@ -47,6 +48,8 @@ class CommentsActivity : AppCompatActivity() {
         val bundle: Bundle = intent.extras
         workId = bundle.getString(AttentionUtils.COMMENT_INDEX)!!
         val toolbar = findViewById<Toolbar>(R.id.tb_comment_main)
+        val localLayoutParams = window.attributes
+        localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
         val mLayoutManager = LinearLayoutManager(this)
         loadingDialog = LoadingDialog(this)
         loadingDialog.setMessage("正在上传")

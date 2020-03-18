@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html
 import android.view.Window
+import android.view.WindowManager
 import android.webkit.WebView
 import com.example.yangzihang.makestar.network.UserImp
 
@@ -15,6 +16,8 @@ class AgreementActivity : AppCompatActivity() {
         setContentView(R.layout.activity_agreement)
         val intent = intent
         val webView = findViewById<WebView>(R.id.agreement_webview)
+        val localLayoutParams = window.attributes
+        localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
         val flag = intent.getStringExtra("FLAG")
         when(flag){
             "rule" ->{

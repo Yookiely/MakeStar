@@ -79,6 +79,8 @@ class VideoPlayActivity : AppCompatActivity(), OnPlayerEventListener {
         iv_videoplay_back.setOnClickListener {
             onBackPressed()
         }
+        val localLayoutParams = window.attributes
+        localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
         margin = PUtil.dip2px(this, 2f)
         mVideoView = findViewById(R.id.videoView)
         user = findViewById(R.id.cv_videoplay_user)

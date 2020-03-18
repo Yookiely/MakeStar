@@ -5,6 +5,7 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
@@ -12,6 +13,7 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.Window
+import android.view.WindowManager
 import com.alibaba.sdk.android.oss.common.OSSLog
 import com.alibaba.sdk.android.vod.upload.VODUploadCallback
 import com.alibaba.sdk.android.vod.upload.VODUploadClientImpl
@@ -55,6 +57,8 @@ class ReleaseActivity : AppCompatActivity() {
             layoutManager = mlayoutManager
             adapter = releasePicAdapter
         }
+        val localLayoutParams = window.attributes
+        localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
         val imgcallback = object : VODUploadCallback() {
             var x = 0
 
@@ -279,11 +283,12 @@ class ReleaseActivity : AppCompatActivity() {
         .setOutputCameraPath("/CustomPath")// 自定义拍照保存路径,可不填
         .forResult(PictureConfig.CHOOSE_REQUEST)
 
+
     fun checkPermAndOpenPic() {
         // 检查存储权限
         if (ContextCompat.checkSelfPermission(
                 this,
-                android.Manifest.permission.READ_EXTERNAL_STORAGE
+                Manifest.permission.READ_EXTERNAL_STORAGE
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             EasyPermissions.requestPermissions(
@@ -297,4 +302,6 @@ class ReleaseActivity : AppCompatActivity() {
             openSelectPic()
         }
     }
+
+
 }

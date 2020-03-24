@@ -26,7 +26,7 @@ object RealAuthenticator : Authenticator {
     override fun authenticate(route: Route?, response: Response): Request? {
         val responseBodyCopy = response.peekBody(Long.MAX_VALUE) // 避免responseBody被一次性清空
         val request = if (response.request().isTrusted) {
-            val code = JSONObject(responseBodyCopy.string()).getInt("error_code")
+//            val code = JSONObject(responseBodyCopy.string()).getInt("error_code")//后端没办法401里面带error_code
             val relogin = fun(): Nothing {
                 launch(UI) {
                     AuthService.getToken(CommonPreferences.userid, CommonPreferences.password)
@@ -36,6 +36,7 @@ object RealAuthenticator : Authenticator {
                 }
                 throw IOException("登录失效，正在尝试自动重登")
             }
+            val code = 10001
             when (code) {
                 10001 ->
                     if (response.priorResponse()?.request()?.header("Authorization") == null)

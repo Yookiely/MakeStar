@@ -34,7 +34,7 @@ class DiscoverActivity : AppCompatActivity() {
         userpage.setOnClickListener { Transfer.startActivity(this, "MyUserActivity", Intent()) }
         val dynamicFragmentPagerAdapter = DynamicFragmentPagerAdapter(supportFragmentManager)
         dynamicFragmentPagerAdapter.add("排行",RankFragment())
-        dynamicFragmentPagerAdapter.add("活动",ActivityFragment())
+//        dynamicFragmentPagerAdapter.add("活动",ActivityFragment())
         vp_homepage_main.adapter = dynamicFragmentPagerAdapter
         dynamic_pager_indicator2.setViewPager(vp_homepage_main)
 

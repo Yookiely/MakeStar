@@ -57,7 +57,7 @@ class MyUserActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.user_rec)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.withItems {
-            setUserText("历史排名",this@MyUserActivity,1,0)
+//            setUserText("历史排名",this@MyUserActivity,1,0)
             setUserText("我的消息",this@MyUserActivity,2,CommonPreferences.newMessage)
             setUserText("我的收藏",this@MyUserActivity,3,0)
             setUserText("我的红包", this@MyUserActivity, 7,0)

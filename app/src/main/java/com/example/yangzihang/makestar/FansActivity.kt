@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
+import android.view.Window
 import android.view.WindowManager
 import android.widget.TextView
 import android.widget.Toast
@@ -24,6 +25,7 @@ class FansActivity : AppCompatActivity() {
     lateinit var invitationNum : TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_fans)
         mTabLayout = findViewById(R.id.fans_table)
         val viewPager = findViewById<ViewPager>(R.id.fans_viewPager)

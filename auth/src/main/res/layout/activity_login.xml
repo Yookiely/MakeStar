@@ -11,7 +11,7 @@
 >
     <TextView
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="60dp"
             android:gravity="center"
             android:text="微星秀"
             android:textSize="30sp"
@@ -80,17 +80,7 @@
             android:id="@+id/forget_password"
     />
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:textColor="#ffffff"
-            android:text="手机登陆> >"
-            app:layout_constraintTop_toTopOf="@+id/forget_password"
-            app:layout_constraintLeft_toRightOf="@id/forget_password"
-            android:layout_marginLeft="96dp"
-            android:id="@+id/login_by_phone"
-    />
+
 
     <TextView
             android:layout_width="wrap_content"
@@ -107,8 +97,8 @@
     />
 
     <TextView
-            android:layout_width="80dp"
-            android:layout_height="40dp"
+            android:layout_width="90dp"
+            android:layout_height="50dp"
             app:layout_constraintLeft_toLeftOf="@id/logup"
             app:layout_constraintTop_toBottomOf="@+id/logup"
             app:layout_constraintRight_toRightOf="@+id/logup"

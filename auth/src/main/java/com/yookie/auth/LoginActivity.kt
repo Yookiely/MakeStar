@@ -44,6 +44,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var username: String
     private lateinit var passwords: String
     private lateinit var wxAPI: IWXAPI
+    private lateinit var logon : TextView
     private lateinit var context: Context
 //    var mlistener =
 
@@ -62,6 +63,10 @@ class LoginActivity : AppCompatActivity() {
         passwordText = findViewById(R.id.password_input)
         qqButton = findViewById(R.id.qq_button)
         weiXinButton = findViewById(R.id.we_button)
+        logon = findViewById(R.id.logup)
+        logon.setOnClickListener {
+            startActivity(Intent(this,LogonActivity::class.java))
+        }
         loginButton = findViewById<TextView>(R.id.login_button).apply {
             setOnClickListener {
                 hideSoftInputMethod()

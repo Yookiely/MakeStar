@@ -8,6 +8,7 @@ import android.support.annotation.RequiresApi
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.view.Window
 import android.view.WindowManager
 import android.widget.EditText
 import android.widget.ImageView
@@ -34,6 +35,7 @@ class FansHomeActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_fans_home)
         myRec =findViewById(R.id.fans_home_myrec)
         context =this

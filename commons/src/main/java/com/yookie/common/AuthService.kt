@@ -35,6 +35,10 @@ interface AuthService {
         @Query("user_ID") user_ID: String = CommonPreferences.userid
     ): Deferred<CommonBody<String>>
 
+
+    @POST("/api/user/setQuestion")
+    fun setQusetion(@Query("question") question : String,@Query("answer") answer : String) : Deferred<CommonBody<String>>
+
     @GET("user/myself")
     fun authSelf(): Deferred<CommonBody<AuthData>>
 

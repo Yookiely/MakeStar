@@ -4,7 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".LogonActivity"
+        tools:context=".QuestionActivity"
         android:background="@drawable/background">
     <TextView
             android:layout_width="wrap_content"
@@ -15,7 +15,19 @@
             android:layout_marginTop="20dp"
             android:textColor="#ffffff"
             android:textSize="18sp"
-            android:text="注册"
+            android:text="设置密保问题"
+            android:id="@+id/text"
+            />
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@+id/question_input"
+            app:layout_constraintTop_toBottomOf="@+id/text"
+            android:layout_marginTop="30dp"
+            android:id="@+id/question"
+            android:textSize="15sp"
+            android:textColor="#ffffff"
+            android:text="问题"
             />
 
     <EditText
@@ -24,20 +36,9 @@
             android:background="@drawable/circle_input"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:id="@+id/logon_input"
-            android:hint="请输入用户名"
-            android:layout_marginTop="100dp"
-            />
-    <EditText
-            android:layout_width="240dp"
-            android:layout_height="40dp"
-            android:background="@drawable/circle_input"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/logon_input"
-            android:id="@+id/password_input"
-            android:hint="请输入密码"
+            app:layout_constraintTop_toBottomOf="@+id/question"
+            android:id="@+id/question_input"
+            android:hint="请输入问题"
             android:layout_marginTop="30dp"
             />
     <EditText
@@ -46,21 +47,20 @@
             android:background="@drawable/circle_input"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/password_input"
-            android:id="@+id/re_password_input"
-            android:hint="再次确认密码"
+            app:layout_constraintTop_toBottomOf="@id/question_input"
+            android:id="@+id/answer_input"
+            android:hint="请输入答案"
             android:layout_marginTop="30dp"
             />
-
     <TextView
             android:layout_width="240dp"
             android:layout_height="40dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/re_password_input"
+            app:layout_constraintTop_toBottomOf="@+id/answer_input"
             android:layout_marginTop="40dp"
-            android:id="@+id/start_logon"
-            android:text="继续"
+            android:id="@+id/finish_logon"
+            android:text="完成"
             android:gravity="center"
             android:textColor="#ffffff"
             android:background="@drawable/circle_button"

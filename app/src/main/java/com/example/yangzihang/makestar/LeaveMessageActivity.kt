@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.InputDevice
 import android.view.View
+import android.view.Window
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
@@ -18,6 +19,7 @@ class LeaveMessageActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_leave_message)
         val toAvatars =findViewById<ImageView>(R.id.leave_to_portrait)
         val fromAavatars = findViewById<ImageView>(R.id.leave_from_portrait)

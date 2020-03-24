@@ -165,13 +165,16 @@ class LoginActivity : AppCompatActivity() {
                     Toast.makeText(this@LoginActivity, "登录失败", Toast.LENGTH_SHORT).show()
                 }?.apply {
 
-                    val weiXinInfo =
-                        WeiXinService.getUserInfo(this.access_token!!, this.openid!!)
-                            .awaitAndHandle {
+                    val weiXinInfo = WeiXinService.getUserInfo(this.access_token!!, this.openid!!)
+                        .awaitAndHandle {
                                 it.printStackTrace()
                                 Toast.makeText(this@LoginActivity, "登录失败", Toast.LENGTH_SHORT)
                                     .show()
                             }
+
+                    if (weiXinInfo != null) {
+                        // TODO registerWeixin
+                    }
                 }
 
             }

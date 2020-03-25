@@ -39,6 +39,7 @@
             app:layout_constraintTop_toBottomOf="@+id/question"
             android:id="@+id/question_input"
             android:hint="请输入问题"
+            android:singleLine="true"
             android:layout_marginTop="30dp"
             />
     <EditText
@@ -50,6 +51,7 @@
             app:layout_constraintTop_toBottomOf="@id/question_input"
             android:id="@+id/answer_input"
             android:hint="请输入答案"
+            android:singleLine="true"
             android:layout_marginTop="30dp"
             />
     <TextView

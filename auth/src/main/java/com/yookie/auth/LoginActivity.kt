@@ -17,8 +17,11 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import com.tencent.tauth.IUiListener
 import com.tencent.tauth.Tencent
 import com.tencent.tauth.UiError
+import com.yookie.auth.api.AuthUtils
 import com.yookie.auth.api.authSelfLiveData
 import com.yookie.auth.api.login
+import com.yookie.auth.api.loginForWechat
+import com.yookie.common.AuthService
 import com.yookie.common.WeiXin
 import com.yookie.common.WeiXinService
 import com.yookie.common.experimental.CommonContext
@@ -44,7 +47,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var username: String
     private lateinit var passwords: String
     private lateinit var wxAPI: IWXAPI
-    private lateinit var logon : TextView
+    private lateinit var logon: TextView
     private lateinit var context: Context
 //    var mlistener =
 
@@ -57,7 +60,8 @@ class LoginActivity : AppCompatActivity() {
         EventBus.getDefault().register(this)//注册
         wxAPI = WXAPIFactory.createWXAPI(this, CommonContext.WECHAT_APPID, true)
         val localLayoutParams = window.attributes
-        localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
+        localLayoutParams.flags =
+            (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
         wxAPI.registerApp(CommonContext.WECHAT_APPID)
         usernameText = findViewById(R.id.account_input)
         passwordText = findViewById(R.id.password_input)
@@ -65,7 +69,7 @@ class LoginActivity : AppCompatActivity() {
         weiXinButton = findViewById(R.id.we_button)
         logon = findViewById(R.id.logup)
         logon.setOnClickListener {
-            startActivity(Intent(this,LogonActivity::class.java))
+            startActivity(Intent(this, LogonActivity::class.java))
         }
         loginButton = findViewById<TextView>(R.id.login_button).apply {
             setOnClickListener {
@@ -161,7 +165,6 @@ class LoginActivity : AppCompatActivity() {
      */
     @Subscribe
     fun onEventMainThread(weiXin: WeiXin) {
-        Log.i("ansen", "收到eventbus请求 type:" + weiXin.type)
         if (weiXin.type == 1) {//登录
 
             launch(UI + QuietCoroutineExceptionHandler) {
@@ -172,13 +175,72 @@ class LoginActivity : AppCompatActivity() {
 
                     val weiXinInfo = WeiXinService.getUserInfo(this.access_token!!, this.openid!!)
                         .awaitAndHandle {
-                                it.printStackTrace()
-                                Toast.makeText(this@LoginActivity, "登录失败", Toast.LENGTH_SHORT)
-                                    .show()
-                            }
+                            it.printStackTrace()
+                            Toast.makeText(this@LoginActivity, "登录失败", Toast.LENGTH_SHORT)
+                                .show()
+                        }
 
-                    if (weiXinInfo != null) {
-                        // TODO registerWeixin
+                    if (weiXinInfo?.openid != null) {
+                        Log.d("momomom", weiXinInfo.openid!!)
+                        val isWechat = AuthService.isWechat(weiXinInfo.openid!!).awaitAndHandle {
+                            it.printStackTrace()
+                        }?.data?.message
+
+                        if (isWechat == 1) {
+                            loginForWechat(weiXinInfo.openid!!) {
+                                when (it) {
+                                    is RefreshState.Success -> {
+                                        when (it.message) {
+                                            AuthUtils.WECHAT_SUCCESS -> {
+                                                authSelfLiveData.refresh(REMOTE) {
+                                                    when (it) {
+                                                        is RefreshState.Success -> {
+                                                            Toast.makeText(
+                                                                this@LoginActivity,
+                                                                "登录成功",
+                                                                Toast.LENGTH_LONG
+                                                            ).show()
+                                                            Transfer.startActivity(
+                                                                this@LoginActivity,
+                                                                "HomePageActivity",
+                                                                Intent()
+                                                            )
+
+                                                            finish()
+                                                        }
+                                                        is RefreshState.Failure -> {
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                    }
+
+                                    is RefreshState.Failure -> {
+                                        Toast.makeText(
+                                            this@LoginActivity,
+                                            "微信登录有误，请尝试账号登录",
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                    }
+                                }
+                            }
+                        } else {
+                            val intent = Intent(
+                                this@LoginActivity,
+                                LogonActivity::class.java
+                            )
+                            intent.putExtra(
+                                AuthUtils.WECHAT_REGISTER,
+                                weiXinInfo.openid!!
+                            )
+                            startActivity(intent)
+                        }
+
+
+                    } else {
+                        Toast.makeText(this@LoginActivity, "微信登录失败", Toast.LENGTH_SHORT).show()
                     }
                 }
 

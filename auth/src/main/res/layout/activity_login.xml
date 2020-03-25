@@ -17,7 +17,7 @@
             android:textSize="30sp"
             android:textColor="#ffffff"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="112dp"
+            android:layout_marginTop="100dp"
             android:id="@+id/star"
 
     />
@@ -28,7 +28,7 @@
             android:textColor="#ffffff"
             android:text="账号"
             app:layout_constraintTop_toBottomOf="@+id/star"
-            android:layout_marginTop="78dp"
+            android:layout_marginTop="60dp"
             android:id="@+id/account"
             app:layout_constraintLeft_toLeftOf="@+id/account_input"
             android:layout_marginLeft="15dp"
@@ -42,6 +42,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/account"
             android:id="@+id/account_input"
+            android:singleLine="true"
             android:layout_marginTop="10dp"
     />
 
@@ -64,8 +65,10 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/password"
+            android:inputType="textPassword"
             android:id="@+id/password_input"
             android:layout_marginTop="10dp"
+            android:singleLine="true"
     />
 
     <TextView
@@ -112,13 +115,13 @@
 
     <ImageView
             android:id="@+id/we_button"
-            android:layout_width="50dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="24dp"
             android:text="weixin"
-            android:visibility="gone"
+            android:layout_marginTop="25dp"
             android:background="@drawable/wechat"
-            app:layout_constraintLeft_toLeftOf="@id/logup"
-            app:layout_constraintRight_toRightOf="@+id/logup"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/login_button" />
     <Button
             android:id="@+id/qq_button"

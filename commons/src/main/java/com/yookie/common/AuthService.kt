@@ -17,10 +17,16 @@ import java.util.concurrent.TimeUnit
 
 interface AuthService {
     @POST("user/register")
-    fun register(@Query("username") user: String, @Query("password") register: String): Deferred<CommonBody<NewUser>>
+    fun register(@Query("username") user: String, @Query("password") register: String, @Query("wechat") wechat: String? = null): Deferred<CommonBody<NewUser>>
 
     @POST("user/login")
     fun getToken(@Query("username") user: String, @Query("password") register: String): Deferred<CommonBody<AuthData>>
+
+    @POST("user/loginForWechat")
+    fun loginForWechat(@Query("wechat") wechat: String): Deferred<CommonBody<AuthData>>
+
+    @GET("user/isWechat")
+    fun isWechat(@Query("wechat") wechat: String): Deferred<CommonBody<WechatJudge>>
 
     //文件上传不饿能为null，可以传默认MultipartBody.Part.createFormData("","")
     @Multipart
@@ -129,7 +135,7 @@ data class WeiXinInfo(
     var openid: String?,//
     var headimgurl: String?,//用户头像URL
     var nickname: String?,
-    var age: Int
+    var age: Int?
 )
 
 data class WeiXinPay(
@@ -174,4 +180,8 @@ data class test(
     val username: String,
     val week_hot_value: Int,
     val year_hot_value: Int
+)
+
+data class WechatJudge(
+    val message: Int
 )

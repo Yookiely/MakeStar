@@ -27,6 +27,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:id="@+id/logon_input"
             android:hint="请输入用户名"
+            android:singleLine="true"
             android:layout_marginTop="100dp"
             />
     <EditText
@@ -35,9 +36,11 @@
             android:background="@drawable/circle_input"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
+            android:inputType="textPassword"
             app:layout_constraintTop_toBottomOf="@id/logon_input"
             android:id="@+id/password_input"
             android:hint="请输入密码"
+            android:singleLine="true"
             android:layout_marginTop="30dp"
             />
     <EditText
@@ -48,7 +51,9 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/password_input"
             android:id="@+id/re_password_input"
+            android:inputType="textPassword"
             android:hint="再次确认密码"
+            android:singleLine="true"
             android:layout_marginTop="30dp"
             />
 

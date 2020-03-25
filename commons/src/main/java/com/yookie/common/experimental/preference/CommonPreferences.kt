@@ -9,6 +9,10 @@ object CommonPreferences {
 
     var isLogin by hawk("is_login", false)
 
+    var isWechat by hawk("is_wechat", false)
+
+    var wechat_openid by hawk("wechat_openid", "")
+
     var userid by hawk("user_num", "")
 
     var username by hawk("user_id", "")

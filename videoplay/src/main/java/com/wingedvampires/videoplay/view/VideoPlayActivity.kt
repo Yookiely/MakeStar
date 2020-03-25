@@ -288,7 +288,7 @@ class VideoPlayActivity : AppCompatActivity(), OnPlayerEventListener {
 
     private fun refreshVideoInfo() {
         launch(UI + QuietCoroutineExceptionHandler) {
-            loadingDialog.show()
+
             val work = VideoPlayService.getWorkByID(workId!!).awaitAndHandle {
                 it.printStackTrace()
                 Toast.makeText(this@VideoPlayActivity, "数据加载失败", Toast.LENGTH_SHORT).show()
@@ -306,7 +306,6 @@ class VideoPlayActivity : AppCompatActivity(), OnPlayerEventListener {
                 Toast.makeText(this@VideoPlayActivity, "用户信息加载失败", Toast.LENGTH_SHORT).show()
                 loadingDialog.dismiss()
             }?.data ?: return@launch
-
 
             if (videoInfo.PlayInfoList.PlayInfo.isEmpty()) {
                 Toast.makeText(this@VideoPlayActivity, "视频Url获取失败", Toast.LENGTH_SHORT).show()
@@ -456,7 +455,6 @@ class VideoPlayActivity : AppCompatActivity(), OnPlayerEventListener {
                     work.work_name,
                     work.username
                 )
-                refreshVideoInfo()
             }
             videoBeanList.clear()
             videoBeanList.add(
@@ -466,8 +464,9 @@ class VideoPlayActivity : AppCompatActivity(), OnPlayerEventListener {
                     videoInfo.PlayInfoList.PlayInfo[0].PlayURL
                 )
             )
+            loadingDialog.dismiss()
         }
-        loadingDialog.dismiss()
+
     }
 
     private fun initPlay() {
@@ -539,6 +538,7 @@ class VideoPlayActivity : AppCompatActivity(), OnPlayerEventListener {
 
     override fun onResume() {
         super.onResume()
+        refreshVideoInfo()
         if (mVideoView.isInPlaybackState) {
             if (!userPause)
                 mVideoView.resume()

@@ -20,8 +20,8 @@
 
             <ImageView
                     android:id="@+id/iv_search_more_back"
-                    android:layout_width="15dp"
-                    android:layout_height="25dp"
+                    android:layout_width="12dp"
+                    android:layout_height="20dp"
                     android:layout_gravity="bottom"
                     android:layout_marginStart="33dp"
                     android:layout_marginBottom="8dp"

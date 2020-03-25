@@ -1,5 +1,6 @@
 package com.yookie.auth
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -33,6 +34,15 @@ class LogonActivity : AppCompatActivity() {
                         var callback = AuthService.register(username.text.toString(),password.text.toString()).await()
                         if (callback.error_code==-1){
                             Log.d("zhucechenggong","注册成功")
+                            val intent = Intent(this@LogonActivity,QuestionActivity::class.java)
+                            intent.putExtra("token",callback.data?.token)
+                            startActivity(intent)
+                        }
+                        if (callback.error_code==1){
+                            Toast.makeText(this@LogonActivity, "注册失败", Toast.LENGTH_SHORT).show()
+                        }
+                        if (callback.error_code==2){
+                            Toast.makeText(this@LogonActivity, "用户已存在", Toast.LENGTH_SHORT).show()
                         }
                     }
                 }else {

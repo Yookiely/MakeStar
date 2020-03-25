@@ -3,16 +3,21 @@
         package="com.yookie.auth">
 
     <application>
-        <activity android:name=".LogonActivity"></activity>
+        <activity android:name=".ResetPasswordActivity"></activity>
+        <activity android:name=".ForgetActivity" />
+        <activity android:name=".QuestionActivity" />
+        <activity android:name=".LogonActivity" />
         <activity android:name=".LoginActivity" />
         <activity
                 android:name="com.tencent.tauth.AuthActivity"
-                android:noHistory="true"
-                android:launchMode="singleTask" >
+                android:launchMode="singleTask"
+                android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="tencent101831652" />
             </intent-filter>
         </activity>

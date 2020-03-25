@@ -39,17 +39,20 @@ class MessageActivity : AppCompatActivity() {
         viewPager.adapter = mPagerAdapter
         mTabLayout.setupWithViewPager(viewPager)
         CommonPreferences.newMessage = 0
-        UserImp.getMessageNum(CommonPreferences.userid){
-            if (it.new_user_message_num>0){
-                setTabBadage(0,it.new_user_message_num,"消息")
+            if (CommonPreferences.newUserMessage>0){
+                setTabBadage(0,CommonPreferences.newUserMessage,"消息")
+                CommonPreferences.newUserMessage = 0
+
             }
-            if (it.new_star_num>0){
-                setTabBadage(1,it.new_star_num,"点赞")
+            if (CommonPreferences.newStarMessage>0){
+                setTabBadage(1,CommonPreferences.newStarMessage,"点赞")
+                CommonPreferences.newStarMessage = 0
             }
-            if (it.new_comment_num>0){
-                setTabBadage(2,it.new_comment_num,"评论")
+            if (CommonPreferences.newCommentMessage>0){
+                setTabBadage(2,CommonPreferences.newCommentMessage,"评论")
+                CommonPreferences.newCommentMessage = 0
             }
-        }
+
 
 
     }

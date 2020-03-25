@@ -59,7 +59,7 @@ class VideoItem(val work: workData, val rank: Int, val activity: Activity) : Ite
             }
 
             holder.itemView.setOnClickListener {
-                val intent = Intent().also { it.putExtra("videopalyWorkId", item.work.video_ID) }
+                val intent = Intent().also { it.putExtra("videopalyWorkId", item.work.work_ID.toString()) }
                 Transfer.startActivityWithoutClose(item.activity, "VideoPlayActivity", intent)
             }
         }

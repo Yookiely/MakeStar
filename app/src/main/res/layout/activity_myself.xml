@@ -11,7 +11,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:layout_height="300dp"
             android:id="@+id/backgoround"
-            android:background="#66ccff"
+            android:background="@drawable/ms_fans_bg"
             />
     <ImageView
             android:layout_width="48dp"

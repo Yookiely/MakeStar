@@ -34,7 +34,7 @@ object RealAuthenticator : Authenticator {
                                 CommonContext.startActivity(name = "login")
                             }?.data?.token?.let { CommonPreferences.token = it }
                     } else {
-                        AuthService.getToken(CommonPreferences.userid, CommonPreferences.password)
+                        AuthService.getToken(CommonPreferences.username, CommonPreferences.password)
                             .awaitAndHandle {
                                 CommonContext.startActivity(name = "login")
                             }?.data?.token?.let { CommonPreferences.token = it }
@@ -42,7 +42,7 @@ object RealAuthenticator : Authenticator {
                 }
                 throw IOException("登录失效，正在尝试自动重登")
             }
-            val code = 10001
+            val code = 10003
             when (code) {
                 10001 ->
                     if (response.priorResponse()?.request()?.header("Authorization") == null)

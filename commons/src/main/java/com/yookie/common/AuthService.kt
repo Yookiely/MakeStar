@@ -42,7 +42,7 @@ interface AuthService {
     ): Deferred<CommonBody<String>>
 
 
-    @POST("/api/user/setQuestion")
+    @POST("user/setQuestion")
     fun setQusetion(@Query("question") question : String,@Query("answer") answer : String) : Deferred<CommonBody<String>>
 
     @GET("user/myself")
@@ -50,6 +50,15 @@ interface AuthService {
 
     @GET("/api/work/shareNumInc")
     fun getShareUrl(@Query("work_ID") work_ID: String): Deferred<CommonBody<ShareContent>>
+
+    @GET("user/getQuestion")
+    fun getQuestion(@Query("username") username: String) : Deferred<CommonBody<Question>>
+
+    @GET("user/getKeyByQuestion")
+    fun getKeyByQuestion(@Query("username") username: String,@Query("answer") answer: String) : Deferred<CommonBody<Result>>
+
+    @POST("user/updatePassword")
+    fun updatePassword(@Query("username") username: String,@Query("key")key : String,@Query("password") password : String) : Deferred<CommonBody<String>>
 
     companion object : AuthService by ServiceFactory()
 }
@@ -184,4 +193,13 @@ data class test(
 
 data class WechatJudge(
     val message: Int
+)
+
+
+data class Question(
+    val question : String
+)
+
+data class Result(
+    val result: String
 )

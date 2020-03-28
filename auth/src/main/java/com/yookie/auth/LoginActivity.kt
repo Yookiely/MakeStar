@@ -36,12 +36,17 @@ import kotlinx.coroutines.experimental.launch
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.jetbrains.anko.coroutines.experimental.asReference
+import android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
+import android.text.InputType.TYPE_CLASS_TEXT
+import android.text.InputType
+
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var usernameText: EditText
     private lateinit var passwordText: EditText
     private lateinit var loginButton: TextView
+    private lateinit var forgetButton : TextView
     private lateinit var weiXinButton: ImageView
     private lateinit var qqButton: Button
     private lateinit var username: String
@@ -67,9 +72,14 @@ class LoginActivity : AppCompatActivity() {
         passwordText = findViewById(R.id.password_input)
         qqButton = findViewById(R.id.qq_button)
         weiXinButton = findViewById(R.id.we_button)
+        forgetButton = findViewById(R.id.forget_password)
         logon = findViewById(R.id.logup)
+        passwordText.inputType = TYPE_CLASS_TEXT or TYPE_TEXT_VARIATION_PASSWORD
         logon.setOnClickListener {
             startActivity(Intent(this, LogonActivity::class.java))
+        }
+        forgetButton.setOnClickListener {
+            startActivity(Intent(this,ForgetActivity::class.java))
         }
         loginButton = findViewById<TextView>(R.id.login_button).apply {
             setOnClickListener {

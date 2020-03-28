@@ -10,7 +10,7 @@
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:id="@+id/backgoround"
-            android:background="#66ccff"
+            android:background="@drawable/ms_fans_bg"
             app:layout_constraintTop_toTopOf="parent"
     />
 

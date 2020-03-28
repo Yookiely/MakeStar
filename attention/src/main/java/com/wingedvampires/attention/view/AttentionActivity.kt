@@ -44,10 +44,19 @@ class AttentionActivity : AppCompatActivity() {
         val userpage = findViewById<TextView>(R.id.tv_bottom_individual)
         homepageViewPager = findViewById(R.id.vp_attention_main)
         dynamicPagerIndicator = findViewById(R.id.dynamic_pager_indicator2)
-        homepage.setOnClickListener { Transfer.startActivity(this, "HomePageActivity", Intent()) }
+        homepage.setOnClickListener {
+            it.isEnabled = false
+            Transfer.startActivity(this, "HomePageActivity", Intent())
+        }
 //        attention.setOnClickListener { Transfer.startActivity(this, "AttentionActivity", Intent()) }
-        discover.setOnClickListener { Transfer.startActivity(this, "DiscoverActivity", Intent()) }
-        userpage.setOnClickListener { Transfer.startActivity(this, "MyUserActivity", Intent()) }
+        discover.setOnClickListener {
+            it.isEnabled = false
+            Transfer.startActivity(this, "DiscoverActivity", Intent())
+        }
+        userpage.setOnClickListener {
+            it.isEnabled = false
+            Transfer.startActivity(this, "MyUserActivity", Intent())
+        }
 
 
 

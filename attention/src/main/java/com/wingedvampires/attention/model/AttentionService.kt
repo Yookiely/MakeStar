@@ -254,7 +254,7 @@ data class Comment(
 )
 
 data class User(
-    val age: Int,
+    val age: String,
     val avatar: String,
     val birthday: Birthday,
     val city: String,
@@ -305,7 +305,7 @@ data class WorkById(
 )
 
 data class ConcernPerson(
-    val age: Int?,
+    val age: String?,
     val avatar: String?,
     val city: Any?,
     val fans_num: Int?,

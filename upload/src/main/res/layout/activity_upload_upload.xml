@@ -10,7 +10,7 @@
 >
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+            android:layout_height="75dp"
         android:background="@drawable/ms_main_theme"
         android:id="@+id/upload_toolbar"
         app:layout_constraintTop_toTopOf="parent"

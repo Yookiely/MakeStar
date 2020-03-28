@@ -48,10 +48,20 @@ class HomePageActivity : AppCompatActivity() {
         val userpage = findViewById<TextView>(R.id.tv_bottom_individual)
         val camra = findViewById<ImageView>(R.id.iv_homepage_camera)
         val localLayoutParams = window.attributes
-        localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
-        attention.setOnClickListener { Transfer.startActivity(this, "AttentionActivity", Intent()) }
-        discover.setOnClickListener { Transfer.startActivity(this, "DiscoverActivity", Intent()) }
-        userpage.setOnClickListener { Transfer.startActivity(this, "MyUserActivity", Intent()) }
+        localLayoutParams.flags =
+            (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
+        attention.setOnClickListener {
+            it.isEnabled = false
+            Transfer.startActivity(this, "AttentionActivity", Intent())
+        }
+        discover.setOnClickListener {
+            it.isEnabled = false
+            Transfer.startActivity(this, "DiscoverActivity", Intent())
+        }
+        userpage.setOnClickListener {
+            it.isEnabled = false
+            Transfer.startActivity(this, "MyUserActivity", Intent())
+        }
 
         homepageViewPager = findViewById(R.id.vp_homepage_main)
         dynamicPagerIndicator = findViewById(R.id.dynamic_pager_indicator2)

@@ -44,9 +44,18 @@ class MyUserActivity : AppCompatActivity() {
         val discover = findViewById<TextView>(R.id.tv_bottom_find)
         val localLayoutParams = window.attributes
         localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
-        attention.setOnClickListener { Transfer.startActivity(this, "AttentionActivity", Intent()) }
-        home.setOnClickListener { Transfer.startActivity(this, "HomePageActivity", Intent()) }
-        discover.setOnClickListener { Transfer.startActivity(this, "DiscoverActivity", Intent()) }
+        attention.setOnClickListener {
+            it.isEnabled = false
+            Transfer.startActivity(this, "AttentionActivity", Intent())
+        }
+        home.setOnClickListener {
+            it.isEnabled = false
+            Transfer.startActivity(this, "HomePageActivity", Intent())
+        }
+        discover.setOnClickListener {
+            it.isEnabled = false
+            Transfer.startActivity(this, "DiscoverActivity", Intent())
+        }
 
         enter.setOnClickListener {
             val intent = Intent(this,MyselfActivity::class.java)

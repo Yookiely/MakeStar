@@ -3,6 +3,7 @@ package com.yookie.auth
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.text.InputType
 import android.util.Log
 import android.view.Window
 import android.view.WindowManager
@@ -29,7 +30,8 @@ class LogonActivity : AppCompatActivity() {
         localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
 
         val weiXinOpenID: String? = intent.getStringExtra(AuthUtils.WECHAT_REGISTER)
-
+        password.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+        rePassword.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
         start.setOnClickListener {
             if (username.text != null && password.text != null && rePassword.text != null) {
                 if (password.text.toString() == rePassword.text.toString()) {

@@ -53,7 +53,8 @@ class RedPacketActivity : AppCompatActivity() {
             tv_user_name.text = CommonPreferences.username
             tv_user_money.text = "￥ ${mRedPacket.total_money}"
             tv_user_day.text = mRedPacket.red_bag_count.toString()
-            tv_user_watch.text = mRedPacket.today_total_watch.toString()
+            tv_user_watch.text =
+                if (mRedPacket.today_total_watch <= 5) mRedPacket.today_total_watch.toString() else "5"
             tv_redpacket_inviteperson.text = "本周已邀请${mRedPacket.Invitation_count}人"
 
 

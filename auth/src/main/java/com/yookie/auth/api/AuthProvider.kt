@@ -112,3 +112,41 @@ fun loginForWechat(wechatOpenID: String, callback: suspend (RefreshState<String>
     }
 
 }
+
+fun loginForQQ(qqOpenID: String, callback: suspend (RefreshState<String>) -> Unit = {}) {
+    launch(UI) {
+        AuthService.qqLogin(qqOpenID).awaitAndHandle {
+            callback(RefreshState.Failure(it))
+        }?.data?.let {
+            CommonPreferences.token = it.token
+            CommonPreferences.isQQ = true
+            CommonPreferences.isLogin = true
+            CommonPreferences.qq_openid = qqOpenID
+            CommonPreferences.username = it.username
+            CommonPreferences.userid = it.user_ID.toString()
+            CommonPreferences.sex = it.sex
+            CommonPreferences.age = it.age.toString()
+            CommonPreferences.fans_num = it.fans_num.toString()
+            CommonPreferences.signature = it.signature
+            CommonPreferences.avatars = it.avatar
+            CommonPreferences.week_hot_value = it.week_hot_value.toString()
+            CommonPreferences.month_hot_value = it.month_hot_value.toString()
+            CommonPreferences.year_hot_value = it.year_hot_value.toString()
+            CommonPreferences.city = it.city
+            CommonPreferences.rank = it.month_rank.toString()
+            CommonPreferences.focus_num = it.follow_num.toString()
+            CommonPreferences.tags = if (it.tags == null) "" else it.tags!!
+
+            if (it.birthday != null) {
+                CommonPreferences.birthday =
+                    "${it.birthday!!.year}-${it.birthday!!.month}-${it.birthday!!.day}"
+            } else {
+                CommonPreferences.birthday = ""
+            }
+
+
+            callback(RefreshState.Success(AuthUtils.WECHAT_SUCCESS))
+        }
+    }
+
+}

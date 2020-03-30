@@ -30,6 +30,8 @@ class LogonActivity : AppCompatActivity() {
         localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
 
         val weiXinOpenID: String? = intent.getStringExtra(AuthUtils.WECHAT_REGISTER)
+        val qqOpenID: String? = intent.getStringExtra(AuthUtils.QQ_REGISTER)
+
         password.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
         rePassword.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
         start.setOnClickListener {
@@ -40,7 +42,8 @@ class LogonActivity : AppCompatActivity() {
                             AuthService.register(
                                 username.text.toString(),
                                 password.text.toString(),
-                                wechat = weiXinOpenID
+                                wechat = weiXinOpenID,
+                                qq = qqOpenID
                             )
                                 .await()
                         if (callback.error_code == -1) {

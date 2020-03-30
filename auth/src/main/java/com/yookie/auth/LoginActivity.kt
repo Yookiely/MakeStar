@@ -10,16 +10,16 @@ import android.util.Log
 import android.view.Window
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
-import android.widget.*
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import com.tencent.mm.opensdk.modelbase.BaseResp
 import com.tencent.mm.opensdk.modelmsg.SendAuth
 import com.tencent.mm.opensdk.openapi.IWXAPI
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import com.tencent.tauth.Tencent
-import com.yookie.auth.api.AuthUtils
-import com.yookie.auth.api.authSelfLiveData
-import com.yookie.auth.api.login
-import com.yookie.auth.api.loginForWechat
+import com.yookie.auth.api.*
 import com.yookie.common.AuthService
 import com.yookie.common.WeiXin
 import com.yookie.common.WeiXinService
@@ -191,7 +191,6 @@ class LoginActivity : AppCompatActivity() {
                         }
 
                     if (weiXinInfo?.openid != null) {
-                        Log.d("momomom", weiXinInfo.openid!!)
                         val isWechat = AuthService.isWechat(weiXinInfo.openid!!).awaitAndHandle {
                             it.printStackTrace()
                         }?.data?.message
@@ -273,25 +272,65 @@ class LoginActivity : AppCompatActivity() {
 
     @Subscribe
     fun onEventMainThread(response: Object) {
-        Log.d("qq_response", response.toString())
         val openId = (response as JSONObject).getString("openid")
-        val expires = (response as JSONObject).getString("expires_in")
-        val token = (response as JSONObject).getString("access_token")
+
         launch(UI + QuietCoroutineExceptionHandler) {
-            val qqToken = AuthService.qqLogin(openId).awaitAndHandle {
+            val isQQ = AuthService.isQQ(openId).awaitAndHandle {
                 it.printStackTrace()
-                Toast.makeText(this@LoginActivity, "用户未注册", Toast.LENGTH_SHORT).show()
-                val intent = Intent(applicationContext, LogonActivity::class.java)
-                startActivity(intent)
-            }?.apply {
-                if (this.error_code == -1) {
-                    Transfer.startActivity(
-                        this@LoginActivity,
-                        "HomePageActivity",
-                        Intent()
-                    )
+            }?.data?.message
+
+            if (isQQ == 1) {
+                loginForQQ(openId) {
+                    when (it) {
+                        is RefreshState.Success -> {
+                            when (it.message) {
+                                AuthUtils.WECHAT_SUCCESS -> {
+                                    authSelfLiveData.refresh(REMOTE) {
+                                        when (it) {
+                                            is RefreshState.Success -> {
+                                                Toast.makeText(
+                                                    this@LoginActivity,
+                                                    "登录成功",
+                                                    Toast.LENGTH_LONG
+                                                ).show()
+                                                Transfer.startActivity(
+                                                    this@LoginActivity,
+                                                    "HomePageActivity",
+                                                    Intent()
+                                                )
+
+                                                finish()
+                                            }
+                                            is RefreshState.Failure -> {
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+
+                        is RefreshState.Failure -> {
+                            Toast.makeText(
+                                this@LoginActivity,
+                                "QQ登录有误，请尝试账号登录",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    }
                 }
+            } else {
+                val intent = Intent(
+                    this@LoginActivity,
+                    LogonActivity::class.java
+                )
+                intent.putExtra(
+                    AuthUtils.QQ_REGISTER,
+                    openId
+                )
+                startActivity(intent)
             }
+
         }
     }
 

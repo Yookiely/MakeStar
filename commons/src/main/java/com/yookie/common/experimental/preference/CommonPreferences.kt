@@ -11,7 +11,11 @@ object CommonPreferences {
 
     var isWechat by hawk("is_wechat", false)
 
+    var isQQ by hawk("is_qq", false)
+
     var wechat_openid by hawk("wechat_openid", "")
+
+    var qq_openid by hawk("qq_openid", "")
 
     var userid by hawk("user_num", "")
 

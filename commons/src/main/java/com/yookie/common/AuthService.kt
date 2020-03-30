@@ -17,7 +17,11 @@ import java.util.concurrent.TimeUnit
 
 interface AuthService {
     @POST("user/register")
-    fun register(@Query("username") user: String, @Query("password") register: String, @Query("wechat") wechat: String? = null): Deferred<CommonBody<NewUser>>
+    fun register(
+        @Query("username") user: String, @Query("password") register: String, @Query("wechat") wechat: String? = null, @Query(
+            "qq"
+        ) qq: String? = null
+    ): Deferred<CommonBody<NewUser>>
 
     @POST("user/login")
     fun getToken(@Query("username") user: String, @Query("password") register: String): Deferred<CommonBody<AuthData>>
@@ -27,6 +31,9 @@ interface AuthService {
 
     @GET("user/isWechat")
     fun isWechat(@Query("wechat") wechat: String): Deferred<CommonBody<WechatJudge>>
+
+    @GET("user/isQQ")
+    fun isQQ(@Query("qq") qq: String): Deferred<CommonBody<WechatJudge>>
 
     //文件上传不饿能为null，可以传默认MultipartBody.Part.createFormData("","")
     @Multipart

@@ -33,6 +33,11 @@ object RealAuthenticator : Authenticator {
                             .awaitAndHandle {
                                 CommonContext.startActivity(name = "login")
                             }?.data?.token?.let { CommonPreferences.token = it }
+                    } else if (CommonPreferences.isQQ) {
+                        AuthService.qqLogin(CommonPreferences.qq_openid)
+                            .awaitAndHandle {
+                                CommonContext.startActivity(name = "login")
+                            }?.data?.token?.let { CommonPreferences.token = it }
                     } else {
                         AuthService.getToken(CommonPreferences.username, CommonPreferences.password)
                             .awaitAndHandle {

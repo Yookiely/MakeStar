@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textColor="#ffffff"
-                android:textSize="18sp"
+                android:textSize="22sp"
                 android:id="@+id/tool_set"
                 android:layout_marginBottom="6dp"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -30,15 +30,18 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:text="设置"
                 />
+
+
             <ImageView
                     android:id="@+id/fans_back"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:padding="8dp"
-                    android:src="@drawable/ms_white_back"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/tool_set"
-                    android:layout_marginLeft="20dp"/>
+                    android:layout_width="12dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="33dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/ms_white_back"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent" />
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -18,7 +18,7 @@
             android:background="@drawable/ms_search_background"
             android:maxLines="1"
             android:gravity="center"
-            android:textSize="16sp"
+            android:textSize="17sp"
             android:imeOptions="actionSend"
             app:layout_constraintBottom_toBottomOf="parent"
             android:singleLine="true"
@@ -49,6 +49,6 @@
                 android:paddingEnd="15dp"
                 android:text="发送"
                 android:textColor="#ffffff"
-                android:textSize="16sp" />
+                android:textSize="17sp" />
     </android.support.v7.widget.CardView>
 </android.support.constraint.ConstraintLayout>

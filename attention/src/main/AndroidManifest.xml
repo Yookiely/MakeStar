@@ -3,8 +3,12 @@
         package="com.wingedvampires.attention">
 
     <application>
-        <activity android:name=".view.SecondCommentActivity"></activity>
-        <activity android:name=".view.CommentsActivity"></activity>
+        <activity
+                android:name=".view.SecondCommentActivity"
+                android:windowSoftInputMode="stateVisible|adjustPan|stateHidden"></activity>
+        <activity
+                android:name=".view.CommentsActivity"
+                android:windowSoftInputMode="stateVisible|adjustPan|stateHidden"></activity>
         <activity
                 android:name=".view.AttentionActivity"
                 android:windowSoftInputMode="stateVisible|adjustPan|stateHidden"></activity>

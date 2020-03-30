@@ -68,6 +68,20 @@ class MyselfActivity : AppCompatActivity() {
         if (userid == CommonPreferences.userid) {
             order.visibility = View.INVISIBLE
             fans.visibility = View.INVISIBLE
+            Glide.with(this)
+                .load(CommonPreferences.avatars)
+                .into(avatars)
+            nickname.text =CommonPreferences.username
+            fansNum.text = CommonPreferences.fans_num
+            rank.text = CommonPreferences.rank
+            mystyle.text = CommonPreferences.signature
+            popNum.text =CommonPreferences.year_hot_value
+            focusNum.text =CommonPreferences.focus_num
+            if (CommonPreferences.sex=="男"){
+                message.text = "♂" + " | " + CommonPreferences.age + " | " + CommonPreferences.city
+            }else{
+                message.text = "♀" + " | " + CommonPreferences.age + " | " + CommonPreferences.city
+            }
         } else if (userid != CommonPreferences.userid) {
             launch(UI + QuietCoroutineExceptionHandler) {
                 val addCommonBody = AttentionService.addFollow(userid).awaitAndHandle {
@@ -142,15 +156,22 @@ class MyselfActivity : AppCompatActivity() {
         mPopupWindow.contentView = contentView
         val leaveMes = contentView.findViewById<TextView>(R.id.page_leave)
         val leaveSha = contentView.findViewById<TextView>(R.id.page_share)
+        leaveSha.visibility = View.INVISIBLE
         if (userid == CommonPreferences.userid) {
             leaveMes.text = "编辑个人资料"
             leaveSha.text = "我的名片"
-        }
-        leaveMes.setOnClickListener {
-            val intent = Intent(this, LeaveMessageActivity::class.java)
-            intent.putExtra("userID", userid)
-            startActivity(intent)
-            mPopupWindow.dismiss()
+            leaveMes.setOnClickListener {
+                val intent = Intent(this,EditActivity::class.java)
+                startActivity(intent)
+                mPopupWindow.dismiss()
+            }
+        }else {
+            leaveMes.setOnClickListener {
+                val intent = Intent(this, LeaveMessageActivity::class.java)
+                intent.putExtra("userID", userid)
+                startActivity(intent)
+                mPopupWindow.dismiss()
+            }
         }
         mPopupWindow.showAsDropDown(more, -10, -10, Gravity.START)
     }

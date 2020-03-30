@@ -345,9 +345,11 @@ data class MyVideoList(
     val total: Int
 )
 
+
 data class UserInfo(
-    val age: Int,
+    val age: String,
     val avatar: String,
+    val birthday: List<Any>,
     val city: String,
     val fans_num: Int,
     val follow_num: Int,
@@ -361,7 +363,6 @@ data class UserInfo(
     val week_hot_value: Int,
     val year_hot_value: Int
 )
-
 
 data class NewMessage(
     val new_comment_num: Int,

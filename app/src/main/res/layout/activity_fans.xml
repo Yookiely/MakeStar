@@ -10,21 +10,43 @@
     <android.support.v7.widget.Toolbar
             android:id="@+id/tb_main_Fans"
             android:layout_width="match_parent"
-            android:layout_height="75dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/ms_main_theme"
             app:layout_constraintTop_toTopOf="parent">
+        <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
                 android:gravity="center"
-                android:layout_marginBottom="20dp"
                 android:textColor="#ffffff"
-                android:layout_marginEnd="60dp"
-                android:layout_marginStart="60dp"
-                android:textSize="24sp"
+                android:textSize="18sp"
+                android:id="@+id/tool_set"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 android:text="设置"
                 />
+            <ImageView
+                    android:id="@+id/fans_back"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:padding="8dp"
+                    android:src="@drawable/ms_white_back"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tool_set"
+                    android:layout_marginLeft="20dp"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="@id/tool_set"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:textSize="16sp"
+                    android:textColor="#ffffff"
+                    android:text="发帖"
+                    android:layout_marginRight="20dp"
+                    />
+        </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.Toolbar>
 
     <ImageView
@@ -216,27 +238,7 @@
             android:elevation="10dp"
 
     />
-    <ImageView
-            android:id="@+id/fans_back"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:padding="8dp"
-            android:src="@drawable/ms_white_back"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="20dp"/>
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:textSize="16sp"
-            android:textColor="#ffffff"
-            android:text="发帖"
-            android:layout_marginTop="30dp"
-            android:layout_marginRight="20dp"
-    />
+
 
     <android.support.v4.view.ViewPager
             android:layout_width="match_parent"

@@ -50,6 +50,8 @@ interface AuthService {
 
     @GET("/api/work/shareNumInc")
     fun getShareUrl(@Query("work_ID") work_ID: String): Deferred<CommonBody<ShareContent>>
+    @POST("user/loginForQQ")
+    fun qqLogin(@Query("qq") openid: String):Deferred<CommonBody<AuthData>>
 
     @GET("user/getQuestion")
     fun getQuestion(@Query("username") username: String) : Deferred<CommonBody<Question>>

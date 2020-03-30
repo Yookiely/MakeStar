@@ -4,19 +4,18 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.text.InputType.TYPE_CLASS_TEXT
+import android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
 import android.util.Log
 import android.view.Window
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
-import com.tencent.connect.common.Constants
 import com.tencent.mm.opensdk.modelbase.BaseResp
 import com.tencent.mm.opensdk.modelmsg.SendAuth
 import com.tencent.mm.opensdk.openapi.IWXAPI
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
-import com.tencent.tauth.IUiListener
 import com.tencent.tauth.Tencent
-import com.tencent.tauth.UiError
 import com.yookie.auth.api.AuthUtils
 import com.yookie.auth.api.authSelfLiveData
 import com.yookie.auth.api.login
@@ -36,31 +35,27 @@ import kotlinx.coroutines.experimental.launch
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.jetbrains.anko.coroutines.experimental.asReference
-import android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
-import android.text.InputType.TYPE_CLASS_TEXT
-import android.text.InputType
-
+import org.json.JSONObject
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var usernameText: EditText
     private lateinit var passwordText: EditText
     private lateinit var loginButton: TextView
-    private lateinit var forgetButton : TextView
+    private lateinit var forgetButton: TextView
     private lateinit var weiXinButton: ImageView
-    private lateinit var qqButton: Button
+    private lateinit var qqButton: ImageView
     private lateinit var username: String
     private lateinit var passwords: String
     private lateinit var wxAPI: IWXAPI
     private lateinit var logon: TextView
     private lateinit var context: Context
-//    var mlistener =
-
+    private lateinit var listener: BaseUiListener
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_login)
-
+        listener = BaseUiListener()
         // 注册EventBus
         EventBus.getDefault().register(this)//注册
         wxAPI = WXAPIFactory.createWXAPI(this, CommonContext.WECHAT_APPID, true)
@@ -79,7 +74,7 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(this, LogonActivity::class.java))
         }
         forgetButton.setOnClickListener {
-            startActivity(Intent(this,ForgetActivity::class.java))
+            startActivity(Intent(this, ForgetActivity::class.java))
         }
         loginButton = findViewById<TextView>(R.id.login_button).apply {
             setOnClickListener {
@@ -145,18 +140,22 @@ class LoginActivity : AppCompatActivity() {
     private fun qqLogin() {
         val mTencent = Tencent.createInstance(QQ_APPID, this.applicationContext)
         if (!mTencent.isSessionValid) {
-            mTencent.login(this, "all", object : IUiListener {
-                override fun onComplete(p0: Any?) {
-                    Toast.makeText(context, "授权成功", Toast.LENGTH_SHORT).show()
-                }
-
-                override fun onCancel() {
-                }
-
-                override fun onError(p0: UiError?) {
-                }
-
-            })
+//            mTencent.login(this, "all", object : IUiListener {
+////                override fun onComplete(p0: Any?) {
+////                    val token = mTencent.qqToken
+////                    val openID =mTencent.openId
+////                    Log.d("log_openid",openID)
+////                    Toast.makeText(context, "授权成功", Toast.LENGTH_SHORT).show()
+////                }
+////
+////                override fun onCancel() {
+////                }
+////
+////                override fun onError(p0: UiError?) {
+////                }
+////
+////            },true)
+            mTencent.login(this, "all", listener)
         }
 
     }
@@ -175,6 +174,7 @@ class LoginActivity : AppCompatActivity() {
      */
     @Subscribe
     fun onEventMainThread(weiXin: WeiXin) {
+        Log.i("ansen", "收到eventbus请求 type:" + weiXin.type)
         if (weiXin.type == 1) {//登录
 
             launch(UI + QuietCoroutineExceptionHandler) {
@@ -271,6 +271,30 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    @Subscribe
+    fun onEventMainThread(response: Object) {
+        Log.d("qq_response", response.toString())
+        val openId = (response as JSONObject).getString("openid")
+        val expires = (response as JSONObject).getString("expires_in")
+        val token = (response as JSONObject).getString("access_token")
+        launch(UI + QuietCoroutineExceptionHandler) {
+            val qqToken = AuthService.qqLogin(openId).awaitAndHandle {
+                it.printStackTrace()
+                Toast.makeText(this@LoginActivity, "用户未注册", Toast.LENGTH_SHORT).show()
+                val intent = Intent(applicationContext, LogonActivity::class.java)
+                startActivity(intent)
+            }?.apply {
+                if (this.error_code == -1) {
+                    Transfer.startActivity(
+                        this@LoginActivity,
+                        "HomePageActivity",
+                        Intent()
+                    )
+                }
+            }
+        }
+    }
+
     private fun hideSoftInputMethod() {
         val inputMethodManager =
             getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
@@ -280,10 +304,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == Constants.REQUEST_LOGIN) {
-//            Tencent.onActivityResultData(requestCode,resultCode,data,listener)
-        }
         super.onActivityResult(requestCode, resultCode, data)
+        Tencent.onActivityResultData(requestCode, resultCode, data, listener)
     }
 
     override fun onDestroy() {

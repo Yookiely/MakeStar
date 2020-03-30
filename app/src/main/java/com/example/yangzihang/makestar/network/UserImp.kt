@@ -1,5 +1,6 @@
 package com.example.yangzihang.makestar.network
 
+import android.util.Log
 import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
 import com.yookie.common.experimental.preference.CommonPreferences
 import kotlinx.coroutines.experimental.android.UI
@@ -66,10 +67,10 @@ object UserImp {
         }
     }
 
-    fun getAllMessage(page: Int,limit: Int,userid: String,messageCallBack : (Comment) -> Unit){
+    fun getAllMessage(page: Int, limit: Int, userid: String, messageCallBack: (Comment) -> Unit) {
         launch(UI + QuietCoroutineExceptionHandler) {
             val callback = UserService.getAllMessage(page, limit, userid).await()
-            if (callback.error_code == -1){
+            if (callback.error_code == -1) {
                 messageCallBack(callback.data!!)
             }
         }
@@ -92,15 +93,16 @@ object UserImp {
     }
 
 
-    fun getStar(limit: Int,page: Int,userid: String,starList : (StarMessage) -> Unit){
-        launch(UI + QuietCoroutineExceptionHandler){
+    fun getStar(limit: Int, page: Int, userid: String, starList: (StarMessage) -> Unit) {
+        launch(UI + QuietCoroutineExceptionHandler) {
             val callback = UserService.getAllStar(page, limit, userid).await()
-            if (callback.error_code==-1){
+            if (callback.error_code == -1) {
                 starList(callback.data!!)
             }
         }
 
     }
+
     fun getFandomInfo(userid: Int, fansCallback: (FandomInfo) -> Unit) {
         launch(UI + QuietCoroutineExceptionHandler) {
             val callback = UserService.getFandomInfo(userid).await()
@@ -187,7 +189,7 @@ object UserImp {
         }
     }
 
-    fun getMyVideoList(page: Int,userid: String, listcallback: (MyVideoList) -> Unit) {
+    fun getMyVideoList(page: Int, userid: String, listcallback: (MyVideoList) -> Unit) {
         launch(UI + QuietCoroutineExceptionHandler) {
             val callback = UserService.getmyVideoList(userid, page, 10).await()
             if (callback.error_code == -1) {
@@ -200,6 +202,7 @@ object UserImp {
     fun getUserInfo(userid: String, UserInfoCallback: (UserInfo) -> Unit) {
         launch(UI + QuietCoroutineExceptionHandler) {
             val callback = UserService.getUserInfo(userid).await()
+            Log.d("userinfo", callback.error_code.toString())
             if (callback.error_code == -1) {
                 UserInfoCallback(callback.data!!)
             }
@@ -207,34 +210,42 @@ object UserImp {
     }
 
 
-    fun deleteCollection(collectionId : Int , deleteCallback : () -> Unit){
-        launch(UI+ QuietCoroutineExceptionHandler){
+    fun deleteCollection(collectionId: Int, deleteCallback: () -> Unit) {
+        launch(UI + QuietCoroutineExceptionHandler) {
             val callback = UserService.deleteCollection(collectionId).await()
-            if (callback.error_code==-1){
+            if (callback.error_code == -1) {
                 deleteCallback()
             }
 
         }
     }
 
-    fun getUserAgreement(agreeCallBack : (String) -> Unit){
-        launch(UI + QuietCoroutineExceptionHandler){
+    fun getUserAgreement(agreeCallBack: (String) -> Unit) {
+        launch(UI + QuietCoroutineExceptionHandler) {
             val callback = UserService.getUserAgreement().await()
-            if (callback.error_code==-1){
+            if (callback.error_code == -1) {
                 agreeCallBack(callback.data!!.info_content)
             }
         }
     }
-    fun getPrivateAgreement(agreeCallBack : (String) -> Unit){
-        launch(UI + QuietCoroutineExceptionHandler){
+
+    fun getPrivateAgreement(agreeCallBack: (String) -> Unit) {
+        launch(UI + QuietCoroutineExceptionHandler) {
             val callback = UserService.getPrivateAgreement().await()
-            if (callback.error_code==-1){
+            if (callback.error_code == -1) {
                 agreeCallBack(callback.data!!.info_content)
             }
         }
     }
-    fun sendMessage(from :String ,to: String, content : String, userid: String,sendMessageCallback :() -> Unit){
-        launch(UI+ QuietCoroutineExceptionHandler){
+
+    fun sendMessage(
+        from: String,
+        to: String,
+        content: String,
+        userid: String,
+        sendMessageCallback: () -> Unit
+    ) {
+        launch(UI + QuietCoroutineExceptionHandler) {
             val params = mapOf(
                 "from" to from,
                 "to" to to,
@@ -242,11 +253,10 @@ object UserImp {
                 "user_ID" to userid
             )
             val callback = UserService.sendMessage(params).await()
-            if(callback.error_code == -1){
+            if (callback.error_code == -1) {
                 sendMessageCallback()
             }
         }
     }
-
 
 }

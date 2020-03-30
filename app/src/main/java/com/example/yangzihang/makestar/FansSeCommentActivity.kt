@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.Window
 import android.view.WindowManager
 import cn.edu.twt.retrox.recyclerviewdsl.Item
 import cn.edu.twt.retrox.recyclerviewdsl.ItemAdapter
@@ -24,6 +25,7 @@ class FansSeCommentActivity : AppCompatActivity() {
     private var facId = 0
     var items = mutableListOf<Item>()
     override fun onCreate(savedInstanceState: Bundle?) {
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fans_second_comment)
         facId =intent.getIntExtra("facid",0)

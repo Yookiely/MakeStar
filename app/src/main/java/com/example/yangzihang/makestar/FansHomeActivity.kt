@@ -63,25 +63,7 @@ class FansHomeActivity : AppCompatActivity() {
             rec.withItems(items)
         }
         back.setOnClickListener {
-            qqLogin()
+            onBackPressed()
         }
-    }
-    private fun qqLogin(){
-        val mTencent = Tencent.createInstance(QQAPPID,this.applicationContext)
-        if (!mTencent.isSessionValid){
-            mTencent.login(this, "all", object : IUiListener {
-                override fun onComplete(p0: Any?) {
-                    Toast.makeText(context,"授权成功", Toast.LENGTH_SHORT).show()
-                }
-
-                override fun onCancel() {
-                }
-
-                override fun onError(p0: UiError?) {
-                }
-
-            } )
-        }
-
     }
 }

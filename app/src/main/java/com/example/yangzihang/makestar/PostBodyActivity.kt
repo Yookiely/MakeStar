@@ -7,6 +7,7 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
 import cn.edu.twt.retrox.recyclerviewdsl.Item
@@ -31,6 +32,7 @@ class PostBodyActivity : AppCompatActivity() {
     var items = mutableListOf<Item>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_post_body)
         rec=findViewById(R.id.fans_post_rec)
         fansCommentRefresh = findViewById(R.id.fans_post_refresh)

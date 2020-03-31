@@ -53,7 +53,7 @@ interface AuthService {
     fun setQusetion(@Query("question") question : String,@Query("answer") answer : String) : Deferred<CommonBody<String>>
 
     @GET("user/myself")
-    fun authSelf(): Deferred<CommonBody<AuthData>>
+    fun authSelf(): Deferred<AuthIt>
 
     @GET("/api/work/shareNumInc")
     fun getShareUrl(@Query("work_ID") work_ID: String): Deferred<CommonBody<ShareContent>>
@@ -141,6 +141,12 @@ data class Birthday(
     val year: Int,
     val month: Int,
     val day: Int
+)
+
+data class AuthIt(
+    val error_code: Int,
+    val message: String,
+    val data: AuthData
 )
 
 data class WeiXin(

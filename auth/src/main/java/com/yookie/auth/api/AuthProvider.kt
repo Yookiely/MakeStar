@@ -1,6 +1,7 @@
 package com.yookie.auth.api
 
 import com.yookie.common.AuthData
+import com.yookie.common.AuthIt
 import com.yookie.common.AuthService
 import com.yookie.common.experimental.cache.*
 import com.yookie.common.experimental.extensions.awaitAndHandle
@@ -10,10 +11,10 @@ import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 
 
-val authSelfLocalCache = Cache.hawk<CommonBody<AuthData>>("AUTH_SELF")
+val authSelfLocalCache = Cache.hawk<AuthIt>("AUTH_SELF")
 val authSelfRemoteCache = Cache.from(AuthService.Companion::authSelf)
 val authSelfLiveData = RefreshableLiveData.use(authSelfLocalCache, authSelfRemoteCache) {
-    it.data?.apply {
+    it.data.apply {
         CommonPreferences.username = this.username
         CommonPreferences.userid = this.user_ID.toString()
         CommonPreferences.sex = this.sex

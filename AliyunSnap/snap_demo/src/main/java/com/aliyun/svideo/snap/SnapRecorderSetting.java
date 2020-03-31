@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -29,6 +30,7 @@ import com.aliyun.svideo.common.utils.FastClickUtil;
 import com.yookie.upload.UploadActivity;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/3/2.
@@ -68,6 +70,8 @@ public class SnapRecorderSetting extends Activity implements View.OnClickListene
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.aliyun_svideo_activity_snap_recorder_setting);
+        WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
+        localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | localLayoutParams.flags);
         initView();
         initAssetPath();
         copyAssets();
@@ -96,6 +100,10 @@ public class SnapRecorderSetting extends Activity implements View.OnClickListene
                 if (type == AliyunVideoRecorder.RESULT_TYPE_CROP) {
                     String path = data.getStringExtra(CropKey.RESULT_KEY_CROP_PATH);
                     Toast.makeText(this, getResources().getString(R.string.alivc_snap_record_file_path) + path + getResources().getString(R.string.alivc_snap_record_duration) + data.getLongExtra(CropKey.RESULT_KEY_DURATION, 0), Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(this, UploadActivity.class);
+                    intent.putExtra("filename",path + getResources().getString(R.string.alivc_snap_record_duration) + data.getLongExtra(CropKey.RESULT_KEY_DURATION, 0));
+                    Log.d("！！！！！！",path + getResources().getString(R.string.alivc_snap_record_duration) + data.getLongExtra(CropKey.RESULT_KEY_DURATION, 0));
+                    startActivity(intent);
                 } else if (type == AliyunVideoRecorder.RESULT_TYPE_RECORD) {
                     Toast.makeText(this, getResources().getString(R.string.alivc_snap_record_file_path) + data.getStringExtra(AliyunVideoRecorder.OUTPUT_PATH),
                                    Toast.LENGTH_SHORT).show();

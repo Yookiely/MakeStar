@@ -1,5 +1,6 @@
 package com.example.yangzihang.makestar
 
+import android.annotation.SuppressLint
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html
@@ -10,6 +11,7 @@ import com.example.yangzihang.makestar.network.UserImp
 
 class AgreementActivity : AppCompatActivity() {
 
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -23,11 +25,13 @@ class AgreementActivity : AppCompatActivity() {
             "rule" ->{
                 UserImp.getPrivateAgreement {
                     webView.loadData(it, "text/html", "utf-8")
+                    webView.settings.javaScriptEnabled =true
                 }
             }
             "agreement" -> {
                 UserImp.getUserAgreement {
                     webView.loadData(it, "text/html", "utf-8")
+                    webView.settings.javaScriptEnabled =true
                 }
             }
             "aboutus" -> {}

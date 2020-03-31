@@ -12,9 +12,9 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="100dp"
             android:textColor="#ffffff"
-            android:textSize="18sp"
+            android:textSize="25sp"
             android:text="注册"
             />
 
@@ -28,7 +28,7 @@
             android:id="@+id/logon_input"
             android:hint="请输入用户名"
             android:singleLine="true"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="200dp"
             />
     <EditText
             android:layout_width="240dp"

@@ -29,6 +29,7 @@ import com.wingedvampires.videoplay.extension.PUtil
 import com.wingedvampires.videoplay.model.NumberOfStar
 import com.wingedvampires.videoplay.model.VideoPlayService
 import com.wingedvampires.videoplay.model.VideoPlayUtils
+import com.yookie.common.experimental.extensions.ComplaintType
 import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
 import com.yookie.common.experimental.extensions.ShareMethod
 import com.yookie.common.experimental.extensions.awaitAndHandle
@@ -140,6 +141,16 @@ class VideoPlayActivity : AppCompatActivity(), OnPlayerEventListener {
             tv_attention_store.text = VideoPlayUtils.format(work.collection_num)
             tv_videoplay_title.text = work.work_name
 
+            cv_videoplay_complain.setOnClickListener {
+                val intent = Intent()
+                intent.putExtra(ComplaintType.COMPLAINT_TYPE, ComplaintType.WORK)
+                intent.putExtra(ComplaintType.COMPLAINT_ID, work.work_ID)
+                Transfer.startActivityWithoutClose(
+                    this@VideoPlayActivity,
+                    "ComplaintActivity",
+                    intent
+                )
+            }
             cv_videoplay_avatar.setOnClickListener {
                 val intent = Intent()
                 intent.putExtra("userID", work.user_ID)
@@ -323,6 +334,16 @@ class VideoPlayActivity : AppCompatActivity(), OnPlayerEventListener {
             tv_attention_store.text = VideoPlayUtils.format(work.collection_num)
             tv_videoplay_title.text = work.work_name
 
+            cv_videoplay_complain.setOnClickListener {
+                val intent = Intent()
+                intent.putExtra(ComplaintType.COMPLAINT_TYPE, ComplaintType.WORK)
+                intent.putExtra(ComplaintType.COMPLAINT_ID, work.work_ID)
+                Transfer.startActivityWithoutClose(
+                    this@VideoPlayActivity,
+                    "ComplaintActivity",
+                    intent
+                )
+            }
             cv_videoplay_avatar.setOnClickListener {
                 val intent = Intent()
                 intent.putExtra("userID", work.user_ID)

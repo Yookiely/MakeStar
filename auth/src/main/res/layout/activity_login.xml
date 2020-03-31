@@ -1,138 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".LoginActivity"
         android:background="@drawable/background"
+        tools:context=".LoginActivity"
 
->
+        >
+
     <TextView
+            android:id="@+id/star"
             android:layout_width="match_parent"
             android:layout_height="60dp"
+            android:layout_marginTop="100dp"
             android:gravity="center"
             android:text="微星秀"
+            android:textColor="#ffffff"
             android:textSize="30sp"
-            android:textColor="#ffffff"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="100dp"
-            android:id="@+id/star"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    />
     <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textColor="#ffffff"
-            android:text="账号"
-            app:layout_constraintTop_toBottomOf="@+id/star"
-            android:layout_marginTop="60dp"
             android:id="@+id/account"
-            app:layout_constraintLeft_toLeftOf="@+id/account_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-    />
-
-    <EditText
-            android:layout_width="240dp"
-            android:layout_height="40dp"
-            android:background="@drawable/circle_input"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/account"
-            android:id="@+id/account_input"
-            android:singleLine="true"
-            android:layout_marginTop="10dp"
-    />
-
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:text="账号"
+            android:textColor="#ffffff"
             android:textSize="16sp"
-            android:textColor="#ffffff"
-            android:text="密码"
-            android:id="@+id/password"
-            app:layout_constraintTop_toBottomOf="@+id/account_input"
-            app:layout_constraintLeft_toLeftOf="@+id/account"
-            android:layout_marginTop="10dp"
-    />
+            app:layout_constraintLeft_toLeftOf="@+id/account_input"
+            app:layout_constraintTop_toBottomOf="@+id/star" />
 
     <EditText
+            android:id="@+id/account_input"
             android:layout_width="240dp"
             android:layout_height="40dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/circle_input"
+            android:singleLine="true"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/password"
-            android:inputType="textPassword"
+            app:layout_constraintTop_toBottomOf="@id/account" />
+
+    <TextView
+            android:id="@+id/password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="密码"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="@+id/account"
+            app:layout_constraintTop_toBottomOf="@+id/account_input" />
+
+    <EditText
             android:id="@+id/password_input"
+            android:layout_width="240dp"
+            android:layout_height="40dp"
             android:layout_marginTop="10dp"
+            android:background="@drawable/circle_input"
+            android:inputType="textPassword"
             android:singleLine="true"
-    />
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/password" />
 
     <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:textColor="#ffffff"
-            android:text="忘记密码?"
-            app:layout_constraintTop_toBottomOf="@id/password_input"
-            app:layout_constraintLeft_toLeftOf="@id/password"
-            android:layout_marginTop="10dp"
             android:id="@+id/forget_password"
-    />
-
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="忘记密码?"
+            android:textColor="#ffffff"
+            android:textSize="12sp"
+            app:layout_constraintLeft_toLeftOf="@id/password"
+            app:layout_constraintTop_toBottomOf="@id/password_input" />
 
 
     <TextView
+            android:id="@+id/logup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:textColor="#ffffff"
+            android:layout_marginTop="50dp"
             android:text="注册新用户"
+            android:textColor="#ffffff"
+            android:textSize="12sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/forget_password"
-            android:layout_marginTop="50dp"
-            android:id="@+id/logup"
 
-    />
+            />
 
     <TextView
+            android:id="@+id/login_button"
             android:layout_width="90dp"
             android:layout_height="50dp"
-            app:layout_constraintLeft_toLeftOf="@id/logup"
-            app:layout_constraintTop_toBottomOf="@+id/logup"
-            app:layout_constraintRight_toRightOf="@+id/logup"
-            android:id="@+id/login_button"
-            android:text="登录"
-            android:textColor="#eeeeee"
-            android:gravity="center"
             android:layout_marginTop="10dp"
             android:background="@drawable/circle_button"
-    />
+            android:gravity="center"
+            android:text="登录"
+            android:textColor="#eeeeee"
+            app:layout_constraintLeft_toLeftOf="@id/logup"
+            app:layout_constraintRight_toRightOf="@+id/logup"
+            app:layout_constraintTop_toBottomOf="@+id/logup" />
 
-    <ImageView
-            android:id="@+id/we_button"
-            android:layout_width="30dp"
-            android:layout_height="24dp"
-            android:text="weixin"
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
-            android:background="@drawable/wechat"
+            android:orientation="horizontal"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login_button" />
+            app:layout_constraintTop_toBottomOf="@+id/login_button">
 
-    <ImageView
-            android:id="@+id/qq_button"
-            android:layout_width="48dp"
-            android:layout_height="40dp"
-            android:src="@drawable/log"
-            android:layout_marginTop="12dp"
-            android:padding="4dp"
-            app:layout_constraintEnd_toEndOf="@+id/we_button"
-            app:layout_constraintStart_toStartOf="@id/we_button"
-            app:layout_constraintTop_toBottomOf="@id/we_button" />
+        <ImageView
+                android:id="@+id/we_button"
+                android:layout_width="35dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/wechat"
+                android:text="weixin" />
+
+        <ImageView
+                android:id="@+id/qq_button"
+                android:layout_width="48dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="15dp"
+                android:padding="4dp"
+                android:src="@drawable/log" />
+    </LinearLayout>
+
 
 </android.support.constraint.ConstraintLayout>

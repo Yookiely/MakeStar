@@ -97,9 +97,30 @@ interface UserService {
     @FormUrlEncoded
     @POST("message/sendMessage")
     fun sendMessage(@FieldMap params : Map<String,String>): Deferred<CommonBody<String>>
+
+
+    /**
+     * type分为1-10
+     * 1.投诉用户
+     * 2.投诉作品
+     * 3.投诉作品一级评论
+     * 4.投诉作品二级评论
+     * 5.投诉动态
+     * 6.投诉动态一级评论
+     * 7.投诉动态二级评论
+     * 8.投诉粉丝圈动态
+     * 9.投诉粉丝圈动态一级评论
+     * 10.投诉粉丝圈动态二级评论
+     */
+    @GET("complaint/addComplaint")
+    fun sendComplaint(
+        @Query("type") type: Int,
+        @Query("pointer_ID") pointer_ID: String,
+        @Query("reason") reason: String,
+        @Query("user_ID") user_ID: String = CommonPreferences.userid
+    ): Deferred<CommonBody<Any>>
+
     companion object : UserService by ServiceFactory()
-
-
 }
 
 data class ConstUserTag(

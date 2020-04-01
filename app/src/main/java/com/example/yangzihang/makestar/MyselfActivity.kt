@@ -41,7 +41,7 @@ class MyselfActivity : AppCompatActivity() {
         val fans = findViewById<TextView>(R.id.page_to_fanscircle)
         back.setOnClickListener { onBackPressed() }
         val userid = intent.getStringExtra("userID")
-        Log.d("?????", CommonPreferences.token)
+        Log.d("?????", userid)
         UserImp.getUserInfo(userid) {
             Log.d("ccc", userid)
             Glide.with(this)

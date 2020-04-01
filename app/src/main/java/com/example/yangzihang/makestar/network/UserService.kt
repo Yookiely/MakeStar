@@ -93,11 +93,8 @@ interface UserService {
 
     @GET("setting/getPrivacyProtocol")
     fun getPrivateAgreement() : Deferred<CommonBody<infoData>>
-
     @FormUrlEncoded
     @POST("message/sendMessage")
-    fun sendMessage(@FieldMap params : Map<String,String>): Deferred<CommonBody<String>>
-
 
     /**
      * type分为1-10
@@ -120,7 +117,10 @@ interface UserService {
         @Query("user_ID") user_ID: String = CommonPreferences.userid
     ): Deferred<CommonBody<Any>>
 
+    fun sendMessage(@FieldMap params : Map<String,String>): Deferred<CommonBody<String>>
     companion object : UserService by ServiceFactory()
+
+
 }
 
 data class ConstUserTag(
@@ -370,20 +370,29 @@ data class MyVideoList(
 data class UserInfo(
     val age: String,
     val avatar: String,
-    val birthday: List<Any>,
+    val birthday : Birthday?,
     val city: String,
     val fans_num: Int,
     val follow_num: Int,
     val month_hot_value: Int,
     val month_rank: Int,
-    val sex: String,
-    val signature: String,
-    val tags: String,
-    val user_ID: Int,
-    val username: String,
-    val week_hot_value: Int,
-    val year_hot_value: Int
+    val sex: String?,
+    val signature: String?,
+    val tags: String?,
+    val user_ID: Int?,
+    val username: String?,
+    val week_hot_value: Int?,
+    val year_hot_value: Int?
 )
+
+
+
+data class Birthday(
+    val day: Int,
+    val month: Int,
+    val year: Int
+)
+
 
 data class NewMessage(
     val new_comment_num: Int,

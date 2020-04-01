@@ -18,6 +18,13 @@ class AgreementActivity : AppCompatActivity() {
         setContentView(R.layout.activity_agreement)
         val intent = intent
         val webView = findViewById<WebView>(R.id.agreement_webview)
+        webView.settings.apply {
+            useWideViewPort =true
+            loadWithOverviewMode =true
+            textZoom =200
+            builtInZoomControls =true
+            displayZoomControls = false
+        }
         val localLayoutParams = window.attributes
         localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
         val flag = intent.getStringExtra("FLAG")
@@ -34,7 +41,9 @@ class AgreementActivity : AppCompatActivity() {
                     webView.settings.javaScriptEnabled =true
                 }
             }
-            "aboutus" -> {}
+            "about" -> {
+
+            }
         }
     }
 }

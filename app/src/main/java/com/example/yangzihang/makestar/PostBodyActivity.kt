@@ -1,9 +1,8 @@
 package com.example.yangzihang.makestar
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.design.widget.TabLayout
 import android.support.v4.widget.SwipeRefreshLayout
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -11,12 +10,10 @@ import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
 import cn.edu.twt.retrox.recyclerviewdsl.Item
-import cn.edu.twt.retrox.recyclerviewdsl.ItemAdapter
 import cn.edu.twt.retrox.recyclerviewdsl.ItemManager
 import cn.edu.twt.retrox.recyclerviewdsl.withItems
 import com.bumptech.glide.Glide
 import com.example.yangzihang.makestar.View.FansCommentItem
-import com.example.yangzihang.makestar.network.FansCommentText
 import com.example.yangzihang.makestar.network.UserImp
 import kotlinx.android.synthetic.main.activity_post_body.*
 
@@ -46,6 +43,10 @@ class PostBodyActivity : AppCompatActivity() {
         val localLayoutParams = window.attributes
         localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
         rec.layoutManager =mLayoutManager
+
+        iv_post_back.setOnClickListener {
+            onBackPressed()
+        }
         Glide.with(this)
             .load(avater)
             .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
@@ -149,6 +150,7 @@ class PostBodyActivity : AppCompatActivity() {
         fansCommentRefresh.isRefreshing = false
         isLoading = false
     }
+
     private fun loadMoreMainComment(){
         if(page>lastPage){
             Toast.makeText(this,"已经到底了！",Toast.LENGTH_SHORT).show()

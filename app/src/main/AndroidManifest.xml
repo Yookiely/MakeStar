@@ -43,6 +43,7 @@
         <activity android:name=".ComplaintActivity" />
         <activity android:name=".LeaveMessageActivity" />
         <activity android:name=".AccountActivity" />
+        <activity android:name=".PostBodyActivity" />
         <activity android:name=".AgreementActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".CollectionActivity" />

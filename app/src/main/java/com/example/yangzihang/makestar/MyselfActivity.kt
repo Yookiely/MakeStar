@@ -70,6 +70,7 @@ class MyselfActivity : AppCompatActivity() {
             fans.visibility = View.INVISIBLE
             Glide.with(this)
                 .load(CommonPreferences.avatars)
+                .error(R.drawable.ms_no_pic)
                 .into(avatars)
             nickname.text =CommonPreferences.username
             fansNum.text = CommonPreferences.fans_num

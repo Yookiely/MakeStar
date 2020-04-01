@@ -138,9 +138,9 @@ data class AuthData(
 )
 
 data class Birthday(
-    val year: Int,
-    val month: Int,
-    val day: Int
+    val year: Int?,
+    val month: Int?,
+    val day: Int?
 )
 
 data class AuthIt(

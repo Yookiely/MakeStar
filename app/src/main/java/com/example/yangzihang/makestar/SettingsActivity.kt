@@ -55,7 +55,7 @@ class SettingsActivity : AppCompatActivity() {
 //            setNormalItem("意见反馈"){
 //
 //            }
-            setNormalItem("关于V-star") {
+            setNormalItem("关于微星秀") {
                 val intent = Intent(this@SettingsActivity, AboutMeActivity::class.java)
                 startActivity(intent)
             }

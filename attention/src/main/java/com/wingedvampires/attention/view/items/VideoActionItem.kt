@@ -18,6 +18,7 @@ import com.wingedvampires.attention.model.AttentionUtils
 import com.wingedvampires.attention.model.NumberOfStar
 import com.wingedvampires.attention.model.VideoAction
 import com.wingedvampires.attention.view.CommentsActivity
+import com.yookie.common.experimental.extensions.ComplaintType
 import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
 import com.yookie.common.experimental.extensions.ShareMethod
 import com.yookie.common.experimental.extensions.awaitAndHandle
@@ -175,6 +176,17 @@ class VideoActionItem(
                             number.text = AttentionUtils.format(num.numberOfStar)
                         }
                     }
+                }
+
+                complain.setOnClickListener {
+                    val intent = Intent()
+                    intent.putExtra(ComplaintType.COMPLAINT_TYPE, ComplaintType.WORK)
+                    intent.putExtra(ComplaintType.COMPLAINT_ID, videoAction.work_ID)
+                    Transfer.startActivityWithoutClose(
+                        item.activity,
+                        "ComplaintActivity",
+                        intent
+                    )
                 }
             }
 

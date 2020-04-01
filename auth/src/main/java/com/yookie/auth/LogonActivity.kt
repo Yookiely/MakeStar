@@ -51,6 +51,7 @@ class LogonActivity : AppCompatActivity() {
                             val intent = Intent(this@LogonActivity, QuestionActivity::class.java)
                             intent.putExtra("token", callback.data?.token)
                             startActivity(intent)
+
                         }
                         if (callback.error_code == 1) {
                             Toast.makeText(this@LogonActivity, "注册失败", Toast.LENGTH_SHORT).show()

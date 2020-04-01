@@ -90,6 +90,7 @@ class MyUserActivity : AppCompatActivity() {
         authSelfLiveData.bindNonNull(this) {
             Glide.with(this)
                 .load(it.data.avatar)
+                .error(R.drawable.ms_no_pic)
                 .into(portrait)
             it.data.apply {
                 fansNum.text = this.fans_num.toString()

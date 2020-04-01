@@ -563,8 +563,6 @@ class VideoPlayActivity : AppCompatActivity(), OnPlayerEventListener {
         if (mVideoView.isInPlaybackState) {
             if (!userPause)
                 mVideoView.resume()
-        } else {
-            mVideoView.rePlay(0)
         }
     }
 

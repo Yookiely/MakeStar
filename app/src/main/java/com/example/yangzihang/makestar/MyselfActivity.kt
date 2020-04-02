@@ -41,7 +41,7 @@ class MyselfActivity : AppCompatActivity() {
         val fans = findViewById<TextView>(R.id.page_to_fanscircle)
         back.setOnClickListener { onBackPressed() }
         val userid = intent.getStringExtra("userID")
-        Log.d("?????", CommonPreferences.token)
+        Log.d("?????", userid)
         UserImp.getUserInfo(userid) {
             Log.d("ccc", userid)
             Glide.with(this)
@@ -70,6 +70,7 @@ class MyselfActivity : AppCompatActivity() {
             fans.visibility = View.INVISIBLE
             Glide.with(this)
                 .load(CommonPreferences.avatars)
+                .error(R.drawable.ms_no_pic)
                 .into(avatars)
             nickname.text =CommonPreferences.username
             fansNum.text = CommonPreferences.fans_num

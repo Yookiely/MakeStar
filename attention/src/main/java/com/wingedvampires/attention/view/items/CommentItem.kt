@@ -19,6 +19,7 @@ import com.wingedvampires.attention.model.AttentionUtils
 import com.wingedvampires.attention.model.Comment
 import com.wingedvampires.attention.model.SecondComment
 import com.wingedvampires.attention.view.SecondCommentActivity
+import com.yookie.common.experimental.extensions.ComplaintType
 import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
 import com.yookie.common.experimental.extensions.awaitAndHandle
 import com.yookie.common.experimental.extensions.jumpchannel.Transfer
@@ -116,7 +117,26 @@ class CommentItem(
                         // which 下标从0开始
                         // ...To-do
                         when (which) {
-                            0 -> Toast.makeText(item.context, "举报了", Toast.LENGTH_SHORT).show()
+                            0 -> {
+                                val intent = Intent()
+                                if (item.isSecond) {
+                                    intent.putExtra(
+                                        ComplaintType.COMPLAINT_TYPE,
+                                        ComplaintType.COMMENT_WORK_SECOND
+                                    )
+                                } else {
+                                    intent.putExtra(
+                                        ComplaintType.COMPLAINT_TYPE,
+                                        ComplaintType.COMMENT_WORK_FIRST
+                                    )
+                                }
+                                intent.putExtra(ComplaintType.COMPLAINT_ID, commentId)
+                                Transfer.startActivityWithoutClose(
+                                    item.activity,
+                                    "ComplaintActivity",
+                                    intent
+                                )
+                            }
                             (items.size - 1) -> {
                             }
                             else -> {

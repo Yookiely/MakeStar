@@ -1,16 +1,16 @@
 package com.example.yangzihang.makestar.extensions
 
+import com.alibaba.sdk.android.vodupload_demo.MultiUploadActivity
+import com.aliyun.svideo.snap.SnapRecorderSetting
+import com.example.yangzihang.makestar.ComplaintActivity
 import com.example.yangzihang.makestar.MyUserActivity
+import com.example.yangzihang.makestar.MyselfActivity
 import com.example.yangzihang.makestar.RedPacketActivity
 import com.wingedvampires.attention.view.AttentionActivity
 import com.wingedvampires.attention.view.CommentsActivity
+import com.wingedvampires.homepage.view.GlobalSearchActivity
 import com.wingedvampires.homepage.view.HomePageActivity
 import com.wingedvampires.videoplay.view.VideoPlayActivity
-import com.alibaba.sdk.android.vodupload_demo.MultiUploadActivity
-import com.aliyun.svideo.snap.SnapRecorderSetting
-import com.example.yangzihang.makestar.MyselfActivity
-import com.wingedvampires.homepage.view.GlobalSearchActivity
-import com.wingedvampires.homepage.view.MoreSearchActivity
 import com.yookie.auth.LoginActivity
 import com.yookie.common.experimental.extensions.jumpchannel.Injector
 import com.yookie.discover.DiscoverActivity
@@ -33,6 +33,7 @@ object AppArchmage {
         Injector.inject("VideoPlayActivity", VideoPlayActivity::class.java)
         Injector.inject("CommentsActivity", CommentsActivity::class.java)
         Injector.inject("RedPacketActivity", RedPacketActivity::class.java)
+        Injector.inject("ComplaintActivity", ComplaintActivity::class.java)
 
         Injector.inject("SnapRecorderSetting",SnapRecorderSetting::class.java)
         Injector.inject("MultiUploadActivity", MultiUploadActivity::class.java)

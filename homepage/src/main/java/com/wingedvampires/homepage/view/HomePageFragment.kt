@@ -18,6 +18,7 @@ import cn.edu.twt.retrox.recyclerviewdsl.ItemManager
 import com.bumptech.glide.Glide
 import com.wingedvampires.homepage.R
 import com.wingedvampires.homepage.extension.MyBanner
+import com.wingedvampires.homepage.model.Banner
 import com.wingedvampires.homepage.model.HomePageService
 import com.wingedvampires.homepage.model.HomePageUtils
 import com.wingedvampires.homepage.view.items.homePageItem
@@ -44,6 +45,8 @@ class HomePageFragment : Fragment() {
     lateinit var loadMore: () -> Unit
 
     companion object {
+        var bannerData: List<Banner> = mutableListOf()
+
         fun newInstance(type: Int): HomePageFragment {
             val args = Bundle()
             args.putInt(HomePageUtils.INDEX_KEY, type)
@@ -122,11 +125,13 @@ class HomePageFragment : Fragment() {
 
     private fun setBanner() {
         launch(UI + QuietCoroutineExceptionHandler) {
-            val bannerData = HomePageService.getRecentBannerByType().awaitAndHandle {
-                it.printStackTrace()
-                Toast.makeText(this@HomePageFragment.context, "加载banner失败", Toast.LENGTH_SHORT)
-                    .show()
-            }?.data ?: return@launch
+            if (bannerData.isEmpty()) {
+                bannerData = HomePageService.getRecentBannerByType().awaitAndHandle {
+                    it.printStackTrace()
+                    Toast.makeText(this@HomePageFragment.context, "加载banner失败", Toast.LENGTH_SHORT)
+                        .show()
+                }?.data ?: return@launch
+            }
 
             val bannerCovers = bannerData.map { banner -> banner.banner_url }
             banner.apply {
@@ -181,7 +186,6 @@ class HomePageFragment : Fragment() {
             }
             isLoading = false
             mSwipeRefreshLayout.isRefreshing = false
-            Toast.makeText(this@HomePageFragment.context, "加载成功", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -210,7 +214,6 @@ class HomePageFragment : Fragment() {
             }
             isLoading = false
             mSwipeRefreshLayout.isRefreshing = false
-            Toast.makeText(this@HomePageFragment.context, "加载成功", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -246,7 +249,6 @@ class HomePageFragment : Fragment() {
             lastPage = worksWithType.last_page
             isLoading = false
             mSwipeRefreshLayout.isRefreshing = false
-            Toast.makeText(this@HomePageFragment.context, "加载成功", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -283,7 +285,6 @@ class HomePageFragment : Fragment() {
             lastPage = worksWithType.last_page
             isLoading = false
             mSwipeRefreshLayout.isRefreshing = false
-            Toast.makeText(this@HomePageFragment.context, "加载成功", Toast.LENGTH_SHORT).show()
         }
     }
 }

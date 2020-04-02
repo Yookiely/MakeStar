@@ -94,6 +94,28 @@ interface UserService {
     @GET("setting/getPrivacyProtocol")
     fun getPrivateAgreement() : Deferred<CommonBody<infoData>>
 
+
+    /**
+     * type分为1-10
+     * 1.投诉用户
+     * 2.投诉作品
+     * 3.投诉作品一级评论
+     * 4.投诉作品二级评论
+     * 5.投诉动态
+     * 6.投诉动态一级评论
+     * 7.投诉动态二级评论
+     * 8.投诉粉丝圈动态
+     * 9.投诉粉丝圈动态一级评论
+     * 10.投诉粉丝圈动态二级评论
+     */
+    @GET("complaint/addComplaint")
+    fun sendComplaint(
+        @Query("type") type: Int,
+        @Query("pointer_ID") pointer_ID: String,
+        @Query("reason") reason: String,
+        @Query("user_ID") user_ID: String = CommonPreferences.userid
+    ): Deferred<CommonBody<Any>>
+
     @FormUrlEncoded
     @POST("message/sendMessage")
     fun sendMessage(@FieldMap params : Map<String,String>): Deferred<CommonBody<String>>
@@ -349,20 +371,29 @@ data class MyVideoList(
 data class UserInfo(
     val age: String,
     val avatar: String,
-    val birthday: List<Any>,
+    val birthday : Birthday?,
     val city: String,
     val fans_num: Int,
     val follow_num: Int,
     val month_hot_value: Int,
     val month_rank: Int,
-    val sex: String,
-    val signature: String,
-    val tags: String,
-    val user_ID: Int,
-    val username: String,
-    val week_hot_value: Int,
-    val year_hot_value: Int
+    val sex: String?,
+    val signature: String?,
+    val tags: String?,
+    val user_ID: Int?,
+    val username: String?,
+    val week_hot_value: Int?,
+    val year_hot_value: Int?
 )
+
+
+
+data class Birthday(
+    val day: Int,
+    val month: Int,
+    val year: Int
+)
+
 
 data class NewMessage(
     val new_comment_num: Int,

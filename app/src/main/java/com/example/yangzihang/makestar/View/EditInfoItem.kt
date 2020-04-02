@@ -34,9 +34,15 @@ class EditInfoItem(
                 title.text = item.title
                 content.text = item.content
 
-                more.visibility = if (item.showMore) View.VISIBLE else View.GONE
+                more.visibility = if (item.showMore) View.VISIBLE else View.INVISIBLE
                 more.setOnClickListener {
                     item.block(it)
+                }
+
+                if (item.showMore) {
+                    content.setOnClickListener {
+                        item.block(it)
+                    }
                 }
             }
         }

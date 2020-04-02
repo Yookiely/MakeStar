@@ -81,9 +81,12 @@ class EditPicItem(
 
             if (result.error_code == -1) {
                 mBlock()
+                Toast.makeText(mContext, "上传成功，需要等待一段时间才会更新头像", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(mContext, result.message, Toast.LENGTH_SHORT).show()
             }
 
-            Toast.makeText(mContext, result.message, Toast.LENGTH_SHORT).show()
+
             loadingDialog.dismiss()
         }
 //        Glide.with(context).load(path).error(R.drawable.ms_no_pic).into(mHolder.pic)

@@ -2,6 +2,7 @@ package com.example.yangzihang.makestar.network
 
 import android.util.Log
 import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
+import com.yookie.common.experimental.extensions.awaitAndHandle
 import com.yookie.common.experimental.preference.CommonPreferences
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
@@ -201,7 +202,9 @@ object UserImp {
 
     fun getUserInfo(userid: String, UserInfoCallback: (UserInfo) -> Unit) {
         launch(UI + QuietCoroutineExceptionHandler) {
-            val callback = UserService.getUserInfo(userid).await()
+            val callback = UserService.getUserInfo(userid).awaitAndHandle {
+                it.printStackTrace()
+            }?:return@launch
             Log.d("userinfo", callback.error_code.toString())
             if (callback.error_code == -1) {
                 UserInfoCallback(callback.data!!)

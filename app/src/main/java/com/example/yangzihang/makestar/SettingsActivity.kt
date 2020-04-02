@@ -55,9 +55,8 @@ class SettingsActivity : AppCompatActivity() {
 //            setNormalItem("意见反馈"){
 //
 //            }
-            setNormalItem("关于V-star") {
-                val intent = Intent(this@SettingsActivity, AgreementActivity::class.java)
-                intent.putExtra("FLAG", "about")
+            setNormalItem("关于微星秀") {
+                val intent = Intent(this@SettingsActivity, AboutMeActivity::class.java)
                 startActivity(intent)
             }
             setGreyText("  ")

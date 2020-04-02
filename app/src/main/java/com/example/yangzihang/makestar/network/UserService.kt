@@ -93,8 +93,7 @@ interface UserService {
 
     @GET("setting/getPrivacyProtocol")
     fun getPrivateAgreement() : Deferred<CommonBody<infoData>>
-    @FormUrlEncoded
-    @POST("message/sendMessage")
+
 
     /**
      * type分为1-10
@@ -117,6 +116,8 @@ interface UserService {
         @Query("user_ID") user_ID: String = CommonPreferences.userid
     ): Deferred<CommonBody<Any>>
 
+    @FormUrlEncoded
+    @POST("message/sendMessage")
     fun sendMessage(@FieldMap params : Map<String,String>): Deferred<CommonBody<String>>
     companion object : UserService by ServiceFactory()
 

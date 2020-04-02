@@ -23,14 +23,14 @@
             android:layout_marginTop="10dp"
             android:id="@+id/rank_text_num"
             android:textColor="#ed1641"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:text="No.1"
     />
 
     <TextView
             android:layout_width="0dp"
             android:layout_height="36dp"
-            android:textSize="16sp"
+            android:textSize="14sp"
             app:layout_constraintLeft_toRightOf="@+id/rank_img_cover"
             app:layout_constraintRight_toLeftOf="@+id/rank_text_num"
             app:layout_constraintTop_toTopOf="parent"
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="@+id/rank_text_title"
             app:layout_constraintTop_toBottomOf="@+id/rank_text_title"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:textSize="10sp"
             android:textColor="#aaaaaa"
             android:id="@+id/rank_text_nickname"
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="@+id/rank_text_nickname"
             app:layout_constraintTop_toBottomOf="@+id/rank_text_nickname"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:textSize="10sp"
             android:textColor="#aaaaaa"
             android:id="@+id/rank_text_count"
@@ -86,7 +86,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="#小剧场"
-                android:textSize="10sp"
+                android:textSize="8sp"
                 android:textColor="#ffffff"
                 android:id="@+id/rank_tag_1"
 
@@ -105,7 +105,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="#颜值"
-                android:textSize="10sp"
+                android:textSize="8sp"
                 android:textColor="#ffffff"
                 android:id="@+id/rank_tag_2"
 
@@ -124,7 +124,7 @@
                 android:layout_height="match_parent"
                 android:text="●  ●  ●"
                 android:gravity="center"
-                android:textSize="4sp"
+                android:textSize="2sp"
                 android:textColor="#ffffff"
                 android:id="@+id/rank_tag_3"
 

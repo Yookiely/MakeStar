@@ -40,7 +40,7 @@ class CollectionItem(val work : collectionData, val activity: Activity) : Item {
                 text.text = item.work.hot_value.toString()
             }
             holder.itemView.setOnClickListener {
-                val intent = Intent().also { it.putExtra("videopalyWorkId", item.work.video_ID) }
+                val intent = Intent().also { it.putExtra("videopalyWorkId", item.work.work_ID) }
                 Transfer.startActivityWithoutClose(item.activity, "VideoPlayActivity", intent)
             }
             holder.itemView.setOnLongClickListener{

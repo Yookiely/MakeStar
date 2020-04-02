@@ -148,7 +148,7 @@ data class collection(
 )
 
 data class collectionData(
-    val work_ID : Int,
+    val work_ID : String,
     val collection_ID: Int,
     val collection_num: Int,
     val comment_num: Int,

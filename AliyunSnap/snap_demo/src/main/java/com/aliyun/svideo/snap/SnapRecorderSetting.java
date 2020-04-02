@@ -101,7 +101,7 @@ public class SnapRecorderSetting extends Activity implements View.OnClickListene
                     String path = data.getStringExtra(CropKey.RESULT_KEY_CROP_PATH);
                     Toast.makeText(this, getResources().getString(R.string.alivc_snap_record_file_path) + path + getResources().getString(R.string.alivc_snap_record_duration) + data.getLongExtra(CropKey.RESULT_KEY_DURATION, 0), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(this, UploadActivity.class);
-                    intent.putExtra("filename",path + getResources().getString(R.string.alivc_snap_record_duration) + data.getLongExtra(CropKey.RESULT_KEY_DURATION, 0));
+                    intent.putExtra("filename",path);
                     Log.d("！！！！！！",path + getResources().getString(R.string.alivc_snap_record_duration) + data.getLongExtra(CropKey.RESULT_KEY_DURATION, 0));
                     startActivity(intent);
                 } else if (type == AliyunVideoRecorder.RESULT_TYPE_RECORD) {

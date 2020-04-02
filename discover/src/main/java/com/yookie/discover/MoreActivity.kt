@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.Window
 import android.view.WindowManager
 import cn.edu.twt.retrox.recyclerviewdsl.withItems
 import com.yookie.discover.network.UserRank
@@ -15,6 +16,7 @@ class MoreActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_more)
         val moreRec = findViewById<RecyclerView>(R.id.more_rec)
         moreRec.layoutManager = LinearLayoutManager(this)

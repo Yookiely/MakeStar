@@ -72,7 +72,9 @@ class ReleaseActivity : AppCompatActivity() {
                     Log.d("怎么还没成功",x.toString())
                     UploadImp.sendAction(CommonPreferences.userid,release_des.text.toString(),imgs," "){
                         Log.d("擦擦擦","得好好庆祝一番")
-                        startActivity(Intent(this@ReleaseActivity,SuccessActivity::class.java))
+                        val intent = Intent(this@ReleaseActivity,SuccessActivity::class.java)
+                        intent.putExtra("videoId","")
+                        startActivity(intent)
                     }
                 }
 

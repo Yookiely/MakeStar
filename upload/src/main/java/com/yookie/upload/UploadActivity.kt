@@ -48,6 +48,7 @@ class UploadActivity : AppCompatActivity() {
     var vodUploadList: List<ItemInfo> = ArrayList()
     var buttonList : ArrayList<TextView> = ArrayList()
     var x=0
+    var workID = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -135,7 +136,9 @@ class UploadActivity : AppCompatActivity() {
             override fun onUploadSucceed(info: UploadFileInfo) {
                 OSSLog.logDebug("onsucceed ------------------" + info.filePath)
                 Log.d("视频发送成功", "视频发送成功")
-                startActivity(Intent(this@UploadActivity,SuccessActivity::class.java))
+                val intent = Intent(this@UploadActivity,SuccessActivity::class.java)
+                intent.putExtra("videoId",workID)
+                startActivity(intent)
                 for (i in 0 until vodUploadList.size) {
                     if (vodUploadList[i].file == info.filePath) {
                         if (vodUploadList[i].status === UploadStateType.SUCCESS.toString()) {
@@ -347,6 +350,7 @@ class UploadActivity : AppCompatActivity() {
                     UploadImp.getVideoUpload(title, fileName, description, coverId, tag,1,CommonPreferences.userid) {
                         uploadAuth = it.UploadAuth
                         uploadAddress = it.UploadAddress//获取视频上传证书
+                        workID = it.work_ID
                         imguploader.addFile(imgpath.absolutePath, getImgVodInfo(title, description))
                         Log.d("图片发送开始", "视频发送成功")
                         imguploader.start()

@@ -64,8 +64,8 @@ interface UserService {
     @GET("fandomAction/getRecentActions")
     fun getRecentActions(@Query("limit") limit: Int, @Query("page") page: Int, @Query("host_user_ID") hostUserId: Int ):Deferred<CommonBody<FansCircleInfo>>
 
-    @GET("user/getFollowUserAction")
-    fun getUserActions(@Query("limit") limit: Int, @Query("page") page: Int, @Query("user_ID") hostUserId: Int ):Deferred<CommonBody<UserActive>>
+    @GET("action/getUserActions")
+    fun getUserActions(@Query("limit") limit: Int, @Query("page") page: Int, @Query("userID") hostUserId: Int ):Deferred<CommonBody<UserActive>>
 
     @GET("fandomAction/getCommentByActionID")
     fun getCommemtByActionID(@Query("fandom_action_ID") fandom_action_ID: String,@Query("limit") limit: Int,@Query("page")page: Int):Deferred<CommonBody<FansComment>>

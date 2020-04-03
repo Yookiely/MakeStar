@@ -43,7 +43,7 @@ class CollectionActivity : AppCompatActivity() {
     }
 
     private fun refreshList(num : Int){
-        UserImp.getCollection(10,num,CommonPreferences.userid){
+        UserImp.getCollection(6,num,CommonPreferences.userid){
             itemManager.autoRefresh {
                 for (x in it.data){
                     addCollection(x,this@CollectionActivity)

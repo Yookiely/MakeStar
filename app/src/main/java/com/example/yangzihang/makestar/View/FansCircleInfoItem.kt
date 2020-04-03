@@ -36,7 +36,7 @@ class FansCircleInfoItem(val context: Context,val fansCircleData: FansCircleData
                     intent.putExtra("time",item.fansCircleData.time)
                     intent.putExtra("text",item.fansCircleData.content)
                     intent.putExtra("avatar",item.fansCircleData.avatar)
-                    intent.putExtra("fandomid",item.fansCircleData.fandom_action_ID)
+                    intent.putExtra("fandomid",item.fansCircleData.fandom_action_ID.toString())
                     intent.putStringArrayListExtra("imgs",imgList)
                     item.context.startActivity(intent)
                 }

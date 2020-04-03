@@ -52,6 +52,7 @@
         <activity android:name=".WithdrawActivity" />
         <activity android:name=".RedPacketActivity" />
         <activity android:name=".MyselfActivity" />
+        <activity android:name=".FansSeCommentActivity"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

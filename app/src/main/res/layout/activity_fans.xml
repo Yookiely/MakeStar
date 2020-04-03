@@ -51,6 +51,7 @@
                     android:textSize="16sp"
                     android:textColor="#ffffff"
                     android:text="发帖"
+                    android:id="@+id/fans_post"
                     android:layout_marginRight="20dp"
                     />
         </android.support.constraint.ConstraintLayout>

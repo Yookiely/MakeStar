@@ -115,7 +115,20 @@ interface UserService {
         @Query("reason") reason: String,
         @Query("user_ID") user_ID: String = CommonPreferences.userid
     ): Deferred<CommonBody<Any>>
-
+    @POST("fandomAction/sendActionComment")
+    fun sendActionComment(
+        @Query("user_ID") userid: String= CommonPreferences.userid,
+        @Query("fac_content") content: String,
+        @Query("be_at_user_ID") userId: String,
+        @Query("fandom_action_ID") fandomId :String
+    ):Deferred<CommonBody<String>>
+    @POST("fandomAction/sendActionCommentComment")
+    fun sendActionCommentC(
+        @Query("user_ID") userid: String= CommonPreferences.userid,
+        @Query("facc_content") content: String,
+        @Query("be_at_user_ID") userId: String,
+        @Query("facID") fandomId :String
+    ):Deferred<CommonBody<String>>
     @FormUrlEncoded
     @POST("message/sendMessage")
     fun sendMessage(@FieldMap params : Map<String,String>): Deferred<CommonBody<String>>

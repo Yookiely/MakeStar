@@ -1,5 +1,6 @@
 package com.example.yangzihang.makestar
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
@@ -13,6 +14,7 @@ import com.example.yangzihang.makestar.network.UserImp
 import com.example.yangzihang.makestar.View.FansCircleFragment
 import com.example.yangzihang.makestar.View.FansPagerAdapter
 import com.example.yangzihang.makestar.View.FansStarFragment
+import com.yookie.upload.ReleaseActivity
 import kotlinx.android.synthetic.main.activity_fans.*
 
 class FansActivity : AppCompatActivity() {
@@ -34,6 +36,10 @@ class FansActivity : AppCompatActivity() {
         val avator =intent.getStringExtra("avatar")
         fans_back.setOnClickListener {
             onBackPressed()
+        }
+        fans_post.setOnClickListener {
+            val intent = Intent(this,ReleaseActivity::class.java)
+            startActivity(intent)
         }
         val localLayoutParams = window.attributes
         localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)

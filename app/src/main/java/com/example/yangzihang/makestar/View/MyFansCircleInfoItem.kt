@@ -18,6 +18,7 @@ import com.example.yangzihang.makestar.network.UserActiveData
 import com.yookie.common.experimental.extensions.ComplaintType
 import org.jetbrains.anko.layoutInflater
 import org.jetbrains.anko.windowManager
+import org.jetbrains.anko.wrapContent
 
 class MyFansCircleInfoItem(val context: Context, val fansCircleData: UserActiveData) : Item {
     private companion object Controller : ItemController {
@@ -38,7 +39,7 @@ class MyFansCircleInfoItem(val context: Context, val fansCircleData: UserActiveD
                     intent.putExtra("time", item.fansCircleData.time)
                     intent.putExtra("text", item.fansCircleData.content)
                     intent.putExtra("avatar", item.fansCircleData.avatar)
-                    intent.putExtra("fandomid", item.fansCircleData.action_ID)
+                    intent.putExtra("fandomid", item.fansCircleData.action_ID.toString())
                     intent.putStringArrayListExtra("imgs", imgList)
                     item.context.startActivity(intent)
                 }
@@ -60,15 +61,19 @@ class MyFansCircleInfoItem(val context: Context, val fansCircleData: UserActiveD
                 }
 
                 when (item.fansCircleData.img_urls.size) {
-                    0 -> singImage.visibility = View.INVISIBLE
+                    0 -> {
+                        singImage.visibility = View.INVISIBLE
+                    }
                     1 -> {
                         singImage.visibility = View.VISIBLE
+                        singImage.layoutParams.height= 480
                         Glide.with(this.itemView)
                             .load(item.fansCircleData.img_urls[0])
                             .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
                             .into(singImage)
                     }
                     2 -> {
+                        singImage.layoutParams.height= wrapContent
                         Glide.with(this.itemView)
                             .load(item.fansCircleData.img_urls[0])
                             .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
@@ -81,6 +86,7 @@ class MyFansCircleInfoItem(val context: Context, val fansCircleData: UserActiveD
                             .into(douImage2)
                     }
                     in 3..9 -> {
+                        singImage.layoutParams.height= wrapContent
 //                        triImage.layoutParams.width = width/3
 //                        triImage2.layoutParams.width = width/3
 //                        triImage3.layoutParams.width = width/3

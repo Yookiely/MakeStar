@@ -41,12 +41,12 @@
                     app:layout_constraintRight_toRightOf="parent" />
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.Toolbar>
+
     <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:id="@+id/fans_post_cons"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/postbody_title">
         <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="40dp"
@@ -217,17 +217,19 @@
                 app:layout_constraintTop_toBottomOf="@id/fans_post_tri3_photo"/>
 
     </android.support.constraint.ConstraintLayout>
+
     <android.support.v4.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
             android:id="@+id/fans_post_refresh"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fans_post_cons"
+            app:layout_constraintBottom_toTopOf="@+id/fans_comment_edit"
             android:layout_marginTop="4dp">
         <android.support.v7.widget.RecyclerView
                 android:id="@+id/fans_post_rec"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <include
@@ -236,4 +238,5 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

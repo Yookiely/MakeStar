@@ -90,6 +90,7 @@ class FansSeCommentActivity : AppCompatActivity() {
                 true
             }
         }
+        secondCommitRefresh.setOnRefreshListener(this::loadSeComment)
     }
     private fun loadSeComment(){
         page= 1
@@ -100,10 +101,10 @@ class FansSeCommentActivity : AppCompatActivity() {
             }
             lastPage = it.last_page
             recyclerView.withItems(items)
+            secondCommitRefresh.isRefreshing = false
+            isLoading = false
         }
 
-        secondCommitRefresh.isRefreshing = false
-        isLoading = false
     }
     private fun loadMoreSecondComment() {
         page++
@@ -117,8 +118,10 @@ class FansSeCommentActivity : AppCompatActivity() {
                 }
                 lastPage =it.last_page
             }
+            secondCommitRefresh.isRefreshing = false
+            isLoading = false
         }
-        isLoading = false
+
     }
     private fun hideSoftInputMethod() {
         val inputMethodManager =

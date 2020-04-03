@@ -43,7 +43,9 @@
         <activity android:name=".ComplaintActivity" />
         <activity android:name=".LeaveMessageActivity" />
         <activity android:name=".AccountActivity" />
-        <activity android:name=".PostBodyActivity" />
+        <activity
+                android:name=".PostBodyActivity"
+                android:windowSoftInputMode="stateVisible|adjustPan|stateHidden" />
         <activity android:name=".AgreementActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".CollectionActivity" />
@@ -52,7 +54,9 @@
         <activity android:name=".WithdrawActivity" />
         <activity android:name=".RedPacketActivity" />
         <activity android:name=".MyselfActivity" />
-        <activity android:name=".FansSeCommentActivity"/>
+        <activity
+                android:name=".FansSeCommentActivity"
+                android:windowSoftInputMode="stateVisible|adjustPan|stateHidden" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

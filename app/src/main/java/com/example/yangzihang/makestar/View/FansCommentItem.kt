@@ -1,5 +1,6 @@
 package com.example.yangzihang.makestar.View
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.support.v7.widget.RecyclerView
@@ -14,6 +15,7 @@ import com.example.yangzihang.makestar.FansSeCommentActivity
 import com.example.yangzihang.makestar.R
 import com.example.yangzihang.makestar.network.FansCommentText
 import com.example.yangzihang.makestar.network.FansSeCommentText
+import com.yookie.common.experimental.extensions.jumpchannel.Transfer
 import org.jetbrains.anko.layoutInflater
 
 class FansCommentItem(val context: Context,val fansComment:FansCommentText?,val fansSeCommentText: FansSeCommentText?): Item {
@@ -46,6 +48,32 @@ class FansCommentItem(val context: Context,val fansComment:FansCommentText?,val 
                 intent.putExtra("facid",fansComment!!.facID)
                 item.context.startActivity(intent)
             }
+            holder.comment.setOnClickListener {
+                val intent = Intent(item.context, FansSeCommentActivity::class.java)
+                intent.putExtra("facid", fansComment!!.facID)
+                item.context.startActivity(intent)
+            }
+            holder.image.setOnClickListener {
+                if (isSecond) {
+                    val intent = Intent()
+                    intent.putExtra("userID", fansSeComment!!.user_ID.toString())
+                    Transfer.startActivityWithoutClose(
+                        item.context as Activity,
+                        "MyselfActivity",
+                        intent
+                    )
+                } else {
+                    val intent = Intent()
+                    intent.putExtra("userID", fansComment!!.user_ID.toString())
+                    Transfer.startActivityWithoutClose(
+                        item.context as Activity,
+                        "MyselfActivity",
+                        intent
+                    )
+                }
+
+
+            }
         }
 
         override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
@@ -62,6 +90,7 @@ class FansCommentItem(val context: Context,val fansComment:FansCommentText?,val 
         val content = itemView.findViewById<TextView>(R.id.fans_comment_context)
         val more =itemView.findViewById<TextView>(R.id.fans_comment_more)
         val time =itemView.findViewById<TextView>(R.id.fans_comment_time)
+        val comment = itemView.findViewById<ImageView>(R.id.iv_fans_comment)
     }
 }
 fun MutableList<Item>.addFansComment( context: Context,fansComment: FansCommentText? ,fansSeCommentText: FansSeCommentText?) = add(FansCommentItem(context,fansComment,fansSeCommentText))

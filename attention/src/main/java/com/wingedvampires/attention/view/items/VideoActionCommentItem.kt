@@ -16,6 +16,7 @@ import com.wingedvampires.attention.R
 import com.wingedvampires.attention.model.AttentionService
 import com.wingedvampires.attention.model.AttentionUtils
 import com.wingedvampires.attention.model.WorkById
+import com.yookie.common.experimental.extensions.ComplaintType
 import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
 import com.yookie.common.experimental.extensions.ShareMethod
 import com.yookie.common.experimental.extensions.awaitAndHandle
@@ -55,6 +56,7 @@ class VideoActionCommentItem(val activity: Activity, val workById: WorkById, val
                 Glide.with(this.itemView).load(workById.cover_url).error(R.drawable.ms_no_pic)
                     .into(cover)
                 time.text = workById.time
+                name.text = workById.username
                 introdection.text = workById.Introduction
                 commentNum.text = AttentionUtils.format(workById.comment_num)
                 storeNum.text = AttentionUtils.format(workById.collection_num)
@@ -130,6 +132,27 @@ class VideoActionCommentItem(val activity: Activity, val workById: WorkById, val
                 Transfer.startActivityWithoutClose(item.activity, "MyselfActivity", intent)
             }
 
+            holder.complainMark.setOnClickListener {
+                val intent = Intent()
+                intent.putExtra(ComplaintType.COMPLAINT_TYPE, ComplaintType.WORK)
+                intent.putExtra(ComplaintType.COMPLAINT_ID, workById.work_ID)
+                Transfer.startActivityWithoutClose(
+                    item.activity,
+                    "ComplaintActivity",
+                    intent
+                )
+            }
+
+            holder.complain.setOnClickListener {
+                val intent = Intent()
+                intent.putExtra(ComplaintType.COMPLAINT_TYPE, ComplaintType.WORK)
+                intent.putExtra(ComplaintType.COMPLAINT_ID, workById.work_ID)
+                Transfer.startActivityWithoutClose(
+                    item.activity,
+                    "ComplaintActivity",
+                    intent
+                )
+            }
         }
     }
 

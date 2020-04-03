@@ -82,7 +82,6 @@ class CommentItem(
                 content.text = contentText
                 time.text = timeText
                 commentImg.visibility = if (item.isSecond) View.GONE else View.VISIBLE
-                shareImg.visibility = if (item.isSecond) View.GONE else View.VISIBLE
                 more.apply {
                     text = "共${moreNum}条回复 >>"
                     visibility = if (!item.showMore) View.GONE else View.VISIBLE

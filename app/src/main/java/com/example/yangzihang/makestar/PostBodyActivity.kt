@@ -104,66 +104,66 @@ class PostBodyActivity : AppCompatActivity() {
                 fans_post_photo.visibility = View.VISIBLE
                 Glide.with(this)
                     .load(imgs[0])
-                    .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
+//                    .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
                     .into(fans_post_photo)
             }
             2 -> {
                 Glide.with(this)
                     .load(imgs[0])
-                    .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
+//                    .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
                     .into(fans_post_dou_photo)
                 Glide.with(this)
                     .load(imgs[1])
-                    .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
+//                    .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
                     .into(fans_post_dou_photo2)
             }
             in 3..9 -> {
                 Glide.with(this)
                     .load(imgs[0])
-                    .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
+//                    .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
                     .into(fans_post_tri_photo)
                 Glide.with(this)
                     .load(imgs[1])
-                    .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
+//                    .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
                     .into(fans_post_tri_photo2)
                 Glide.with(this)
                     .load(imgs[2])
-                    .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
+//                    .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
                     .into(fans_post_tri_photo3)
                 if(imgs.size >=4){
                     Glide.with(this)
                         .load(imgs[3])
-                        .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
+//                        .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
                         .into(fans_post_tri2_photo)
                 }
                 if(imgs.size >=5){
                     Glide.with(this)
                         .load(imgs[4])
-                        .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
+//                        .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
                         .into(fans_post_tri2_photo2)
                 }
                 if(imgs.size >=6){
                     Glide.with(this)
                         .load(imgs[5])
-                        .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
+//                        .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
                         .into(fans_post_tri2_photo3)
                 }
                 if(imgs.size >=7){
                     Glide.with(this)
                         .load(imgs[6])
-                        .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
+//                        .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
                         .into(fans_post_tri3_photo)
                 }
                 if(imgs.size >=8){
                     Glide.with(this)
                         .load(imgs[7])
-                        .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
+//                        .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
                         .into(fans_post_tri3_photo2)
                 }
                 if(imgs.size >=9){
                     Glide.with(this)
                         .load(imgs[8])
-                        .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
+//                        .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
                         .into(fans_post_tri3_photo3)
                 }
             }

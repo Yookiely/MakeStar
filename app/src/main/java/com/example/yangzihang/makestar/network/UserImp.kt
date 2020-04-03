@@ -163,7 +163,7 @@ object UserImp {
     }
 
     fun getCommemtByActionID(
-        fandomId: Int,
+        fandomId: String,
         limit: Int,
         page: Int,
         commentCallback: (FansComment) -> (Unit)

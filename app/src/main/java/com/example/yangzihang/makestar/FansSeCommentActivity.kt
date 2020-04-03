@@ -94,7 +94,7 @@ class FansSeCommentActivity : AppCompatActivity() {
     private fun loadSeComment(){
         page= 1
         items.clear()
-        UserImp.getCommentCommentByAcID(1,99,page){ //假数据
+        UserImp.getCommentCommentByAcID(facId,99,page){ //假数据
             it.data.forEach {fansSecomment->
                 items.add(FansCommentItem(this,null,fansSecomment))
             }
@@ -110,7 +110,7 @@ class FansSeCommentActivity : AppCompatActivity() {
         if(page>lastPage){
             Toast.makeText(this,"已经到底了！",Toast.LENGTH_SHORT).show()
         }
-        UserImp.getCommentCommentByAcID(1,99,page){
+        UserImp.getCommentCommentByAcID(facId,99,page){
             itemManager.refreshAll {
                 it.data.forEach {fansComment->
                     FansCommentItem(this@FansSeCommentActivity,null,fansComment)
@@ -119,30 +119,6 @@ class FansSeCommentActivity : AppCompatActivity() {
             }
         }
         isLoading = false
-    }
-    private fun loadSecondComment() {
-        launch(UI + QuietCoroutineExceptionHandler) {
-            page = 0
-            val comments = UserService.getCommentCommentByAcID(1,4,page).awaitAndHandle {
-                it.printStackTrace()
-                secondCommitRefresh.isRefreshing = false
-                Toast.makeText(this@FansSeCommentActivity, "评论加载失败", Toast.LENGTH_SHORT).show()
-            }?.data ?: return@launch
-
-            itemManager.refreshAll {
-                comments.data.forEach { fansSecomment->
-                    FansCommentItem(
-                        this@FansSeCommentActivity,
-                        null,
-                        fansSecomment
-                    )
-                }
-            }
-
-            lastPage = comments.last_page
-            isLoading = false
-            secondCommitRefresh.isRefreshing = false
-        }
     }
     private fun hideSoftInputMethod() {
         val inputMethodManager =

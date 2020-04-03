@@ -205,7 +205,7 @@ class PostBodyActivity : AppCompatActivity() {
     private fun loadMainComment(){
         page=1
         items .clear()
-        UserImp.getCommemtByActionID(1,20,page){ //先用着假数据
+        UserImp.getCommemtByActionID(fandomId,20,page){ //先用着假数据
             it.data.forEach {fansCommentText->
                 items.add(FansCommentItem(this,fansCommentText,null))
                 lastPage = it.last_page
@@ -222,7 +222,7 @@ class PostBodyActivity : AppCompatActivity() {
         if(page>lastPage){
             Toast.makeText(this,"已经到底了！",Toast.LENGTH_SHORT).show()
         }
-        UserImp.getCommemtByActionID(1,20,page){
+        UserImp.getCommemtByActionID(fandomId,20,page){
             lastPage = it.last_page
             it.data.forEach {fansCommentText->
                 items.add(FansCommentItem(this,fansCommentText,null))

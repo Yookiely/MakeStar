@@ -68,7 +68,7 @@ interface UserService {
     fun getUserActions(@Query("limit") limit: Int, @Query("page") page: Int, @Query("user_ID") hostUserId: Int ):Deferred<CommonBody<UserActive>>
 
     @GET("fandomAction/getCommentByActionID")
-    fun getCommemtByActionID(@Query("fandom_action_ID") fandom_action_ID: Int,@Query("limit") limit: Int,@Query("page")page: Int):Deferred<CommonBody<FansComment>>
+    fun getCommemtByActionID(@Query("fandom_action_ID") fandom_action_ID: String,@Query("limit") limit: Int,@Query("page")page: Int):Deferred<CommonBody<FansComment>>
 
     @GET("fandomAction/getCommentCommentByAcID")
     fun getCommentCommentByAcID(@Query("facID") facID: Int,@Query("limit") limit: Int ,@Query("page")page: Int) : Deferred<CommonBody<FansSeComment>>

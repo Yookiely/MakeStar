@@ -37,7 +37,7 @@ import java.util.concurrent.atomic.AtomicIntegerArray
 class UploadActivity : AppCompatActivity() {
     var coverId: String = ""
     lateinit var coverUrl: String
-    lateinit var imgpath: File
+    var imgpath: File? = null
     var tag: String = ""
     lateinit var uploadAuth: String
     lateinit var uploadAddress: String
@@ -336,7 +336,7 @@ class UploadActivity : AppCompatActivity() {
 
 
         upload_button_up.setOnClickListener {
-            if (upload_title.text.isNotEmpty() && upload_describe.text.isNotEmpty() && imgpath.exists()&&x!=0) {
+            if (upload_title.text.isNotEmpty() && upload_describe.text.isNotEmpty() &&imgpath != null&&x!=0) {
                 val title = upload_title.text.toString()
                 val description = upload_describe.text.toString()
                 for (x in tags) {
@@ -351,7 +351,7 @@ class UploadActivity : AppCompatActivity() {
                         uploadAuth = it.UploadAuth
                         uploadAddress = it.UploadAddress//获取视频上传证书
                         workID = it.work_ID
-                        imguploader.addFile(imgpath.absolutePath, getImgVodInfo(title, description))
+                        imguploader.addFile(imgpath!!.absolutePath, getImgVodInfo(title, description))
                         Log.d("图片发送开始", "视频发送成功")
                         imguploader.start()
                         uploader.addFile(fileName, getVodInfo(title, description, coverUrl, tags))
@@ -361,6 +361,23 @@ class UploadActivity : AppCompatActivity() {
                         loadingDialog.setMessage("正在上传")
                         loadingDialog.show()
                     }
+                }
+            }else if(upload_title.text.isNotEmpty() && upload_describe.text.isNotEmpty() && imgpath == null && x!=0){
+                val title = upload_title.text.toString()
+                val description = upload_describe.text.toString()
+                for (x in tags) {
+                    tag += x
+                }
+                UploadImp.getVideoUpload(title, fileName, description, coverId, tag,1,CommonPreferences.userid) {
+                    uploadAuth = it.UploadAuth
+                    uploadAddress = it.UploadAddress//获取视频上传证书
+                    workID = it.work_ID
+                    uploader.addFile(fileName, getVodInfo(title, description, "", tags))
+                    Log.d("视频发送开始", "视频发送成功")
+                    uploader.start()//可以同时传输吧？？盲猜可以
+                    var loadingDialog = LoadingDialog(this)
+                    loadingDialog.setMessage("正在上传")
+                    loadingDialog.show()
                 }
             } else if (upload_title.text.isEmpty()) {
                 Toast.makeText(this, "请填写标题", Toast.LENGTH_SHORT).show()

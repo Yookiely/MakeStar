@@ -88,6 +88,12 @@ interface UserService {
     @GET("work/deleteCollection")
     fun deleteCollection(@Query("collection_ID") collection_ID: Int) : Deferred<CommonBody<String>>
 
+    @POST("action/deleteAction")
+    fun deleteActionByID(@Query("action_ID") action_ID: String,@Query("user_ID") userid: String = CommonPreferences.userid) : Deferred<delete>
+
+    @GET("work/deleteWorkByID")
+    fun deleteWorkByID(@Query("work_ID") work_ID: String,@Query("user_ID") userid: String = CommonPreferences.userid) : Deferred<deleteAction>
+
     @GET("setting/getUserProtocol")
     fun getUserAgreement() : Deferred<CommonBody<infoData>>
 
@@ -498,4 +504,15 @@ data class UserActiveData(
     val time: String,
     val user_ID: Int,
     val username: String
+)
+
+data class delete(
+    val error_code : Int,
+    val message : String,
+    val work_ID : String
+)
+
+data class deleteAction(
+    val error_code : Int,
+    val message : String
 )

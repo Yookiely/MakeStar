@@ -39,6 +39,7 @@ class ReleaseActivity : AppCompatActivity() {
     var VOD_RECORD_UPLOAD_PROGRESS_ENABLED = true
     var imgAuth: ArrayList<String> = ArrayList()
     var imgloadAddress: ArrayList<String> = ArrayList()
+    var flag = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -187,8 +188,9 @@ class ReleaseActivity : AppCompatActivity() {
         }
 
         upload_button_up.setOnClickListener {
-            selectPicList.remove(noSelectPic)
-            for ((index, value) in selectPicList.withIndex()) {
+            if (flag){
+                selectPicList.remove(noSelectPic)
+                for ((index, value) in selectPicList.withIndex()) {
                     UploadImp.getCoverUpload("jpg") {
                         imgAuth.add(it.UploadAuth)
                         imgloadAddress.add(it.UploadAddress)
@@ -211,12 +213,12 @@ class ReleaseActivity : AppCompatActivity() {
                         }
                     }
 
+                }
+                var loadingDialog = LoadingDialog(this)
+                loadingDialog.setMessage("正在上传")
+                loadingDialog.show()
+                flag = false
             }
-            var loadingDialog = LoadingDialog(this)
-            loadingDialog.setMessage("正在上传")
-            loadingDialog.show()
-
-
         }
 
     }

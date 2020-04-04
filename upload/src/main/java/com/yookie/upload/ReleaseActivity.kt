@@ -62,6 +62,7 @@ class ReleaseActivity : AppCompatActivity() {
         localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
         val imgcallback = object : VODUploadCallback() {
             var x = 0
+            var y = 0
 
             fun setIndex(index: Int) {
                 x = index
@@ -69,7 +70,10 @@ class ReleaseActivity : AppCompatActivity() {
 
             override fun onUploadSucceed(info: UploadFileInfo) {
                 OSSLog.logDebug("onsucceed ------------------" + info.filePath)
-                if (x== (selectPicList.size - 1)){
+                synchronized(this@ReleaseActivity) {
+                    y++
+                }
+                if (y == (selectPicList.size - 1)){
                     Log.d("怎么还没成功",x.toString())
                     UploadImp.sendAction(CommonPreferences.userid,release_des.text.toString(),imgs," "){
                         Log.d("擦擦擦","得好好庆祝一番")
@@ -191,6 +195,7 @@ class ReleaseActivity : AppCompatActivity() {
             if (flag){
                 selectPicList.remove(noSelectPic)
                 for ((index, value) in selectPicList.withIndex()) {
+                    Log.d("indexindexindexsss",selectPicList.size.toString())
                     UploadImp.getCoverUpload("jpg") {
                         imgAuth.add(it.UploadAuth)
                         imgloadAddress.add(it.UploadAddress)
@@ -200,7 +205,7 @@ class ReleaseActivity : AppCompatActivity() {
                                 imgs = "$imgs$x,"
                             }
                             for ((indexs, values) in selectPicList.withIndex()) {
-                                Log.d("indexindexindex",indexs.toString())
+                                Log.d("indexindexindex",selectPicList.size.toString())
                                 imgcallback.setIndex(indexs)
                                 imguploader.addFile(
                                     values.toString(),

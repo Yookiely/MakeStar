@@ -223,6 +223,27 @@ object UserImp {
         }
     }
 
+
+    fun deleteWork(workID : String, deleteCallback: () -> Unit){
+        launch(UI + QuietCoroutineExceptionHandler) {
+            val callback = UserService.deleteWorkByID(workID).await()
+            if (callback.error_code == -1) {
+                deleteCallback()
+            }
+
+        }
+    }
+
+    fun deleteAction(actionID : String, deleteCallback: () -> Unit){
+        launch(UI + QuietCoroutineExceptionHandler) {
+            val callback = UserService.deleteActionByID(actionID).await()
+            if (callback.error_code == -1) {
+                deleteCallback()
+            }
+
+        }
+    }
+
     fun getUserAgreement(agreeCallBack: (String) -> Unit) {
         launch(UI + QuietCoroutineExceptionHandler) {
             val callback = UserService.getUserAgreement().await()

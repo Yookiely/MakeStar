@@ -2,17 +2,20 @@ package com.example.yangzihang.makestar.View
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import cn.edu.twt.retrox.recyclerviewdsl.Item
 import cn.edu.twt.retrox.recyclerviewdsl.ItemController
 import com.bumptech.glide.Glide
 import com.example.yangzihang.makestar.R
 import com.example.yangzihang.makestar.network.MyVideo
+import com.example.yangzihang.makestar.network.UserImp
 import com.yookie.common.experimental.extensions.jumpchannel.Transfer
 import org.jetbrains.anko.layoutInflater
 
@@ -33,6 +36,20 @@ class MyVideoItem(val work : MyVideo, val activity: Activity) :Item{
             holder.itemView.setOnClickListener {
                 val intent = Intent().also { it.putExtra("videopalyWorkId", item.work.work_ID.toString()) }
                 Transfer.startActivityWithoutClose(item.activity, "VideoPlayActivity", intent)
+            }
+
+            holder.itemView.setOnLongClickListener{
+                AlertDialog.Builder(item.activity)
+                    .setMessage("真的要删除吗？")
+                    .setPositiveButton("真的") { _, _ ->
+                        UserImp.deleteWork(item.work.work_ID.toString()){
+                            Toast.makeText(item.activity, "删除成功请重新进入查看", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    .setNegativeButton("算了") { _, _ ->
+                        Toast.makeText(item.activity, "真爱啊 TAT...", Toast.LENGTH_SHORT).show()
+                    }.create().show()
+                false
             }
         }
 

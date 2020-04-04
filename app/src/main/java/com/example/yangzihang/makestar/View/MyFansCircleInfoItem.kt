@@ -1,5 +1,7 @@
 package com.example.yangzihang.makestar.View
 
+import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.support.v7.widget.RecyclerView
@@ -8,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import cn.edu.twt.retrox.recyclerviewdsl.Item
 import cn.edu.twt.retrox.recyclerviewdsl.ItemController
 import com.bumptech.glide.Glide
@@ -15,12 +18,13 @@ import com.example.yangzihang.makestar.ComplaintActivity
 import com.example.yangzihang.makestar.PostBodyActivity
 import com.example.yangzihang.makestar.R
 import com.example.yangzihang.makestar.network.UserActiveData
+import com.example.yangzihang.makestar.network.UserImp
 import com.yookie.common.experimental.extensions.ComplaintType
 import org.jetbrains.anko.layoutInflater
 import org.jetbrains.anko.windowManager
 import org.jetbrains.anko.wrapContent
 
-class MyFansCircleInfoItem(val context: Context, val fansCircleData: UserActiveData) : Item {
+class MyFansCircleInfoItem(val context: Activity, val fansCircleData: UserActiveData) : Item {
     private companion object Controller : ItemController {
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: Item) {
             holder as MyFansCircleViewHolder
@@ -147,6 +151,19 @@ class MyFansCircleInfoItem(val context: Context, val fansCircleData: UserActiveD
                     }
                 }
 //                rec.withItems(items)
+            }
+            holder.itemView.setOnLongClickListener{
+                AlertDialog.Builder(item.context)
+                    .setMessage("真的要删除吗？")
+                    .setPositiveButton("真的") { _, _ ->
+                        UserImp.deleteAction(item.fansCircleData.action_ID.toString()){
+                            Toast.makeText(item.context, "删除成功请重新进入查看", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    .setNegativeButton("算了") { _, _ ->
+                        Toast.makeText(item.context, "真爱啊 TAT...", Toast.LENGTH_SHORT).show()
+                    }.create().show()
+                false
             }
         }
 

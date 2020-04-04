@@ -133,7 +133,7 @@
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="14dp"
-                app:layout_constraintTop_toBottomOf="@id/fans_post_photo"
+                app:layout_constraintTop_toBottomOf="@id/fans_post_dou_photo"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/fans_post_tri_photo2"/>
         <ImageView

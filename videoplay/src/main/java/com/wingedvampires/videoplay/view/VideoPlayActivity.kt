@@ -162,6 +162,7 @@ class VideoPlayActivity : AppCompatActivity(), OnPlayerEventListener {
                 else
                     setImageResource(R.drawable.ms_star)
             }
+
             iv_attention_store.setOnClickListener {
                 launch(UI + QuietCoroutineExceptionHandler) {
                     if (!isCollected) {
@@ -258,9 +259,11 @@ class VideoPlayActivity : AppCompatActivity(), OnPlayerEventListener {
             }
             iv_attention_number.setOnClickListener { view ->
                 launch(UI + QuietCoroutineExceptionHandler) {
+                    view.isEnabled = false
                     val commbody = VideoPlayService.star(work.work_ID).awaitAndHandle {
                         it.printStackTrace()
                         Toast.makeText(view.context, "点赞失败", Toast.LENGTH_SHORT).show()
+                        view.isEnabled = true
                     }
 
                     Toast.makeText(view.context, "${commbody?.message}", Toast.LENGTH_SHORT).show()
@@ -269,7 +272,7 @@ class VideoPlayActivity : AppCompatActivity(), OnPlayerEventListener {
                         val num = commbody.data as NumberOfStar
                         tv_attention_number.text = VideoPlayUtils.format(num.numberOfStar)
                     }
-
+                    view.isEnabled = true
                     refreshVideoInfo()
                 }
 
@@ -451,9 +454,11 @@ class VideoPlayActivity : AppCompatActivity(), OnPlayerEventListener {
             }
             iv_attention_number.setOnClickListener { view ->
                 launch(UI + QuietCoroutineExceptionHandler) {
+                    view.isEnabled = false
                     val commbody = VideoPlayService.star(work.work_ID).awaitAndHandle {
                         it.printStackTrace()
                         Toast.makeText(view.context, "点赞失败", Toast.LENGTH_SHORT).show()
+                        view.isEnabled = true
                     }
 
                     Toast.makeText(view.context, "${commbody?.message}", Toast.LENGTH_SHORT).show()
@@ -462,7 +467,7 @@ class VideoPlayActivity : AppCompatActivity(), OnPlayerEventListener {
                         val num = commbody.data as NumberOfStar
                         tv_attention_number.text = VideoPlayUtils.format(num.numberOfStar)
                     }
-
+                    view.isEnabled = true
                     refreshVideoInfo()
                 }
 

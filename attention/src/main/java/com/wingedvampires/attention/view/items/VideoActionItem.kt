@@ -81,7 +81,7 @@ class VideoActionItem(
                 duration.text = AttentionUtils.formatTime(videoAction.Duration)
                 rank.text = "No." + videoAction.month_rank.toString()
                 commentNum.text = AttentionUtils.format(videoAction.comment_num)
-                storeNum.text = AttentionUtils.format(videoAction.collection_num)
+                storeNum.text = AttentionUtils.format(videoAction.collection_num.toString())
                 shareNum.text = AttentionUtils.format(videoAction.share_num)
                 number.text = AttentionUtils.format(videoAction.hot_value)
 
@@ -115,6 +115,9 @@ class VideoActionItem(
                             if (resultCommonBody.error_code == -1) {
                                 storeImg.setImageResource(R.drawable.ms_red_star)
                                 item.isCollected = true
+                                if (videoAction.collection_num != null)
+                                    storeNum.text =
+                                        AttentionUtils.format((videoAction.collection_num + 1).toString())
                             }
                         } else {
                             val resultCommonBody =
@@ -136,6 +139,9 @@ class VideoActionItem(
                             if (resultCommonBody.error_code == -1) {
                                 storeImg.setImageResource(R.drawable.ms_star)
                                 item.isCollected = false
+                                if (videoAction.collection_num != null)
+                                    storeNum.text =
+                                        AttentionUtils.format((videoAction.collection_num - 1).toString())
                             }
                         }
                     }
@@ -163,9 +169,11 @@ class VideoActionItem(
 
                 star.setOnClickListener { view ->
                     launch(UI + QuietCoroutineExceptionHandler) {
+                        view.isEnabled = false
                         val commbody = AttentionService.star(videoAction.work_ID).awaitAndHandle {
                             it.printStackTrace()
                             Toast.makeText(view.context, "点赞失败", Toast.LENGTH_SHORT).show()
+                            view.isEnabled = true
                         }
 
                         Toast.makeText(view.context, "${commbody?.message}", Toast.LENGTH_SHORT)
@@ -175,6 +183,7 @@ class VideoActionItem(
                             val num = commbody.data as NumberOfStar
                             number.text = AttentionUtils.format(num.numberOfStar)
                         }
+                        view.isEnabled = true
                     }
                 }
 

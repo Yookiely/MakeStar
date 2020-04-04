@@ -149,7 +149,7 @@ data class VideoAction(
     val share_num: String?,
     val hot_value: String?,
     val avatar: String?,
-    val collection_num: String?,
+    val collection_num: Long?,
     val comment_num: String?,
     val cover_ID: String?,
     val cover_url: String?,

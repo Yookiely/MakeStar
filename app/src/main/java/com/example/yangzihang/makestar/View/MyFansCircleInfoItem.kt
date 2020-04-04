@@ -68,18 +68,17 @@ class MyFansCircleInfoItem(val context: Activity, val fansCircleData: UserActive
                 when (imgList.size) {
                     0 -> {
                         singImage.image=null
-                        singImage.layoutParams.height=0
-                        douImage.layoutParams.height = 0
-                        douImage2.layoutParams.height = 0
-                        triImage.layoutParams.height=   0
-                        triImage2.layoutParams.height=  0
-                        triImage3.layoutParams.height=  0
-                        tri2Image.layoutParams.height=  0
-                        tri2Image2.layoutParams.height= 0
-                        tri2Image3.layoutParams.height= 0
-                        tri3Image.layoutParams.height=  0
-                        tri3Image2.layoutParams.height= 0
-                        tri3Image3.layoutParams.height= 0
+                        douImage.image=null
+                        douImage2.image=null
+                        triImage  .image=null
+                        triImage2 .image=null
+                        triImage3 .image=null
+                        tri2Image .image=null
+                        tri2Image2.image=null
+                        tri2Image3.image=null
+                        tri3Image .image=null
+                        tri3Image2.image=null
+                        tri3Image3.image=null
                         singImage.visibility = View.INVISIBLE
                         imgList.clear()
                     }
@@ -113,7 +112,6 @@ class MyFansCircleInfoItem(val context: Activity, val fansCircleData: UserActive
                             tri3Image .image=null
                             tri3Image2.image=null
                             tri3Image3.image=null
-                        singImage.visibility = View.INVISIBLE
                         Glide.with(this.itemView)
                             .load(item.fansCircleData.img_urls[0])
 //                            .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
@@ -129,6 +127,12 @@ class MyFansCircleInfoItem(val context: Activity, val fansCircleData: UserActive
                         singImage.image=null
                         douImage.image=null
                         douImage2.image=null
+                        tri2Image .image=null
+                        tri2Image2.image=null
+                        tri2Image3.image=null
+                        tri3Image .image=null
+                        tri3Image2.image=null
+                        tri3Image3.image=null
 //                        triImage.layoutParams.width = width/3
 //                        triImage2.layoutParams.width = width/3
 //                        triImage3.layoutParams.width = width/3
@@ -218,7 +222,7 @@ class MyFansCircleInfoItem(val context: Activity, val fansCircleData: UserActive
             val text = itemView.findViewById<TextView>(R.id.fans_info_text)
             val singImage = itemView.findViewById<ImageView>(R.id.fans_info_photo)
             val douImage = itemView.findViewById<ImageView>(R.id.fans_dou_photo)
-            val douImage2 = itemView.findViewById<ImageView>(R.id.fans_dou_photo)
+            val douImage2 = itemView.findViewById<ImageView>(R.id.fans_dou_photo2)
             val triImage = itemView.findViewById<ImageView>(R.id.fans_tri_photo)
             val triImage2 = itemView.findViewById<ImageView>(R.id.fans_tri_photo2)
             val triImage3 = itemView.findViewById<ImageView>(R.id.fans_tri_photo3)

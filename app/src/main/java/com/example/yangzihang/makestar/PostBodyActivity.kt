@@ -118,6 +118,9 @@ class PostBodyActivity : AppCompatActivity() {
                     .into(fans_post_dou_photo2)
             }
             in 3..9 -> {
+                fans_post_tri_photo.layoutParams.height=   240
+                fans_post_tri_photo2.layoutParams.height=  240
+                fans_post_tri_photo3.layoutParams.height=  240
                 Glide.with(this)
                     .load(imgs[0])
 //                    .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
@@ -131,36 +134,42 @@ class PostBodyActivity : AppCompatActivity() {
 //                    .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
                     .into(fans_post_tri_photo3)
                 if(imgs.size >=4){
+                    fans_post_tri2_photo.layoutParams.height=  240
                     Glide.with(this)
                         .load(imgs[3])
 //                        .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
                         .into(fans_post_tri2_photo)
                 }
                 if(imgs.size >=5){
+                    fans_post_tri2_photo2.layoutParams.height= 240
                     Glide.with(this)
                         .load(imgs[4])
 //                        .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
                         .into(fans_post_tri2_photo2)
                 }
                 if(imgs.size >=6){
+                    fans_post_tri2_photo3.layoutParams.height= 240
                     Glide.with(this)
                         .load(imgs[5])
 //                        .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
                         .into(fans_post_tri2_photo3)
                 }
                 if(imgs.size >=7){
+                    fans_post_tri3_photo.layoutParams.height=  240
                     Glide.with(this)
                         .load(imgs[6])
 //                        .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
                         .into(fans_post_tri3_photo)
                 }
                 if(imgs.size >=8){
+                    fans_post_tri3_photo2.layoutParams.height= 240
                     Glide.with(this)
                         .load(imgs[7])
 //                        .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
                         .into(fans_post_tri3_photo2)
                 }
                 if(imgs.size >=9){
+                    fans_post_tri3_photo3.layoutParams.height= 240
                     Glide.with(this)
                         .load(imgs[8])
 //                        .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)

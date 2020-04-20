@@ -2,10 +2,7 @@ package com.example.yangzihang.makestar.extensions
 
 import com.alibaba.sdk.android.vodupload_demo.MultiUploadActivity
 import com.aliyun.svideo.snap.SnapRecorderSetting
-import com.example.yangzihang.makestar.ComplaintActivity
-import com.example.yangzihang.makestar.MyUserActivity
-import com.example.yangzihang.makestar.MyselfActivity
-import com.example.yangzihang.makestar.RedPacketActivity
+import com.example.yangzihang.makestar.*
 import com.wingedvampires.attention.view.AttentionActivity
 import com.wingedvampires.attention.view.CommentsActivity
 import com.wingedvampires.homepage.view.GlobalSearchActivity
@@ -40,5 +37,7 @@ object AppArchmage {
         Injector.inject("ReleaseActivity", ReleaseActivity::class.java)
         Injector.inject("MyselfActivity", MyselfActivity::class.java)
         Injector.inject("GlobalSearchActivity", GlobalSearchActivity::class.java)
+
+        Injector.inject("AgreementActivity", AgreementActivity::class.java)
     }
 }

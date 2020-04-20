@@ -2,6 +2,7 @@ package com.yookie.auth
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Paint
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.InputType.TYPE_CLASS_TEXT
@@ -30,6 +31,7 @@ import com.yookie.common.experimental.cache.RefreshState
 import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
 import com.yookie.common.experimental.extensions.awaitAndHandle
 import com.yookie.common.experimental.extensions.jumpchannel.Transfer
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 import org.greenrobot.eventbus.EventBus
@@ -68,6 +70,8 @@ class LoginActivity : AppCompatActivity() {
         qqButton = findViewById(R.id.qq_button)
         weiXinButton = findViewById(R.id.we_button)
         forgetButton = findViewById(R.id.forget_password)
+        val rule = findViewById<TextView>(R.id.rule)
+        val agreement = findViewById<TextView>(R.id.agreement)
         logon = findViewById(R.id.logup)
         passwordText.inputType = TYPE_CLASS_TEXT or TYPE_TEXT_VARIATION_PASSWORD
         logon.setOnClickListener {
@@ -78,63 +82,86 @@ class LoginActivity : AppCompatActivity() {
         }
         loginButton = findViewById<TextView>(R.id.login_button).apply {
             setOnClickListener {
-                hideSoftInputMethod()
-                val activity = this@LoginActivity.asReference()
-                if (usernameText.text.isBlank()) {
-                    Toast.makeText(this@LoginActivity, "请输入用户名", Toast.LENGTH_LONG).show()
-                } else if (passwordText.text.isBlank()) {
-                    Toast.makeText(this@LoginActivity, "请输入密码", Toast.LENGTH_LONG).show()
-                } else {
-                    this.isEnabled = false
-                    login(usernameText.text.toString(), passwordText.text.toString()) {
-                        when (it) {
-                            is RefreshState.Success -> {
-                                authSelfLiveData.refresh(REMOTE) {
-                                    when (it) {
-                                        is RefreshState.Success -> {
-                                            Toast.makeText(
-                                                this@LoginActivity,
-                                                "登录成功",
-                                                Toast.LENGTH_LONG
-                                            ).show()
-                                            Transfer.startActivity(
-                                                this@LoginActivity,
-                                                "HomePageActivity",
-                                                Intent()
-                                            )
-                                            finish()
-                                        }
-                                        is RefreshState.Failure -> {
+                if (agree_check.isChecked) {
+                    hideSoftInputMethod()
+                    val activity = this@LoginActivity.asReference()
+                    if (usernameText.text.isBlank()) {
+                        Toast.makeText(this@LoginActivity, "请输入用户名", Toast.LENGTH_LONG).show()
+                    } else if (passwordText.text.isBlank()) {
+                        Toast.makeText(this@LoginActivity, "请输入密码", Toast.LENGTH_LONG).show()
+                    } else {
+                        this.isEnabled = false
+                        login(usernameText.text.toString(), passwordText.text.toString()) {
+                            when (it) {
+                                is RefreshState.Success -> {
+                                    authSelfLiveData.refresh(REMOTE) {
+                                        when (it) {
+                                            is RefreshState.Success -> {
+                                                Toast.makeText(
+                                                    this@LoginActivity,
+                                                    "登录成功",
+                                                    Toast.LENGTH_LONG
+                                                ).show()
+                                                Transfer.startActivity(
+                                                    this@LoginActivity,
+                                                    "HomePageActivity",
+                                                    Intent()
+                                                )
+                                                finish()
+                                            }
+                                            is RefreshState.Failure -> {
+                                            }
                                         }
                                     }
-                                }
 //                                Toast.makeText(this@LoginActivity, "登录成功", Toast.LENGTH_LONG).show()
 //                                Transfer.startActivity(
 //                                    this@LoginActivity,
 //                                    "HomePageActivity",
 //                                    Intent()
 //                                )
-                            }
+                                }
 
-                            is RefreshState.Failure -> {
-                                Toast.makeText(
-                                    this@LoginActivity,
-                                    "请检查用户名密码是否错误",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                                this.isEnabled = true
+                                is RefreshState.Failure -> {
+                                    Toast.makeText(
+                                        this@LoginActivity,
+                                        "请检查用户名密码是否错误",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                    this.isEnabled = true
+                                }
                             }
                         }
                     }
+                } else {
+                    Toast.makeText(this@LoginActivity, "请先同意协议", Toast.LENGTH_SHORT).show()
                 }
+
             }
         }
         weiXinButton.setOnClickListener {
-            login()
+            if (agree_check.isChecked) {
+                login()
+            } else {
+                Toast.makeText(this, "请先同意协议", Toast.LENGTH_SHORT).show()
+            }
         }
         qqButton.setOnClickListener {
-            qqLogin()
+
         }
+        rule.paint.flags = Paint.UNDERLINE_TEXT_FLAG
+        agreement.paint.flags = Paint.UNDERLINE_TEXT_FLAG
+        rule.setOnClickListener {
+            val mIntent = Intent()
+            mIntent.putExtra("FLAG", "rule")
+            Transfer.startActivityWithoutClose(this, "AgreementActivity", mIntent)
+        }
+        agreement.setOnClickListener {
+            val mIntent = Intent()
+            mIntent.putExtra("FLAG", "agreement")
+            Transfer.startActivityWithoutClose(this, "AgreementActivity", mIntent)
+        }
+
+
     }
 
     private fun qqLogin() {

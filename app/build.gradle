@@ -33,8 +33,15 @@ android {
     }
     buildTypes {
         release {
+
+            //混淆
             minifyEnabled false
+            //Zipalign优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
 
         debug {
@@ -46,6 +53,8 @@ android {
     packagingOptions {
         //解决编译时com.android.builder.merge.DuplicateRelativeFileException: More than one file was found with OS independent path 'META-INF/rxjava.properties'这个错误
         exclude 'META-INF/rxjava.properties'
+        //More than one file was found with OS independent path 'META-INF/commons_release.kotlin_module'
+        exclude 'META-INF/commons_release.kotlin_module'
     }
 }
 

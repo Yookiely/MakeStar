@@ -1,10 +1,16 @@
 package com.yookie.upload
 
 import android.Manifest
-import android.support.v7.app.AppCompatActivity
+import android.app.Activity
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
+import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Window
+import android.view.WindowManager
+import android.widget.TextView
 import android.widget.Toast
 import com.alibaba.sdk.android.oss.common.OSSLog
 import com.alibaba.sdk.android.vod.upload.VODUploadCallback
@@ -12,26 +18,16 @@ import com.alibaba.sdk.android.vod.upload.VODUploadClientImpl
 import com.alibaba.sdk.android.vod.upload.common.UploadStateType
 import com.alibaba.sdk.android.vod.upload.model.UploadFileInfo
 import com.alibaba.sdk.android.vod.upload.model.VodInfo
+import com.bumptech.glide.Glide
+import com.hb.dialog.dialog.LoadingDialog
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
+import com.yookie.common.experimental.preference.CommonPreferences
 import com.yookie.upload.service.UploadImp
 import kotlinx.android.synthetic.main.activity_upload_upload.*
-import kotlin.collections.ArrayList
-import android.app.Activity
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
-import android.util.Log
-import android.view.WindowManager
-import android.widget.Button
-import android.widget.TextView
-import com.bumptech.glide.Glide
-import com.hb.dialog.dialog.LoadingDialog
-import com.yookie.common.experimental.preference.CommonPreferences
 import pub.devrel.easypermissions.EasyPermissions
 import java.io.File
-import java.util.concurrent.atomic.AtomicIntegerArray
 
 
 class UploadActivity : AppCompatActivity() {
@@ -347,7 +343,15 @@ class UploadActivity : AppCompatActivity() {
                     coverUrl = it.ImageURL
                     imgAuth = it.UploadAuth
                     imgloadAddress = it.UploadAddress//获取图片上传证书
-                    UploadImp.getVideoUpload(title, fileName, description, coverId, tag,1,CommonPreferences.userid) {
+                    UploadImp.getVideoUpload(
+                        title,
+                        fileName,
+                        description,
+                        coverId,
+                        tag,
+                        x,
+                        CommonPreferences.userid
+                    ) {
                         uploadAuth = it.UploadAuth
                         uploadAddress = it.UploadAddress//获取视频上传证书
                         workID = it.work_ID
@@ -368,7 +372,15 @@ class UploadActivity : AppCompatActivity() {
                 for (x in tags) {
                     tag += x
                 }
-                UploadImp.getVideoUpload(title, fileName, description, coverId, tag,1,CommonPreferences.userid) {
+                UploadImp.getVideoUpload(
+                    title,
+                    fileName,
+                    description,
+                    coverId,
+                    tag,
+                    x,
+                    CommonPreferences.userid
+                ) {
                     uploadAuth = it.UploadAuth
                     uploadAddress = it.UploadAddress//获取视频上传证书
                     workID = it.work_ID

@@ -146,6 +146,11 @@ class LoginActivity : AppCompatActivity() {
             }
         }
         qqButton.setOnClickListener {
+            if (agree_check.isChecked) {
+                qqLogin()
+            } else {
+                Toast.makeText(this, "请先同意协议", Toast.LENGTH_SHORT).show()
+            }
 
         }
         rule.paint.flags = Paint.UNDERLINE_TEXT_FLAG

@@ -372,6 +372,10 @@ class UploadActivity : AppCompatActivity() {
                 for (x in tags) {
                     tag = "$tag$x,"
                 }
+                if (tag.isNotEmpty()){
+                    tag = tag.substring(0,tag.length-1)
+
+                }
                 UploadImp.getVideoUpload(
                     title,
                     fileName,

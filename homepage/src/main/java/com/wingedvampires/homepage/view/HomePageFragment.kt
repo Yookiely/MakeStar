@@ -245,7 +245,7 @@ class HomePageFragment : Fragment() {
                 }
             }
 
-            page = worksWithType.to
+            page++
             lastPage = worksWithType.last_page
             isLoading = false
             mSwipeRefreshLayout.isRefreshing = false
@@ -254,7 +254,7 @@ class HomePageFragment : Fragment() {
 
     private fun loadMoreByType() {
         launch(UI + QuietCoroutineExceptionHandler) {
-            if (page >= lastPage) {
+            if (page > lastPage) {
                 Toast.makeText(this@HomePageFragment.context, "加载到底了", Toast.LENGTH_SHORT).show()
                 return@launch
             }
@@ -281,7 +281,7 @@ class HomePageFragment : Fragment() {
                 }
             }
 
-            page = worksWithType.to
+            page++
             lastPage = worksWithType.last_page
             isLoading = false
             mSwipeRefreshLayout.isRefreshing = false

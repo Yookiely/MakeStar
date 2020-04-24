@@ -333,7 +333,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/id_upload_tag_theatre"
                         app:layout_constraintLeft_toLeftOf="@+id/id_upload_tag_theatre"
                         android:background="@drawable/tag_circle_gray"
-                        android:text="#游戏"
+                        android:text="#颜值"
                         android:textColor="#ffffff"
                         android:id="@+id/id_upload_tag_appearance"
                         android:layout_marginTop="12dp"

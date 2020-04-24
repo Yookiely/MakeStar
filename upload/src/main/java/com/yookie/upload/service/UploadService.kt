@@ -21,9 +21,20 @@ interface UploadService {
     @GET("Ack/workUploadAck")
     fun workUploadAck(@Query("work_ID") workId : String , @Query("user_ID") userid : String = CommonPreferences.userid) : Deferred<uploadResponse>
 
+    @GET("task/uploadOneTime")
+    fun uploadOneTime(
+        @Query("user_ID") userId: String = CommonPreferences.userid
+    ): Deferred<CommonBody<UploadResult>>
+
     companion object  : UploadService by ServiceFactory()
 }
 
+data class UploadResult(
+    val day_upload_count: Int,
+    val this_time_get_money: Int,
+    val user_ID: String,
+    val y_m_d: String
+)
 data class videoUpload(
     val RequestId: String,
     val UploadAddress: String,

@@ -370,7 +370,11 @@ class UploadActivity : AppCompatActivity() {
                 val title = upload_title.text.toString()
                 val description = upload_describe.text.toString()
                 for (x in tags) {
-                    tag += x
+                    tag = "$tag$x,"
+                }
+                if (tag.isNotEmpty()){
+                    tag = tag.substring(0,tag.length-1)
+
                 }
                 UploadImp.getVideoUpload(
                     title,

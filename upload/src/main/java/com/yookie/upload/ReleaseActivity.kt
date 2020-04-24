@@ -133,60 +133,60 @@ class ReleaseActivity : AppCompatActivity() {
         imguploader.setStorageLocation("xxx")
 
         upload_tag_theatre.setOnClickListener {
-            if (tags.contains("小剧场")) {
-                tags.remove("小剧场")
+            if (tags.contains("小剧场,")) {
+                tags.remove("小剧场,")
                 it.setBackgroundResource(R.drawable.tag_circle_gray)
             } else {
-                tags.add("小剧场")
+                tags.add("小剧场,")
                 it.setBackgroundResource(R.drawable.button_circle_shapes)
             }
         }
         upload_tag_funny.setOnClickListener {
-            if (tags.contains("搞笑")) {
-                tags.remove("搞笑")
+            if (tags.contains("搞笑,")) {
+                tags.remove("搞笑,")
                 it.setBackgroundResource(R.drawable.tag_circle_gray)
             } else {
-                tags.add("搞笑")
+                tags.add("搞笑,")
                 it.setBackgroundResource(R.drawable.button_circle_shapes)
             }
         }
 
         upload_tag_music.setOnClickListener {
-            if (tags.contains("音乐")) {
-                tags.remove("音乐")
+            if (tags.contains("音乐,")) {
+                tags.remove("音乐,")
                 it.setBackgroundResource(R.drawable.tag_circle_gray)
             } else {
-                tags.add("音乐")
+                tags.add("音乐,")
                 it.setBackgroundResource(R.drawable.button_circle_shapes)
             }
         }
 
         upload_tag_dance.setOnClickListener {
-            if (tags.contains("舞蹈")) {
-                tags.remove("舞蹈")
+            if (tags.contains("舞蹈,")) {
+                tags.remove("舞蹈,")
                 it.setBackgroundResource(R.drawable.tag_circle_gray)
             } else {
-                tags.add("舞蹈")
+                tags.add("舞蹈,")
                 it.setBackgroundResource(R.drawable.button_circle_shapes)
             }
         }
 
         upload_tag_appearance.setOnClickListener {
-            if (tags.contains("颜值")) {
-                tags.remove("颜值")
+            if (tags.contains("颜值,")) {
+                tags.remove("颜值,")
                 it.setBackgroundResource(R.drawable.tag_circle_gray)
             } else {
-                tags.add("颜值")
+                tags.add("颜值,")
                 it.setBackgroundResource(R.drawable.button_circle_shapes)
             }
         }
 
         upload_tag_other.setOnClickListener {
-            if (tags.contains("其他")) {
-                tags.remove("其他")
+            if (tags.contains("其他,")) {
+                tags.remove("其他,")
                 it.setBackgroundResource(R.drawable.tag_circle_gray)
             } else {
-                tags.add("其他")
+                tags.add("其他,")
                 it.setBackgroundResource(R.drawable.button_circle_shapes)
             }
         }

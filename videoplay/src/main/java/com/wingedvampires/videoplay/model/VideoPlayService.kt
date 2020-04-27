@@ -138,5 +138,7 @@ data class WatchResult(
 )
 
 data class NumberOfStar(
-    val numberOfStar: String
+    val numberOfStar: String,
+    val name: String,
+    val introduction: String
 )

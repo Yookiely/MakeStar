@@ -459,7 +459,6 @@ class VideoPlayActivity : AppCompatActivity() {
         //设置返回键
         videoPlayer.backButton.visibility = View.VISIBLE
         //设置旋转
-        videoPlayer.isAutoFullWithSize
         //设置全屏按键功能,这是使用的是选择屏幕，而不是全屏
         videoPlayer.fullscreenButton
             .setOnClickListener { orientationUtils.resolveByClick() }

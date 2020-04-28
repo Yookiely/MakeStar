@@ -11,15 +11,11 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Window
 import com.aliyun.svideo.common.utils.PermissionUtils
 import com.aliyun.svideo.snap.SnapCropSetting.PERMISSION_REQUEST_CODE
+import com.example.yangzihang.makestar.extensions.AppArchmage
+import com.example.yangzihang.makestar.network.UserImp
 import com.wingedvampires.homepage.view.HomePageActivity
 import com.yookie.auth.LoginActivity
 import com.yookie.common.experimental.preference.CommonPreferences
-import com.example.yangzihang.makestar.extensions.AppArchmage
-import com.example.yangzihang.makestar.network.UserImp
-import com.tencent.tauth.Tencent
-import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.launch
 import org.jetbrains.anko.startActivity
 
 class MainActivity : AppCompatActivity() {
@@ -55,7 +51,10 @@ class MainActivity : AppCompatActivity() {
             if (CommonPreferences.isLogin) {
                 startActivity<HomePageActivity>()
                 finish()
-            } else startActivity<LoginActivity>()
+            } else {
+                startActivity<LoginActivity>()
+                finish()
+            }
         }
     }
 
@@ -85,7 +84,10 @@ class MainActivity : AppCompatActivity() {
                 if (CommonPreferences.isLogin) {
                     startActivity<HomePageActivity>()
                     finish()
-                } else startActivity<LoginActivity>()
+                } else {
+                    startActivity<LoginActivity>()
+                    finish()
+                }
             } else {
                 // 弹出对话框告诉用户需要权限的原因, 并引导用户去应用权限管理中手动打开权限按钮
                 showPermissionDialog()

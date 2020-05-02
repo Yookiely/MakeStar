@@ -34,10 +34,34 @@ class LikeFragment : Fragment(){
             itemManager.autoRefresh {
                 for (x in it.data) {
                     if (nums>0){
-                        addStarItem(0,x.from_user_avatar,x.from_user_name,x.time,"",x.introduction,true)
+                        addStarItem(
+                            activity!!,
+                            x.from_user_ID,
+                            100,
+                            x.work_ID,
+                            0,
+                            x.from_user_avatar,
+                            x.from_user_name,
+                            x.time,
+                            "",
+                            x.introduction,
+                            true
+                        )
                         nums--
                     }else{
-                        addStarItem(0,x.from_user_avatar,x.from_user_name,x.time,"",x.introduction,false)
+                        addStarItem(
+                            activity!!,
+                            x.from_user_ID,
+                            100,
+                            x.work_ID,
+                            0,
+                            x.from_user_avatar,
+                            x.from_user_name,
+                            x.time,
+                            "",
+                            x.introduction,
+                            false
+                        )
                         CommonPreferences.newStarMessage = 0
                     }
 

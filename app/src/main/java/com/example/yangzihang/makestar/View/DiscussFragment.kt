@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import cn.edu.twt.retrox.recyclerviewdsl.ItemAdapter
 import cn.edu.twt.retrox.recyclerviewdsl.ItemManager
-import cn.edu.twt.retrox.recyclerviewdsl.withItems
 import com.example.yangzihang.makestar.R
 import com.example.yangzihang.makestar.network.UserImp
 import com.yookie.common.experimental.preference.CommonPreferences
@@ -41,10 +40,34 @@ class DiscussFragment : Fragment(){
             itemManager.autoRefresh {
                 for (x in it.data) {
                     if (nums>0){
-                        addStarItem(1,x.from_user_avatar,x.from_user_name,x.time,x.new_content,x.old_content,true)
+                        addStarItem(
+                            activity!!,
+                            x.from_user_ID,
+                            x.type,
+                            x.direct_ID,
+                            1,
+                            x.from_user_avatar,
+                            x.from_user_name,
+                            x.time,
+                            x.new_content,
+                            x.old_content,
+                            true
+                        )
                         nums--
                     }else{
-                        addStarItem(1,x.from_user_avatar,x.from_user_name,x.time,x.new_content,x.old_content,false)
+                        addStarItem(
+                            activity!!,
+                            x.from_user_ID,
+                            x.type,
+                            x.direct_ID,
+                            1,
+                            x.from_user_avatar,
+                            x.from_user_name,
+                            x.time,
+                            x.new_content,
+                            x.old_content,
+                            false
+                        )
                         CommonPreferences.newCommentMessage = 0
                     }
 

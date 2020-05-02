@@ -79,7 +79,7 @@ interface UserService {
     @GET("systemMessage/getUserNewMessageNum")
     fun getNewMessageCount(@Query("userID") userid: String) : Deferred<CommonBody<NewMessage>>
 
-    @GET("systemMessage/getAllSystemMessageList")
+    @GET("systemMessage/getAllsystemCommentMessageList")
     fun getAllMessage(@Query("page")page: Int,@Query("limit")limit: Int,@Query("userID")userid: String) : Deferred<CommonBody<Comment>>
 
     @GET("systemMessage/getAllSystemStarList")
@@ -437,10 +437,10 @@ data class Comment(
 
 data class MessageDatas(
     val content: String,
-    val direct_ID: Int,
+    val direct_ID: String,
     val direct_second_ID: Int,
     val direct_third_ID: Any,
-    val from_user_ID: Int,
+    val from_user_ID: String,
     val from_user_avatar: String,
     val from_user_name: String,
     val is_read: Int,
@@ -470,14 +470,14 @@ data class StarMessage(
 
 data class StarData(
     val content: String,
-    val from_user_ID: Int,
+    val from_user_ID: String,
     val from_user_avatar: String,
     val from_user_name: String,
     val is_read: Int,
     val system_star_ID: Int,
     val time: String,
     val to_user_ID: Int,
-    val work_ID: Int,
+    val work_ID: String,
     val name : String,
     val introduction : String
 )

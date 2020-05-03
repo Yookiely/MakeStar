@@ -23,6 +23,15 @@ interface UserService {
     @POST("message/setMessageRead")
     fun setMessageRead(@Query("message_ID") message_ID: String): Deferred<result>
 
+    @GET("systemMessage/readAllSystemCommentMessage")
+    fun setAllCommentRead(@Query("userID") userID: String = CommonPreferences.userid): Deferred<result>
+
+    @GET("systemMessage/readAllSystemStarMessage")
+    fun setAllStarRead(@Query("userID") userID: String = CommonPreferences.userid): Deferred<result>
+
+    @GET("message/setAllMessageRead")
+    fun setAllMessageRead(@Query("userID") userID: String = CommonPreferences.userid): Deferred<result>
+
     @GET("user/collection")
     fun getCollection(@Query("limit") limit: Int, @Query("page") page: Int, @Query("user_ID") userid: String): Deferred<CommonBody<collection>>
 
@@ -67,6 +76,9 @@ interface UserService {
     @GET("action/getUserActions")
     fun getUserActions(@Query("limit") limit: Int, @Query("page") page: Int, @Query("userID") hostUserId: Int ):Deferred<CommonBody<UserActive>>
 
+    @GET("action/getActionByID")
+    fun getActionById(@Query("actionID") actionID: String): Deferred<CommonBody<List<DetailAction>>>
+
     @GET("fandomAction/getCommentByActionID")
     fun getCommemtByActionID(@Query("fandom_action_ID") fandom_action_ID: String,@Query("limit") limit: Int,@Query("page")page: Int):Deferred<CommonBody<FansComment>>
 
@@ -79,7 +91,7 @@ interface UserService {
     @GET("systemMessage/getUserNewMessageNum")
     fun getNewMessageCount(@Query("userID") userid: String) : Deferred<CommonBody<NewMessage>>
 
-    @GET("systemMessage/getAllsystemCommentMessageList")
+    @GET("systemMessage/getAllSystemCommentMessageList")
     fun getAllMessage(@Query("page")page: Int,@Query("limit")limit: Int,@Query("userID")userid: String) : Deferred<CommonBody<Comment>>
 
     @GET("systemMessage/getAllSystemStarList")
@@ -138,10 +150,23 @@ interface UserService {
     @FormUrlEncoded
     @POST("message/sendMessage")
     fun sendMessage(@FieldMap params : Map<String,String>): Deferred<CommonBody<String>>
+
+
     companion object : UserService by ServiceFactory()
 
 
 }
+
+data class DetailAction(
+    val action_ID: String,
+    val avatar: String,
+    val content: String,
+    val img_IDs: String,
+    val img_urls: List<String>,
+    val time: String,
+    val user_ID: String,
+    val username: String
+)
 
 data class ConstUserTag(
     val tag_ID: Int,
@@ -178,7 +203,7 @@ data class messageData(
 )
 
 data class result(
-    val error_code: Int,
+    var error_code: Int,
     val message: String
 )
 

@@ -1,5 +1,6 @@
 package com.example.yangzihang.makestar.View
 
+import android.app.Activity
 import android.content.Intent
 import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
@@ -11,12 +12,12 @@ import cn.edu.twt.retrox.recyclerviewdsl.Item
 import cn.edu.twt.retrox.recyclerviewdsl.ItemController
 import com.bumptech.glide.Glide
 import com.example.yangzihang.makestar.LeaveMessageActivity
-import com.example.yangzihang.makestar.MessageActivity
 import com.example.yangzihang.makestar.R
 import com.example.yangzihang.makestar.network.messageData
+import com.yookie.common.experimental.extensions.jumpchannel.Transfer
 import org.jetbrains.anko.layoutInflater
 
-class PrivateItem(val messagedata : messageData,val flag : Boolean)  : Item {
+class PrivateItem(val activity: Activity, val messagedata: messageData, val flag: Boolean) : Item {
     private companion object Controller : ItemController {
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: Item) {
             holder as PrivateItemViewHolder
@@ -37,6 +38,12 @@ class PrivateItem(val messagedata : messageData,val flag : Boolean)  : Item {
                 }
                 if (item.flag){
                     flag.visibility = View.VISIBLE
+                }
+
+                avater.setOnClickListener {
+                    val intent = Intent()
+                    intent.putExtra("userID", item.messagedata.from)
+                    Transfer.startActivityWithoutClose(item.activity, "MyselfActivity", intent)
                 }
             }
 
@@ -70,4 +77,5 @@ class PrivateItem(val messagedata : messageData,val flag : Boolean)  : Item {
     }
 }
 
-fun MutableList<Item>.addPrivate(messagedata : messageData,flag : Boolean) = add(PrivateItem(messagedata,flag))
+fun MutableList<Item>.addPrivate(activity: Activity, messagedata: messageData, flag: Boolean) =
+    add(PrivateItem(activity, messagedata, flag))

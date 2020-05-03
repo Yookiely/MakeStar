@@ -6,7 +6,6 @@ import com.yookie.common.experimental.extensions.awaitAndHandle
 import com.yookie.common.experimental.preference.CommonPreferences
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
-import javax.security.auth.callback.Callback
 
 
 object UserImp {
@@ -51,6 +50,36 @@ object UserImp {
     fun setMessageRead(messageid: String, resultCallback: (result) -> Unit) {
         launch(UI + QuietCoroutineExceptionHandler) {
             val callback = UserService.setMessageRead(messageid).await()
+            if (callback.error_code == -1) {
+                resultCallback(callback)
+            }
+
+        }
+    }
+
+    fun setAllCommentRead(resultCallback: (result) -> Unit) {
+        launch(UI + QuietCoroutineExceptionHandler) {
+            val callback = UserService.setAllCommentRead().await()
+            if (callback.error_code == -1) {
+                resultCallback(callback)
+            }
+
+        }
+    }
+
+    fun setAllStarRead(resultCallback: (result) -> Unit) {
+        launch(UI + QuietCoroutineExceptionHandler) {
+            val callback = UserService.setAllStarRead().await()
+            if (callback.error_code == -1) {
+                resultCallback(callback)
+            }
+
+        }
+    }
+
+    fun setAllMessageRead(resultCallback: (result) -> Unit) {
+        launch(UI + QuietCoroutineExceptionHandler) {
+            val callback = UserService.setAllMessageRead().await()
             if (callback.error_code == -1) {
                 resultCallback(callback)
             }
@@ -162,6 +191,22 @@ object UserImp {
         }
     }
 
+    fun getActionInfo(actionId: String, block: (DetailAction) -> Unit) {
+        launch(UI + QuietCoroutineExceptionHandler) {
+            val callback = UserService.getActionById(actionId).awaitAndHandle {
+                it.printStackTrace()
+            }
+            if (callback?.error_code == -1) {
+                callback.data?.let {
+                    if (it.isNotEmpty()) {
+                        block(it[0])
+                    }
+                }
+            }
+        }
+    }
+
+
     fun getCommemtByActionID(
         fandomId: String,
         limit: Int,
@@ -204,7 +249,7 @@ object UserImp {
         launch(UI + QuietCoroutineExceptionHandler) {
             val callback = UserService.getUserInfo(userid).awaitAndHandle {
                 it.printStackTrace()
-            }?:return@launch
+            } ?: return@launch
             Log.d("userinfo", callback.error_code.toString())
             if (callback.error_code == -1) {
                 UserInfoCallback(callback.data!!)
@@ -224,7 +269,7 @@ object UserImp {
     }
 
 
-    fun deleteWork(workID : String, deleteCallback: () -> Unit){
+    fun deleteWork(workID: String, deleteCallback: () -> Unit) {
         launch(UI + QuietCoroutineExceptionHandler) {
             val callback = UserService.deleteWorkByID(workID).await()
             if (callback.error_code == -1) {
@@ -234,7 +279,7 @@ object UserImp {
         }
     }
 
-    fun deleteAction(actionID : String, deleteCallback: () -> Unit){
+    fun deleteAction(actionID: String, deleteCallback: () -> Unit) {
         launch(UI + QuietCoroutineExceptionHandler) {
             val callback = UserService.deleteActionByID(actionID).await()
             if (callback.error_code == -1) {

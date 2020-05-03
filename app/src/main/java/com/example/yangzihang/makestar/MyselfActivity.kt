@@ -157,7 +157,7 @@ class MyselfActivity : AppCompatActivity() {
         mPopupWindow.contentView = contentView
         val leaveMes = contentView.findViewById<TextView>(R.id.page_leave)
         val leaveSha = contentView.findViewById<TextView>(R.id.page_share)
-        leaveSha.visibility = View.INVISIBLE
+        leaveSha.visibility = View.GONE
         if (userid == CommonPreferences.userid) {
             leaveMes.text = "编辑个人资料"
             leaveSha.text = "我的名片"

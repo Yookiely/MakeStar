@@ -11,17 +11,20 @@ import cn.edu.twt.retrox.recyclerviewdsl.ItemAdapter
 import cn.edu.twt.retrox.recyclerviewdsl.ItemManager
 import com.example.yangzihang.makestar.R
 import com.example.yangzihang.makestar.network.UserImp
-import com.example.yangzihang.makestar.network.messageData
 import com.yookie.common.experimental.preference.CommonPreferences
 
-class MessageFragment : Fragment(){
+class MessageFragment : Fragment() {
 
 
     lateinit var recyclerView: RecyclerView
-    lateinit var itemManager : ItemManager
+    lateinit var itemManager: ItemManager
     var nums = 0
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view: View = inflater.inflate(R.layout.fragment_message_message, container, false)
         recyclerView = view.findViewById(R.id.rec_message_message)
         recyclerView.layoutManager = LinearLayoutManager(activity)
@@ -33,22 +36,22 @@ class MessageFragment : Fragment(){
         return view
     }
 
-    private fun refreshList(num : Int){
-        UserImp.getMessage(CommonPreferences.userid,1.toString(),10.toString(),num){
+    private fun refreshList(num: Int) {
+        UserImp.getMessage(CommonPreferences.userid, 1.toString(), 10.toString(), num) {
             itemManager.autoRefresh {
                 for (x in it.data) {
-                    if (nums>0){
-                        addPrivate(x,true)
+                    if (nums > 0) {
+                        addPrivate(activity!!, x, true)
                         nums--
-                    }else{
-                        addPrivate(x,false)
+                    } else {
+                        addPrivate(activity!!, x, false)
                         CommonPreferences.newUserMessage = 0
                     }
 
 
                 }
-                if (it.last_page>num){
-                    refreshList(it.current_page+1)
+                if (it.last_page > num) {
+                    refreshList(it.current_page + 1)
 
                 }
             }

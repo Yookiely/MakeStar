@@ -133,4 +133,16 @@ class MyUserActivity : AppCompatActivity() {
 
         mMoreWindow!!.showMoreWindow(view)
     }
+
+    override fun onResume() {
+        super.onResume()
+        recyclerView.withItems {
+            this.clear()
+            setUserText("我的消息", this@MyUserActivity, 2, CommonPreferences.newMessage)
+            setUserText("我的收藏", this@MyUserActivity, 3, 0)
+            setUserText("我的红包", this@MyUserActivity, 7, 0)
+            setUserText("粉丝圈", this@MyUserActivity, 4, 0)
+            setUserText("设置", this@MyUserActivity, 5, 0)
+        }
+    }
 }

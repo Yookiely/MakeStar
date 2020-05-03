@@ -12,7 +12,9 @@ import android.widget.TextView
 import cn.edu.twt.retrox.recyclerviewdsl.Item
 import cn.edu.twt.retrox.recyclerviewdsl.ItemController
 import com.bumptech.glide.Glide
+import com.example.yangzihang.makestar.PostBodyActivity
 import com.example.yangzihang.makestar.R
+import com.example.yangzihang.makestar.network.UserImp
 import com.wingedvampires.attention.model.AttentionUtils
 import com.yookie.common.experimental.extensions.jumpchannel.Transfer
 import org.jetbrains.anko.layoutInflater
@@ -31,6 +33,7 @@ class StarItem(
     val isnew: Boolean
 ) : Item {
     private companion object Controller : ItemController {
+
         @SuppressLint("SetTextI18n")
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: Item) {
             holder as StarItemViewHolder
@@ -41,15 +44,15 @@ class StarItem(
                     .into(cover)
                 nickname.text = item.nicknames
                 time.text = item.time
-                when(item.FLAG){
-                     1 -> action.text = "回复了你"
-                     0 -> action.text = "给你点了个赞"
+                when (item.FLAG) {
+                    1 -> action.text = "回复了你"
+                    0 -> action.text = "给你点了个赞"
                 }
                 comment.text = item.comment
-                quote.text = "\"" +item.quote
-                if (item.isnew){
+                quote.text = "\"" + item.quote
+                if (item.isnew) {
                     flag.visibility = View.VISIBLE
-                }else{
+                } else {
                     flag.visibility = View.GONE
                 }
 
@@ -60,6 +63,7 @@ class StarItem(
                 }
             }
             holder.itemView.setOnClickListener {
+                it.isEnabled = false
                 /**
                  * 1是表示有人评论你的作品
                 2是表示有人评论你的动态
@@ -77,7 +81,21 @@ class StarItem(
                         )
                     }
                     2, 4 -> {
+                        UserImp.getActionInfo(item.direct_ID) {
+                            val imgList = ArrayList<String>()
+                            it.img_urls.forEach { img ->
+                                imgList.add(img)
+                            }
 
+                            val intent = Intent(item.activity, PostBodyActivity::class.java)
+                            intent.putExtra("name", it.username)
+                            intent.putExtra("time", it.time)
+                            intent.putExtra("text", it.content)
+                            intent.putExtra("avatar", it.avatar)
+                            intent.putExtra("fandomid", it.action_ID.toString())
+                            intent.putStringArrayListExtra("imgs", imgList)
+                            item.activity.startActivity(intent)
+                        }
                     }
                     100 -> {
                         val intent = Intent()
@@ -90,8 +108,8 @@ class StarItem(
                     }
 
                 }
+                it.isEnabled = true
             }
-
 
 
         }
@@ -102,8 +120,6 @@ class StarItem(
             return StarItemViewHolder(view)
 
         }
-
-
     }
 
 
@@ -111,14 +127,13 @@ class StarItem(
         get() = StarItem
 
     private class StarItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val  cover = itemView.findViewById<ImageView>(R.id.user_portrait)
-        val  nickname = itemView.findViewById<TextView>(R.id.user_nickname)
-        val  time = itemView.findViewById<TextView>(R.id.user_time)
+        val cover = itemView.findViewById<ImageView>(R.id.user_portrait)
+        val nickname = itemView.findViewById<TextView>(R.id.user_nickname)
+        val time = itemView.findViewById<TextView>(R.id.user_time)
         val action = itemView.findViewById<TextView>(R.id.user_action)
         val comment = itemView.findViewById<TextView>(R.id.user_comment)
         val quote = itemView.findViewById<TextView>(R.id.user_quote)
         val flag = itemView.findViewById<CardView>(R.id.meassage_up_flag)
-
 
 
     }

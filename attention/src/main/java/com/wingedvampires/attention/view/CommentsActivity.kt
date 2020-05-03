@@ -49,7 +49,8 @@ class CommentsActivity : AppCompatActivity() {
         workId = bundle.getString(AttentionUtils.COMMENT_INDEX)!!
         val toolbar = findViewById<Toolbar>(R.id.tb_comment_main)
         val localLayoutParams = window.attributes
-        localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
+        localLayoutParams.flags =
+            (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
         val mLayoutManager = LinearLayoutManager(this)
         loadingDialog = LoadingDialog(this)
         loadingDialog.setMessage("正在上传")
@@ -109,11 +110,16 @@ class CommentsActivity : AppCompatActivity() {
     private fun loadMainComment() {
         launch(UI + QuietCoroutineExceptionHandler) {
             page = 1
-            val work = AttentionService.getWorkByID(workId).awaitAndHandle {
+            val workOrNot = AttentionService.getWorkByID(workId).awaitAndHandle {
                 it.printStackTrace()
                 commitRefresh.isRefreshing = false
                 Toast.makeText(this@CommentsActivity, "数据加载失败", Toast.LENGTH_SHORT).show()
-            }?.data?.get(0) ?: return@launch
+            } ?: return@launch
+            if (workOrNot.error_code != -1) {
+                Toast.makeText(this@CommentsActivity, workOrNot.message, Toast.LENGTH_SHORT).show()
+                onBackPressed()
+            }
+            val work = workOrNot.data?.get(0) ?: return@launch
             val comments = AttentionService.getTotalComments(workId, page).awaitAndHandle {
                 it.printStackTrace()
                 commitRefresh.isRefreshing = false

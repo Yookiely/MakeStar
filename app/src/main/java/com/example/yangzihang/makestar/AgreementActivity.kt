@@ -1,13 +1,13 @@
 package com.example.yangzihang.makestar
 
 import android.annotation.SuppressLint
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Html
+import android.support.v7.app.AppCompatActivity
 import android.view.Window
 import android.view.WindowManager
 import android.webkit.WebView
 import com.example.yangzihang.makestar.network.UserImp
+import kotlinx.android.synthetic.main.activity_agreement.*
 
 class AgreementActivity : AppCompatActivity() {
 
@@ -18,6 +18,9 @@ class AgreementActivity : AppCompatActivity() {
         setContentView(R.layout.activity_agreement)
         val intent = intent
         val webView = findViewById<WebView>(R.id.agreement_webview)
+        iv_agreement_back.setOnClickListener {
+            onBackPressed()
+        }
         webView.settings.apply {
             useWideViewPort =true
             loadWithOverviewMode =true

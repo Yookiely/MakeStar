@@ -471,7 +471,7 @@ data class MessageDatas(
     val is_read: Int,
     val new_content: String,
     val old_content: String,
-    val system_message_ID: Int,
+    val system_message_ID: String,
     val time: String,
     val type: Int,
     val user_ID: Int
@@ -499,7 +499,7 @@ data class StarData(
     val from_user_avatar: String,
     val from_user_name: String,
     val is_read: Int,
-    val system_star_ID: Int,
+    val system_star_ID: String,
     val time: String,
     val to_user_ID: Int,
     val work_ID: String,

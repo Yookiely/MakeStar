@@ -2,6 +2,7 @@ package com.example.yangzihang.makestar.View
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -18,6 +19,7 @@ class MessageFragment : Fragment() {
 
     lateinit var recyclerView: RecyclerView
     lateinit var itemManager: ItemManager
+    lateinit var messageRefresh: SwipeRefreshLayout
     var nums = 0
 
     override fun onCreateView(
@@ -26,6 +28,7 @@ class MessageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view: View = inflater.inflate(R.layout.fragment_message_message, container, false)
+        messageRefresh = view.findViewById(R.id.sl_message_message)
         recyclerView = view.findViewById(R.id.rec_message_message)
         recyclerView.layoutManager = LinearLayoutManager(activity)
         itemManager = ItemManager()
@@ -33,6 +36,10 @@ class MessageFragment : Fragment() {
         nums = CommonPreferences.newUserMessage
         refreshList(1)
 
+        messageRefresh.setOnRefreshListener {
+            itemManager.clear()
+            refreshList(1)
+        }
         return view
     }
 
@@ -45,11 +52,11 @@ class MessageFragment : Fragment() {
                         nums--
                     } else {
                         addPrivate(activity!!, x, false)
-                        CommonPreferences.newUserMessage = 0
                     }
 
-
                 }
+
+                messageRefresh.isRefreshing = false
                 if (it.last_page > num) {
                     refreshList(it.current_page + 1)
 

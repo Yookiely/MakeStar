@@ -123,7 +123,7 @@ object UserImp {
     }
 
 
-    fun getStar(limit: Int, page: Int, userid: String, starList: (StarMessage) -> Unit) {
+    fun getStar(page: Int, limit: Int, userid: String, starList: (StarMessage) -> Unit) {
         launch(UI + QuietCoroutineExceptionHandler) {
             val callback = UserService.getAllStar(page, limit, userid).await()
             if (callback.error_code == -1) {

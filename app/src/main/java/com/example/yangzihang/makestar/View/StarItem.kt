@@ -20,6 +20,7 @@ import com.yookie.common.experimental.extensions.jumpchannel.Transfer
 import org.jetbrains.anko.layoutInflater
 
 class StarItem(
+    val starId: String,
     val activity: Activity,
     val fromUserID: String,
     val type: Int,
@@ -32,7 +33,17 @@ class StarItem(
     val quote: String,
     val isnew: Boolean
 ) : Item {
+
+    override fun areItemsTheSame(newItem: Item): Boolean {
+        return starId == (newItem as? StarItem)?.starId
+    }
+
+    override fun areContentsTheSame(newItem: Item): Boolean {
+        return starId == (newItem as? StarItem)?.starId
+    }
+
     private companion object Controller : ItemController {
+
 
         @SuppressLint("SetTextI18n")
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: Item) {
@@ -141,6 +152,7 @@ class StarItem(
 }
 
 fun MutableList<Item>.addStarItem(
+    starId: String,
     activity: Activity,
     fromUserID: String,
     type: Int,
@@ -154,6 +166,7 @@ fun MutableList<Item>.addStarItem(
     isnew: Boolean
 ) = add(
     StarItem(
+        starId,
         activity,
         fromUserID,
         type,

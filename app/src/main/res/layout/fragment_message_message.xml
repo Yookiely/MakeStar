@@ -2,9 +2,15 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                              android:layout_width="match_parent"
                                              android:layout_height="match_parent">
-    <android.support.v7.widget.RecyclerView
+
+    <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/sl_message_message"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/rec_message_message"
-    />
+            android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/rec_message_message" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 </android.support.constraint.ConstraintLayout>

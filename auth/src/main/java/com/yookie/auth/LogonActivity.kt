@@ -35,7 +35,7 @@ class LogonActivity : AppCompatActivity() {
         password.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
         rePassword.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
         start.setOnClickListener {
-            if (username.text != null && password.text != null && rePassword.text != null) {
+            if (username.text.isNotBlank() && password.text.isNotBlank() && rePassword.text.isNotBlank()) {
                 if (password.text.toString() == rePassword.text.toString()) {
                     launch(UI + QuietCoroutineExceptionHandler) {
                         var callback =

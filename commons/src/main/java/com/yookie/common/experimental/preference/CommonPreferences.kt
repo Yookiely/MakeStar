@@ -86,9 +86,9 @@ object CommonPreferences {
         if (historyId != null && !userHistory.contains(historyId)) {
             var temp = mutableListOf<String>().also { it.addAll(userHistory) }
             temp.add(historyId)
-            if (temp.size > 20) {
-                temp = temp.subList(10, temp.size - 1) //保留一半历史数据
-            }
+//            if (temp.size > 1000) {
+//                temp = temp.subList(10, temp.size - 1) //保留一半历史数据
+//            }
             userHistory = mutableListOf<String>().also { it.addAll(temp) }
         }
         if (userHistory.isEmpty()) {

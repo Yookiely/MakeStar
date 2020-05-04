@@ -2,20 +2,21 @@ package com.yookie.common.experimental.extensions
 
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.ContentResolver
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
+import com.tencent.connect.share.QQShare
+import com.tencent.connect.share.QzoneShare
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage
 import com.tencent.mm.opensdk.modelmsg.WXWebpageObject
 import com.tencent.mm.opensdk.modelpay.PayReq
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
+import com.tencent.tauth.IUiListener
 import com.tencent.tauth.Tencent
+import com.tencent.tauth.UiError
 import com.yookie.common.AuthService
 import com.yookie.common.R
 import com.yookie.common.WeiXinPay
@@ -23,12 +24,6 @@ import com.yookie.common.experimental.CommonContext
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 import java.io.ByteArrayOutputStream
-import com.tencent.connect.share.QQShare
-import com.tencent.connect.share.QzoneShare
-import com.tencent.connect.share.QzoneShare.SHARE_TO_QZONE_TYPE_IMAGE_TEXT
-import com.tencent.tauth.IUiListener
-import com.tencent.tauth.UiError
-import retrofit2.http.Url
 
 
 object ShareMethod {
@@ -56,7 +51,6 @@ object ShareMethod {
             val items = arrayOf("分享到朋友圈", "分享到微信好友", "分享到QQ空间", "分享到QQ好友")
             val listDialog: AlertDialog.Builder = AlertDialog.Builder(context)
             val url = result.data.url
-            Log.d("shareurl", url)
             listDialog.setTitle("分享到")
             listDialog.setItems(items) { _, which ->
 

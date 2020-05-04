@@ -85,9 +85,11 @@ class MyselfActivity : AppCompatActivity() {
             }
         } else if (userid != CommonPreferences.userid) {
             launch(UI + QuietCoroutineExceptionHandler) {
+                order.isEnabled = false
                 val addCommonBody = AttentionService.addFollow(userid).awaitAndHandle {
                     it.printStackTrace()
                     Toast.makeText(this@MyselfActivity, "操作失败", Toast.LENGTH_SHORT).show()
+                    order.isEnabled = true
                 } ?: return@launch
                 if (addCommonBody.error_code == 1) {
                     order.text = "取消关注"
@@ -97,6 +99,7 @@ class MyselfActivity : AppCompatActivity() {
                         val addCommonBody = AttentionService.deleteFollow(userid).awaitAndHandle {
                             it.printStackTrace()
                             Toast.makeText(this@MyselfActivity, "操作失败", Toast.LENGTH_SHORT).show()
+                            order.isEnabled = true
                         } ?: return@launch
                         if (addCommonBody.error_code == -1) {
                             order.text = "+关注"
@@ -104,37 +107,44 @@ class MyselfActivity : AppCompatActivity() {
                         }
                     }
                 }
+                order.isEnabled = true
             }
+
             order.setOnClickListener {
+                order.isEnabled = false
                 if (flag) {
-                launch(UI + QuietCoroutineExceptionHandler) {
-                    val addCommonBody = AttentionService.deleteFollow(userid).awaitAndHandle {
-                        it.printStackTrace()
-                        Toast.makeText(this@MyselfActivity, "操作失败", Toast.LENGTH_SHORT).show()
-                    } ?: return@launch
+                    launch(UI + QuietCoroutineExceptionHandler) {
+                        val addCommonBody = AttentionService.deleteFollow(userid).awaitAndHandle {
+                            it.printStackTrace()
+                            Toast.makeText(this@MyselfActivity, "操作失败", Toast.LENGTH_SHORT).show()
+                            order.isEnabled = true
+                        } ?: return@launch
 
-                    Toast.makeText(this@MyselfActivity, addCommonBody.message, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@MyselfActivity, addCommonBody.message, Toast.LENGTH_SHORT).show()
 
-                    if (addCommonBody.error_code == -1) {
-                        order.text = "+关注"
-                        flag = false
+                        if (addCommonBody.error_code == -1) {
+                            order.text = "+关注"
+                            flag = false
+                        }
+                        order.isEnabled = true
+                    }
+                } else {
+                    launch(UI + QuietCoroutineExceptionHandler) {
+                        val addCommonBody = AttentionService.addFollow(userid).awaitAndHandle {
+                            it.printStackTrace()
+                            Toast.makeText(this@MyselfActivity, "操作失败", Toast.LENGTH_SHORT).show()
+                            order.isEnabled = true
+                        } ?: return@launch
+
+                        Toast.makeText(this@MyselfActivity, addCommonBody.message, Toast.LENGTH_SHORT).show()
+
+                        if (addCommonBody.error_code == -1) {
+                            order.text = "取消关注"
+                            flag = true
+                        }
+                        order.isEnabled = true
                     }
                 }
-            } else {
-                launch(UI + QuietCoroutineExceptionHandler) {
-                    val addCommonBody = AttentionService.addFollow(userid).awaitAndHandle {
-                        it.printStackTrace()
-                        Toast.makeText(this@MyselfActivity, "操作失败", Toast.LENGTH_SHORT).show()
-                    } ?: return@launch
-
-                    Toast.makeText(this@MyselfActivity, addCommonBody.message, Toast.LENGTH_SHORT).show()
-
-                    if (addCommonBody.error_code == -1) {
-                        order.text = "取消关注"
-                        flag = true
-                    }
-                }
-            }
             }
         }
         val dynamicFragmentPagerAdapter = DynamicFragmentPagerAdapter(supportFragmentManager)

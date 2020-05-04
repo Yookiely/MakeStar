@@ -93,8 +93,9 @@ class VideoActionItem(
                         setImageResource(R.drawable.ms_star)
                 }
 
-                storeImg.setOnClickListener {
+                storeImg.setOnClickListener { v ->
                     launch(UI + QuietCoroutineExceptionHandler) {
+                        v.isEnabled = false
                         if (!item.isCollected) {
                             val resultCommonBody =
                                 AttentionService.addCollection(videoAction.work_ID).awaitAndHandle {
@@ -104,6 +105,7 @@ class VideoActionItem(
                                         "收藏失败：${it.message}",
                                         Toast.LENGTH_SHORT
                                     ).show()
+                                    v.isEnabled = true
                                 } ?: return@launch
 
                             Toast.makeText(
@@ -117,7 +119,7 @@ class VideoActionItem(
                                 item.isCollected = true
                                 if (videoAction.collection_num != null)
                                     storeNum.text =
-                                        AttentionUtils.format((videoAction.collection_num + 1).toString())
+                                        AttentionUtils.format(resultCommonBody.data)
                             }
                         } else {
                             val resultCommonBody =
@@ -128,6 +130,7 @@ class VideoActionItem(
                                         "收藏失败：${it.message}",
                                         Toast.LENGTH_SHORT
                                     ).show()
+                                    v.isEnabled = true
                                 } ?: return@launch
 
                             Toast.makeText(
@@ -141,9 +144,10 @@ class VideoActionItem(
                                 item.isCollected = false
                                 if (videoAction.collection_num != null)
                                     storeNum.text =
-                                        AttentionUtils.format((videoAction.collection_num - 1).toString())
+                                        AttentionUtils.format(resultCommonBody.data)
                             }
                         }
+                        v.isEnabled = true
                     }
                 }
 

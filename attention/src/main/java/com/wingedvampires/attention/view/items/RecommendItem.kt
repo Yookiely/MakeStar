@@ -56,12 +56,14 @@ class RecommendItem(val recommendUser: RecommendUser, val context: Context, val 
                 message.text = (recommendUser.signature ?: "")
                 rank.text = "No.${recommendUser.month_rank}"
 
-                add.setOnClickListener {
+                add.setOnClickListener { v ->
+                    v.isEnabled = false
                     if (item.havaAdd) {
                         launch(UI + QuietCoroutineExceptionHandler) {
                             val addCommonBody = AttentionService.deleteFollow(recommendUser.user_ID).awaitAndHandle {
                                 it.printStackTrace()
                                 Toast.makeText(item.context, "操作失败", Toast.LENGTH_SHORT).show()
+                                v.isEnabled = true
                             } ?: return@launch
 
                             Toast.makeText(item.context, addCommonBody.message, Toast.LENGTH_SHORT).show()
@@ -70,12 +72,14 @@ class RecommendItem(val recommendUser: RecommendUser, val context: Context, val 
                                 add.text = "+关注"
                                 item.havaAdd = false
                             }
+                            v.isEnabled = true
                         }
                     } else {
                         launch(UI + QuietCoroutineExceptionHandler) {
                             val addCommonBody = AttentionService.addFollow(recommendUser.user_ID).awaitAndHandle {
                                 it.printStackTrace()
                                 Toast.makeText(item.context, "操作失败", Toast.LENGTH_SHORT).show()
+                                v.isEnabled = true
                             } ?: return@launch
 
                             Toast.makeText(item.context, addCommonBody.message, Toast.LENGTH_SHORT).show()
@@ -85,6 +89,7 @@ class RecommendItem(val recommendUser: RecommendUser, val context: Context, val 
                                 item.havaAdd = true
                             }
                         }
+                        v.isEnabled = true
                     }
 
                 }

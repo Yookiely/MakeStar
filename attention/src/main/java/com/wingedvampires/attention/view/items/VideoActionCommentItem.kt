@@ -68,7 +68,8 @@ class VideoActionCommentItem(val activity: Activity, val workById: WorkById, val
                         setImageResource(R.drawable.ms_star)
                 }
 
-                storeImg.setOnClickListener {
+                storeImg.setOnClickListener { v ->
+                    v.isEnabled = false
                     launch(UI + QuietCoroutineExceptionHandler) {
                         if (!item.isCollected) {
                             val resultCommonBody =
@@ -79,6 +80,7 @@ class VideoActionCommentItem(val activity: Activity, val workById: WorkById, val
                                         "收藏失败：${it.message}",
                                         Toast.LENGTH_SHORT
                                     ).show()
+                                    v.isEnabled = true
                                 } ?: return@launch
 
                             Toast.makeText(
@@ -90,6 +92,7 @@ class VideoActionCommentItem(val activity: Activity, val workById: WorkById, val
                             if (resultCommonBody.error_code == -1) {
                                 storeImg.setImageResource(R.drawable.ms_red_star)
                                 item.isCollected = true
+                                storeNum.text = AttentionUtils.format(resultCommonBody.data)
                             }
                         } else {
                             val resultCommonBody =
@@ -100,6 +103,7 @@ class VideoActionCommentItem(val activity: Activity, val workById: WorkById, val
                                         "收藏失败：${it.message}",
                                         Toast.LENGTH_SHORT
                                     ).show()
+                                    v.isEnabled = true
                                 } ?: return@launch
 
                             Toast.makeText(
@@ -111,8 +115,10 @@ class VideoActionCommentItem(val activity: Activity, val workById: WorkById, val
                             if (resultCommonBody.error_code == -1) {
                                 storeImg.setImageResource(R.drawable.ms_star)
                                 item.isCollected = false
+                                storeNum.text = AttentionUtils.format(resultCommonBody.data)
                             }
                         }
+                        v.isEnabled = true
                     }
                 }
 

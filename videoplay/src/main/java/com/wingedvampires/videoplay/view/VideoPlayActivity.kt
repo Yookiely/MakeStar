@@ -89,6 +89,7 @@ class VideoPlayActivity : AppCompatActivity() {
             if (videoInfo.PlayInfoList.PlayInfo.isEmpty()) {
                 Toast.makeText(this@VideoPlayActivity, "视频Url获取失败", Toast.LENGTH_SHORT).show()
                 loadingDialog.dismiss()
+                onBackPressed()
                 return@launch
             }
             isCollected = work.is_collected
@@ -125,6 +126,7 @@ class VideoPlayActivity : AppCompatActivity() {
             }
 
             iv_attention_store.setOnClickListener {
+                it.isEnabled = false
                 launch(UI + QuietCoroutineExceptionHandler) {
                     if (!isCollected) {
                         val resultCommonBody =
@@ -170,11 +172,14 @@ class VideoPlayActivity : AppCompatActivity() {
                         }
                     }
 
-                    refreshVideoInfo()
+                    refreshVideoInfo() {
+                        it.isEnabled = true
+                    }
                 }
             }
             tv_videoplay_add.text = if (isFollow) "取消关注" else "+关注"
-            tv_videoplay_add.setOnClickListener {
+            tv_videoplay_add.setOnClickListener { v ->
+                v.isEnabled = false
                 if (isFollow) {
                     launch(UI + QuietCoroutineExceptionHandler) {
                         val addCommonBody =
@@ -182,6 +187,7 @@ class VideoPlayActivity : AppCompatActivity() {
                                 it.printStackTrace()
                                 Toast.makeText(this@VideoPlayActivity, "操作失败", Toast.LENGTH_SHORT)
                                     .show()
+                                v.isEnabled = true
                             } ?: return@launch
 
                         Toast.makeText(
@@ -197,6 +203,7 @@ class VideoPlayActivity : AppCompatActivity() {
                                 it.printStackTrace()
                                 Toast.makeText(this@VideoPlayActivity, "操作失败", Toast.LENGTH_SHORT)
                                     .show()
+                                v.isEnabled = true
                             } ?: return@launch
 
                         Toast.makeText(
@@ -207,7 +214,9 @@ class VideoPlayActivity : AppCompatActivity() {
                     }
                 }
 
-                refreshVideoInfo()
+                refreshVideoInfo() {
+                    v.isEnabled = true
+                }
             }
             iv_attention_comment.setOnClickListener {
                 val intent = Intent()
@@ -233,26 +242,29 @@ class VideoPlayActivity : AppCompatActivity() {
                         val num = commbody.data as NumberOfStar
                         tv_attention_number.text = VideoPlayUtils.format(num.numberOfStar)
                     }
-                    view.isEnabled = true
-                    refreshVideoInfo()
+
+                    refreshVideoInfo() {
+                        view.isEnabled = true
+                    }
                 }
 
             }
             iv_attention_share.setOnClickListener {
+
                 ShareMethod.showDialog(
                     this@VideoPlayActivity,
                     workId!!,
                     work.work_name,
                     work.username
                 )
-                refreshVideoInfo()
+                refreshVideoInfo() {}
             }
 
         }
 
     }
 
-    private fun refreshVideoInfo() {
+    private fun refreshVideoInfo(block: () -> Unit) {
         launch(UI + QuietCoroutineExceptionHandler) {
 
             val work = VideoPlayService.getWorkByID(workId!!).awaitAndHandle {
@@ -309,8 +321,9 @@ class VideoPlayActivity : AppCompatActivity() {
                 else
                     setImageResource(R.drawable.ms_star)
             }
-            iv_attention_store.setOnClickListener {
+            iv_attention_store.setOnClickListener { v ->
                 launch(UI + QuietCoroutineExceptionHandler) {
+                    v.isEnabled = false
                     if (!isCollected) {
                         val resultCommonBody =
                             VideoPlayService.addCollection(workId!!).awaitAndHandle {
@@ -320,6 +333,7 @@ class VideoPlayActivity : AppCompatActivity() {
                                     "收藏失败：${it.message}",
                                     Toast.LENGTH_SHORT
                                 ).show()
+                                v.isEnabled = true
                             } ?: return@launch
 
                         Toast.makeText(
@@ -341,6 +355,7 @@ class VideoPlayActivity : AppCompatActivity() {
                                     "收藏失败：${it.message}",
                                     Toast.LENGTH_SHORT
                                 ).show()
+                                v.isEnabled = true
                             } ?: return@launch
 
                         Toast.makeText(
@@ -355,11 +370,14 @@ class VideoPlayActivity : AppCompatActivity() {
                         }
                     }
 
-                    refreshVideoInfo()
+                    refreshVideoInfo() {
+                        v.isEnabled = true
+                    }
                 }
             }
             tv_videoplay_add.text = if (isFollow) "取消关注" else "+关注"
-            tv_videoplay_add.setOnClickListener {
+            tv_videoplay_add.setOnClickListener { v ->
+                v.isEnabled = false
                 if (isFollow) {
                     launch(UI + QuietCoroutineExceptionHandler) {
                         val addCommonBody =
@@ -367,6 +385,7 @@ class VideoPlayActivity : AppCompatActivity() {
                                 it.printStackTrace()
                                 Toast.makeText(this@VideoPlayActivity, "操作失败", Toast.LENGTH_SHORT)
                                     .show()
+                                v.isEnabled = true
                             } ?: return@launch
 
                         Toast.makeText(
@@ -382,6 +401,7 @@ class VideoPlayActivity : AppCompatActivity() {
                                 it.printStackTrace()
                                 Toast.makeText(this@VideoPlayActivity, "操作失败", Toast.LENGTH_SHORT)
                                     .show()
+                                v.isEnabled = true
                             } ?: return@launch
 
                         Toast.makeText(
@@ -392,7 +412,9 @@ class VideoPlayActivity : AppCompatActivity() {
                     }
                 }
 
-                refreshVideoInfo()
+                refreshVideoInfo() {
+                    v.isEnabled = true
+                }
             }
             iv_attention_comment.setOnClickListener {
                 val intent = Intent()
@@ -418,8 +440,10 @@ class VideoPlayActivity : AppCompatActivity() {
                         val num = commbody.data as NumberOfStar
                         tv_attention_number.text = VideoPlayUtils.format(num.numberOfStar)
                     }
-                    view.isEnabled = true
-                    refreshVideoInfo()
+
+                    refreshVideoInfo() {
+                        view.isEnabled = true
+                    }
                 }
 
             }
@@ -435,6 +459,7 @@ class VideoPlayActivity : AppCompatActivity() {
             }
 
             loadingDialog.dismiss()
+            block()
         }
 
     }

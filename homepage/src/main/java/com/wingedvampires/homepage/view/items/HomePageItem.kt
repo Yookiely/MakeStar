@@ -49,6 +49,7 @@ class HomePageItem(val activity: Activity, val work: Work, val block: (View) -> 
                     .into(avatar)
                 Glide.with(this.itemView)
                     .load(work.cover_url)
+                    .placeholder(R.drawable.ms_no_pic)
                     .error(R.drawable.ms_no_pic)
                     .into(cover)
                 title.text = work.work_name

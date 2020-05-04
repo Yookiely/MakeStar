@@ -66,11 +66,17 @@ class VideoPlayActivity : AppCompatActivity() {
     private fun init() {
         launch(UI + QuietCoroutineExceptionHandler) {
             loadingDialog.show()
-            val work = VideoPlayService.getWorkByID(workId!!).awaitAndHandle {
+            val workOrNot = VideoPlayService.getWorkByID(workId!!).awaitAndHandle {
                 it.printStackTrace()
                 Toast.makeText(this@VideoPlayActivity, "数据加载失败", Toast.LENGTH_SHORT).show()
                 loadingDialog.dismiss()
-            }?.data?.get(0) ?: return@launch
+            } ?: return@launch
+            if (workOrNot.error_code != -1) {
+                Toast.makeText(this@VideoPlayActivity, workOrNot.message, Toast.LENGTH_SHORT).show()
+                onBackPressed()
+                return@launch
+            }
+            val work = workOrNot.data?.get(0) ?: return@launch
 
             val videoInfo = VideoPlayService.getVideoInfo(work.video_ID).awaitAndHandle {
                 it.printStackTrace()
@@ -267,11 +273,17 @@ class VideoPlayActivity : AppCompatActivity() {
     private fun refreshVideoInfo(block: () -> Unit) {
         launch(UI + QuietCoroutineExceptionHandler) {
 
-            val work = VideoPlayService.getWorkByID(workId!!).awaitAndHandle {
+            val workOrNot = VideoPlayService.getWorkByID(workId!!).awaitAndHandle {
                 it.printStackTrace()
                 Toast.makeText(this@VideoPlayActivity, "数据加载失败", Toast.LENGTH_SHORT).show()
                 loadingDialog.dismiss()
-            }?.data?.get(0) ?: return@launch
+            } ?: return@launch
+            if (workOrNot.error_code != -1) {
+                Toast.makeText(this@VideoPlayActivity, workOrNot.message, Toast.LENGTH_SHORT).show()
+                onBackPressed()
+                return@launch
+            }
+            val work = workOrNot.data?.get(0) ?: return@launch
 
             val videoInfo = VideoPlayService.getVideoInfo(work.video_ID).awaitAndHandle {
                 it.printStackTrace()

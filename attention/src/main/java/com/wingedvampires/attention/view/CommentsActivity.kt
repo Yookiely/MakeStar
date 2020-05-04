@@ -118,6 +118,7 @@ class CommentsActivity : AppCompatActivity() {
             if (workOrNot.error_code != -1) {
                 Toast.makeText(this@CommentsActivity, workOrNot.message, Toast.LENGTH_SHORT).show()
                 onBackPressed()
+                return@launch
             }
             val work = workOrNot.data?.get(0) ?: return@launch
             val comments = AttentionService.getTotalComments(workId, page).awaitAndHandle {

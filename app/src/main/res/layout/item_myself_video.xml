@@ -1,32 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="110dp"
-        android:layout_height="180dp">
-    <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/myself_cover"
-            android:scaleType="fitXY"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="5dp">
 
+    <ImageView
+            android:id="@+id/myself_cover"
+            android:layout_width="120dp"
+            android:layout_height="180dp"
+            android:adjustViewBounds="true"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:scaleType="fitXY"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:src="@drawable/ms_no_pic"
             />
     <ImageView
-            android:layout_width="14dp"
-            android:layout_height="14dp"
-            android:layout_marginTop="150dp"
+            android:layout_width="20dp"
+            android:layout_height="29dp"
             android:src="@drawable/play"
-            android:layout_marginLeft="55dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="@id/myself_num"
+            app:layout_constraintRight_toLeftOf="@id/myself_num"
+            app:layout_constraintTop_toTopOf="@id/myself_num"
             />
     <TextView
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="150dp"
-            android:layout_marginLeft="75dp"
-            android:textSize="12sp"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="@+id/myself_cover"
             android:text="9.3 w"
             android:id="@+id/myself_num"
             android:textColor="#ffffff"
             />
 
 
-</FrameLayout>
+</android.support.constraint.ConstraintLayout>

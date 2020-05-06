@@ -1,6 +1,5 @@
 package com.yookie.discover.view
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -9,15 +8,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import android.widget.TextView
 import cn.edu.twt.retrox.recyclerviewdsl.withItems
 import com.yookie.common.experimental.extensions.jumpchannel.Transfer
 import com.yookie.discover.R
 import com.yookie.discover.network.UserRank
-import kotlinx.android.synthetic.main.fragment_discover_rank.*
 
 
 class RankFragment : Fragment() {
@@ -41,7 +36,7 @@ class RankFragment : Fragment() {
                 }
                 for (index in 3 until it.size) {
                     addRankItem(
-                        index.toString(),
+                        (index + 1).toString(),
                         it[index],
                         this@RankFragment.context!!,
                         activity!!

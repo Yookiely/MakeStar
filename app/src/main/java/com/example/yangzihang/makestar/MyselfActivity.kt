@@ -148,8 +148,8 @@ class MyselfActivity : AppCompatActivity() {
             }
         }
         val dynamicFragmentPagerAdapter = DynamicFragmentPagerAdapter(supportFragmentManager)
-        dynamicFragmentPagerAdapter.add("动态", ActivityFragment.newInstance(userid.toInt()))
         dynamicFragmentPagerAdapter.add("视频", VideoFragment.newInstance(userid))
+        dynamicFragmentPagerAdapter.add("动态", ActivityFragment.newInstance(userid.toInt()))
         se_view.adapter = dynamicFragmentPagerAdapter
         se_dynamic_pager_indicator2.setViewPager(se_view)
 

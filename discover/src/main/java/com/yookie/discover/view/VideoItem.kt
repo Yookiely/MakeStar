@@ -1,7 +1,6 @@
 package com.yookie.discover.view
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -32,7 +31,7 @@ class VideoItem(val work: workData, val rank: Int, val activity: Activity) : Ite
                 Glide.with(itemView)
                     .load(item.work.cover_url)
                     .into(cover)
-                time.text = item.work.time
+                //time.text = item.work.time
                 add.visibility = View.GONE
                 //check tag
 //                when(item.work.tag.size){

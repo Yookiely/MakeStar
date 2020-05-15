@@ -73,6 +73,7 @@
             android:layout_marginLeft="10dp"
             android:textSize="10sp"
             android:textColor="#aaaaaa"
+            android:visibility="gone"
             android:id="@+id/rank_text_time"
     />
     <android.support.constraint.ConstraintLayout

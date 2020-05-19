@@ -52,7 +52,7 @@ interface UserService {
     fun useInvitationCode(
         @Query("code") code: String,
         @Query("user_ID") userid: String = CommonPreferences.userid
-    ): Deferred<CommonBody<List<Any>>>
+    ): Deferred<CommonBody<Any>>
 
     @GET("work/getWorkByUserID")
     fun getmyVideoList(@Query("user_ID")userid: String,@Query("page") page: Int,@Query("limit")limit : Int) : Deferred<CommonBody<MyVideoList>>

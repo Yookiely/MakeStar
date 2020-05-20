@@ -30,7 +30,6 @@
                         android:layout_height="40dp"
                         android:layout_marginLeft="13dp"
                         android:layout_marginRight="13dp"
-                        android:background="@null"
                         android:gravity="center"
                         android:hint="点此搜索"
                         android:paddingBottom="0dp"

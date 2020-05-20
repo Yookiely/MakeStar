@@ -14,10 +14,22 @@
             android:layout_marginTop="60dp"
             android:layout_centerInParent="true"
             android:id="@+id/rank_img_second"
-            app:civ_border_color="#C8C8C8"
+            app:civ_border_color="#e7eaeb"
             app:civ_border_width="2dp"
             tools:src="@drawable/ms_no_pic"
     />
+
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="65dp"
+            android:adjustViewBounds="true"
+            android:maxHeight="32dp"
+            android:src="@drawable/ms_silvery"
+            app:layout_constraintBottom_toBottomOf="@id/rank_img_second"
+            app:layout_constraintLeft_toLeftOf="@id/rank_img_second"
+            app:layout_constraintRight_toRightOf="@id/rank_img_second" />
+
     <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="70dp"
             android:layout_height="70dp"
@@ -27,11 +39,21 @@
             android:layout_marginTop="40dp"
             android:layout_centerInParent="true"
             android:id="@+id/rank_img_first"
-            app:civ_border_color="#D9D919"
+            app:civ_border_color="#f2e25e"
             app:civ_border_width="2dp"
             tools:src="@drawable/ms_no_pic"
     />
 
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="65dp"
+            android:adjustViewBounds="true"
+            android:maxHeight="32dp"
+            android:src="@drawable/ms_gold"
+            app:layout_constraintBottom_toBottomOf="@id/rank_img_first"
+            app:layout_constraintLeft_toLeftOf="@id/rank_img_first"
+            app:layout_constraintRight_toRightOf="@id/rank_img_first" />
     <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="70dp"
             android:layout_height="70dp"
@@ -41,11 +63,21 @@
             android:layout_marginTop="60dp"
             android:id="@+id/rank_img_third"
             android:layout_centerInParent="true"
-            app:civ_border_color="#C69145"
+            app:civ_border_color="#daae9c"
             app:civ_border_width="2dp"
             tools:src="@drawable/ms_no_pic"
     />
 
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="65dp"
+            android:adjustViewBounds="true"
+            android:maxHeight="32dp"
+            android:src="@drawable/ms_copper"
+            app:layout_constraintBottom_toBottomOf="@id/rank_img_third"
+            app:layout_constraintLeft_toLeftOf="@id/rank_img_third"
+            app:layout_constraintRight_toRightOf="@id/rank_img_third" />
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="20dp"
@@ -106,7 +138,7 @@
                 android:layout_height="12dp"
                 app:layout_constraintRight_toLeftOf="@id/rank_heat_second"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginEnd="2dp"
+                android:layout_marginEnd="6dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:src="@drawable/ms_living"
 
@@ -138,7 +170,7 @@
                 android:layout_height="12dp"
                 app:layout_constraintRight_toLeftOf="@id/rank_heat_first"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginEnd="2dp"
+                android:layout_marginEnd="6dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:src="@drawable/ms_living"
         />
@@ -168,7 +200,7 @@
                 android:layout_height="12dp"
                 app:layout_constraintRight_toLeftOf="@id/rank_heat_third"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginEnd="2dp"
+                android:layout_marginEnd="6dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:src="@drawable/ms_living"
         />

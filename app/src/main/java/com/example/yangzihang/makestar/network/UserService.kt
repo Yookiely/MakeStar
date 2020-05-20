@@ -29,8 +29,8 @@ interface UserService {
     @GET("systemMessage/readAllSystemStarMessage")
     fun setAllStarRead(@Query("userID") userID: String = CommonPreferences.userid): Deferred<result>
 
-    @GET("message/setAllMessageRead")
-    fun setAllMessageRead(@Query("userID") userID: String = CommonPreferences.userid): Deferred<result>
+    @POST("message/setAllMessageRead")
+    fun setAllMessageRead(@Query("user_ID") userID: String = CommonPreferences.userid): Deferred<result>
 
     @GET("user/collection")
     fun getCollection(@Query("limit") limit: Int, @Query("page") page: Int, @Query("user_ID") userid: String): Deferred<CommonBody<collection>>

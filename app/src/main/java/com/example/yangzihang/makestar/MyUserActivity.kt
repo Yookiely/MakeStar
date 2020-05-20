@@ -14,6 +14,7 @@ import android.widget.TextView
 import cn.edu.twt.retrox.recyclerviewdsl.withItems
 import com.bumptech.glide.Glide
 import com.example.yangzihang.makestar.View.setUserText
+import com.example.yangzihang.makestar.network.UserImp
 import com.yookie.auth.api.authSelfLiveData
 import com.yookie.common.experimental.extensions.bindNonNull
 import com.yookie.common.experimental.extensions.jumpchannel.Transfer
@@ -74,7 +75,19 @@ class MyUserActivity : AppCompatActivity() {
             intent.putExtra("userID",CommonPreferences.userid)
             startActivity(intent)
         }
-
+        UserImp.getMessageNum(CommonPreferences.userid) {
+            if (it.new_star_num + it.new_comment_num + it.new_message_num + it.new_user_message_num > 0) {
+                CommonPreferences.newMessage = 1
+            } else {
+                CommonPreferences.newMessage = 0
+            }
+            CommonPreferences.apply {
+                newStarMessage = it.new_star_num
+                newUserMessage = it.new_user_message_num
+                newSystemMessage = it.new_message_num
+                newCommentMessage = it.new_comment_num
+            }
+        }
         recyclerView = findViewById(R.id.user_rec)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.withItems {
@@ -136,13 +149,27 @@ class MyUserActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        recyclerView.withItems {
-            this.clear()
-            setUserText("我的消息", this@MyUserActivity, 2, CommonPreferences.newMessage)
-            setUserText("我的收藏", this@MyUserActivity, 3, 0)
-            setUserText("我的红包", this@MyUserActivity, 7, 0)
-            setUserText("粉丝圈", this@MyUserActivity, 4, 0)
-            setUserText("设置", this@MyUserActivity, 5, 0)
+        UserImp.getMessageNum(CommonPreferences.userid) {
+            if (it.new_star_num + it.new_comment_num + it.new_message_num + it.new_user_message_num > 0) {
+                CommonPreferences.newMessage = 1
+            } else {
+                CommonPreferences.newMessage = 0
+            }
+            CommonPreferences.apply {
+                newStarMessage = it.new_star_num
+                newUserMessage = it.new_user_message_num
+                newSystemMessage = it.new_message_num
+                newCommentMessage = it.new_comment_num
+            }
+            recyclerView.withItems {
+                this.clear()
+                setUserText("我的消息", this@MyUserActivity, 2, CommonPreferences.newMessage)
+                setUserText("我的收藏", this@MyUserActivity, 3, 0)
+                setUserText("我的红包", this@MyUserActivity, 7, 0)
+                setUserText("粉丝圈", this@MyUserActivity, 4, 0)
+                setUserText("设置", this@MyUserActivity, 5, 0)
+            }
         }
+
     }
 }

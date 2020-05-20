@@ -44,7 +44,7 @@ class DiscoverActivity : AppCompatActivity() {
         localLayoutParams.flags =
             (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
         val dynamicFragmentPagerAdapter = DynamicFragmentPagerAdapter(supportFragmentManager)
-        dynamicFragmentPagerAdapter.add("排行", RankFragment())
+        dynamicFragmentPagerAdapter.add("排行榜", RankFragment())
 //        dynamicFragmentPagerAdapter.add("活动",ActivityFragment())
         vp_homepage_main.adapter = dynamicFragmentPagerAdapter
         dynamic_pager_indicator2.setViewPager(vp_homepage_main)

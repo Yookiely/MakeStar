@@ -85,6 +85,7 @@ class MessageActivity : AppCompatActivity() {
                                 Toast.makeText(this, "全部已读失败", Toast.LENGTH_SHORT).show()
                             } else {
                                 CommonPreferences.newStarMessage = 0
+                                CommonPreferences.newMessage = 0
                             }
 
                         }
@@ -96,6 +97,7 @@ class MessageActivity : AppCompatActivity() {
                                 Toast.makeText(this, "全部已读失败", Toast.LENGTH_SHORT).show()
                             } else {
                                 CommonPreferences.newCommentMessage = 0
+                                CommonPreferences.newMessage = 0
                             }
 
                         }

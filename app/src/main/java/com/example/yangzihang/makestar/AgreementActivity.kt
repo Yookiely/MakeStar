@@ -3,6 +3,7 @@ package com.example.yangzihang.makestar
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.webkit.WebView
@@ -21,6 +22,10 @@ class AgreementActivity : AppCompatActivity() {
         iv_agreement_back.setOnClickListener {
             onBackPressed()
         }
+        val localLayoutParams = window.attributes
+        localLayoutParams.flags =
+            (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
+        webView.scrollBarStyle = View.SCROLLBARS_INSIDE_OVERLAY
         webView.settings.apply {
             useWideViewPort =true
             loadWithOverviewMode =true
@@ -28,8 +33,7 @@ class AgreementActivity : AppCompatActivity() {
             builtInZoomControls =true
             displayZoomControls = false
         }
-        val localLayoutParams = window.attributes
-        localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
+
         val flag = intent.getStringExtra("FLAG")
         when(flag){
             "rule" ->{

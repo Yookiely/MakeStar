@@ -1,14 +1,15 @@
 package com.example.yangzihang.makestar
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
+import android.net.Uri
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import kotlinx.android.synthetic.main.activity_about_me.*
+import android.widget.Toast
 
 class AboutMeActivity : AppCompatActivity() {
     lateinit var protocol :TextView
@@ -49,5 +50,25 @@ class AboutMeActivity : AppCompatActivity() {
             intent.putExtra("userID", "50")
             startActivity(intent)
         }
+
+        update.setOnClickListener {
+            openApplicationMarket()
+        }
+
+        judge.setOnClickListener {
+            openApplicationMarket()
+        }
     }
+
+    fun openApplicationMarket() {
+        try {
+            val str = "market://details?id=com.example.yangzihang.makestar"
+            val localIntent = Intent(Intent.ACTION_VIEW)
+            localIntent.data = Uri.parse(str);
+            startActivity(localIntent);
+        } catch (e: Exception) {
+            Toast.makeText(applicationContext, "打开应用商店失败", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 }

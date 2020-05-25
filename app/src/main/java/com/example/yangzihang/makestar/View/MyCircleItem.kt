@@ -30,7 +30,7 @@ class MyCircleItem(val imgUrl :String, val userName :String, val userID : Int, v
         }
         holder.itemView.setOnClickListener{
             val intent = Intent(item.context, FansActivity::class.java)
-            intent.putExtra("userID",item.userID)
+            intent.putExtra("userID",item.userID.toString())
             intent.putExtra("avatar",item.imgUrl)
             item.context.startActivity(intent)
         }

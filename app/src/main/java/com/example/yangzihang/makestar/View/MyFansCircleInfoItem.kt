@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.util.DisplayMetrics
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -37,6 +38,7 @@ class MyFansCircleInfoItem(val context: Activity, val fansCircleData: UserActive
             item.fansCircleData.img_urls.forEach {
                 imgList.add(it)
             }
+
             holder.apply {
                 itemView.setOnClickListener {
                     val intent = Intent(item.context, PostBodyActivity::class.java)
@@ -65,83 +67,94 @@ class MyFansCircleInfoItem(val context: Activity, val fansCircleData: UserActive
                     it.context.startActivity(intent)
                 }
 
+
                 when (imgList.size) {
                     0 -> {
-                        singImage.image=null
-                        douImage.image=null
-                        douImage2.image=null
-                        triImage  .image=null
-                        triImage2 .image=null
-                        triImage3 .image=null
-                        tri2Image .image=null
-                        tri2Image2.image=null
-                        tri2Image3.image=null
-                        tri3Image .image=null
-                        tri3Image2.image=null
-                        tri3Image3.image=null
+                        singImage.image = null
+                        douImage.image = null
+                        douImage2.image = null
+                        triImage.image = null
+                        triImage2.image = null
+                        triImage3.image = null
+                        tri2Image.image = null
+                        tri2Image2.image = null
+                        tri2Image3.image = null
+                        tri3Image.image = null
+                        tri3Image2.image = null
+                        tri3Image3.image = null
                         singImage.visibility = View.INVISIBLE
                         imgList.clear()
                     }
                     1 -> {
+                        singImage.setOnClickListener {
+                            showPhoto(item.context, item.fansCircleData.img_urls[0])
+                        }
                         singImage.visibility = View.VISIBLE
-//                        singImage.layoutParams.height= 720
+                        singImage.layoutParams.height= 720
                         Glide.with(this.itemView)
                             .load(item.fansCircleData.img_urls[0])
                             .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
                             .into(singImage)
-                        douImage.image=null
-                        douImage2.image=null
-                        triImage  .image=null
-                        triImage2 .image=null
-                        triImage3 .image=null
-                        tri2Image .image=null
-                        tri2Image2.image=null
-                        tri2Image3.image=null
-                        tri3Image .image=null
-                        tri3Image2.image=null
-                        tri3Image3.image=null
+                        douImage.image = null
+                        douImage2.image = null
+                        triImage.image = null
+                        triImage2.image = null
+                        triImage3.image = null
+                        tri2Image.image = null
+                        tri2Image2.image = null
+                        tri2Image3.image = null
+                        tri3Image.image = null
+                        tri3Image2.image = null
+                        tri3Image3.image = null
                     }
                     2 -> {
-                            singImage .image=null
-                            triImage  .image=null
-                            triImage2 .image=null
-                            triImage3 .image=null
-                            tri2Image .image=null
-                            tri2Image2.image=null
-                            tri2Image3.image=null
-                            tri3Image .image=null
-                            tri3Image2.image=null
-                            tri3Image3.image=null
+                        douImage.setOnClickListener {
+                            showPhoto(item.context, item.fansCircleData.img_urls[0])
+                        }
+                        douImage2.setOnClickListener {
+                            showPhoto(item.context, item.fansCircleData.img_urls[1])
+                        }
+                        singImage.image = null
+                        triImage.image = null
+                        triImage2.image = null
+                        triImage3.image = null
+                        tri2Image.image = null
+                        tri2Image2.image = null
+                        tri2Image3.image = null
+                        tri3Image.image = null
+                        tri3Image2.image = null
+                        tri3Image3.image = null
                         Glide.with(this.itemView)
                             .load(item.fansCircleData.img_urls[0])
 //                            .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
                             .into(douImage)
-//                        douImage.layoutParams.width = width/2
-//                        douImage2.layoutParams.width = width/2
+                        douImage.layoutParams.width = width/2
+                        douImage2.layoutParams.width = width/2
                         Glide.with(this.itemView)
                             .load(item.fansCircleData.img_urls[1])
 //                            .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
                             .into(douImage2)
                     }
                     in 3..9 -> {
-                        singImage.image=null
-                        douImage.image=null
-                        douImage2.image=null
-                        tri2Image .image=null
-                        tri2Image2.image=null
-                        tri2Image3.image=null
-                        tri3Image .image=null
-                        tri3Image2.image=null
-                        tri3Image3.image=null
-//                        triImage.layoutParams.width = width/3
-//                        triImage2.layoutParams.width = width/3
-//                        triImage3.layoutParams.width = width/3
-//                        tri2Image.layoutParams.width = width/3
-//                        tri2Image2.layoutParams.width = width/3
-//                        tri2Image3.layoutParams.width = width/3
-//                        tri3Image.layoutParams.width = width/3
-//                        tri3Image2.layoutParams.width = width/3
-//                        tri3Image3.layoutParams.width = width/3
+                        singImage.image = null
+                        douImage.image = null
+                        douImage2.image = null
+                        tri2Image.image = null
+                        tri2Image2.image = null
+                        tri2Image3.image = null
+                        tri3Image.image = null
+                        tri3Image2.image = null
+                        tri3Image3.image = null
+                        singImage.layoutParams.height=0
+                        triImage.layoutParams.width = width/3
+                        triImage2.layoutParams.width = width/3
+                        triImage3.layoutParams.width = width/3
+                        tri2Image.layoutParams.width = width/3
+                        tri2Image2.layoutParams.width = width/3
+                        tri2Image3.layoutParams.width = width/3
+                        tri3Image.layoutParams.width = width/3
+                        tri3Image2.layoutParams.width = width/3
+                        tri3Image3.layoutParams.width = width/3
                         Glide.with(this.itemView)
                             .load(item.fansCircleData.img_urls[0])
                             .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
@@ -154,37 +167,66 @@ class MyFansCircleInfoItem(val context: Activity, val fansCircleData: UserActive
                             .load(item.fansCircleData.img_urls[2])
 //                            .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
                             .into(triImage3)
+                        triImage.setOnClickListener {
+                            showPhoto(item.context, item.fansCircleData.img_urls[0])
+                        }
+                        triImage2.setOnClickListener {
+                            showPhoto(item.context, item.fansCircleData.img_urls[1])
+                        }
+                        triImage3.setOnClickListener {
+                            showPhoto(item.context, item.fansCircleData.img_urls[2])
+                        }
                         if (item.fansCircleData.img_urls.size >= 4) {
+                            tri2Image.setOnClickListener {
+                                showPhoto(item.context, item.fansCircleData.img_urls[3])
+                            }
                             Glide.with(this.itemView)
                                 .load(item.fansCircleData.img_urls[3])
 //                                .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
                                 .into(tri2Image)
                         }
                         if (item.fansCircleData.img_urls.size >= 5) {
+                            tri2Image2.setOnClickListener {
+                                showPhoto(item.context, item.fansCircleData.img_urls[4])
+                            }
                             Glide.with(this.itemView)
                                 .load(item.fansCircleData.img_urls[4])
 //                                .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
                                 .into(tri2Image2)
                         }
                         if (item.fansCircleData.img_urls.size >= 6) {
+
+                            tri2Image3.setOnClickListener {
+                                showPhoto(item.context, item.fansCircleData.img_urls[5])
+                            }
                             Glide.with(this.itemView)
                                 .load(item.fansCircleData.img_urls[5])
 //                                .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
                                 .into(tri2Image3)
                         }
                         if (item.fansCircleData.img_urls.size >= 7) {
+                            tri3Image.setOnClickListener {
+                                showPhoto(item.context, item.fansCircleData.img_urls[6])
+                            }
                             Glide.with(this.itemView)
                                 .load(item.fansCircleData.img_urls[6])
 //                                .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
                                 .into(tri3Image)
                         }
                         if (item.fansCircleData.img_urls.size >= 8) {
+                            tri3Image2.setOnClickListener {
+                                showPhoto(item.context, item.fansCircleData.img_urls[7])
+                            }
+
                             Glide.with(this.itemView)
                                 .load(item.fansCircleData.img_urls[7])
 //                                .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
                                 .into(tri3Image2)
                         }
                         if (item.fansCircleData.img_urls.size >= 9) {
+                            tri3Image3.setOnClickListener {
+                                showPhoto(item.context, item.fansCircleData.img_urls[8])
+                            }
                             Glide.with(this.itemView)
                                 .load(item.fansCircleData.img_urls[8])
 //                                .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
@@ -194,11 +236,11 @@ class MyFansCircleInfoItem(val context: Activity, val fansCircleData: UserActive
                 }
 //                rec.withItems(items)
             }
-            holder.itemView.setOnLongClickListener{
+            holder.itemView.setOnLongClickListener {
                 AlertDialog.Builder(item.context)
                     .setMessage("真的要删除吗？")
                     .setPositiveButton("真的") { _, _ ->
-                        UserImp.deleteAction(item.fansCircleData.action_ID.toString()){
+                        UserImp.deleteAction(item.fansCircleData.action_ID.toString()) {
                             Toast.makeText(item.context, "删除成功请重新进入查看", Toast.LENGTH_SHORT).show()
                         }
                     }
@@ -206,6 +248,20 @@ class MyFansCircleInfoItem(val context: Activity, val fansCircleData: UserActive
                         Toast.makeText(item.context, "真爱啊 TAT...", Toast.LENGTH_SHORT).show()
                     }.create().show()
                 false
+            }
+        }
+
+        fun showPhoto(context: Context, url: String) {
+            val inflater = LayoutInflater.from(context)
+            val imgEntryView = inflater.inflate(R.layout.dialog_photo, null)
+            val dialog = AlertDialog.Builder(context).create()
+            val img = imgEntryView.findViewById<ImageView>(R.id.large_image)
+            Glide.with(context).load(url).into(img)
+            dialog.setView(imgEntryView); // 自定义dialog
+            dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+            dialog.show()
+            imgEntryView.setOnClickListener {
+                dialog.cancel()
             }
         }
 

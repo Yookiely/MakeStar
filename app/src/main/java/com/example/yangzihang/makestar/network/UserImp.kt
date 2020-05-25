@@ -133,7 +133,7 @@ object UserImp {
 
     }
 
-    fun getFandomInfo(userid: Int, fansCallback: (FandomInfo) -> Unit) {
+    fun getFandomInfo(userid: String, fansCallback: (FandomInfo) -> Unit) {
         launch(UI + QuietCoroutineExceptionHandler) {
             val callback = UserService.getFandomInfo(userid).await()
             if (callback.error_code == -1) {
@@ -151,7 +151,7 @@ object UserImp {
         }
     }
 
-    fun changeStatusOfFandom(userid: Int, statuscallback: suspend (Int) -> (Unit)) {
+    fun changeStatusOfFandom(userid: String, statuscallback: suspend (Int) -> (Unit)) {
         launch(UI + QuietCoroutineExceptionHandler) {
             val params = mapOf(
                 "user_ID" to CommonPreferences.userid,

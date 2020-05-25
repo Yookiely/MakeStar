@@ -32,7 +32,7 @@ class FansActivity : AppCompatActivity() {
         mTabLayout = findViewById(R.id.fans_table)
         val viewPager = findViewById<ViewPager>(R.id.fans_viewPager)
         val mPagerAdapter = FansPagerAdapter(supportFragmentManager)
-        val hostUserID = intent.getIntExtra("userID",0)
+        val hostUserID = intent.getStringExtra("userID")
         val avator =intent.getStringExtra("avatar")
         fans_back.setOnClickListener {
             onBackPressed()
@@ -77,7 +77,7 @@ class FansActivity : AppCompatActivity() {
             }
         }
         mPagerAdapter.apply {
-            add(FansCircleFragment.newInstance(hostUserID),"圈子动态")
+            add(FansCircleFragment.newInstance(hostUserID.toInt()),"圈子动态")
             add(FansStarFragment(),"明星帖子")
         }
         viewPager.adapter = mPagerAdapter

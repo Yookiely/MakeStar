@@ -61,7 +61,7 @@ interface UserService {
     fun getUserInfo(@Query("user_ID")userid: String) : Deferred<CommonBody<UserInfo>>
 
     @GET("fandomAction/getFandomInfo")
-    fun getFandomInfo(@Query("host_user_ID") hostUserID :Int  ,@Query("user_ID") userid: String = CommonPreferences.userid ):Deferred<CommonBody<FandomInfo>>
+    fun getFandomInfo(@Query("host_user_ID") hostUserID :String  ,@Query("user_ID") userid: String = CommonPreferences.userid ):Deferred<CommonBody<FandomInfo>>
 
     @FormUrlEncoded
     @POST("fandomAction/changeStatusOfFandom")

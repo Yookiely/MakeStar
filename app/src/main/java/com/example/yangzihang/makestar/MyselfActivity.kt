@@ -21,7 +21,6 @@ import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 
 class MyselfActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -39,6 +38,7 @@ class MyselfActivity : AppCompatActivity() {
         val back = findViewById<ImageView>(R.id.page_back)
         val order = findViewById<Button>(R.id.page_order)
         val fans = findViewById<TextView>(R.id.page_to_fanscircle)
+        var avatar = ""
         back.setOnClickListener { onBackPressed() }
         val userid = intent.getStringExtra("userID")
         Log.d("?????", userid)
@@ -47,6 +47,7 @@ class MyselfActivity : AppCompatActivity() {
             Glide.with(this)
                 .load(it.avatar)
                 .into(avatars)
+            avatar = it.avatar
             nickname.text = it.username
             fansNum.text = it.fans_num.toString()
             mystyle.text = it.signature
@@ -64,6 +65,12 @@ class MyselfActivity : AppCompatActivity() {
             (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
         more.setOnClickListener {
             showPopupWindow(userid, it)
+        }
+        fans.setOnClickListener {
+            val intent =Intent(this@MyselfActivity,FansActivity::class.java)
+            intent.putExtra("userID",userid)
+            intent.putExtra("avatar",avatar)
+            startActivity(intent)
         }
         if (userid == CommonPreferences.userid) {
             order.visibility = View.INVISIBLE

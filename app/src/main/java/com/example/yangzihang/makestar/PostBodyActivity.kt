@@ -1,5 +1,6 @@
 package com.example.yangzihang.makestar
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
@@ -100,6 +102,9 @@ class PostBodyActivity : AppCompatActivity() {
         when (imgs.size) {
             0 -> fans_post_photo.visibility = View.INVISIBLE
             1 -> {
+                fans_post_photo.setOnClickListener {
+                    showPhoto(this, imgs[0])
+                }
                 fans_post_photo.layoutParams.height= 480
                 fans_post_photo.visibility = View.VISIBLE
                 Glide.with(this)
@@ -108,6 +113,12 @@ class PostBodyActivity : AppCompatActivity() {
                     .into(fans_post_photo)
             }
             2 -> {
+                fans_post_dou_photo.setOnClickListener {
+                    showPhoto(this, imgs[0])
+                }
+                fans_post_dou_photo2.setOnClickListener {
+                    showPhoto(this, imgs[1])
+                }
                 Glide.with(this)
                     .load(imgs[0])
 //                    .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
@@ -118,6 +129,15 @@ class PostBodyActivity : AppCompatActivity() {
                     .into(fans_post_dou_photo2)
             }
             in 3..9 -> {
+                fans_post_tri_photo.setOnClickListener {
+                    showPhoto(this, imgs[0])
+                }
+                fans_post_tri_photo2.setOnClickListener {
+                    showPhoto(this, imgs[1])
+                }
+                fans_post_tri_photo3.setOnClickListener {
+                    showPhoto(this, imgs[2])
+                }
                 fans_post_tri_photo.layoutParams.height=   240
                 fans_post_tri_photo2.layoutParams.height=  240
                 fans_post_tri_photo3.layoutParams.height=  240
@@ -134,6 +154,9 @@ class PostBodyActivity : AppCompatActivity() {
 //                    .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
                     .into(fans_post_tri_photo3)
                 if(imgs.size >=4){
+                    fans_post_tri2_photo.setOnClickListener {
+                        showPhoto(this, imgs[3])
+                    }
                     fans_post_tri2_photo.layoutParams.height=  240
                     Glide.with(this)
                         .load(imgs[3])
@@ -141,6 +164,9 @@ class PostBodyActivity : AppCompatActivity() {
                         .into(fans_post_tri2_photo)
                 }
                 if(imgs.size >=5){
+                    fans_post_tri2_photo2.setOnClickListener {
+                        showPhoto(this, imgs[4])
+                    }
                     fans_post_tri2_photo2.layoutParams.height= 240
                     Glide.with(this)
                         .load(imgs[4])
@@ -148,6 +174,9 @@ class PostBodyActivity : AppCompatActivity() {
                         .into(fans_post_tri2_photo2)
                 }
                 if(imgs.size >=6){
+                    fans_post_tri2_photo3.setOnClickListener {
+                        showPhoto(this, imgs[5])
+                    }
                     fans_post_tri2_photo3.layoutParams.height= 240
                     Glide.with(this)
                         .load(imgs[5])
@@ -155,6 +184,9 @@ class PostBodyActivity : AppCompatActivity() {
                         .into(fans_post_tri2_photo3)
                 }
                 if(imgs.size >=7){
+                    fans_post_tri3_photo.setOnClickListener {
+                        showPhoto(this, imgs[6])
+                    }
                     fans_post_tri3_photo.layoutParams.height=  240
                     Glide.with(this)
                         .load(imgs[6])
@@ -162,6 +194,9 @@ class PostBodyActivity : AppCompatActivity() {
                         .into(fans_post_tri3_photo)
                 }
                 if(imgs.size >=8){
+                    fans_post_tri3_photo2.setOnClickListener {
+                        showPhoto(this, imgs[7])
+                    }
                     fans_post_tri3_photo2.layoutParams.height= 240
                     Glide.with(this)
                         .load(imgs[7])
@@ -169,6 +204,9 @@ class PostBodyActivity : AppCompatActivity() {
                         .into(fans_post_tri3_photo2)
                 }
                 if(imgs.size >=9){
+                    fans_post_tri3_photo3.setOnClickListener {
+                        showPhoto(this, imgs[8])
+                    }
                     fans_post_tri3_photo3.layoutParams.height= 240
                     Glide.with(this)
                         .load(imgs[8])
@@ -209,6 +247,19 @@ class PostBodyActivity : AppCompatActivity() {
 
                 true
             }
+        }
+    }
+    fun showPhoto(context: Context, url: String) {
+        val inflater = LayoutInflater.from(context)
+        val imgEntryView = inflater.inflate(R.layout.dialog_photo, null)
+        val dialog = AlertDialog.Builder(context).create()
+        val img = imgEntryView.findViewById<ImageView>(R.id.large_image)
+        Glide.with(context).load(url).into(img)
+        dialog.setView(imgEntryView); // 自定义dialog
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.show()
+        imgEntryView.setOnClickListener {
+            dialog.cancel()
         }
     }
     private fun loadMainComment(){

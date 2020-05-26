@@ -54,6 +54,7 @@ class CommentsActivity : AppCompatActivity() {
         val mLayoutManager = LinearLayoutManager(this)
         loadingDialog = LoadingDialog(this)
         loadingDialog.setMessage("正在上传")
+        loadingDialog.setCanceledOnTouchOutside(false)
         commitRefresh = findViewById(R.id.sl_commit_main)
         toolbar.apply {
             title = ""

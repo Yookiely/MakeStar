@@ -1,13 +1,14 @@
 package com.example.yangzihang.makestar
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
-import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import cn.edu.twt.retrox.recyclerviewdsl.ItemAdapter
 import cn.edu.twt.retrox.recyclerviewdsl.ItemManager
@@ -58,6 +59,7 @@ class EditDetailActivity : AppCompatActivity() {
         }
         loadingDialog = LoadingDialog(this)
         loadingDialog.setMessage("正在修改")
+        loadingDialog.setCanceledOnTouchOutside(false)
 
         if (CommonPreferences.tags == "") totalSelected--
         when (editType) {
@@ -233,11 +235,18 @@ class EditDetailActivity : AppCompatActivity() {
                 temp += s
             }
         }
-        Log.d("momom", temp)
         return temp
     }
 
     fun refreshTagLabel() {
         tv_edit_detail_count.text = "已选标签(${totalSelected}/6)"
+    }
+
+    fun hideSoftInputMethod() {
+        val inputMethodManager =
+            getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        inputMethodManager?.apply {
+            hideSoftInputFromWindow(window.decorView.windowToken, 0)
+        }
     }
 }

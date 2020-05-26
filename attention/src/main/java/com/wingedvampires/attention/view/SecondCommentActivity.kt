@@ -57,6 +57,7 @@ class SecondCommentActivity : AppCompatActivity() {
         }
         loadingDialog = LoadingDialog(this)
         loadingDialog.setMessage("正在上传")
+        loadingDialog.setCanceledOnTouchOutside(false)
         iv_secondcomment_back.setOnClickListener { onBackPressed() }
         recyclerView = findViewById(R.id.rv_secondcomment_main)
         recyclerView.apply {

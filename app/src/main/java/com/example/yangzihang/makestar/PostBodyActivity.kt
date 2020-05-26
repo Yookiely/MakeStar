@@ -26,7 +26,6 @@ import com.example.yangzihang.makestar.View.FansCommentItem
 import com.example.yangzihang.makestar.network.UserImp
 import com.example.yangzihang.makestar.network.UserService
 import com.hb.dialog.dialog.LoadingDialog
-import com.wingedvampires.attention.model.AttentionService
 import com.yookie.common.experimental.extensions.ComplaintType
 import com.yookie.common.experimental.extensions.QuietCoroutineExceptionHandler
 import com.yookie.common.experimental.extensions.awaitAndHandle
@@ -57,6 +56,7 @@ class PostBodyActivity : AppCompatActivity() {
         fansCommentRefresh = findViewById(R.id.fans_post_refresh)
         loadingDialog = LoadingDialog(this)
         loadingDialog.setMessage("正在上传")
+        loadingDialog.setCanceledOnTouchOutside(false)
         val name = intent.getStringExtra("name")
         val avater = intent.getStringExtra("avatar")
         val time = intent.getStringExtra("time")

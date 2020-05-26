@@ -5,7 +5,6 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
@@ -14,6 +13,7 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.Window
 import android.view.WindowManager
+import android.widget.Toast
 import com.alibaba.sdk.android.oss.common.OSSLog
 import com.alibaba.sdk.android.vod.upload.VODUploadCallback
 import com.alibaba.sdk.android.vod.upload.VODUploadClientImpl
@@ -32,6 +32,7 @@ class ReleaseActivity : AppCompatActivity() {
     private var selectPicList = mutableListOf<Any>()
     private lateinit var picRecyclerView: RecyclerView
     private lateinit var releasePicAdapter: ReleasePicAdapter
+
     //    private val picRecyclerViewManager = LinearLayoutManager(this)
     private var imgIdList = ArrayList<String>()
     private var imgs = ""
@@ -40,6 +41,7 @@ class ReleaseActivity : AppCompatActivity() {
     var imgAuth: ArrayList<String> = ArrayList()
     var imgloadAddress: ArrayList<String> = ArrayList()
     var flag = true
+    lateinit var loadingDialog: LoadingDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +54,9 @@ class ReleaseActivity : AppCompatActivity() {
         selectPicList.add(noSelectPic) // supply a null list
         releasePicAdapter = ReleasePicAdapter(selectPicList, this, this)
         picRecyclerView = findViewById(R.id.release_img)
+        loadingDialog = LoadingDialog(this)
+        loadingDialog.setMessage("正在上传")
+        loadingDialog.setCanceledOnTouchOutside(false)
         val mlayoutManager = GridLayoutManager(this, 3)
         //picRecyclerViewManager.orientation = LinearLayoutManager.HORIZONTAL
         picRecyclerView.apply {
@@ -59,7 +64,8 @@ class ReleaseActivity : AppCompatActivity() {
             adapter = releasePicAdapter
         }
         val localLayoutParams = window.attributes
-        localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
+        localLayoutParams.flags =
+            (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or localLayoutParams.flags)
         val imgcallback = object : VODUploadCallback() {
             var x = 0
             var y = 0
@@ -73,13 +79,19 @@ class ReleaseActivity : AppCompatActivity() {
                 synchronized(this@ReleaseActivity) {
                     y++
                 }
-                if (y == (selectPicList.size - 1)){
-                    Log.d("怎么还没成功",x.toString())
-                    UploadImp.sendAction(CommonPreferences.userid,release_des.text.toString(),imgs," "){
-                        Log.d("擦擦擦","得好好庆祝一番")
-                        val intent = Intent(this@ReleaseActivity,SuccessActivity::class.java)
-                        intent.putExtra("videoId","")
+                if (y == (selectPicList.size - 1)) {
+                    Log.d("怎么还没成功", x.toString())
+                    UploadImp.sendAction(
+                        CommonPreferences.userid,
+                        release_des.text.toString(),
+                        imgs,
+                        " "
+                    ) {
+                        Log.d("擦擦擦", "得好好庆祝一番")
+                        val intent = Intent(this@ReleaseActivity, SuccessActivity::class.java)
+                        intent.putExtra("videoId", "")
                         startActivity(intent)
+                        finish()
                     }
                 }
 
@@ -88,7 +100,8 @@ class ReleaseActivity : AppCompatActivity() {
 
             override fun onUploadFailed(info: UploadFileInfo, code: String?, message: String?) {
                 OSSLog.logError("onfailed ------------------ " + info.filePath + " " + code + " " + message)
-
+                loadingDialog.dismiss()
+                Toast.makeText(this@ReleaseActivity, "发送失败", Toast.LENGTH_SHORT).show()
             }
 
             override fun onUploadProgress(
@@ -192,10 +205,11 @@ class ReleaseActivity : AppCompatActivity() {
         }
 
         upload_button_up.setOnClickListener {
-            if (flag){
+            it.isEnabled = false
+            if (flag) {
                 selectPicList.remove(noSelectPic)
                 for ((index, value) in selectPicList.withIndex()) {
-                    Log.d("indexindexindexsss",selectPicList.size.toString())
+                    Log.d("indexindexindexsss", selectPicList.size.toString())
                     UploadImp.getCoverUpload("jpg") {
                         imgAuth.add(it.UploadAuth)
                         imgloadAddress.add(it.UploadAddress)
@@ -205,13 +219,13 @@ class ReleaseActivity : AppCompatActivity() {
                                 imgs = "$imgs$x,"
                             }
                             for ((indexs, values) in selectPicList.withIndex()) {
-                                Log.d("indexindexindex",selectPicList.size.toString())
+                                Log.d("indexindexindex", selectPicList.size.toString())
                                 imgcallback.setIndex(indexs)
                                 imguploader.addFile(
                                     values.toString(),
                                     getImgVodInfo("placeholder", "placeholder")
                                 )
-                                Log.d("开始传输图片","开始传输图片" + index + "    "+indexs)
+                                Log.d("开始传输图片", "开始传输图片" + index + "    " + indexs)
                                 imguploader.start()
                                 imguploader.deleteFile(0)
                             }
@@ -219,9 +233,9 @@ class ReleaseActivity : AppCompatActivity() {
                     }
 
                 }
-                var loadingDialog = LoadingDialog(this)
-                loadingDialog.setMessage("正在上传")
+
                 loadingDialog.show()
+
                 flag = false
             }
         }

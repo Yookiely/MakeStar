@@ -45,6 +45,7 @@ class UploadActivity : AppCompatActivity() {
     var buttonList : ArrayList<TextView> = ArrayList()
     var x=0
     var workID = ""
+    lateinit var loadingDialog: LoadingDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +53,9 @@ class UploadActivity : AppCompatActivity() {
         setContentView(R.layout.activity_upload_upload)
         val fileName = intent.getStringExtra("filename")
         Log.d("！！！！！1", fileName)
+        loadingDialog = LoadingDialog(this)
+        loadingDialog.setMessage("正在上传")
+        loadingDialog.setCanceledOnTouchOutside(false)
         val uploader = VODUploadClientImpl(applicationContext)
         val imguploader = VODUploadClientImpl(applicationContext)
         imguploader.setRegion(VOD_REGION)
@@ -146,6 +150,7 @@ class UploadActivity : AppCompatActivity() {
                         break
                     }
                 }
+                finish()
 
             }
 
@@ -158,6 +163,9 @@ class UploadActivity : AppCompatActivity() {
                         break
                     }
                 }
+
+                loadingDialog.dismiss()
+                Toast.makeText(this@UploadActivity, "发送失败", Toast.LENGTH_SHORT).show()
             }
 
             override fun onUploadProgress(
@@ -361,8 +369,7 @@ class UploadActivity : AppCompatActivity() {
                         uploader.addFile(fileName, getVodInfo(title, description, coverUrl, tags))
                         Log.d("视频发送开始", "视频发送成功")
                         uploader.start()//可以同时传输吧？？盲猜可以
-                        var loadingDialog = LoadingDialog(this)
-                        loadingDialog.setMessage("正在上传")
+
                         loadingDialog.show()
                     }
                 }

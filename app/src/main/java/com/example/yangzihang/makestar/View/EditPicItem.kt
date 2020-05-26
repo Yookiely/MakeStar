@@ -68,6 +68,7 @@ class EditPicItem(
         launch(UI + QuietCoroutineExceptionHandler) {
             loadingDialog = LoadingDialog(mContext)
             loadingDialog.setMessage("正在上传")
+            loadingDialog.setCanceledOnTouchOutside(false)
             val file = File(path)
             val imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
             val body = MultipartBody.Part.createFormData("avatar", file.name, imageBody)

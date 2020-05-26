@@ -119,6 +119,8 @@ class PostBodyActivity : AppCompatActivity() {
                 fans_post_dou_photo2.setOnClickListener {
                     showPhoto(this, imgs[1])
                 }
+                fans_post_dou_photo.layoutParams.height= 420
+                fans_post_dou_photo2.layoutParams.height= 420
                 Glide.with(this)
                     .load(imgs[0])
 //                    .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
@@ -138,9 +140,9 @@ class PostBodyActivity : AppCompatActivity() {
                 fans_post_tri_photo3.setOnClickListener {
                     showPhoto(this, imgs[2])
                 }
-                fans_post_tri_photo.layoutParams.height=   240
-                fans_post_tri_photo2.layoutParams.height=  240
-                fans_post_tri_photo3.layoutParams.height=  240
+                fans_post_tri_photo.layoutParams.height=  300
+                fans_post_tri_photo2.layoutParams.height= 300
+                fans_post_tri_photo3.layoutParams.height= 300
                 Glide.with(this)
                     .load(imgs[0])
 //                    .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
@@ -157,7 +159,7 @@ class PostBodyActivity : AppCompatActivity() {
                     fans_post_tri2_photo.setOnClickListener {
                         showPhoto(this, imgs[3])
                     }
-                    fans_post_tri2_photo.layoutParams.height=  240
+                    fans_post_tri2_photo.layoutParams.height=  300
                     Glide.with(this)
                         .load(imgs[3])
 //                        .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
@@ -167,7 +169,7 @@ class PostBodyActivity : AppCompatActivity() {
                     fans_post_tri2_photo2.setOnClickListener {
                         showPhoto(this, imgs[4])
                     }
-                    fans_post_tri2_photo2.layoutParams.height= 240
+                    fans_post_tri2_photo2.layoutParams.height= 300
                     Glide.with(this)
                         .load(imgs[4])
 //                        .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
@@ -177,7 +179,7 @@ class PostBodyActivity : AppCompatActivity() {
                     fans_post_tri2_photo3.setOnClickListener {
                         showPhoto(this, imgs[5])
                     }
-                    fans_post_tri2_photo3.layoutParams.height= 240
+                    fans_post_tri2_photo3.layoutParams.height= 300
                     Glide.with(this)
                         .load(imgs[5])
 //                        .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
@@ -187,7 +189,7 @@ class PostBodyActivity : AppCompatActivity() {
                     fans_post_tri3_photo.setOnClickListener {
                         showPhoto(this, imgs[6])
                     }
-                    fans_post_tri3_photo.layoutParams.height=  240
+                    fans_post_tri3_photo.layoutParams.height=  300
                     Glide.with(this)
                         .load(imgs[6])
 //                        .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
@@ -197,7 +199,7 @@ class PostBodyActivity : AppCompatActivity() {
                     fans_post_tri3_photo2.setOnClickListener {
                         showPhoto(this, imgs[7])
                     }
-                    fans_post_tri3_photo2.layoutParams.height= 240
+                    fans_post_tri3_photo2.layoutParams.height= 300
                     Glide.with(this)
                         .load(imgs[7])
 //                        .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
@@ -207,7 +209,7 @@ class PostBodyActivity : AppCompatActivity() {
                     fans_post_tri3_photo3.setOnClickListener {
                         showPhoto(this, imgs[8])
                     }
-                    fans_post_tri3_photo3.layoutParams.height= 240
+                    fans_post_tri3_photo3.layoutParams.height= 300
                     Glide.with(this)
                         .load(imgs[8])
 //                        .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)

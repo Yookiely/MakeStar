@@ -202,4 +202,14 @@
             app:layout_constraintTop_toBottomOf="@+id/fans_post_cons"
 
             tools:text="哈哈哈哈哈哈哈哈哈，哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈" />
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            app:layout_constraintTop_toBottomOf="@id/fans_info_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="4dp"
+            android:background="#eeeeee"/>
 </android.support.constraint.ConstraintLayout>

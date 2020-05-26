@@ -39,7 +39,7 @@
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true"
             tools:replace="android:icon, android:theme">
-        <activity android:name=".AboutMeActivity"/>
+        <activity android:name=".AboutMeActivity" />
         <activity android:name=".ComplaintActivity" />
         <activity android:name=".LeaveMessageActivity" />
         <activity android:name=".AccountActivity" />

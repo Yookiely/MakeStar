@@ -35,6 +35,7 @@ class ComplaintActivity : AppCompatActivity() {
         }
         loadingDialog = LoadingDialog(this)
         loadingDialog.setMessage("正在上传")
+        loadingDialog.setCanceledOnTouchOutside(false)
         val complaintType = intent.getIntExtra(ComplaintType.COMPLAINT_TYPE, -1)
         val complaintId = intent.getStringExtra(ComplaintType.COMPLAINT_ID)
 

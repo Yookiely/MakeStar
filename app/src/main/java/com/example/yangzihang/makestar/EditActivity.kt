@@ -63,6 +63,7 @@ class EditActivity : AppCompatActivity() {
 
         loadingDialog = LoadingDialog(this)
         loadingDialog.setMessage("正在修改")
+        loadingDialog.setCanceledOnTouchOutside(false)
         val mLayoutManager = LinearLayoutManager(this)
         recyclerView = findViewById(R.id.rv_user_edit)
         recyclerView.apply {

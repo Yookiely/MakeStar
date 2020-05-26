@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import cn.edu.twt.retrox.recyclerviewdsl.Item
 import cn.edu.twt.retrox.recyclerviewdsl.ItemController
@@ -66,9 +67,11 @@ class EditTagInputItem(
                     item.tagText = null
                 }
 
-                itemView.setOnClickListener {
+                inputTag.setOnClickListener {
                     if (item.isSelect) {
                         inputTag.apply {
+
+                            inputTag.clearFocus()
                             setBackgroundResource(R.drawable.ms_tag_noselect)
                             setTextColor(
                                 ContextCompat.getColor(
@@ -83,6 +86,7 @@ class EditTagInputItem(
                         item.decLabel()
                     } else {
                         if (item.editDetailActivity.totalSelected < 6) {
+
                             inputTag.apply {
                                 setBackgroundResource(R.drawable.ms_tag_select)
                                 setTextColor(
@@ -102,7 +106,14 @@ class EditTagInputItem(
                         }
                     }
                 }
+                inputTag.setOnEditorActionListener { _, actionId, _ ->
+                    if (actionId == EditorInfo.IME_ACTION_DONE && inputTag.text.isNotBlank()) {
+                        inputTag.clearFocus()
+                        item.editDetailActivity.hideSoftInputMethod()
+                    }
 
+                    true
+                }
 
                 inputTag.addTextChangedListener(object : TextWatcher {
                     override fun afterTextChanged(s: Editable?) = Unit

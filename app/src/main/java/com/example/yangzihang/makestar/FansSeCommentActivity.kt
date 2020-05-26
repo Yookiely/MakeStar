@@ -45,6 +45,7 @@ class FansSeCommentActivity : AppCompatActivity() {
         secondCommitRefresh=findViewById(R.id.fans_secondcomment_refresh)
         loadingDialog = LoadingDialog(this)
         loadingDialog.setMessage("正在上传")
+        loadingDialog.setCanceledOnTouchOutside(false)
         facId =intent.getIntExtra("facid",0)
         commentId = facId.toString()
         val mLayoutManager = LinearLayoutManager(this)

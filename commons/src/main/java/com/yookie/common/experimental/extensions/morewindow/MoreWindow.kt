@@ -128,8 +128,10 @@ class MoreWindow(internal var mContext: Activity) : PopupWindow(), View.OnClickL
         val text2 = layout.findViewById(R.id.more_window_auto) as TextView
 
         text1.setOnClickListener {
-            Transfer.startActivityWithoutClose(this.mContext, "ReleaseActivity", Intent())
-
+//            Transfer.startActivityWithoutClose(this.mContext, "ReleaseActivity", Intent())
+            val intent =Intent()
+            intent.putExtra("isfans",false)
+            Transfer.startActivityWithoutClose(this.mContext, "ReleaseActivity", intent)
             if (isShowing) {
                 closeAnimation(layout)
             }

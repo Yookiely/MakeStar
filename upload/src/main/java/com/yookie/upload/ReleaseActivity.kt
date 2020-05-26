@@ -42,7 +42,7 @@ class ReleaseActivity : AppCompatActivity() {
     var imgloadAddress: ArrayList<String> = ArrayList()
     var flag = true
     lateinit var loadingDialog: LoadingDialog
-
+    var isFans =false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -51,6 +51,7 @@ class ReleaseActivity : AppCompatActivity() {
         imguploader.setRegion(VOD_REGION)
         imguploader.setRecordUploadProgressEnabled(VOD_RECORD_UPLOAD_PROGRESS_ENABLED)
         var tags = ArrayList<String>()
+        isFans = intent.getBooleanExtra("isfans",false)
         selectPicList.add(noSelectPic) // supply a null list
         releasePicAdapter = ReleasePicAdapter(selectPicList, this, this)
         picRecyclerView = findViewById(R.id.release_img)
@@ -79,23 +80,35 @@ class ReleaseActivity : AppCompatActivity() {
                 synchronized(this@ReleaseActivity) {
                     y++
                 }
+                Log.d("isfans",isFans.toString())
                 if (y == (selectPicList.size - 1)) {
                     Log.d("怎么还没成功", x.toString())
-                    UploadImp.sendAction(
-                        CommonPreferences.userid,
-                        release_des.text.toString(),
-                        imgs,
-                        " "
-                    ) {
-                        Log.d("擦擦擦", "得好好庆祝一番")
-                        val intent = Intent(this@ReleaseActivity, SuccessActivity::class.java)
-                        intent.putExtra("videoId", "")
-                        startActivity(intent)
-                        finish()
+                    if (isFans){
+                        UploadImp.sendNewAction(CommonPreferences.userid,
+                            release_des.text.toString(),
+                            imgs,
+                            " "){
+                            Log.d("擦擦擦", "得好好庆祝一番")
+                            val intent = Intent(this@ReleaseActivity, SuccessActivity::class.java)
+                            intent.putExtra("videoId", "")
+                            startActivity(intent)
+                            finish()
+                        }
+                    }else{
+                        UploadImp.sendAction(
+                            CommonPreferences.userid,
+                            release_des.text.toString(),
+                            imgs,
+                            " "
+                        ) {
+                            Log.d("擦擦擦", "得好好庆祝一番")
+                            val intent = Intent(this@ReleaseActivity, SuccessActivity::class.java)
+                            intent.putExtra("videoId", "")
+                            startActivity(intent)
+                            finish()
+                        }
                     }
                 }
-
-
             }
 
             override fun onUploadFailed(info: UploadFileInfo, code: String?, message: String?) {

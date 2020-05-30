@@ -80,8 +80,7 @@ class ReleaseActivity : AppCompatActivity() {
                 synchronized(this@ReleaseActivity) {
                     y++
                 }
-                Log.d("isfans",isFans.toString())
-                if (y == (selectPicList.size - 1)) {
+                if (y >= (selectPicList.size - 1)) {
                     Log.d("怎么还没成功", x.toString())
                     if (isFans){
                         UploadImp.sendNewAction(CommonPreferences.userid,

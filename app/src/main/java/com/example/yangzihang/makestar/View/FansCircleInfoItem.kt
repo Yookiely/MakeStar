@@ -1,9 +1,12 @@
 package com.example.yangzihang.makestar.View
 
+import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.util.DisplayMetrics
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -14,15 +17,16 @@ import com.bumptech.glide.Glide
 import com.example.yangzihang.makestar.PostBodyActivity
 import com.example.yangzihang.makestar.R
 import com.example.yangzihang.makestar.network.FansCircleData
+import org.jetbrains.anko.image
 import org.jetbrains.anko.layoutInflater
 import org.jetbrains.anko.windowManager
 
-class FansCircleInfoItem(val context: Context,val fansCircleData: FansCircleData) : Item {
+class FansCircleInfoItem(val context: Activity, val fansCircleData: FansCircleData) : Item {
     private companion object Controller : ItemController {
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: Item) {
             holder as FansCircleViewHolder
             item as FansCircleInfoItem
-            val metrics  = DisplayMetrics()
+            val metrics = DisplayMetrics()
             item.context.windowManager.defaultDisplay.getMetrics(metrics)
             val width = metrics.widthPixels
             val imgList = ArrayList<String>()
@@ -32,12 +36,12 @@ class FansCircleInfoItem(val context: Context,val fansCircleData: FansCircleData
             holder.apply {
                 itemView.setOnClickListener {
                     val intent = Intent(item.context, PostBodyActivity::class.java)
-                    intent.putExtra("name",item.fansCircleData.username)
-                    intent.putExtra("time",item.fansCircleData.time)
-                    intent.putExtra("text",item.fansCircleData.content)
-                    intent.putExtra("avatar",item.fansCircleData.avatar)
-                    intent.putExtra("fandomid",item.fansCircleData.fandom_action_ID.toString())
-                    intent.putStringArrayListExtra("imgs",imgList)
+                    intent.putExtra("name", item.fansCircleData.username)
+                    intent.putExtra("time", item.fansCircleData.time)
+                    intent.putExtra("text", item.fansCircleData.content)
+                    intent.putExtra("avatar", item.fansCircleData.avatar)
+                    intent.putExtra("fandomid", item.fansCircleData.fandom_action_ID.toString())
+                    intent.putStringArrayListExtra("imgs", imgList)
                     item.context.startActivity(intent)
                 }
                 Glide.with(this.itemView)
@@ -48,36 +52,147 @@ class FansCircleInfoItem(val context: Context,val fansCircleData: FansCircleData
                 time.text = item.fansCircleData.time
                 text.text = item.fansCircleData.content
                 when (item.fansCircleData.img_urls.size) {
-                    0 -> singImage.visibility = View.INVISIBLE
+                    0 -> {
+                        singImage.layoutParams.height = 0
+                        douImage.layoutParams.height = 0
+                        douImage2.layoutParams.height = 0
+                        triImage.layoutParams.height = 0
+                        triImage2.layoutParams.height = 0
+                        triImage3.layoutParams.height = 0
+                        tri2Image.layoutParams.height = 0
+                        tri2Image2.layoutParams.height = 0
+                        tri2Image3.layoutParams.height = 0
+                        tri3Image.layoutParams.height = 0
+                        tri3Image2.layoutParams.height = 0
+                        tri3Image3.layoutParams.height = 0
+                        singImage.image = null
+                        douImage.image = null
+                        douImage2.image = null
+                        triImage.image = null
+                        triImage2.image = null
+                        triImage3.image = null
+                        tri2Image.image = null
+                        tri2Image2.image = null
+                        tri2Image3.image = null
+                        tri3Image.image = null
+                        tri3Image2.image = null
+                        tri3Image3.image = null
+                        singImage.visibility = View.INVISIBLE
+                    }
                     1 -> {
+                        singImage.setOnClickListener {
+                            showPhoto(item.context, item.fansCircleData.img_urls[0])
+                        }
                         singImage.visibility = View.VISIBLE
+                        singImage.layoutParams.height = 480
+                        douImage.layoutParams.height = 0
+                        douImage2.layoutParams.height = 0
+                        triImage.layoutParams.height = 0
+                        triImage2.layoutParams.height = 0
+                        triImage3.layoutParams.height = 0
+                        tri2Image.layoutParams.height = 0
+                        tri2Image2.layoutParams.height = 0
+                        tri2Image3.layoutParams.height = 0
+                        tri3Image.layoutParams.height = 0
+                        tri3Image2.layoutParams.height = 0
+                        tri3Image3.layoutParams.height = 0
                         Glide.with(this.itemView)
                             .load(item.fansCircleData.img_urls[0])
                             .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
                             .into(singImage)
+                        douImage.image = null
+                        douImage2.image = null
+                        triImage.image = null
+                        triImage2.image = null
+                        triImage3.image = null
+                        tri2Image.image = null
+                        tri2Image2.image = null
+                        tri2Image3.image = null
+                        tri3Image.image = null
+                        tri3Image2.image = null
+                        tri3Image3.image = null
                     }
                     2 -> {
+                        douImage.setOnClickListener {
+                            showPhoto(item.context, item.fansCircleData.img_urls[0])
+                        }
+                        douImage2.setOnClickListener {
+                            showPhoto(item.context, item.fansCircleData.img_urls[1])
+                        }
+                        douImage.layoutParams.height = 420
+                        douImage2.layoutParams.height = 420
+                        singImage.layoutParams.height = 0
+                        triImage.layoutParams.height = 0
+                        triImage2.layoutParams.height = 0
+                        triImage3.layoutParams.height = 0
+                        tri2Image.layoutParams.height = 0
+                        tri2Image2.layoutParams.height = 0
+                        tri2Image3.layoutParams.height = 0
+                        tri3Image.layoutParams.height = 0
+                        tri3Image2.layoutParams.height = 0
+                        tri3Image3.layoutParams.height = 0
+                        singImage.image = null
+                        triImage.image = null
+                        triImage2.image = null
+                        triImage3.image = null
+                        tri2Image.image = null
+                        tri2Image2.image = null
+                        tri2Image3.image = null
+                        tri3Image.image = null
+                        tri3Image2.image = null
+                        tri3Image3.image = null
+                        douImage.layoutParams.width = 2 * width / 5
+                        douImage2.layoutParams.width = 2 * width / 5
                         Glide.with(this.itemView)
                             .load(item.fansCircleData.img_urls[0])
                             .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
                             .into(douImage)
-//                        douImage.layoutParams.width = width/2
-//                        douImage2.layoutParams.width = width/2
+
                         Glide.with(this.itemView)
                             .load(item.fansCircleData.img_urls[1])
                             .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
                             .into(douImage2)
                     }
                     in 3..9 -> {
-//                        triImage.layoutParams.width = width/3
-//                        triImage2.layoutParams.width = width/3
-//                        triImage3.layoutParams.width = width/3
-//                        tri2Image.layoutParams.width = width/3
-//                        tri2Image2.layoutParams.width = width/3
-//                        tri2Image3.layoutParams.width = width/3
-//                        tri3Image.layoutParams.width = width/3
-//                        tri3Image2.layoutParams.width = width/3
-//                        tri3Image3.layoutParams.width = width/3
+                        singImage.image = null
+                        douImage.image = null
+                        douImage2.image = null
+                        tri2Image.image = null
+                        tri2Image2.image = null
+                        tri2Image3.image = null
+                        tri3Image.image = null
+                        tri3Image2.image = null
+                        tri3Image3.image = null
+                        singImage.layoutParams.height = 0
+                        douImage.layoutParams.height = 0
+                        douImage2.layoutParams.height = 0
+                        triImage.layoutParams.height = 420
+                        triImage2.layoutParams.height = 420
+                        triImage3.layoutParams.height = 420
+                        tri2Image.layoutParams.height = 0
+                        tri2Image2.layoutParams.height = 0
+                        tri2Image3.layoutParams.height = 0
+                        tri3Image.layoutParams.height = 0
+                        tri3Image2.layoutParams.height = 0
+                        tri3Image3.layoutParams.height = 0
+                        triImage.layoutParams.width = width / 3
+                        triImage2.layoutParams.width = width / 3
+                        triImage3.layoutParams.width = width / 3
+                        tri2Image.layoutParams.width = width / 3
+                        tri2Image2.layoutParams.width = width / 3
+                        tri2Image3.layoutParams.width = width / 3
+                        tri3Image.layoutParams.width = width / 3
+                        tri3Image2.layoutParams.width = width / 3
+                        tri3Image3.layoutParams.width = width / 3
+                        triImage.setOnClickListener {
+                            showPhoto(item.context, item.fansCircleData.img_urls[0])
+                        }
+                        triImage2.setOnClickListener {
+                            showPhoto(item.context, item.fansCircleData.img_urls[1])
+                        }
+                        triImage3.setOnClickListener {
+                            showPhoto(item.context, item.fansCircleData.img_urls[2])
+                        }
                         Glide.with(this.itemView)
                             .load(item.fansCircleData.img_urls[0])
                             .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
@@ -90,37 +205,61 @@ class FansCircleInfoItem(val context: Context,val fansCircleData: FansCircleData
                             .load(item.fansCircleData.img_urls[2])
                             .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
                             .into(triImage3)
-                        if(item.fansCircleData.img_urls.size >=4){
+                        if (item.fansCircleData.img_urls.size >= 4) {
+                            tri2Image.setOnClickListener {
+                                showPhoto(item.context, item.fansCircleData.img_urls[3])
+                            }
+                            tri2Image.layoutParams.height = 420
                             Glide.with(this.itemView)
                                 .load(item.fansCircleData.img_urls[3])
                                 .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
                                 .into(tri2Image)
                         }
-                        if(item.fansCircleData.img_urls.size >=5){
+                        if (item.fansCircleData.img_urls.size >= 5) {
+                            tri2Image2.setOnClickListener {
+                                showPhoto(item.context, item.fansCircleData.img_urls[4])
+                            }
+                            tri2Image2.layoutParams.height = 420
                             Glide.with(this.itemView)
                                 .load(item.fansCircleData.img_urls[4])
                                 .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
                                 .into(tri2Image2)
                         }
-                        if(item.fansCircleData.img_urls.size >=6){
+                        if (item.fansCircleData.img_urls.size >= 6) {
+                            tri2Image3.setOnClickListener {
+                                showPhoto(item.context, item.fansCircleData.img_urls[5])
+                            }
+                            tri2Image3.layoutParams.height = 420
                             Glide.with(this.itemView)
                                 .load(item.fansCircleData.img_urls[5])
                                 .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
                                 .into(tri2Image3)
                         }
-                        if(item.fansCircleData.img_urls.size >=7){
+                        if (item.fansCircleData.img_urls.size >= 7) {
+                            tri3Image.setOnClickListener {
+                                showPhoto(item.context, item.fansCircleData.img_urls[6])
+                            }
+                            tri3Image.layoutParams.height = 420
                             Glide.with(this.itemView)
                                 .load(item.fansCircleData.img_urls[6])
                                 .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
                                 .into(tri3Image)
                         }
-                        if(item.fansCircleData.img_urls.size >=8){
+                        if (item.fansCircleData.img_urls.size >= 8) {
+                            tri3Image2.setOnClickListener {
+                                showPhoto(item.context, item.fansCircleData.img_urls[7])
+                            }
+                            tri3Image2.layoutParams.height = 420
                             Glide.with(this.itemView)
                                 .load(item.fansCircleData.img_urls[7])
                                 .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
                                 .into(tri3Image2)
                         }
-                        if(item.fansCircleData.img_urls.size >=9){
+                        if (item.fansCircleData.img_urls.size >= 9) {
+                            tri3Image3.setOnClickListener {
+                                showPhoto(item.context, item.fansCircleData.img_urls[8])
+                            }
+                            tri3Image3.layoutParams.height = 420
                             Glide.with(this.itemView)
                                 .load(item.fansCircleData.img_urls[8])
                                 .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
@@ -129,6 +268,20 @@ class FansCircleInfoItem(val context: Context,val fansCircleData: FansCircleData
                     }
                 }
 //                rec.withItems(items)
+            }
+        }
+
+        fun showPhoto(context: Context, url: String) {
+            val inflater = LayoutInflater.from(context)
+            val imgEntryView = inflater.inflate(R.layout.dialog_photo, null)
+            val dialog = AlertDialog.Builder(context).create()
+            val img = imgEntryView.findViewById<ImageView>(R.id.large_image)
+            Glide.with(context).load(url).into(img)
+            dialog.setView(imgEntryView); // 自定义dialog
+            dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+            dialog.show()
+            imgEntryView.setOnClickListener {
+                dialog.cancel()
             }
         }
 
@@ -143,8 +296,8 @@ class FansCircleInfoItem(val context: Context,val fansCircleData: FansCircleData
             val name = itemView.findViewById<TextView>(R.id.fans_info_name)
             val time = itemView.findViewById<TextView>(R.id.fans_info_time)
             val text = itemView.findViewById<TextView>(R.id.fans_info_text)
-            val singImage =itemView.findViewById<ImageView>(R.id.fans_info_photo)
-            val douImage =itemView.findViewById<ImageView>(R.id.fans_dou_photo)
+            val singImage = itemView.findViewById<ImageView>(R.id.fans_info_photo)
+            val douImage = itemView.findViewById<ImageView>(R.id.fans_dou_photo)
             val douImage2 = itemView.findViewById<ImageView>(R.id.fans_dou_photo)
             val triImage = itemView.findViewById<ImageView>(R.id.fans_tri_photo)
             val triImage2 = itemView.findViewById<ImageView>(R.id.fans_tri_photo2)
@@ -163,5 +316,5 @@ class FansCircleInfoItem(val context: Context,val fansCircleData: FansCircleData
         get() = FansCircleInfoItem
 }
 
-fun MutableList<Item>.addFansCircleInfo(context: Context,fansCircleData: FansCircleData) =
-    add(FansCircleInfoItem(context,fansCircleData))
+fun MutableList<Item>.addFansCircleInfo(context: Activity, fansCircleData: FansCircleData) =
+    add(FansCircleInfoItem(context, fansCircleData))

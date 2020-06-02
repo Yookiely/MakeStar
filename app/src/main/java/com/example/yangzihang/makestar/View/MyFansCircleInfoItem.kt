@@ -70,6 +70,18 @@ class MyFansCircleInfoItem(val context: Activity, val fansCircleData: UserActive
 
                 when (imgList.size) {
                     0 -> {
+                        singImage.layoutParams.height= 0
+                        douImage.layoutParams.height= 0
+                        douImage2.layoutParams.height=0
+                        triImage.layoutParams.height=  0
+                        triImage2.layoutParams.height= 0
+                        triImage3.layoutParams.height= 0
+                        tri2Image.layoutParams.height=  0
+                        tri2Image2.layoutParams.height= 0
+                        tri2Image3.layoutParams.height= 0
+                        tri3Image.layoutParams.height=  0
+                        tri3Image2.layoutParams.height= 0
+                        tri3Image3.layoutParams.height= 0
                         singImage.image = null
                         douImage.image = null
                         douImage2.image = null

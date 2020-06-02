@@ -40,6 +40,7 @@ class FansActivity : AppCompatActivity() {
         fans_post.setOnClickListener {
             val intent = Intent(this,ReleaseActivity::class.java)
             intent.putExtra("isfans",true)
+            intent.putExtra("hostId",hostUserID)
             startActivity(intent)
         }
         val localLayoutParams = window.attributes

@@ -18,7 +18,7 @@ interface UploadService {
     @POST("action/sendNewAction")
     fun sendAction(@Query("user_ID") userId : String , @Query("content") content : String,@Query("img_IDs") imgIDs : String,@Query("be_at_user_ID") atuser : String) : Deferred<actionResponse>
     @POST("fandomAction/sendNewAction")
-    fun sendNewAction(@Query("user_ID") userId : String , @Query("content") content : String,@Query("img_IDs") imgIDs : String,@Query("be_at_user_ID") atuser : String) : Deferred<actionResponse>
+    fun sendNewAction(@Query("user_ID") userId : String, @Query("host_user_ID") hostId:String, @Query("content") content : String, @Query("img_IDs") imgIDs : String, @Query("be_at_user_ID") atuser : String) : Deferred<actionResponse>
     @GET("Ack/workUploadAck")
     fun workUploadAck(@Query("work_ID") workId : String , @Query("user_ID") userid : String = CommonPreferences.userid) : Deferred<uploadResponse>
 

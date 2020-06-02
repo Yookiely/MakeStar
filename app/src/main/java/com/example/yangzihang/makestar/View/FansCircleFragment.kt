@@ -74,7 +74,7 @@ class FansCircleFragment : Fragment() {
         UserImp.getRecentActions(8, pageNum, hostUserId) {
             lastPage = it.last_page
             it.data.forEach {
-                items.add(FansCircleInfoItem(activity!!.applicationContext, it))
+                items.add(FansCircleInfoItem(activity!!, it))
             }
             recyclerView.withItems(items)
         }
@@ -90,7 +90,7 @@ class FansCircleFragment : Fragment() {
             lastPage = fansComment.last_page
             itemManager.refreshAll {
                fansComment.data.forEach { fansCircleData->
-                   addFansCircleInfo(activity!!.applicationContext,fansCircleData)
+                   addFansCircleInfo(activity!!,fansCircleData)
                }
            }
         }

@@ -52,6 +52,7 @@ class ReleaseActivity : AppCompatActivity() {
         imguploader.setRecordUploadProgressEnabled(VOD_RECORD_UPLOAD_PROGRESS_ENABLED)
         var tags = ArrayList<String>()
         isFans = intent.getBooleanExtra("isfans",false)
+        val hostId = intent.getStringExtra("hostId")
         selectPicList.add(noSelectPic) // supply a null list
         releasePicAdapter = ReleasePicAdapter(selectPicList, this, this)
         picRecyclerView = findViewById(R.id.release_img)
@@ -82,16 +83,14 @@ class ReleaseActivity : AppCompatActivity() {
                 }
                 if (y >= (selectPicList.size - 1)) {
                     Log.d("怎么还没成功", x.toString())
+                    Log.d("hello",CommonPreferences.token+" "+CommonPreferences.userid+" "+imgs)
                     if (isFans){
                         UploadImp.sendNewAction(CommonPreferences.userid,
+                            hostId,
                             release_des.text.toString(),
                             imgs,
                             " "){
-                            Log.d("擦擦擦", "得好好庆祝一番")
-                            val intent = Intent(this@ReleaseActivity, SuccessActivity::class.java)
-                            intent.putExtra("videoId", "")
-                            startActivity(intent)
-                            finish()
+                            onBackPressed()
                         }
                     }else{
                         UploadImp.sendAction(

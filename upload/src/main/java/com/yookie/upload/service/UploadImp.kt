@@ -41,9 +41,9 @@ object UploadImp {
         }
 
     }
-    fun sendNewAction(userId : String,content : String,imgIDs : String,atuser : String,sendCallback : (actionResponse) -> Unit){
+    fun sendNewAction(userId : String, hostId :String,content : String,imgIDs : String,atuser : String,sendCallback : (actionResponse) -> Unit){
         launch(UI + QuietCoroutineExceptionHandler){
-            val callback = UploadService.sendNewAction(userId, content, imgIDs, atuser).await()
+            val callback = UploadService.sendNewAction(userId,hostId, content, imgIDs, atuser).await()
             sendCallback(callback)
         }
 

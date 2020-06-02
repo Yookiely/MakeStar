@@ -145,12 +145,9 @@ class FansCircleInfoItem(val context: Activity, val fansCircleData: FansCircleDa
                         douImage2.layoutParams.width = 2 * width / 5
                         Glide.with(this.itemView)
                             .load(item.fansCircleData.img_urls[0])
-                            .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
                             .into(douImage)
-
                         Glide.with(this.itemView)
                             .load(item.fansCircleData.img_urls[1])
-                            .error(com.wingedvampires.homepage.R.drawable.ms_no_pic)
                             .into(douImage2)
                     }
                     in 3..9 -> {
@@ -298,7 +295,7 @@ class FansCircleInfoItem(val context: Activity, val fansCircleData: FansCircleDa
             val text = itemView.findViewById<TextView>(R.id.fans_info_text)
             val singImage = itemView.findViewById<ImageView>(R.id.fans_info_photo)
             val douImage = itemView.findViewById<ImageView>(R.id.fans_dou_photo)
-            val douImage2 = itemView.findViewById<ImageView>(R.id.fans_dou_photo)
+            val douImage2 = itemView.findViewById<ImageView>(R.id.fans_dou_photo2)
             val triImage = itemView.findViewById<ImageView>(R.id.fans_tri_photo)
             val triImage2 = itemView.findViewById<ImageView>(R.id.fans_tri_photo2)
             val triImage3 = itemView.findViewById<ImageView>(R.id.fans_tri_photo3)

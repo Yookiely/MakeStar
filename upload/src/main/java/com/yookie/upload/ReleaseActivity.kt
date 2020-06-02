@@ -81,7 +81,7 @@ class ReleaseActivity : AppCompatActivity() {
                 synchronized(this@ReleaseActivity) {
                     y++
                 }
-                if (y >= (selectPicList.size - 1)) {
+                if (y == (selectPicList.size - 1)) {
                     Log.d("怎么还没成功", x.toString())
                     Log.d("hello",CommonPreferences.token+" "+CommonPreferences.userid+" "+imgs)
                     if (isFans){

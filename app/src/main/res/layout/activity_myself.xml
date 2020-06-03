@@ -1,241 +1,245 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MyUserActivity">
+
     <ImageView
-            android:layout_width="match_parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_height="300dp"
             android:id="@+id/backgoround"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
             android:background="@drawable/ms_fans_bg"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
+            android:id="@+id/page_back"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:id="@+id/page_back"
             android:padding="12dp"
-            android:src="@drawable/ms_white_back"/>
+            android:src="@drawable/ms_white_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
+            android:id="@+id/page_more"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:padding="8dp"
-            android:id="@+id/page_more"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
+            android:padding="8dp"
             android:src="@drawable/leave_more"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
+
     <android.support.v7.widget.CardView
+            android:id="@+id/myCard"
             android:layout_width="match_parent"
             android:layout_height="180dp"
-            app:layout_constraintTop_toTopOf="@+id/backgoround"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="125dp"
+            android:layout_marginRight="6dp"
+            app:cardBackgroundColor="#FF7F50"
+            app:cardCornerRadius="5dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:id="@+id/myCard"
-            android:layout_marginLeft="6dp"
-            android:layout_marginRight="6dp"
-            android:layout_marginTop="125dp"
-            app:cardCornerRadius="5dp"
-            app:cardBackgroundColor="#FF7F50"
+            app:layout_constraintTop_toTopOf="@+id/backgoround"
 
             >
+
         <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
             <TextView
+                    android:id="@+id/se_rank"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:text="93"
-                    android:textColor="#f7f7f7"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
                     android:layout_marginTop="18dp"
                     android:layout_marginRight="18dp"
-                    android:id="@+id/se_rank"
-                    />
+                    android:text="93"
+                    android:textColor="#f7f7f7"
+                    android:textSize="18sp"
+                    android:visibility="gone"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
                     android:text="本月排名："
+                    android:textSize="16sp"
                     android:textColor="#f7f7f7"
-                    app:layout_constraintRight_toLeftOf="@+id/se_rank"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@+id/se_rank"
-
-                    />
+                    app:layout_constraintRight_toLeftOf="@+id/se_rank" />
 
             <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:layout_marginTop="42dp"
-                    android:layout_marginLeft="20dp"
-                    android:textSize="14sp"
                     android:id="@+id/se_nickname"
-                    android:textColor="#f7f7f7"
-                    />
-            <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintLeft_toRightOf="@+id/se_nickname"
-                    app:layout_constraintTop_toTopOf="@+id/se_nickname"
-                    app:layout_constraintBottom_toBottomOf="@+id/se_nickname"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="42dp"
+                    android:textColor="#f7f7f7"
                     android:textSize="14sp"
-                    android:id="@+id/se_message"
-                    android:textColor="#f7f7f7"
-                    />
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintLeft_toLeftOf="@+id/se_nickname"
-                    app:layout_constraintTop_toBottomOf="@+id/se_nickname"
-                    android:text="ssssss"
-                    android:textSize="12sp"
-                    android:textColor="#f7f7f7"
-                    android:id="@+id/se_myself"
-                    />
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                    android:id="@+id/se_message"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:layout_marginLeft="40dp"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="#f7f7f7"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/se_nickname"
+                    app:layout_constraintLeft_toRightOf="@+id/se_nickname"
+                    app:layout_constraintTop_toTopOf="@+id/se_nickname" />
+
+            <TextView
+                    android:id="@+id/se_myself"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ssssss"
+                    android:textColor="#f7f7f7"
+                    android:textSize="12sp"
+                    app:layout_constraintLeft_toLeftOf="@+id/se_nickname"
+                    app:layout_constraintTop_toBottomOf="@+id/se_nickname" />
+
+            <TextView
+                    android:id="@+id/people"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="60dp"
                     android:text="粉丝"
+                    android:textColor="#f7f7f7"
                     android:textSize="10sp"
-                    android:textColor="#f7f7f7"
-                    android:id="@+id/people"
-                    />
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:textColor="#f7f7f7"
-                    android:layout_marginBottom="60dp"
-                    android:textSize="14sp"
-                    app:layout_constraintLeft_toRightOf="@+id/people"
-                    android:layout_marginLeft="4dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/pop" />
+
+            <TextView
                     android:id="@+id/se_people_num"
-                    />
-            <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:textColor="#f7f7f7"
+                    android:layout_marginLeft="4dp"
                     android:layout_marginBottom="60dp"
-                    app:layout_constraintLeft_toRightOf="@+id/people"
-                    android:layout_marginLeft="70dp"
-                    android:text="人气"
-                    android:textSize="10sp"
+                    android:textColor="#f7f7f7"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/people" />
+
+            <TextView
                     android:id="@+id/pop"
-                    />
-            <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:textColor="#f7f7f7"
                     android:layout_marginBottom="60dp"
-                    android:textSize="14sp"
-                    android:layout_marginLeft="4dp"
-                    app:layout_constraintLeft_toRightOf="@+id/pop"
-                    android:id="@+id/se_pop_num"
-                    />
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     android:textColor="#f7f7f7"
-                    android:layout_marginBottom="60dp"
-                    app:layout_constraintLeft_toRightOf="@+id/pop"
-                    android:layout_marginLeft="70dp"
-                    android:text="关注"
+                    android:text="人气"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     android:textSize="10sp"
-                    android:id="@+id/focus"
-                    />
+                    app:layout_constraintLeft_toRightOf="@+id/people"
+                    app:layout_constraintRight_toLeftOf="@id/focus" />
+
             <TextView
+                    android:id="@+id/se_pop_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:textColor="#f7f7f7"
-                    android:layout_marginBottom="60dp"
                     android:layout_marginLeft="4dp"
+                    android:layout_marginBottom="60dp"
+                    android:textColor="#f7f7f7"
                     android:textSize="14sp"
-                    app:layout_constraintLeft_toRightOf="@+id/focus"
-                    android:id="@+id/se_focus_num"
-                    />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/pop" />
+
             <TextView
+                    android:id="@+id/focus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="60dp"
+                    android:text="关注"
+                    android:textColor="#f7f7f7"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:textSize="10sp"
+                    app:layout_constraintLeft_toRightOf="@+id/pop"
+                    app:layout_constraintRight_toRightOf="parent" />
+
+            <TextView
+                    android:id="@+id/se_focus_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginBottom="60dp"
+                    android:textColor="#f7f7f7"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/focus" />
+
+            <TextView
+                    android:id="@+id/page_to_fanscircle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="粉丝圈"
+                    android:visibility="gone"
                     android:textColor="#ffffff"
-                    android:id="@+id/page_to_fanscircle"
+                    app:layout_constraintBottom_toBottomOf="@id/se_focus_num"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/se_focus_num"
-                    app:layout_constraintBottom_toBottomOf="@id/se_focus_num"/>
+                    app:layout_constraintStart_toEndOf="@id/se_focus_num" />
+
             <com.kcrason.dynamicpagerindicatorlibrary.DynamicPagerIndicator
                     android:id="@+id/se_dynamic_pager_indicator2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
                     app:indicatorLineEndColor="@color/white"
                     app:indicatorLineScrollMode="dynamic"
-                    app:indicatorLineStartColor="@color/white"
 
-                    app:pagerIndicatorMode="scrollable_center"
+                    app:indicatorLineStartColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginBottom="6dp"
+                    app:pagerIndicatorMode="scrollable_center"
                     app:pagerIndicatorScrollToCenterMode="linkage"
                     app:tabNormalTextColor="@color/white"
+                    app:tabNormalTextSize="18dp"
                     app:tabSelectedTextColor="@color/white"
-                    app:tabSelectedTextSize="20dp"
-                    app:tabNormalTextSize="18dp"/>
+                    app:tabSelectedTextSize="20dp" />
 
 
         </android.support.constraint.ConstraintLayout>
 
 
-
     </android.support.v7.widget.CardView>
 
     <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/se_portrait"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/myCard"
             android:layout_marginLeft="40dp"
             android:layout_marginBottom="140dp"
-            android:id="@+id/se_portrait"
             android:elevation="10dp"
-            />
+            app:layout_constraintBottom_toBottomOf="@id/myCard"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
     <Button
+            android:id="@+id/page_order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/page_order"
-            android:text="+关注"
-            android:textSize="14sp"
-            android:textColor="#ffffff"
-            android:background="@drawable/leave_order_shape"
             android:layout_marginStart="2dp"
+            android:background="@drawable/leave_order_shape"
+            android:text="+关注"
+            android:textColor="#ffffff"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/se_portrait"
             app:layout_constraintStart_toEndOf="@id/se_portrait"
-            app:layout_constraintTop_toTopOf="@id/se_portrait"
-            app:layout_constraintBottom_toBottomOf="@id/se_portrait"/>
+            app:layout_constraintTop_toTopOf="@id/se_portrait" />
+
     <android.support.v4.view.ViewPager
+            android:id="@+id/se_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/myCard"
-            android:id="@+id/se_view"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/myCard" />
 
 </android.support.constraint.ConstraintLayout>

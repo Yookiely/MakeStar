@@ -86,6 +86,7 @@
             app:layout_constraintRight_toRightOf="parent"
             android:textColor="#ff453b"
             android:textSize="20sp"
+            android:visibility="gone"
             android:layout_marginEnd="6dp"
             tools:text="NO.123"/>
 
